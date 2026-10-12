@@ -701,8 +701,22 @@
 
   footer{
     text-align:center; color: var(--md-on-surface-variant); font-size:12px;
-    padding: 24px 16px 0; line-height:1.6;
+    padding: 24px 16px 16px; line-height:1.6;
+    border-top: 1px solid var(--md-outline-variant);
+    margin-top: 16px;
   }
+  .footer-links{
+    display:flex; justify-content:center; gap:16px; margin:12px 0 8px; flex-wrap:wrap;
+  }
+  .footer-links a{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 14px; border-radius:999px;
+    background: var(--md-surface-container-high);
+    color: var(--md-primary); text-decoration:none;
+    font-size:12px; transition: all 0.2s;
+  }
+  .footer-links a:hover{ background: var(--md-primary); color:#fff; transform: translateY(-2px); }
+  .footer-links svg{ width:14px; height:14px; }
 
   @media (max-width: 480px){
     .stat-grid{grid-template-columns:repeat(2,1fr);}
@@ -1062,6 +1076,16 @@
   <footer>
     艾米动态监控 · 平台范围：微博 / 抖音 / 小红书<br>
     舆情筛选：仅正面/中性 · 自动更新每日 08:00
+    <div class="footer-links">
+      <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
+        @玡迩叻_ami
+      </a>
+      <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a6.12 6.12 0 0 1-3.755-1.235 6.12 6.12 0 0 1-2.275-3.637h-3.34v13.33c0 1.75-1.42 3.17-3.17 3.17s-3.17-1.42-3.17-3.17 1.42-3.17 3.17-3.17c.178 0 .352.015.52.044V8.39a6.507 6.507 0 0 0-.52-.02C4.663 8.37 2 11.033 2 14.34c0 3.307 2.663 5.97 5.94 5.97s5.94-2.663 5.94-5.97V8.927a9.42 9.42 0 0 0 5.44 1.728V7.315a6.12 6.12 0 0 1-3.755-1.753h-.244z"/></svg>
+        @玡迩叻_ami🦖
+      </a>
+    </div>
   </footer>
   </div><!-- /page-home -->
 
