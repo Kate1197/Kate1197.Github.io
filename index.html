@@ -358,8 +358,8 @@
   .menu-item.active .ico{ color: var(--md-on-primary-container); }
   .menu-item .ico{ width: 24px; height: 24px; color: var(--md-primary); flex-shrink:0; }
   .menu-item .ico svg{width:24px; height:24px; stroke:currentColor;}
-  .menu-item-text{ display: flex; flex-direction: column; }
-  .menu-item .txt{ font-size: 16px; font-weight: 600; }
+  .menu-item-text{ display: flex; flex-direction: column; flex: 1; min-width: 0; overflow: hidden; }
+  .menu-item .txt{ font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .menu-item .sub{ font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
 
   /* 页面切换 */
@@ -856,6 +856,8 @@
     }
     /* 左侧固定侧边栏 */
     .app-sidebar{
+      width: 240px;
+      flex-shrink: 0;
       display: flex !important;
       flex-direction: column;
       width: 240px;
