@@ -2,7 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#9172CC">
 <title>艾米动态监控 · 每日简报</title>
 <style>
   :root{
@@ -718,11 +721,170 @@
   .footer-links a:hover{ background: var(--md-primary); color:#fff; transform: translateY(-2px); }
   .footer-links svg{ width:14px; height:14px; }
 
-  @media (max-width: 480px){
-    .stat-grid{grid-template-columns:repeat(2,1fr);}
-    .appbar-title{font-size:20px;}
+  /* ========================================
+     响应式适配 - 手机 / 平板 / 桌面
+     断点: 480px(小手机) 768px(平板) 1024px(桌面)
+     ======================================== */
+
+  /* —— 手机: 320px ~ 479px —— */
+  @media (max-width: 479px){
+    .banner img{height: 300px;}
+    .banner-title{font-size: 18px;}
+    .banner-sub{font-size: 12px;}
+    .banner-time{right: 10px; top: 10px; padding: 4px 8px;}
+    .banner-time .time{font-size: 13px;}
+    .banner-time .label, .banner-time .date{font-size: 8px;}
+    .msg-btn{right: 90px; top: 10px; width: 32px; height: 32px;}
+    .theme-toggle{left: 48px; top: 10px; width: 32px; height: 32px; font-size: 16px;}
+    .menu-btn{left: 10px; top: 10px; width: 32px; height: 32px;}
+    .menu-btn svg{width: 17px; height: 17px;}
+    .stat-grid{grid-template-columns: repeat(2, 1fr); gap: 8px;}
+    .stat-card{padding: 12px;}
+    .stat-card .value{font-size: 20px;}
+    .stat-card .value small{font-size: 12px;}
+    .content{padding: 10px;}
+    .card{padding: 14px;}
+    .card-title{font-size: 15px;}
+    .card li{font-size: 13px;}
+    .tab-btn{font-size: 13px; padding: 8px 6px;}
+    .tab-btn svg{width: 14px; height: 14px;}
+    .filter-section{padding: 10px 12px;}
+    .fbtn{height: 28px; padding: 0 10px; font-size: 12px;}
+    .fab{width: 48px; height: 48px; right: 16px; bottom: 16px; font-size: 20px;}
+    .fab-export{right: 16px; bottom: 80px; height: 40px; padding: 0 14px; font-size: 13px;}
+    .footer-links{gap: 10px;}
+    .footer-links a{font-size: 11px; padding: 5px 10px;}
+    .like-btn{width: 40px; height: 40px;}
+    .like-btn svg{width: 20px; height: 20px;}
+    .banner-content{padding: 12px 14px 16px;}
+    .drama-poster{width: 64px; height: 90px;}
+    .drama-title{font-size: 15px;}
+    .msg-box{max-width: calc(100% - 24px);}
+  }
+
+  /* —— 大手机: 480px ~ 767px —— */
+  @media (min-width: 480px) and (max-width: 767px){
+    .banner img{height: 340px;}
+    .stat-grid{grid-template-columns: repeat(2, 1fr); gap: 10px;}
+    .stat-card .value{font-size: 22px;}
     .content{padding: 12px;}
-    .card{padding:16px;}
+    .card{padding: 16px;}
+    .fab{right: 20px; bottom: 20px;}
+  }
+
+  /* —— 平板: 768px ~ 1023px —— */
+  @media (min-width: 768px){
+    .wrap{max-width: 860px; padding: 0 0 100px;}
+    .banner img{height: 420px;}
+    .banner-title{font-size: 26px;}
+    .banner-sub{font-size: 14px;}
+    .banner-time{right: 20px; top: 20px; padding: 8px 14px;}
+    .banner-time .time{font-size: 17px;}
+    .banner-time .label, .banner-time .date{font-size: 10px;}
+    .msg-btn{right: 130px; top: 20px; width: 40px; height: 40px;}
+    .theme-toggle{left: 64px; top: 20px; width: 40px; height: 40px; font-size: 20px;}
+    .menu-btn{left: 20px; top: 20px; width: 40px; height: 40px;}
+    .menu-btn svg{width: 22px; height: 22px;}
+    .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 14px;}
+    .stat-card{padding: 18px;}
+    .stat-card .value{font-size: 26px;}
+    .stat-card .value small{font-size: 15px;}
+    .stat-card .label{font-size: 12px;}
+    .stat-card .meta{font-size: 12px;}
+    .content{padding: 20px;}
+    .card{padding: 24px;}
+    .card-title{font-size: 18px;}
+    .card li{font-size: 14.5px; line-height: 1.65;}
+    .tab-nav{padding: 16px 20px 0;}
+    .tab-btn{font-size: 16px; padding: 12px 16px;}
+    .tab-btn svg{width: 18px; height: 18px;}
+    .filter-section{padding: 14px 20px;}
+    .fbtn{height: 36px; padding: 0 16px; font-size: 14px;}
+    .fab{width: 60px; height: 60px; right: 28px; bottom: 28px; font-size: 26px;}
+    .fab-export{right: 28px; bottom: 104px; height: 48px; padding: 0 20px; font-size: 15px;}
+    .like-btn{width: 52px; height: 52px;}
+    .like-btn svg{width: 26px; height: 26px;}
+    .banner-content{padding: 22px 24px 26px;}
+    .drama-list{padding: 20px; gap: 20px;}
+    .drama-poster{width: 96px; height: 132px;}
+    .drama-title{font-size: 19px;}
+    .drama-desc{font-size: 14px; padding: 0 20px 20px;}
+    .bio-section{padding: 20px;}
+    .bio-card{padding: 22px;}
+    .bio-text{font-size: 14px; line-height: 1.9;}
+    .msg-box{max-width: 480px;}
+    .fan-toast{max-width: 640px; padding: 18px 24px;}
+    .fan-toast-text{font-size: 14px;}
+    .footer-links a{font-size: 13px; padding: 8px 18px;}
+    footer{font-size: 13px; padding: 32px 20px 20px;}
+  }
+
+  /* —— 桌面: 1024px+ —— */
+  @media (min-width: 1024px){
+    .wrap{max-width: 960px; padding: 0 0 120px;}
+    .banner img{height: 460px;}
+    .banner-title{font-size: 30px; letter-spacing: 1.5px;}
+    .banner-sub{font-size: 15px;}
+    .banner-time{right: 24px; top: 24px; padding: 8px 16px;}
+    .banner-time .time{font-size: 18px;}
+    .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 16px;}
+    .stat-card{padding: 20px;}
+    .stat-card .value{font-size: 28px;}
+    .content{padding: 24px;}
+    .card{padding: 28px; margin-bottom: 16px;}
+    .card-title{font-size: 19px;}
+    .card li{font-size: 15px; line-height: 1.7;}
+    .card:hover{box-shadow: var(--md-elev-3); transform: translateY(-1px); transition: all .25s;}
+    .tab-nav{padding: 16px 24px 0;}
+    .tab-btn{font-size: 17px; padding: 12px 20px;}
+    .fab{width: 64px; height: 64px; right: 32px; bottom: 32px; font-size: 28px;}
+    .fab:hover{transform: scale(1.08); transition: transform .2s;}
+    .fab-export{right: 32px; bottom: 112px; height: 50px; padding: 0 22px; font-size: 15px;}
+    .fab-export:hover{transform: translateY(-2px); transition: transform .2s;}
+    .like-btn{width: 56px; height: 56px;}
+    .like-btn:hover{transform: scale(1.1); background: rgba(255,82,82,0.3);}
+    .like-btn svg{width: 28px; height: 28px;}
+    .banner-content{padding: 24px 28px 28px;}
+    .drama-list{padding: 24px; gap: 24px;}
+    .drama-poster{width: 104px; height: 144px;}
+    .drama-poster img{border-radius: 12px;}
+    .drama-title{font-size: 20px;}
+    .drama-card:hover{box-shadow: var(--md-elev-2); transition: box-shadow .25s;}
+    .bio-section{padding: 24px;}
+    .bio-card{padding: 24px; margin-bottom: 20px;}
+    .bio-text{font-size: 15px; line-height: 2;}
+    .footer-links a:hover{transform: translateY(-3px); box-shadow: var(--md-elev-1);}
+    .msg-box{max-width: 520px;}
+    .fan-toast{max-width: 720px;}
+    .stat-card:hover{box-shadow: var(--md-elev-2); transition: box-shadow .25s;}
+    .menu-item:hover{background: var(--md-surface-container-high);}
+  }
+
+  /* —— 横屏手机优化 —— */
+  @media (max-height: 420px) and (orientation: landscape){
+    .banner img{height: 220px;}
+    .banner-title{font-size: 16px;}
+    .banner-sub{font-size: 11px;}
+    .banner-chips{margin-top: 6px;}
+    .banner-content{padding: 10px 14px 12px;}
+    .like-btn{width: 36px; height: 36px;}
+    .like-btn svg{width: 18px; height: 18px;}
+    .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 8px;}
+    .stat-card{padding: 10px;}
+    .stat-card .value{font-size: 18px;}
+    .tab-nav{padding: 8px 16px 0;}
+    .tab-btn{padding: 6px 10px; font-size: 13px;}
+  }
+
+  /* —— 安全区域适配（刘海屏/底部横条）—— */
+  @supports (padding: env(safe-area-inset-top)){
+    .banner-time{top: calc(14px + env(safe-area-inset-top));}
+    .menu-btn{top: calc(14px + env(safe-area-inset-top));}
+    .theme-toggle{top: calc(14px + env(safe-area-inset-top));}
+    .msg-btn{top: calc(14px + env(safe-area-inset-top));}
+    .fab{bottom: calc(24px + env(safe-area-inset-bottom));}
+    .fab-export{bottom: calc(96px + env(safe-area-inset-bottom));}
+    footer{padding-bottom: calc(16px + env(safe-area-inset-bottom));}
   }
 </style>
 </head>
