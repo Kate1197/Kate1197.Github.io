@@ -1744,61 +1744,6 @@
   <!-- Tab: 简介 -->
   <div class="tab-pane" id="tab-bio">
 
-  /* ==================== 日签页面 ==================== */
-  <div class="page" id="page-riqian">
-
-    <!-- 停更公告横幅 -->
-    <div class="dq-notice">
-      <div class="dq-status-badge pause">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-        暂停更新
-      </div>
-      <div class="dq-notice-text">
-        <strong>停更公告：</strong>10月5日 — 10月20日 暂停更新，二创也会放缓偶尔更新。<br>
-        抱歉了大家！感谢大家支持！祝大家追星愉快，天天开心 💜
-      </div>
-    </div>
-
-    <!-- 页面标题行 -->
-    <div class="dq-header">
-      <h2 class="dq-title">艾米日签</h2>
-      <div class="dq-status dq-status-pause">
-        <span class="dot"></span> 暂停更新中（10/5 — 10/20）
-      </div>
-    </div>
-
-    <!-- 瀑布流 -->
-    <div class="dq-waterfall" id="dqWaterfall"></div>
-
-    <div class="dq-tip">
-      数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a> ｜ 共 30 期 · 后续持续更新
-    </div>
-
-  </div><!-- /page-riqian -->
-
-  <!-- 日签弹窗 -->
-  <div class="dq-modal" id="dqModal" aria-hidden="true">
-    <div class="dq-modal-backdrop"></div>
-    <div class="dq-modal-content">
-      <button class="dq-modal-close" id="dqModalClose" aria-label="关闭">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <div class="dq-modal-left">
-        <img id="dqModalImg" src="" alt="日签" />
-      </div>
-      <div class="dq-modal-right">
-        <div class="dq-modal-date" id="dqModalDate"></div>
-        <div class="dq-modal-title" id="dqModalTitle"></div>
-        <div class="dq-modal-caption" id="dqModalCaption"></div>
-        <div class="dq-modal-footer">
-          <a id="dqModalLink" href="#" target="_blank" rel="noopener" class="dq-modal-weibo-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16c-3.3 0-6-2-6-4s2.7-4 6-4 6 2 6 4-2.7 4-6 4zm0-6a2 2 0 110-4 2 2 0 010 4z"/></svg>
-            查看原微博
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
     <div class="bio-section">
 
       <div class="bio-card">
@@ -1884,6 +1829,69 @@
   </footer>
   </div><!-- /page-home -->
 
+  <!-- ============ 日签页面 (独立) ============ -->
+  <div class="page" id="page-riqian">
+
+    <!-- 停更公告横幅 -->
+    <div class="dq-notice">
+      <div class="dq-status-badge pause">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        暂停更新
+      </div>
+      <div class="dq-notice-text">
+        <strong>停更公告：</strong>10月5日 — 10月20日 暂停更新，二创也会放缓偶尔更新。<br>
+        抱歉了大家！感谢大家支持！祝大家追星愉快，天天开心 💜
+      </div>
+    </div>
+
+    <!-- 页面标题行 -->
+    <div class="dq-header">
+      <h2 class="dq-title">艾米日签</h2>
+      <div class="dq-status dq-status-pause">
+        <span class="dot"></span> 暂停更新中（10/5 — 10/20）
+      </div>
+    </div>
+
+    <!-- 瀑布流 -->
+    <div class="dq-waterfall" id="dqWaterfall"></div>
+
+    <!-- 加载更多按钮 -->
+    <div class="dq-load-more" id="dqLoadMore" style="display:none;text-align:center;margin:20px 0;">
+      <button id="dqLoadMoreBtn" class="dq-load-btn" style="padding:10px 28px;border-radius:24px;border:1px solid var(--md-outline);background:var(--md-surface-container);color:var(--md-primary);cursor:pointer;font-weight:600;font-size:14px;">
+        加载更多历史日签
+      </button>
+    </div>
+
+    <div class="dq-tip">
+      数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a> ｜ 10月5日起因身体原因暂停更新
+    </div>
+
+  </div><!-- /page-riqian -->
+
+  <!-- 日签弹窗 -->
+  <div class="dq-modal" id="dqModal" aria-hidden="true">
+    <div class="dq-modal-backdrop"></div>
+    <div class="dq-modal-content">
+      <button class="dq-modal-close" id="dqModalClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="dq-modal-left">
+        <img id="dqModalImg" src="" alt="日签" />
+      </div>
+      <div class="dq-modal-right">
+        <div class="dq-modal-date" id="dqModalDate"></div>
+        <div class="dq-modal-title" id="dqModalTitle"></div>
+        <div class="dq-modal-caption" id="dqModalCaption"></div>
+        <div class="dq-modal-footer">
+          <a id="dqModalLink" href="#" target="_blank" rel="noopener" class="dq-modal-weibo-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16c-3.3 0-6-2-6-4s2.7-4 6-4 6 2 6 4-2.7 4-6 4zm0-6a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            查看原微博
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 玡迩叻_ami 页面 -->
   <div class="page" id="page-yaerle">
     <div class="banner">
@@ -1968,21 +1976,24 @@
   <div class="menu-header">页面导航</div>
   <div class="menu-list">
     <div class="menu-item active" data-page="page-home">
-    <div class="menu-item" data-page="page-riqian">
-      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
-      <div class="txt">日签 · 艾米日签合集</div>
-    </div>
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <div class="menu-item-text">
         <div class="txt">主页</div>
         <div class="sub">艾米日签 · 每日动态简报</div>
       </div>
     </div>
+    <div class="menu-item" data-page="page-riqian">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">日签</div>
+        <div class="sub">艾米日签合集 · 11期</div>
+      </div>
+    </div>
     <div class="menu-item" data-page="page-yaerle">
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
       <div class="menu-item-text">
-        <div class="txt">玡迩叻_ami·每日动态简报</div>
-        <div class="sub">粉丝向 · 微博超话 & 抖音内容</div>
+        <div class="txt">玡迩叻_ami</div>
+        <div class="sub">粉丝向 · 微博超话 & 抖音</div>
       </div>
     </div>
   </div>
@@ -2478,52 +2489,153 @@
     });
   });
 
-  // ========== 日签瀑布流 + 弹窗 ==========
-  // 日签数据：后续替换为真实图片 URL + 文案
-  // 格式：{date, title, caption, img, h, weiboUrl}
+  // ========== 日签瀑布流 + 弹窗 + 加载更多 ==========
+  // 日签数据 - 来源: @玡迩叻_ami 微博 (通过 sina.cn 代理抓取)
+  // 日签 Vol.032 为停更前最后一期 (2026-10-04)
+  // 10月5日起因身体原因暂停更新
   const riqianData = [
-    {date:'第30期 · 10月4日', title:'暂停更新公告', caption:'从10月5日起暂停更新，二创也会放缓偶尔更新。\n抱歉了大家！感谢支持，祝追星愉快，天天开心！💜', img:'https://picsum.photos/seed/amy30/600/800', h:800, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第29期 · 10月3日', title:'国庆假期快乐', caption:'举国同庆，艾米日签陪你过国庆 🇨🇳', img:'https://picsum.photos/seed/amy29/600/500', h:500, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第28期 · 10月2日', title:'假期也要元气满满', caption:'休息是为了更好地出发 ✨', img:'https://picsum.photos/seed/amy28/600/900', h:900, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第27期 · 10月1日', title:'生日快乐我的祖国', caption:'祝愿祖国繁荣昌盛 🎂', img:'https://picsum.photos/seed/amy27/600/700', h:700, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第26期 · 9月30日', title:'月末小结', caption:'九月辛苦啦，十月继续加油！', img:'https://picsum.photos/seed/amy26/600/850', h:850, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第25期 · 9月29日', title:'秋日氛围感', caption:'秋风起，正是追剧好时节 🍂', img:'https://picsum.photos/seed/amy25/600/600', h:600, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第24期 · 9月28日', title:'玉簟秋追剧指南', caption:'蓝灵娥今晚见！记得准时收看～', img:'https://picsum.photos/seed/amy24/600/750', h:750, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第23期 · 9月27日', title:'北电新生日常', caption:'大学生活ing，努力拍戏也认真上课 📚', img:'https://picsum.photos/seed/amy23/600/550', h:550, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第22期 · 9月26日', title:'后援会集资中', caption:'生日应援集资进行中，感谢每一份心意 💝', img:'https://picsum.photos/seed/amy22/600/900', h:900, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第21期 · 9月25日', title:'周末愉快', caption:'周末放松一下，明天继续冲！', img:'https://picsum.photos/seed/amy21/600/650', h:650, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第20期 · 9月24日', title:'时尚芭莎封面', caption:'恭喜艾米解锁时尚芭莎珠宝封面！', img:'https://picsum.photos/seed/amy20/600/800', h:800, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第19期 · 9月23日', title:'秋分', caption:'秋分已至，祝大家秋安 🍁', img:'https://picsum.photos/seed/amy19/600/500', h:500, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第18期 · 9月22日', title:'角色反差挑战', caption:'从蓝灵娥到林双笙，哪个是你的最爱？', img:'https://picsum.photos/seed/amy18/600/750', h:750, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第17期 · 9月21日', title:'日常碎片', caption:'分享今天拍到的好看的天空 ☁️', img:'https://picsum.photos/seed/amy17/600/900', h:900, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第16期 · 9月20日', title:'爱牙日', caption:'全国爱牙日，刷牙要认真哦 🦷', img:'https://picsum.photos/seed/amy16/600/600', h:600, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第15期 · 9月19日', title:'粉丝问答精选', caption:'Q&A时间！感谢大家的提问～', img:'https://picsum.photos/seed/amy15/600/850', h:850, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第14期 · 9月18日', title:'勿忘国耻', caption:'铭记历史，吾辈自强 🕊️', img:'https://picsum.photos/seed/amy14/600/550', h:550, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第13期 · 9月17日', title:'拍摄间隙', caption:'片场休息时间，来张自拍 📱', img:'https://picsum.photos/seed/amy13/600/700', h:700, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第12期 · 9月16日', title:'美食探店', caption:'分享今天吃到的好吃的 😋', img:'https://picsum.photos/seed/amy12/600/800', h:800, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第11期 · 9月15日', title:'开学啦', caption:'北电新学期，Amy同学已上线 🎬', img:'https://picsum.photos/seed/amy11/600/900', h:900, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第10期 · 9月14日', title:'周末打工人', caption:'今天也要元气满满地工作！', img:'https://picsum.photos/seed/amy10/600/650', h:650, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第9期 · 9月13日', title:'生日快乐 Amy!', caption:'🎂 16岁生日快乐！', img:'https://picsum.photos/seed/amy09/600/800', h:800, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第8期 · 9月12日', title:'生日倒计时', caption:'距离Amy生日还有1天！', img:'https://picsum.photos/seed/amy08/600/500', h:500, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第7期 · 9月11日', title:'纪念', caption:'愿世界和平，致敬最可爱的人', img:'https://picsum.photos/seed/amy07/600/750', h:750, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第6期 · 9月10日', title:'教师节快乐', caption:'祝所有老师节日快乐 🌟', img:'https://picsum.photos/seed/amy06/600/600', h:600, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第5期 · 9月9日', title:'玉簟秋定档', caption:'蓝灵娥定档啦！敬请期待～', img:'https://picsum.photos/seed/amy05/600/850', h:850, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第4期 · 9月8日', title:'白露', caption:'白露秋分夜，一夜凉一夜 🌙', img:'https://picsum.photos/seed/amy04/600/700', h:700, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第3期 · 9月7日', title:'粉丝破700万', caption:'感谢大家支持！继续努力 💪', img:'https://picsum.photos/seed/amy03/600/900', h:900, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第2期 · 9月6日', title:'北电开学第一天', caption:'报到成功！大学生活开始啦 🎓', img:'https://picsum.photos/seed/amy02/600/550', h:550, weiboUrl:'https://weibo.com/u/6320241831'},
-    {date:'第1期 · 9月5日', title:'艾米日签 · 创刊号', caption:'你好，这里是艾米日签 🎉\n每日一张图，一句心里话，陪你度过每一天。', img:'https://picsum.photos/seed/amy01/600/800', h:800, weiboUrl:'https://weibo.com/u/6320241831'}
+    {date:"第32期 · 10月4日", title:"Vol.032 · 我尽力喜欢过", caption:"我尽力喜欢过，但聚散不由我 ——\nONE读者「腐烂的鲸鱼」\n图源 @演员艾米 微博 (2026/1/31 微博 P8)", img:"https://wx4.sinaimg.cn/large/006TJ5Cnly1ihpmaevfucj32lr4mo7wn.jpg", h:717, weiboUrl:"https://weibo.com/6320241831/5350088566116000"},
+    {date:"日签停更 · 10月4日", title:"【日签停更通知】", caption:"因身体原因需要休整，日签从明日暂停更新，从10月5日停更到20日，二创也会放缓偶尔更新，抱歉了大家！感谢大家支持！祝大家追星愉快，天天开心。💜", img:"https://wx4.sinaimg.cn/large/006TJ5Cnly1ihpmaevfucj32lr4mo7wn.jpg", h:717, weiboUrl:"https://weibo.com/6320241831/5350090005808918"},
+    {date:"艾心日签 · 10-13", title:"更新了新的数据分析功能", caption:"更新了新的数据分析功能 完了完了，当野生产品经理有点上头了", img:"https://wx1.sinaimg.cn/large/006TJ5Cnly1ii0k8g0g27j31fa2jyasg.jpg", h:579, weiboUrl:"https://weibo.com/6320241831/5353518821015675"},
+    {date:"艾心日签 · 10-13", title:"AI合作阶段性成果", caption:"和AI合作，迭代了十几次，算是可以拿出阶段性成果了。如需了解更多信息，发评论区了哦[心]", img:"https://wx3.sinaimg.cn/large/006TJ5Cnly1ii0hs35zrrj30le5f64qq.jpg", h:770, weiboUrl:"https://weibo.com/6320241831/5353497789991896"},
+    {date:"艾心日签 · 10-12", title:"京东健康医用金选大使", caption:"恭喜艾米解锁京东健康「医用金选大使」\n在镜头前里专注角色，演好每个好故事\n也用心守护各位女孩们的健康日常[心]", img:"https://wx3.sinaimg.cn/large/006TJ5Cnly1ihzctp2ug4j315o1ngnpe.jpg", h:768, weiboUrl:"https://weibo.com/6320241831/5353142457996415"},
+    {date:"艾心日签 · 10-10", title:"嘉人&波司登宣发预告", caption:"嘉人&波司登平台宣发节奏:\n10月11日 10:00 平面合影\n10月14日 11:00 单人视频 / 11:30 单人大片", img:"https://wx2.sinaimg.cn/large/006TJ5Cnly1ihxh14mohaj32lr4moe86.jpg", h:684, weiboUrl:"https://weibo.com/6320241831/5352551103071441"},
+    {date:"艾心日签 · 10-09", title:"微博视界大会投票任务", caption:"微博视界大会年度推荐投票任务指南&规则须知\n活动入口: http://t.cn/AXlLy3eQ", img:"https://wx4.sinaimg.cn/large/006TJ5Cnly1ihw0osi98kj30u01hc4nd.jpg", h:845, weiboUrl:"https://weibo.com/6320241831/5352094970414625"},
+    {date:"艾心日签 · 10-08", title:"二创调色库存2.0", caption:"调色库存2.0🤓", img:"https://wx3.sinaimg.cn/large/006TJ5Cnly1ihv2qgtnzlj34tc30tx6u.jpg", h:805, weiboUrl:"https://weibo.com/6320241831/5351799062269996"},
+    {date:"艾心日签 · 10-08", title:"新物料二创调色清理", caption:"新物料来了，二创调色的库存清理一下[坏笑]", img:"https://wx4.sinaimg.cn/large/006TJ5Cnly1ihv24gqaw7j31em0xrwut.jpg", h:680, weiboUrl:"https://weibo.com/6320241831/5351794026481213"},
+    {date:"艾心日签 · 10-08", title:"《迎风赴光》谱子发布", caption:"关于《迎风赴光》的谱子也出来了[心]\n后续如果可能万一还需要，可以拿去用哈[坏笑]", img:"https://wx4.sinaimg.cn/large/006TJ5Cnly1ihuqj9rm4oj30zk1ean0l.jpg", h:749, weiboUrl:"https://weibo.com/6320241831/5351693047040198"},
+    {date:"艾心日签 · 10-06", title:"新歌《迎风赴光》上线", caption:"新歌《迎风赴光》10月5日已上线\n欢迎感兴趣的同学去@汽水音乐 收听[心][坏笑]\n新的封面已更新啦！[心]", img:"https://wx2.sinaimg.cn/large/006TJ5Cnly1ihtyu5lmhsj312w12wqv5.jpg", h:753, weiboUrl:"https://weibo.com/6320241831/5350959220785432"}
   ];
 
-  // 渲染瀑布流
+  // 已渲染的 post_id 集合 (用于去重)
+  const _renderedIds = new Set();
+
+  // 渲染单条日签到瀑布流
+  function renderRiqianItem(item){
+    const el = document.createElement('div');
+    el.className = 'dq-item';
+    el.innerHTML = `<img src="${item.img}" loading="lazy" alt="${item.title}" onerror="this.style.background='var(--md-surface-container-high)';this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22><rect fill=%22%23eee%22 width=%22300%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2214%22>图片加载中…</text></svg>'"/><div class="dq-item-meta"><span class="dq-item-date">${item.title}</span><span>${item.date.split(' · ')[0].split(' ·')[0]}</span></div>`;
+    el.addEventListener('click', () => openRiqianModal(item));
+    waterfall.appendChild(el);
+  }
+
+  // 渲染瀑布流 (初始 + 追加共用)
   const waterfall = document.getElementById('dqWaterfall');
   if (waterfall && riqianData.length) {
     riqianData.forEach(item => {
-      const el = document.createElement('div');
-      el.className = 'dq-item';
-      el.innerHTML = `<img src="${item.img}" loading="lazy" alt="${item.title}"/><div class="dq-item-meta"><span class="dq-item-date">${item.title}</span><span>${item.date.split(' · ')[0]}</span></div>`;
-      el.addEventListener('click', () => openRiqianModal(item));
-      waterfall.appendChild(el);
+      if (item.weiboUrl) {
+        const m = item.weiboUrl.match(/\/(\d+)$/);
+        if (m) _renderedIds.add(m[1]);
+      }
+      renderRiqianItem(item);
     });
+  }
+
+  // ======== 动态加载更多 ========
+  const dqLoadMore = document.getElementById('dqLoadMore');
+  const dqLoadMoreBtn = document.getElementById('dqLoadMoreBtn');
+  // 加载更多按钮初始可见 (因为可能有更多数据)
+  if (dqLoadMore) dqLoadMore.style.display = 'block';
+
+  // 从 sina.cn 代理抓取更多日签帖子
+  async function fetchMoreRiqian(){
+    if (!dqLoadMoreBtn) return;
+    dqLoadMoreBtn.disabled = true;
+    dqLoadMoreBtn.textContent = '加载中…';
+
+    try {
+      // 尝试从 sina.cn 微博列表代理抓取
+      const resp = await fetch('https://www.sina.cn/media/6320241831', {
+        headers: { 'User-Agent': 'Mozilla/5.0' },
+        mode: 'cors'
+      });
+
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const html = await resp.text();
+
+      // 解析 HTML 提取帖子
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const postLinks = doc.querySelectorAll('a.post-link');
+      const newItems = [];
+
+      postLinks.forEach(link => {
+        const href = link.getAttribute('href') || '';
+        const idMatch = href.match(/\/detail\/(\d+)\.html/);
+        if (!idMatch) return;
+        const postId = idMatch[1];
+        if (_renderedIds.has(postId)) return; // 已渲染过
+
+        const article = link.querySelector('article.post');
+        if (!article) return;
+
+        const text = article.textContent || '';
+        // 筛选带日签/艾心日签/艾米日签标签的
+        if (!/艾心日签|艾米日签|日签/.test(text)) return;
+
+        // 提取日期
+        const timeDiv = article.querySelector('.time');
+        const dateText = timeDiv ? timeDiv.textContent.trim() : '';
+        const dateMatch = dateText.match(/(\d{4}-\d{2}-\d{2})/);
+        const dateShort = dateMatch ? dateMatch[1] : dateText.slice(0, 10);
+
+        // 提取正文
+        const textDiv = article.querySelector('.post-text');
+        const caption = textDiv ? textDiv.textContent.trim().replace(/^#艾心日签\[超话\]#\s*/, '').replace(/^#艾米日签#\s*/, '').slice(0, 100) : dateText;
+
+        // 提取第一张 sinaimg 图片
+        const allImgs = article.querySelectorAll('img[src*="sinaimg.cn"]');
+        let imgUrl = '';
+        for (const img of allImgs) {
+          let src = img.getAttribute('src') || '';
+          if (!src || src.includes('crop.')) continue; // 跳过头像
+          imgUrl = src.replace('thumbnail/', 'large/').replace('middle/', 'large/');
+          break;
+        }
+
+        if (!imgUrl) return; // 没图片跳过
+
+        // 生成稳定高度
+        let h = 600 + (postId.charCodeAt(postId.length - 1) * 7 % 300);
+
+        newItems.push({
+          date: `艾心日签 · ${dateShort.slice(5)}`,
+          title: caption.slice(0, 30) || dateShort,
+          caption: caption,
+          img: imgUrl,
+          h: h,
+          weiboUrl: `https://weibo.com/6320241831/${postId}`,
+          _postId: postId
+        });
+      });
+
+      // 追加新数据
+      if (newItems.length > 0) {
+        newItems.forEach(item => {
+          if (item._postId) _renderedIds.add(item._postId);
+          delete item._postId;
+          renderRiqianItem(item);
+        });
+        dqLoadMoreBtn.textContent = `已加载 ${newItems.length} 条`;
+        setTimeout(() => {
+          dqLoadMoreBtn.textContent = '暂无更多历史日签';
+          dqLoadMoreBtn.disabled = true;
+        }, 2000);
+      } else {
+        dqLoadMoreBtn.textContent = '暂无更多历史日签';
+        dqLoadMoreBtn.disabled = true;
+      }
+    } catch(err) {
+      // CORS 或网络失败 - 显示微博主页链接
+      console.warn('加载更多失败:', err.message);
+      dqLoadMoreBtn.innerHTML = '<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">前往微博查看更多 →</a>';
+      dqLoadMoreBtn.disabled = false;
+      dqLoadMoreBtn.style.pointerEvents = 'none'; // 让内部 <a> 工作
+    }
+  }
+
+  if (dqLoadMoreBtn) {
+    dqLoadMoreBtn.addEventListener('click', fetchMoreRiqian);
   }
 
   // 弹窗逻辑
