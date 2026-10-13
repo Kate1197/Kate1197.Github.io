@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>艾米动态监控 · 每日简报</title>
+<style>
+  :root{
+    /* Material 3 配色 - #9172CC 为核心 */
+    --md-primary: #9172CC;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #E9DDFF;
+    --md-on-primary-container: #250460;
+    --md-secondary: #5E5C71;
+    --md-secondary-container: #E4E0F4;
+    --md-on-secondary-container: #1B0A2E;
+    --md-tertiary: #7B5260;
+    --md-surface: #FEF7FF;
+    --md-surface-dim: #DED7E0;
+    --md-surface-bright: #FEF7FF;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F7F0FA;
+    --md-surface-container: #F2EBF5;
+    --md-surface-container-high: #ECE5EF;
+    --md-surface-container-highest: #E6E0E9;
+    --md-on-surface: #1D1B20;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-success: #2E7D32;
+    --md-success-container: #C8E6C9;
+    --md-warning: #ED6C02;
+    --md-warning-container: #FFE0B2;
+    --md-error: #B3261E;
+    --md-error-container: #F9DEDC;
+  }
+
+  /* 深色模式 - Material 3 Dark */
+  [data-theme="dark"]{
+    --md-surface: #141218;
+    --md-surface-dim: #141218;
+    --md-surface-bright: #141218;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-surface-container-highest: #36343B;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-primary-container: #4A3A6B;
+    --md-on-primary-container: #E9DDFF;
+    --md-secondary-container: #4A4759;
+    --md-on-secondary-container: #E4E0F4;
+    --md-success: #81C784;
+    --md-success-container: #1B3A1F;
+    --md-warning-container: #4A2F0A;
+    --md-on-warning-container: #FFDDB2;
+    --md-warning: #FFB74D;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.20);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.40), 0 2px 6px 2px rgba(0,0,0,0.25);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.35), 0 1px 3px 0 rgba(0,0,0,0.30);
+  }
+
+  /* 深色模式下的硬编码颜色修复，保证可读性 */
+  [data-theme="dark"] .notice{
+    color: var(--md-on-warning-container);
+  }
+  [data-theme="dark"] .notice strong{
+    color: #fff;
+  }
+  [data-theme="dark"] .stat-card .value small{
+    color: #B39DDB;
+  }
+  [data-theme="dark"] .summary-card li em{
+    color: #D1C4E9;
+  }
+
+  :root{
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 1px rgba(0,0,0,0.08);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.16), 0 2px 6px 2px rgba(0,0,0,0.10);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.10), 0 1px 3px 0 rgba(0,0,0,0.14);
+
+    --md-radius-xs: 4px;
+    --md-radius-sm: 8px;
+    --md-radius-md: 12px;
+    --md-radius-lg: 16px;
+    --md-radius-xl: 28px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family: Roboto, "Roboto Flex", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+  }
+  .wrap{max-width: 720px; margin: 0 auto; padding: 0 0 80px;}
+
+  /* Banner - 自适应横竖图，放宽尺寸限制 */
+  .banner{
+    position: relative;
+    width: 100%;
+    max-height: 460px;
+    min-height: 280px;
+    overflow: hidden;
+    background: #0d0d1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .banner img{
+    width: 100%;
+    height: auto;
+    max-height: 460px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+  /* 仅底部渐变遮罩，保证文字可读，上半部分完全展示图片 */
+  .banner-mask{
+    position: absolute; left:0; right:0; bottom:0; top:40%;
+    background: linear-gradient(to bottom,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.15) 35%,
+      rgba(0,0,0,0.55) 75%,
+      rgba(0,0,0,0.78) 100%
+    );
+  }
+  .banner-time{
+    position: absolute; right: 14px; top: 14px;
+    text-align: right; color: #fff;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    border-radius: 10px;
+    padding: 6px 10px;
+  }
+  .banner-time .label{font-size:9px; letter-spacing:1px; opacity:0.75;}
+  .banner-time .time{font-family: Roboto Mono, monospace; font-size:15px; font-weight:500; color:#fff; margin-top:1px;}
+  .banner-time .date{font-size:9px; opacity:0.75; margin-top:1px;}
+  /* 消息图标 */
+  .msg-btn{
+    position: absolute; right: 110px; top: 14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    border: none; cursor: pointer;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 55;
+  }
+  .msg-btn svg{width:18px; height:18px; stroke:#fff;}
+  .msg-badge{
+    position: absolute; top:-2px; right:-2px;
+    min-width:16px; height:16px; padding:0 4px;
+    background: #E53935; color:#fff;
+    border-radius:8px; font-size:10px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid rgba(0,0,0,0.3);
+  }
+  /* 消息盒子弹窗 */
+  .msg-overlay{
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.5);
+    z-index: 300;
+    display:none; align-items:center; justify-content:center;
+    padding:16px;
+  }
+  .msg-overlay.open{ display:flex; }
+  .msg-box{
+    background: var(--md-surface);
+    border-radius: 20px;
+    width: 100%; max-width: 420px;
+    max-height: 70vh;
+    display:flex; flex-direction:column;
+    overflow:hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .msg-box-head{
+    padding: 18px 20px 12px;
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .msg-box-title{ font-size:18px; font-weight:700; color: var(--md-on-surface); }
+  .msg-box-close{
+    width:32px; height:32px; border-radius:50%;
+    background: var(--md-surface-container-high);
+    border:none; cursor:pointer; color: var(--md-on-surface);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .msg-box-close svg{width:18px; height:18px; stroke:currentColor;}
+  .msg-mark-all{
+    height:32px; padding:0 12px; border-radius:16px;
+    background: var(--md-primary); color: var(--md-on-primary);
+    border:none; cursor:pointer; font-size:12px; font-weight:600;
+    font-family:inherit;
+  }
+  .msg-mark-all:hover{opacity:0.85;}
+  .msg-tabs{
+    display:flex; gap:0;
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .msg-tab{
+    flex:1; text-align:center; padding:12px;
+    cursor:pointer; font-size:14px; font-weight:500;
+    color: var(--md-on-surface-variant);
+    border-bottom: 2px solid transparent;
+    transition: all .2s;
+  }
+  .msg-tab.active{
+    color: var(--md-primary);
+    border-bottom-color: var(--md-primary);
+  }
+  .msg-list{
+    flex:1; overflow-y:auto;
+    padding: 8px;
+  }
+  .msg-item{
+    padding: 12px 14px;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    background: var(--md-surface-container-low);
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .msg-item:hover{ background: var(--md-surface-container); }
+  .msg-item.unread{
+    background: var(--md-primary-container);
+  }
+  .msg-item-title{
+    font-size:14px; font-weight:600; color: var(--md-on-surface);
+    display:flex; align-items:center; gap:6px;
+  }
+  .msg-item-dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--md-error);
+    flex-shrink:0;
+  }
+  .msg-item.read .msg-item-dot{ display:none; }
+  .msg-item-body{
+    font-size:12px; color: var(--md-on-surface-variant);
+    margin-top:4px; line-height:1.5;
+  }
+  .msg-item-time{
+    font-size:11px; color: var(--md-on-surface-variant);
+    opacity:0.7; margin-top:4px;
+  }
+  .msg-empty{
+    text-align:center; padding: 32px 16px;
+    color: var(--md-on-surface-variant); font-size:13px;
+  }
+  /* 涨粉通知弹窗 - 从上到下动画，5秒 */
+  .fan-toast{
+    position: fixed; top: 0; left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    background: var(--md-surface);
+    border-radius: 14px;
+    padding: 14px 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    z-index: 400;
+    display:flex; align-items:center; gap:12px;
+    width: calc(100% - 32px);
+    max-width: 560px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .fan-toast.show{
+    animation: toastSlide 5s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  @keyframes toastSlide{
+    0%   { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+    8%   { transform: translateX(-50%) translateY(20px); opacity: 1; }
+    12%  { transform: translateX(-50%) translateY(14px); opacity: 1; }
+    88%  { transform: translateX(-50%) translateY(14px); opacity: 1; }
+    96%  { transform: translateX(-50%) translateY(14px); opacity: 0; }
+    100% { transform: translateX(-50%) translateY(-100%); opacity: 0; }
+  }
+  .fan-toast-ico{
+    width:36px; height:36px; border-radius:50%;
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .fan-toast-ico svg{width:20px; height:20px; stroke:currentColor;}
+  .fan-toast-text{ font-size:13px; color: var(--md-on-surface); line-height:1.5; }
+  .fan-toast-text strong{ color: var(--md-primary); font-weight:700; }
+  .fan-toast-link{ color: var(--md-primary); font-weight:600; cursor:pointer; }
+  /* 深色模式开关 */
+  .theme-toggle{
+    position: absolute; left: 56px; top: 14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    border: none; cursor: pointer;
+    color: #fff; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .3s;
+    z-index: 55;
+  }
+  .theme-toggle:hover{transform: rotate(15deg);}
+  /* 菜单按钮 */
+  .menu-btn{
+    position: absolute; left: 14px; top: 14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(6px);
+    border: none; cursor: pointer;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 55;
+  }
+  .menu-btn svg{width:20px; height:20px; stroke:#fff;}
+
+  /* 全屏菜单覆盖层 */
+  .menu-overlay{
+    position: fixed; inset: 0;
+    background: var(--md-surface);
+    z-index: 200;
+    transform: translateY(-100%);
+    transition: transform .4s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+  }
+  .menu-overlay.open{ transform: translateY(0); }
+  .menu-close{
+    position: absolute; right: 16px; top: 16px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--md-surface-container-high);
+    border: none; cursor: pointer;
+    color: var(--md-on-surface);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .menu-close svg{width:22px; height:22px; stroke:currentColor;}
+  .menu-header{
+    padding: 28px 24px 16px;
+    font-size: 20px; font-weight: 700; color: var(--md-on-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .menu-list{
+    padding: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .menu-item{
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-radius: 12px;
+    cursor: pointer; transition: background .2s;
+    color: var(--md-on-surface);
+  }
+  .menu-item:hover{ background: var(--md-surface-container-high); }
+  .menu-item.active{ background: var(--md-primary-container); }
+  .menu-item.active .ico{ color: var(--md-on-primary-container); }
+  .menu-item .ico{ width: 24px; height: 24px; color: var(--md-primary); flex-shrink:0; }
+  .menu-item .ico svg{width:24px; height:24px; stroke:currentColor;}
+  .menu-item-text{ display: flex; flex-direction: column; }
+  .menu-item .txt{ font-size: 16px; font-weight: 600; }
+  .menu-item .sub{ font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
+
+  /* 页面切换 */
+  .page{ display: none; }
+  .page.active{ display: block; }
+
+  /* 玡迩叻页面：动态分类tabs */
+  .sub-tabs{
+    display:flex; gap:8px; margin-bottom:14px;
+    background: var(--md-surface-container);
+    padding:6px; border-radius:12px;
+  }
+  .sub-tab{
+    flex:1; text-align:center; padding:10px; border-radius:8px;
+    cursor:pointer; font-size:14px; font-weight:500;
+    color: var(--md-on-surface-variant);
+    transition: all .2s;
+  }
+  .sub-tab.active{
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+  .sub-pane{ display:none; }
+  .sub-pane.active{ display:block; }
+  /* banner 内容：左对齐文字 + 右侧点赞按钮 */
+  .banner-content{
+    position: absolute; left:0; right:0; bottom:0;
+    padding: 18px 20px 22px;
+    color: #fff;
+    text-align: left;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .banner-text{ flex: 1; min-width: 0; }
+  .banner-title{
+    font-size: 22px; font-weight: 700;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.9);
+    letter-spacing: 1px;
+    line-height: 1.2;
+  }
+  .banner-title strong{font-weight:700; color: #fff;}
+  .banner-sub{
+    font-size: 13px; color: rgba(255,255,255,0.9);
+    margin-top: 8px; letter-spacing: 0.5px;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+  }
+  .banner-greet{color: #D8CCFF; font-weight:500;}
+  .banner-chips{
+    display:flex; gap:6px; flex-wrap:wrap; margin-top:12px;
+    justify-content: flex-start;
+  }
+  .banner-chip{
+    display:inline-flex; align-items:center;
+    height:24px; padding:0 10px; border-radius:12px;
+    background:rgba(255,255,255,0.22); backdrop-filter:blur(10px);
+    font-size:11px; color:#fff; border:1px solid rgba(255,255,255,0.2);
+  }
+  .banner-chip.success{background:rgba(46,125,50,0.6); border-color:rgba(74,222,128,0.4);}
+
+  /* 点赞按钮 */
+  .like-wrap{
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 0; position: relative;
+  }
+  .like-btn{
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,255,255,0.22); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    transition: transform .15s, background .2s;
+    position: relative;
+  }
+  .like-btn:active{ transform: scale(0.85); }
+  .like-btn.liked{ background: rgba(255,82,82,0.5); }
+  .like-btn.cooldown{ opacity: 0.5; cursor: not-allowed; }
+  .like-btn svg{ width: 24px; height: 24px; fill: currentColor; stroke: none; }
+  .like-count{
+    font-size: 11px; color: #fff; margin-top: 4px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+    font-weight: 600;
+  }
+  /* 飘心动画 */
+  .float-heart{
+    position: absolute;
+    font-size: 24px;
+    pointer-events: none;
+    animation: floatUp 1.6s ease-out forwards;
+    z-index: 10;
+  }
+  @keyframes floatUp{
+    0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+    15%  { transform: translateY(-10px) scale(1.2); opacity: 1; }
+    100% { transform: translateY(-80px) scale(0.6); opacity: 0; }
+  }
+
+  /* Tab 导航 */
+  .tab-nav{
+    display:flex; gap:4px; padding:12px 16px 0;
+    position:sticky; top:0; z-index:5;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  [data-theme="dark"] .tab-nav{
+    background: rgba(20,18,24,0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+  .tab-btn{
+    flex:1; padding:10px 12px; border:none; cursor:pointer;
+    background: transparent; color: var(--md-on-surface-variant);
+    font-size:14px; font-weight:500;
+    border-bottom:2px solid transparent;
+    transition: all .2s;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .tab-btn.active{
+    color: var(--md-primary);
+    border-bottom-color: var(--md-primary);
+    font-weight:700;
+  }
+  .tab-btn svg{ width:16px; height:16px; }
+  .tab-pane{ display:none; }
+  .tab-pane.active{ display:block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+  /* 通知条 */
+  .notice{
+    margin: 12px 16px 0;
+    background: var(--md-warning-container);
+    color: #5F3300;
+    border-radius: var(--md-radius-sm);
+    padding: 12px 16px;
+    font-size: 13px;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .notice .ico{flex-shrink:0;}
+
+  /* 待播剧集卡片 */
+  .drama-list{ padding:16px; display:flex; flex-direction:column; gap:16px; }
+  .drama-card{
+    background: var(--md-surface);
+    border-radius: var(--md-radius-md);
+    box-shadow: var(--md-elevation-1);
+    overflow:hidden;
+    border:1px solid var(--md-outline-variant);
+  }
+  .drama-header{
+    display:flex; gap:14px; padding:16px; align-items:center;
+  }
+  .drama-poster{
+    width:80px; height:110px; border-radius:10px;
+    background: linear-gradient(135deg,#9172CC,#B39DDB);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:32px; flex-shrink:0;
+    box-shadow: 0 4px 12px rgba(145,114,204,0.3);
+    overflow:hidden;
+  }
+  .drama-poster img{
+    width:100%; height:100%; object-fit:cover; border-radius:10px;
+  }
+  .drama-info{ flex:1; min-width:0; }
+  .drama-title{ font-size:17px; font-weight:700; color:var(--md-on-surface); }
+  .drama-role{ font-size:13px; color:var(--md-primary); margin-top:4px; font-weight:500; }
+  .drama-role::before{ content:"饰演 "; color:var(--md-on-surface-variant); font-weight:400; }
+  .drama-tag{
+    display:inline-block; margin-top:6px; padding:2px 8px;
+    background:var(--md-primary-container); color:var(--md-on-primary-container);
+    border-radius:8px; font-size:11px; font-weight:500;
+  }
+  .drama-desc{
+    padding:0 16px 16px; font-size:13px; line-height:1.7;
+    color:var(--md-on-surface-variant);
+  }
+
+  /* 简介页面 */
+  .bio-section{ padding:16px; }
+  .bio-card{
+    background:var(--md-surface);
+    border-radius:var(--md-radius-md);
+    box-shadow:var(--md-elevation-1);
+    padding:18px 18px 20px;
+    margin-bottom:16px;
+    border:1px solid var(--md-outline-variant);
+  }
+  .bio-card-title{
+    font-size:16px; font-weight:700; color:var(--md-primary);
+    margin-bottom:12px; display:flex; align-items:center; gap:8px;
+    padding-bottom:10px; border-bottom:1px solid var(--md-outline-variant);
+  }
+  .bio-card-title svg{ width:18px; height:18px; }
+  .bio-text{ font-size:13px; line-height:1.8; color:var(--md-on-surface-variant); }
+  .bio-text strong{ color:var(--md-on-surface); }
+  .work-item{
+    display:flex; gap:14px; padding:12px 0;
+    border-bottom:1px solid var(--md-outline-variant);
+  }
+  .work-item:last-child{ border-bottom:none; }
+  .work-year{
+    flex-shrink:0; width:52px; font-size:13px; font-weight:700;
+    color:var(--md-primary); padding-top:2px;
+  }
+  .work-detail{ flex:1; }
+  .work-name{ font-size:14px; font-weight:600; color:var(--md-on-surface); }
+  .work-role{ font-size:12px; color:var(--md-on-surface-variant); margin-top:3px; }
+  .work-role::before{ content:"饰 "; color:var(--md-primary); font-weight:500; }
+
+  /* 主内容区 */
+  .content{padding: 16px 16px 0;}
+
+  /* 统计卡片 */
+  .stat-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:16px;}
+  .stat-card{
+    background: var(--md-surface-container-low);
+    border-radius: var(--md-radius-md);
+    padding: 16px;
+    box-shadow: var(--md-elev-1);
+  }
+  .stat-card .label{font-size:11px; color: var(--md-on-surface-variant); letter-spacing:0.5px; text-transform:uppercase; display:flex; align-items:center; gap:6px;}
+  .stat-card .label svg{width:14px; height:14px; stroke:var(--md-primary);}
+  .stat-card .value{font-size:24px; font-weight:500; color: var(--md-on-surface); margin-top:4px;}
+  .stat-card .value small{font-size:14px; font-weight:400; color:var(--md-primary); margin-left:2px;}
+  .stat-card .meta{font-size:11px; color: var(--md-on-surface-variant); margin-top:2px;}
+  .stat-card.warn .value{color: var(--md-warning); font-size:18px;}
+  .stat-card .health-good svg{stroke:var(--md-success);}
+  .stat-card .value.health-good{color:var(--md-success);}
+
+  /* 筛选器 */
+  .filter-section{
+    background: var(--md-surface-container-low);
+    border-radius: var(--md-radius-md);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--md-elev-1);
+  }
+  .filter-label{font-size:11px; color: var(--md-on-surface-variant); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:8px;}
+  .filter-chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .fbtn{
+    height:32px; padding:0 14px; border-radius:8px; cursor:pointer;
+    background:transparent; border:1px solid var(--md-outline);
+    color: var(--md-on-surface-variant); font-size:13px; font-family:inherit;
+    transition: background .18s, color .18s, border-color .18s;
+  }
+  .fbtn:hover{background: var(--md-surface-container-high);}
+  .fbtn.active{
+    background: var(--md-primary); color: var(--md-on-primary); border-color: var(--md-primary);
+    box-shadow: var(--md-elev-1);
+  }
+
+  /* 分类卡片 - Material 3 filled card */
+  .card{
+    background: var(--md-surface-container-low);
+    border-radius: var(--md-radius-lg);
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--md-elev-1);
+    transition: box-shadow .2s;
+  }
+  .card:hover{box-shadow: var(--md-elev-2);}
+  .card-head{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .card-icon{
+    width:40px; height:40px; border-radius:12px;
+    background: linear-gradient(135deg, var(--md-primary), #B39DDB);
+    color: var(--md-on-primary);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    box-shadow: 0 4px 12px rgba(145,114,204,0.35);
+  }
+  .card-icon svg{width:20px; height:20px; stroke-width:2;}
+  .card-title{font-size:16px; font-weight:600; color: var(--md-on-surface); flex:1;}
+  .card-badge{
+    font-size:11px; padding:4px 10px; border-radius:8px;
+    background: var(--md-success-container); color: var(--md-success);
+    font-weight:500;
+  }
+  .card ul{list-style:none; margin:0; padding:0;}
+  .card li{
+    position:relative; padding:8px 0 8px 16px;
+    font-size:13.5px; color: var(--md-on-surface);
+    border-bottom: 1px solid var(--md-surface-container-high);
+    line-height:1.55;
+  }
+  .card li:last-child{border-bottom:none;}
+  .card li::before{
+    content:""; position:absolute; left:0; top:16px;
+    width:6px; height:6px; border-radius:50%;
+    background: var(--md-primary);
+  }
+  .card li strong{color: var(--md-on-surface); font-weight:500;}
+  .card li em{color: var(--md-primary); font-style:normal; font-weight:500;}
+
+  /* 总结卡 - elevated */
+  .summary-card{
+    background: var(--md-primary-container);
+    border-radius: var(--md-radius-lg);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--md-elev-2);
+  }
+  .summary-card .card-icon{background: var(--md-on-primary-container); color: var(--md-primary-container);}
+  .summary-card .card-title{color: var(--md-on-primary-container);}
+  .summary-card li{color: var(--md-on-primary-container); border-color: rgba(37,4,96,0.15);}
+  .summary-card li::before{background: var(--md-on-primary-container);}
+  .summary-card li strong{color: var(--md-on-primary-container);}
+  .summary-card li em{color: #B39DDB; font-style:normal;}
+  .pill{
+    display:inline-block; padding:4px 12px; border-radius:8px;
+    font-size:12px; font-weight:500; margin: 4px 6px 4px 0;
+    background: rgba(255,255,255,0.4); color: var(--md-on-primary-container);
+  }
+  .summary-intro{margin-bottom:12px; font-size:14px; color: var(--md-on-primary-container);}
+
+  .card.hide{display:none;}
+  .empty-hint{display:none; color: var(--md-on-surface-variant); font-size:13px; padding:8px 0; font-style:italic;}
+
+  /* FAB - 回到顶部 */
+  .fab{
+    position: fixed; right: 24px; bottom: 24px;
+    width: 56px; height: 56px; border-radius: 16px;
+    background: var(--md-primary); color: var(--md-on-primary);
+    border:none; cursor:pointer; box-shadow: var(--md-elev-3);
+    font-size: 24px; display:flex; align-items:center; justify-content:center;
+    z-index: 50;
+  }
+  /* 导出图片按钮 */
+  .fab-export{
+    position: fixed; right: 24px; bottom: 96px;
+    height: 44px; padding: 0 18px; border-radius: 22px;
+    background: var(--md-primary-container); color: var(--md-on-primary-container);
+    border:none; cursor:pointer; box-shadow: var(--md-elev-3);
+    font-size: 14px; font-weight:500; font-family:inherit;
+    display:flex; align-items:center; gap:6px;
+    z-index: 50;
+  }
+  .fab-export:hover{background: var(--md-primary); color: var(--md-on-primary);}
+  .fab-export.loading{opacity:0.6; cursor:wait;}
+
+  footer{
+    text-align:center; color: var(--md-on-surface-variant); font-size:12px;
+    padding: 24px 16px 16px; line-height:1.6;
+    border-top: 1px solid var(--md-outline-variant);
+    margin-top: 16px;
+  }
+  .footer-links{
+    display:flex; justify-content:center; gap:16px; margin:12px 0 8px; flex-wrap:wrap;
+  }
+  .footer-links a{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 14px; border-radius:999px;
+    background: var(--md-surface-container-high);
+    color: var(--md-primary); text-decoration:none;
+    font-size:12px; transition: all 0.2s;
+  }
+  .footer-links a:hover{ background: var(--md-primary); color:#fff; transform: translateY(-2px); }
+  .footer-links svg{ width:14px; height:14px; }
+
+  @media (max-width: 480px){
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    .appbar-title{font-size:20px;}
+    .content{padding: 12px;}
+    .card{padding:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="page active" id="page-home">
+
+  <!-- Banner -->
+  <div class="banner">
+    <img src="amy-banner.jpg" alt="艺人艾米" crossorigin="anonymous">
+    <div class="banner-mask"></div>
+    <button class="menu-btn" id="menuBtn" title="菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <button class="theme-toggle" id="themeToggle" title="切换深色/浅色">🌙</button>
+    <button class="msg-btn" id="msgBtn" title="消息盒子">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+      <span class="msg-badge" id="msgBadge" style="display:none;">0</span>
+    </button>
+    <div class="banner-time">
+      <div class="label">内容更新至</div>
+      <div class="time" id="updateTime">--:--:--</div>
+      <div class="date" id="updateDate">----年--月--日</div>
+    </div>
+    <div class="banner-content">
+      <div class="banner-text">
+        <div class="banner-title"><strong>艾米日签</strong> · 每日动态简报</div>
+        <div class="banner-sub">Hi, <span class="banner-greet" id="greetWord">早上好</span> · 微博 / 抖音 / 小红书 全平台监控</div>
+        <div class="banner-chips">
+          <span class="banner-chip">微博</span>
+          <span class="banner-chip">抖音</span>
+          <span class="banner-chip">小红书</span>
+          <span class="banner-chip success">仅正面/中性</span>
+        </div>
+      </div>
+      <div class="like-wrap">
+        <button class="like-btn" id="likeBtn" title="点赞">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+        <div class="like-count" id="likeCount">0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 导航 -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="brief">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      简报
+    </button>
+    <button class="tab-btn" data-tab="pending">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      待播
+    </button>
+    <button class="tab-btn" data-tab="bio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      简介
+    </button>
+  </div>
+
+  <!-- Tab: 简报 -->
+  <div class="tab-pane active" id="tab-brief">
+
+  <!-- 首次执行提醒 -->
+  <div class="notice">
+    <span class="ico">ℹ</span>
+    <span>本次为<strong>首次执行</strong>，无前一日粉丝数对比基准。自明日起将显示日增量与增幅百分比，并在明显变化时触发"粉丝数变化提醒"。</span>
+  </div>
+
+  <div class="content">
+
+    <!-- 统计卡片 -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          微博粉丝
+        </div>
+        <div class="value">289.4<small>万</small></div>
+        <div class="meta">@演员艾米 · u/6671129497</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          抖音粉丝
+        </div>
+        <div class="value">449.7<small>万</small></div>
+        <div class="meta">抖音号 27828427 · 飞瓜数据</div>
+      </div>
+      <div class="stat-card">
+        <div class="label health-good">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          微博舆情健康
+        </div>
+        <div class="value health-good">优</div>
+        <div class="meta">无新增负面舆情</div>
+      </div>
+      <div class="stat-card">
+        <div class="label health-good">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          抖音舆情健康
+        </div>
+        <div class="value health-good">优</div>
+        <div class="meta">无新增负面舆情</div>
+      </div>
+    </div>
+
+    <!-- 平台筛选器 -->
+    <div class="filter-section">
+      <div class="filter-label">平台筛选</div>
+      <div class="filter-chips">
+        <button class="fbtn active" data-platform="all">全部</button>
+        <button class="fbtn" data-platform="weibo">微博</button>
+        <button class="fbtn" data-platform="douyin">抖音</button>
+        <button class="fbtn" data-platform="xhs">小红书</button>
+      </div>
+    </div>
+
+    <!-- 1 本人动态 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg></div>
+        <div class="card-title">一、艾米本人动态</div>
+        <div class="card-badge">正面</div>
+      </div>
+      <ul>
+        <li data-platform="weibo"><strong>作品入围荣誉</strong>：饰演的谢嘉鱼、蓝灵娥两个角色入围2026「微博视界大会年度推荐」，艾米亲自发文感谢陪伴与支持。</li>
+        <li data-platform="weibo"><strong>新剧预约</strong>：爱奇艺《百妖谱》开启预约，艾米饰演"陈艾米"一角，领衔主演阵容公布，9月23日悦享会亮相。</li>
+        <li data-platform="weibo"><strong>18岁生日节点</strong>：凌晨连发9条博文分享日常与心里话，被评"真诚又鲜活"，同期上线新歌《Fall in Love》。</li>
+        <li data-platform="weibo"><strong>版权意识出圈</strong>：7月27日微博为8张萌系配图逐一标注"cr"版权来源（含表情包写"cr.网络"），"严谨态度成风向标"。</li>
+        <li data-platform="weibo"><strong>同行口碑</strong>：侯明昊公开夸艾米"北电第三太厉害了"，并承诺未来当导演会找她演女主。</li>
+      </ul>
+      <div class="empty-hint">该平台暂无相关内容</div>
+    </div>
+
+    <!-- 2 商务代言 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg></div>
+        <div class="card-title">二、商务代言（已官宣 / 进行中）</div>
+        <div class="card-badge">进行中</div>
+      </div>
+      <ul>
+        <li data-platform="weibo"><strong>京东健康医用金选大使</strong>：艾米工作室官微官宣，艾米成为<em>首位京东健康医用金选大使</em>，slogan"怀热忱之心，守金选之质"。</li>
+        <li data-platform="xhs"><strong>UKISS 悠珂思青春大使</strong>：小红书端"星品影响力"种草互动活跃，带动粉丝打call。</li>
+        <li data-platform="weibo"><strong>杂志/商务拓展</strong>：粉丝后援会公开记录已承担杂志购买、商务代言等渠道统筹工作，商务版图持续扩张。</li>
+      </ul>
+      <div class="empty-hint">该平台暂无相关内容</div>
+    </div>
+
+    <!-- 3 热搜舆情 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941"/></svg></div>
+        <div class="card-title">三、热搜舆情（正面/中性）</div>
+        <div class="card-badge">健康</div>
+      </div>
+      <ul>
+        <li data-platform="weibo"><strong>《雀骨》登顶 95 生花云包场新纪录</strong>：粉丝2026年2月即启动云包场筹备，提前锁定资源；后援会要求散粉追加包场计入官方组织名下，组织度强。</li>
+        <li data-platform="douyin"><strong>暑期涨粉全网热搜</strong>：全平台涨粉破百万，抖音粉丝突破400万，登新榜涨粉周榜第五（一周涨粉超61万）。</li>
+        <li data-platform="weibo"><strong>角色口碑热搜</strong>：谢嘉鱼被评"灵动鲜活、演技扎实"，被类比为"当年仙剑灵儿的感觉"；"救赎感"等剧情关键词形成话题传播。</li>
+      </ul>
+      <div class="empty-hint">该平台暂无相关内容</div>
+    </div>
+
+    <!-- 4 粉丝动态 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg></div>
+        <div class="card-title">四、粉丝动态（三平台涨粉与应援）</div>
+        <div class="card-badge">活跃</div>
+      </div>
+      <ul>
+        <li data-platform="douyin"><strong>抖音</strong>：粉丝突破<em>400万</em>，《雀骨》播出期间涨粉约<em>106.3万</em>，新榜涨粉周榜第五，一周涨粉超61万。</li>
+        <li data-platform="weibo"><strong>微博</strong>：涨粉约<em>23.2万</em>，超话 #艾米[超话]# 活跃，CT投票、"向全世界安利艾米"等话题持续产出。</li>
+        <li data-platform="xhs"><strong>小红书</strong>：涨粉约<em>8.6万</em>，种草/安利向笔记稳定输出，UKISS 合作带动"星品影响力"互动。</li>
+        <li data-platform="weibo"><strong>应援氛围</strong>：粉丝以"米米熊""艾心"等称呼，互动情感温馨；18岁生日抽奖、对错牌实物回馈等自发活动丰富。</li>
+      </ul>
+      <div class="empty-hint">该平台暂无相关内容</div>
+    </div>
+
+    <!-- 5 超话后援会 -->
+    <div class="card">
+      <div class="card-head">
+        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg></div>
+        <div class="card-title">五、超话后援会职能管理动态</div>
+        <div class="card-badge">规范</div>
+      </div>
+      <ul>
+        <li data-platform="weibo"><strong>官方组织架构</strong>：@艾米官方粉丝后援会 + @明星粉丝联盟 + @超话社区 联合运营，职能分工明确。</li>
+        <li data-platform="weibo"><strong>18岁生日企划</strong>：后援会发起"超话许愿池"活动（7月7日-13日），联动超话社区组织许愿；"对错牌"实物抽奖要求超话等级≥8。</li>
+        <li data-platform="weibo"><strong>云包场统筹</strong>：提前4个月启动《雀骨》云包场筹备，总价值30w+、共计一万余座席位；强调"未使用抽奖激励，全部自发购买礼包完成"。</li>
+        <li data-platform="weibo"><strong>职能管理规则</strong>：散粉追加包场加在官方组织名下，统一设置30分钟观看门槛；商务渠道采用"花卷小派"审核机制，CCL全部确收并附杂志实物图，资金管理透明。</li>
+        <li data-platform="weibo"><strong>打投组织</strong>：CT投票、超话打投教程常态化输出，"每条每天至少投一次"等规则明确。</li>
+      </ul>
+      <div class="empty-hint">该平台暂无相关内容</div>
+    </div>
+
+    <!-- 总结 -->
+    <div class="card summary-card">
+      <div class="card-head">
+        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
+        <div class="card-title">总结与趋势研判</div>
+      </div>
+      <p class="summary-intro"><strong>整体基调</strong>：<span class="pill">正面为主</span><span class="pill">舆情健康度高</span><span class="pill">无新增负面</span></p>
+      <ul>
+        <li><strong>关键事件</strong>：京东健康金选大使官宣、《雀骨》云包场登顶、暑期全平台涨粉破百万、18岁生日企划。</li>
+        <li><strong>舆情走向</strong>：正面标签（版权意识、真诚、边界感、组织规范）持续强化，未发现新增负面舆情。</li>
+        <li><strong>趋势研判</strong>：艾米处于<strong>作品+成年+商务+组织化粉丝</strong>四重正向叠加期，《百妖谱》待播有望延续热度；后援会职能管理规范、资金透明，利于长线口碑与粉丝留存。</li>
+      </ul>
+    </div>
+
+  </div>
+
+  </div><!-- /tab-brief -->
+
+  <!-- Tab: 待播 -->
+  <div class="tab-pane" id="tab-pending">
+    <div class="drama-list">
+
+      <div class="drama-card">
+        <div class="drama-header">
+          <div class="drama-poster"><img src="poster_baiyaopu.jpg" alt="百妖谱" onerror="this.style.display='none';this.parentNode.innerHTML='👻'"></div>
+          <div class="drama-info">
+            <div class="drama-title">百妖谱</div>
+            <div class="drama-role">陈艾米</div>
+            <span class="drama-tag">待播 · 古装奇幻</span>
+          </div>
+        </div>
+        <div class="drama-desc">
+          改编自裟椤双树同名小说，讲述桃都鬼医桃夭带着小和尚磨牙、狐狸妖滚滚，穿行于人间与妖界之间，为各路妖怪治病疗心、了却执念的故事。艾米饰演领衔女主角，该剧已在爱奇艺开启预约，预计2026年播出。
+        </div>
+      </div>
+
+      <div class="drama-card">
+        <div class="drama-header">
+          <div class="drama-poster"><img src="poster_achan.jpg" alt="阿禅" onerror="this.style.display='none';this.parentNode.innerHTML='🐍'"></div>
+          <div class="drama-info">
+            <div class="drama-title">阿禅</div>
+            <div class="drama-role">李微意</div>
+            <span class="drama-tag">待播 · 奇幻悬爱</span>
+          </div>
+        </div>
+        <div class="drama-desc">
+          负债累累的总裁张静禅与社畜李微意灵魂互换后，为拯救家人展开一次次曲折救赎。艾米饰演女主角李微意，搭档林一，导演陈畅，已释出先导预告。
+        </div>
+      </div>
+
+      <div class="drama-card">
+        <div class="drama-header">
+          <div class="drama-poster"><img src="poster_fengying.webp" alt="烽影燃梅香" onerror="this.style.display='none';this.parentNode.innerHTML='🏮'"></div>
+          <div class="drama-info">
+            <div class="drama-title">烽影燃梅香</div>
+            <div class="drama-role">如焰</div>
+            <span class="drama-tag">待播 · 古装谍战</span>
+          </div>
+        </div>
+        <div class="drama-desc">
+          古装谍战剧，艾米饰演飒爽人设"如焰"，乱世权谋氛围感拉满。题材与其他待播剧完全不重复，展现多面角色塑造能力。
+        </div>
+      </div>
+
+      <div class="drama-card">
+        <div class="drama-header">
+          <div class="drama-poster"><img src="poster_chengqiang.webp" alt="城墙之上" onerror="this.style.display='none';this.parentNode.innerHTML='🏯'"></div>
+          <div class="drama-info">
+            <div class="drama-title">城墙之上</div>
+            <div class="drama-role">林双笙</div>
+            <span class="drama-tag">待播 · 年代悬疑</span>
+          </div>
+        </div>
+        <div class="drama-desc">
+          曹盾导演的年代犯罪悬疑剧。艾米饰演为父寻求真相的听障复读生林双笙，全程靠眼神与肢体语言完成表演，大量眼神戏非常考验演技，是极具突破的角色。
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /tab-pending -->
+
+  <!-- Tab: 简介 -->
+  <div class="tab-pane" id="tab-bio">
+    <div class="bio-section">
+
+      <div class="bio-card">
+        <div class="bio-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          个人简介
+        </div>
+        <p class="bio-text">
+          <strong>艾米</strong>，2008年7月13日出生于北京市，中国内地女演员。6岁出道，拥有12年戏龄，参演超过20部影视作品。2026年参加全国高考，以专业课第三名的成绩考入北京电影学院表演系。童星出道的她，凭借自然灵动的表演风格和扎实的演技功底，逐步从配角成长为独挑大梁的女主角，是05后小花中势头最猛的代表之一。
+        </p>
+        <p class="bio-text" style="margin-top:10px;">
+          2026年7月年满18岁，正式步入成年演员行列。她以真诚、边界感清晰、尊重原创的公众形象著称，因在微博为配图逐一标注版权来源而被赞"严谨态度成风向标"。手中握有《百妖谱》《阿禅》《烽影燃梅香》《城墙之上》四部待播女主剧，题材涵盖古装奇幻、奇幻悬爱、古装谍战、年代悬疑，演艺储备充足。
+        </p>
+      </div>
+
+      <div class="bio-card">
+        <div class="bio-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 0 0 .95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 0 0-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 0 0-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 0 0-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 0 0 .951-.69l1.519-4.674z"/></svg>
+          代表作品
+        </div>
+        <p class="bio-text">
+          <strong>电视剧</strong>：《雀骨》谢嘉鱼、《百妖谱》陈艾米、《师兄太稳健》蓝灵娥、《城墙之上》林双笙、《阿禅》李微意、《烽影燃梅香》如焰、《仙台有树》丘喜儿、《仁心俱乐部》于嘉、《墨雨云间》桐儿、《大梦归离》青耕、《清平乐》高滔滔、《山海情》等。<br><br>
+          <strong>电影</strong>：《长津湖》红围巾女孩、《海的尽头是草原》杜思珩、《功夫女足》、《大突围》、《封神第二部：战火西岐》、《晴雅集》、《催眠·裁决》等。
+        </p>
+      </div>
+
+      <div class="bio-card">
+        <div class="bio-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          历年作品与角色
+        </div>
+        <div class="work-item"><div class="work-year">2026</div><div class="work-detail"><div class="work-name">雀骨</div><div class="work-role">谢嘉鱼（女主）</div></div></div>
+        <div class="work-item"><div class="work-year">2026</div><div class="work-detail"><div class="work-name">师兄太稳健</div><div class="work-role">蓝灵娥</div></div></div>
+        <div class="work-item"><div class="work-year">2026</div><div class="work-detail"><div class="work-name">功夫女足</div><div class="work-role">参演</div></div></div>
+        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">水龙吟</div><div class="work-role">水多婆</div></div></div>
+        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">目之所及</div><div class="work-role">曲桐（高中时期）</div></div></div>
+        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">仁心俱乐部</div><div class="work-role">于嘉</div></div></div>
+        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">仙台有树</div><div class="work-role">丘喜儿</div></div></div>
+        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">封神第二部：战火西岐</div><div class="work-role">参演（电影）</div></div></div>
+        <div class="work-item"><div class="work-year">2024</div><div class="work-detail"><div class="work-name">大梦归离</div><div class="work-role">青耕</div></div></div>
+        <div class="work-item"><div class="work-year">2024</div><div class="work-detail"><div class="work-name">墨雨云间</div><div class="work-role">桐儿</div></div></div>
+        <div class="work-item"><div class="work-year">2024</div><div class="work-detail"><div class="work-name">大突围</div><div class="work-role">主演（电影）</div></div></div>
+        <div class="work-item"><div class="work-year">2022</div><div class="work-detail"><div class="work-name">海的尽头是草原</div><div class="work-role">杜思珩（电影）</div></div></div>
+        <div class="work-item"><div class="work-year">2021</div><div class="work-detail"><div class="work-name">长津湖</div><div class="work-role">红围巾女孩（电影）</div></div></div>
+        <div class="work-item"><div class="work-year">2021</div><div class="work-detail"><div class="work-name">山海情</div><div class="work-role">得福女儿（小）</div></div></div>
+        <div class="work-item"><div class="work-year">2020</div><div class="work-detail"><div class="work-name">晴雅集</div><div class="work-role">参演（电影）</div></div></div>
+        <div class="work-item"><div class="work-year">2020</div><div class="work-detail"><div class="work-name">清平乐</div><div class="work-role">高滔滔</div></div></div>
+        <div class="work-item"><div class="work-year">2019</div><div class="work-detail"><div class="work-name">催眠·裁决</div><div class="work-role">参演（电影）</div></div></div>
+        <div class="work-item"><div class="work-year">2019</div><div class="work-detail"><div class="work-name">倚天屠龙记</div><div class="work-role">少年周芷若</div></div></div>
+        <div class="work-item"><div class="work-year">2018</div><div class="work-detail"><div class="work-name">镇魂街</div><div class="work-role">参演</div></div></div>
+        <div class="work-item"><div class="work-year">2016</div><div class="work-detail"><div class="work-name">人民检察官</div><div class="work-role">参演</div></div></div>
+      </div>
+
+      <div class="bio-card">
+        <div class="bio-card-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          荣誉与成绩
+        </div>
+        <p class="bio-text">
+          • 2026年北京电影学院表演系专业课<strong>全国第三名</strong><br>
+          • 《雀骨》《师兄太稳健》角色入围2026微博视界大会年度推荐<br>
+          • 2026暑期全平台涨粉破百万，抖音粉丝突破400万<br>
+          • 京东健康医用金选大使（首位）、UKISS悠珂思青春大使
+        </p>
+      </div>
+
+    </div>
+  </div><!-- /tab-bio -->
+
+  <footer>
+    艾米动态监控 · 平台范围：微博 / 抖音 / 小红书<br>
+    舆情筛选：仅正面/中性 · 自动更新每日 08:00
+    <div class="footer-links">
+      <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
+        @玡迩叻_ami
+      </a>
+      <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.321 5.562a6.12 6.12 0 0 1-3.755-1.235 6.12 6.12 0 0 1-2.275-3.637h-3.34v13.33c0 1.75-1.42 3.17-3.17 3.17s-3.17-1.42-3.17-3.17 1.42-3.17 3.17-3.17c.178 0 .352.015.52.044V8.39a6.507 6.507 0 0 0-.52-.02C4.663 8.37 2 11.033 2 14.34c0 3.307 2.663 5.97 5.94 5.97s5.94-2.663 5.94-5.97V8.927a9.42 9.42 0 0 0 5.44 1.728V7.315a6.12 6.12 0 0 1-3.755-1.753h-.244z"/></svg>
+        @玡迩叻_ami🦖
+      </a>
+    </div>
+  </footer>
+  </div><!-- /page-home -->
+
+  <!-- 玡迩叻_ami 页面 -->
+  <div class="page" id="page-yaerle">
+    <div class="banner">
+      <img src="amy-banner.jpg" alt="艺人艾米" crossorigin="anonymous">
+      <div class="banner-mask"></div>
+      <button class="menu-btn" id="menuBtn2" title="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="banner-content">
+        <div class="banner-title"><strong>玡迩叻_ami</strong> · 每日动态简报</div>
+        <div class="banner-sub">Hi, <span class="banner-greet" id="greetWord2">早上好</span> · 微博超话 & 抖音 粉丝向内容</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- 数据板块 -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            微博粉丝
+          </div>
+          <div class="value">601</div>
+          <div class="meta">@玡迩叻_ami · 艾米超话粉丝博主</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            抖音粉丝
+          </div>
+          <div class="value" style="color:var(--md-warning); font-size:20px;">需登录</div>
+          <div class="meta">@玡迩叻_ami🦖 · 抖音号 Joy062333</div>
+        </div>
+      </div>
+
+      <!-- 最近动态 -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div class="card-title">最近动态</div>
+        </div>
+        <div class="card-body">
+          <div class="sub-tabs">
+            <div class="sub-tab active" data-sub="weibo">微博 · 超话近7天</div>
+            <div class="sub-tab" data-sub="douyin">抖音 · 近5天</div>
+          </div>
+          <div class="sub-pane active" data-sub="weibo">
+            <ul class="card-list">
+              <li data-platform="weibo">超话签到与日签更新，保持超话活跃度与内容产出。</li>
+              <li data-platform="weibo">转发艾米官方最新物料，带动话题热度与互动数据。</li>
+              <li data-platform="weibo">参与超话打投与CT投票，号召粉丝共同助力。</li>
+              <li data-platform="weibo">发布艾米相关剪辑/安利向内容，拓展路人盘。</li>
+            </ul>
+          </div>
+          <div class="sub-pane" data-sub="douyin">
+            <ul class="card-list">
+              <li data-platform="douyin">发布演员艾米相关短视频剪辑，聚焦角色高光时刻。</li>
+              <li data-platform="douyin">参与艾米相关话题挑战，提升内容曝光。</li>
+              <li data-platform="douyin">回复粉丝评论，维护账号互动氛围。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      玡迩叻_ami · 每日动态简报<br>
+      数据来源：微博超话 / 抖音 · 仅供粉丝向参考
+    </footer>
+  </div><!-- /page-yaerle -->
+</div>
+
+<!-- 全屏菜单 -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="menu-header">页面导航</div>
+  <div class="menu-list">
+    <div class="menu-item active" data-page="page-home">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">主页</div>
+        <div class="sub">艾米日签 · 每日动态简报</div>
+      </div>
+    </div>
+    <div class="menu-item" data-page="page-yaerle">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">玡迩叻_ami·每日动态简报</div>
+        <div class="sub">粉丝向 · 微博超话 & 抖音内容</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 消息盒子弹窗 -->
+<div class="msg-overlay" id="msgOverlay">
+  <div class="msg-box">
+    <div class="msg-box-head">
+      <div class="msg-box-title">消息盒子</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="msg-mark-all" id="msgMarkAll">全部已读</button>
+        <button class="msg-box-close" id="msgBoxClose">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="msg-tabs">
+      <div class="msg-tab active" data-tab="unread">未读</div>
+      <div class="msg-tab" data-tab="read">已读</div>
+    </div>
+    <div class="msg-list" id="msgList"></div>
+  </div>
+</div>
+
+<!-- 涨粉通知 toast -->
+<div class="fan-toast" id="fanToast">
+  <div class="fan-toast-ico">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+  </div>
+  <div class="fan-toast-text" id="fanToastText"></div>
+</div>
+
+<!-- 内嵌消息数据（定时任务每日更新，全局共享；已读状态由各设备 localStorage 独立管理） -->
+<script id="ami-embedded-msgs" type="application/json">
+{
+  "date": "2026-10-13",
+  "msgs": [
+    {
+      "id": "20261013-fans",
+      "type": "fans",
+      "title": "艾米涨粉提醒",
+      "body": "艾米抖音账号今日（10月13日）新增 3500 个粉丝，比昨天涨了 0.08%，现在一共 4,497,000 粉丝。<br>微博新增 1200 个粉丝，比昨天涨了 0.04%，现在一共 2,894,000 粉丝。",
+      "time": "2026年10月13日 08:00",
+      "dyInc": 3500,
+      "wbInc": 1200
+    },
+    {
+      "id": "20261013-repost",
+      "type": "repost",
+      "title": "《玉簟秋》开播转发",
+      "body": "艾米转发了《玉簟秋》开播微博，配文\"虞昶轩今日12点南怀见\"，互动数据持续上升中。",
+      "time": "2026年10月13日 08:00"
+    },
+    {
+      "id": "20261013-update",
+      "type": "update",
+      "title": "视界大会年度推荐入围",
+      "body": "艾米饰演的谢嘉鱼、蓝灵娥两个角色入围2026微博视界大会年度推荐，邀请粉丝共同参与投票。",
+      "time": "2026年10月13日 08:00"
+    }
+  ]
+}
+</script>
+
+<button class="fab" title="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="fab-export" id="exportBtn" title="下载为图片">
+  <span>📷</span><span>下载日签图片</span>
+</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+  document.getElementById('exportBtn').addEventListener('click', async function(){
+    const btn = this;
+    btn.classList.add('loading');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = '<span>⏳</span><span>生成中...</span>';
+    try {
+      // 隐藏浮动按钮避免出现在截图里
+      document.querySelectorAll('.fab, .fab-export').forEach(el => el.style.visibility = 'hidden');
+      // 滚到顶部，保证截图完整
+      window.scrollTo(0, 0);
+      await new Promise(r => setTimeout(r, 200));
+      const canvas = await html2canvas(document.querySelector('.wrap'), {
+        backgroundColor: '#FEF7FF',
+        scale: 2,
+        useCORS: true,
+        logging: false
+      });
+      const link = document.createElement('a');
+      const now = new Date();
+      const dateStr = now.getFullYear() + '-' +
+        String(now.getMonth()+1).padStart(2,'0') + '-' +
+        String(now.getDate()).padStart(2,'0');
+      link.download = '艾米动态监控_' + dateStr + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(e) {
+      alert('图片生成失败：' + e.message);
+    } finally {
+      document.querySelectorAll('.fab, .fab-export').forEach(el => el.style.visibility = '');
+      btn.classList.remove('loading');
+      btn.innerHTML = oldText;
+    }
+  });
+</script>
+
+<script>
+  function pad(n){return n<10?'0'+n:''+n;}
+  function updateGreetAndTime(){
+    const now = new Date();
+    const h = now.getHours();
+    let greet = '深夜好';
+    if(h>=5 && h<11) greet='早上好';
+    else if(h>=11 && h<13) greet='中午好';
+    else if(h>=13 && h<18) greet='下午好';
+    else if(h>=18 && h<23) greet='晚上好';
+    document.getElementById('greetWord').textContent = greet;
+    const g2 = document.getElementById('greetWord2');
+    if(g2) g2.textContent = greet;
+    document.getElementById('updateTime').textContent =
+      pad(h)+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());
+    document.getElementById('updateDate').textContent =
+      now.getFullYear()+'年'+pad(now.getMonth()+1)+'月'+pad(now.getDate())+'日';
+  }
+  updateGreetAndTime();
+  setInterval(updateGreetAndTime, 1000);
+
+  // 深色模式切换
+  (function(){
+    const btn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    // 初始化：读取本地存储
+    const saved = localStorage.getItem('ami-theme');
+    if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      html.setAttribute('data-theme','dark');
+      btn.textContent = '☀️';
+    }
+    btn.addEventListener('click', function(){
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if(isDark){
+        html.removeAttribute('data-theme');
+        btn.textContent = '🌙';
+        localStorage.setItem('ami-theme','light');
+      }else{
+        html.setAttribute('data-theme','dark');
+        btn.textContent = '☀️';
+        localStorage.setItem('ami-theme','dark');
+      }
+    });
+  })();
+
+  // 平台筛选器
+  const filterBtns = document.querySelectorAll('.fbtn');
+  const cards = document.querySelectorAll('.card:not(.summary-card)');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const platform = btn.dataset.platform;
+      cards.forEach(card => {
+        const items = card.querySelectorAll('li');
+        let visible = 0;
+        items.forEach(li => {
+          const match = (platform === 'all') || (li.dataset.platform === platform);
+          li.style.display = match ? '' : 'none';
+          if(match) visible++;
+        });
+        const hint = card.querySelector('.empty-hint');
+        if(visible === 0){
+          card.classList.add('hide');
+          if(hint) hint.style.display = 'block';
+        }else{
+          card.classList.remove('hide');
+          if(hint) hint.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ========== 菜单 & 页面切换 ==========
+  const overlay = document.getElementById('menuOverlay');
+  const menuBtn = document.getElementById('menuBtn');
+  const menuBtn2 = document.getElementById('menuBtn2');
+  const menuClose = document.getElementById('menuClose');
+  const menuItems = document.querySelectorAll('.menu-item');
+  const pages = {
+    'page-home': document.getElementById('page-home'),
+    'page-yaerle': document.getElementById('page-yaerle')
+  };
+
+  function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+
+  [menuBtn, menuBtn2].forEach(b => b && b.addEventListener('click', openMenu));
+  menuClose.addEventListener('click', closeMenu);
+
+  menuItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const pageId = item.dataset.page;
+      // 切换页面
+      Object.entries(pages).forEach(([id, el]) => {
+        el.classList.toggle('active', id === pageId);
+      });
+      // 更新菜单高亮
+      menuItems.forEach(i => i.classList.toggle('active', i === item));
+      closeMenu();
+      window.scrollTo({top:0, behavior:'instant'});
+    });
+  });
+
+  // ========== 玡迩叻页面：子tab切换 ==========
+  document.querySelectorAll('.sub-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const sub = tab.dataset.sub;
+      document.querySelectorAll('.sub-tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.sub-pane').forEach(p => p.classList.toggle('active', p.dataset.sub === sub));
+    });
+  });
+
+  // ========== 消息盒子 ==========
+  const MSG_KEY = 'ami-msg-box';
+  const msgBtn = document.getElementById('msgBtn');
+  const msgBadge = document.getElementById('msgBadge');
+  const msgOverlay = document.getElementById('msgOverlay');
+  const msgBoxClose = document.getElementById('msgBoxClose');
+  const msgMarkAll = document.getElementById('msgMarkAll');
+  const msgList = document.getElementById('msgList');
+  const fanToast = document.getElementById('fanToast');
+  const fanToastText = document.getElementById('fanToastText');
+
+  const READ_KEY = 'ami-read-msgs'; // 只存已读消息的 id → 已读时间戳
+  const READ_EXPIRE_MS = 3 * 24 * 60 * 60 * 1000; // 已读状态保留3天
+  function getReadMap(){
+    try { return JSON.parse(localStorage.getItem(READ_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveReadMap(m){ localStorage.setItem(READ_KEY, JSON.stringify(m)); }
+  function getMsgs(){
+    // 从内嵌数据读取消息（全局共享），已读状态来自本地（每设备独立）
+    let embedded = [];
+    try {
+      const raw = document.getElementById('ami-embedded-msgs')?.textContent;
+      if(raw) embedded = JSON.parse(raw).msgs || [];
+    } catch(e){}
+    const readMap = getReadMap();
+    const now = Date.now();
+    // 清理超过3天的已读记录
+    Object.keys(readMap).forEach(id => {
+      if(now - readMap[id] > READ_EXPIRE_MS) delete readMap[id];
+    });
+    saveReadMap(readMap);
+    return embedded.map(m => ({
+      ...m,
+      read: !!readMap[m.id],
+      timestamp: readMap[m.id] || null
+    }));
+  }
+
+  function updateBadge(){
+    const msgs = getMsgs();
+    const unread = msgs.filter(m => !m.read).length;
+    if(unread > 0){
+      msgBadge.textContent = unread > 99 ? '99+' : unread;
+      msgBadge.style.display = 'flex';
+    } else {
+      msgBadge.style.display = 'none';
+    }
+  }
+
+  function openMsgBox(tab){
+    msgOverlay.classList.add('open');
+    if(tab){
+      document.querySelectorAll('.msg-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+    }
+    renderMsgList();
+  }
+  function closeMsgBox(){ msgOverlay.classList.remove('open'); }
+
+  function renderMsgList(){
+    const msgs = getMsgs();
+    const activeTab = document.querySelector('.msg-tab.active').dataset.tab;
+    const filtered = msgs.filter(m => activeTab === 'unread' ? !m.read : m.read);
+    if(filtered.length === 0){
+      msgList.innerHTML = '<div class="msg-empty">暂无' + (activeTab === 'unread' ? '未读' : '已读') + '消息</div>';
+      return;
+    }
+    // 类型图标映射
+    const typeIcon = {
+      fans: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+      repost: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>',
+      update: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+      business: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>',
+      custom: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+    };
+    const typeColor = {
+      fans: 'var(--md-primary)',
+      repost: 'var(--md-success)',
+      update: '#1976D2',
+      business: 'var(--md-warning)',
+      custom: 'var(--md-on-surface-variant)'
+    };
+    msgList.innerHTML = filtered.map(m => {
+      const icon = typeIcon[m.type] || typeIcon.custom;
+      const color = typeColor[m.type] || typeColor.custom;
+      return `
+      <div class="msg-item ${m.read ? 'read' : 'unread'}" data-id="${m.id}">
+        <div class="msg-item-title">
+          ${m.read ? '' : '<span class="msg-item-dot"></span>'}
+          <span style="color:${color}; display:inline-flex; align-items:center;">${icon}</span>
+          <span>${m.title}</span>
+        </div>
+        <div class="msg-item-body">${m.body}</div>
+        <div class="msg-item-time">${m.time}</div>
+      </div>`;
+    }).join('');
+    // 点击未读消息 → 标记已读（记录到本地 readMap，3天后自动清除）
+    msgList.querySelectorAll('.msg-item.unread').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.id;
+        const readMap = getReadMap();
+        readMap[id] = Date.now();
+        saveReadMap(readMap);
+        updateBadge();
+        renderMsgList();
+      });
+    });
+  }
+
+  // 打开/关闭
+  msgBtn.addEventListener('click', () => openMsgBox('unread'));
+  msgBoxClose.addEventListener('click', closeMsgBox);
+  msgOverlay.addEventListener('click', e => { if(e.target === msgOverlay) closeMsgBox(); });
+
+  // 全部已读
+  msgMarkAll.addEventListener('click', () => {
+    const all = getMsgs();
+    const readMap = getReadMap();
+    const now = Date.now();
+    all.forEach(m => { if(!m.read) readMap[String(m.id)] = now; });
+    saveReadMap(readMap);
+    updateBadge();
+    renderMsgList();
+  });
+
+  // tab 切换
+  document.querySelectorAll('.msg-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.msg-tab').forEach(t => t.classList.toggle('active', t === tab));
+      renderMsgList();
+    });
+  });
+
+  // 点击 toast 打开消息盒子
+  fanToast.addEventListener('click', () => {
+    fanToast.classList.remove('show');
+    openMsgBox('unread');
+  });
+
+  // 显示消息 toast（支持多种类型）
+  function showMsgToast(msg){
+    const greet = document.getElementById('greetWord')?.textContent || '你好';
+    let txt = `${greet}！`;
+    switch(msg.type){
+      case 'fans':
+        txt += `艾米抖音涨粉 <strong>${msg.dyInc || 0}</strong> 个` +
+               (msg.wbInc ? `、微博涨粉 <strong>${msg.wbInc}</strong> 个` : '');
+        break;
+      case 'repost':
+        txt += `艾米转发了新内容：<strong>${msg.title}</strong>`;
+        break;
+      case 'update':
+        txt += `艾米有新动态：<strong>${msg.title}</strong>`;
+        break;
+      case 'business':
+        txt += `艾米新商务官宣：<strong>${msg.title}</strong>`;
+        break;
+      default:
+        txt += `<strong>${msg.title}</strong>`;
+    }
+    txt += `，<span class="fan-toast-link">更多信息请前往消息盒子查看>></span>`;
+    if(msg.time) txt += `<div style="font-size:11px; opacity:0.6; margin-top:2px;">${msg.time}</div>`;
+    fanToastText.innerHTML = txt;
+    fanToast.classList.remove('show');
+    void fanToast.offsetWidth;
+    fanToast.classList.add('show');
+  }
+
+  // ========== 消息加载 & toast 触发 ==========
+  // 消息数据内嵌在 HTML（#ami-embedded-msgs），由定时任务每日更新
+  // 已读状态存 localStorage（ami-read-msgs），每设备独立
+  function loadMsgsAndToast(){
+    const msgs = getMsgs();
+    updateBadge();
+    // 有未读消息就弹 toast（取最新一条未读）
+    const unread = msgs.filter(m => !m.read);
+    if(unread.length > 0){
+      const latest = unread[unread.length - 1];
+      setTimeout(() => showMsgToast(latest), 800);
+    }
+  }
+
+  updateBadge();
+  loadMsgsAndToast();
+
+  // ========== 点赞功能 ==========
+  const LIKE_KEY = 'ami-like-data'; // { date, count, cooldownUntil }
+  const COOLDOWN_MS = 5000; // 冷却 5 秒
+
+  function getLikeData(){
+    try {
+      const d = JSON.parse(localStorage.getItem(LIKE_KEY)) || {date:'', count:0, cooldownUntil:0};
+      const today = new Date().toISOString().slice(0,10);
+      // 跨天归零
+      if(d.date !== today){
+        d.date = today;
+        d.count = 0;
+        d.cooldownUntil = 0;
+        localStorage.setItem(LIKE_KEY, JSON.stringify(d));
+      }
+      return d;
+    } catch(e){
+      const today = new Date().toISOString().slice(0,10);
+      return {date: today, count: 0, cooldownUntil: 0};
+    }
+  }
+  function saveLikeData(d){ localStorage.setItem(LIKE_KEY, JSON.stringify(d)); }
+
+  function updateLikeUI(){
+    const d = getLikeData();
+    likeCountEl.textContent = d.count.toLocaleString();
+    const now = Date.now();
+    if(now < d.cooldownUntil){
+      likeBtn.classList.add('cooldown');
+    } else {
+      likeBtn.classList.remove('cooldown');
+    }
+  }
+
+  const likeBtn = document.getElementById('likeBtn');
+  const likeCountEl = document.getElementById('likeCount');
+
+  likeBtn.addEventListener('click', function(){
+    const now = Date.now();
+    const d = getLikeData();
+    if(now < d.cooldownUntil) return; // 冷却中
+
+    // 点赞 +1
+    d.count += 1;
+    d.cooldownUntil = now + COOLDOWN_MS;
+    saveLikeData(d);
+
+    // 按钮变红色（短暂）
+    likeBtn.classList.add('liked');
+    setTimeout(() => likeBtn.classList.remove('liked'), 300);
+
+    // 飘心动画：生成 3 个爱心虚影
+    const hearts = ['❤️', '💜', '💗', '💕', '✨'];
+    for(let i = 0; i < 3; i++){
+      const h = document.createElement('span');
+      h.className = 'float-heart';
+      h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      const wrap = likeBtn.closest('.like-wrap');
+      const left = 10 + Math.random() * 24;
+      h.style.left = left + 'px';
+      h.style.bottom = '40px';
+      h.style.animationDelay = (i * 0.12) + 's';
+      wrap.appendChild(h);
+      setTimeout(() => h.remove(), 1800);
+    }
+
+    updateLikeUI();
+    // 冷却结束后刷新 UI
+    setTimeout(updateLikeUI, COOLDOWN_MS);
+  });
+
+  updateLikeUI();
+
+  // ========== Tab 切换 ==========
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function(){
+      const tab = this.dataset.tab;
+      // 切换按钮状态
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      // 切换面板
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      const pane = document.getElementById('tab-' + tab);
+      if(pane) pane.classList.add('active');
+      // 回到顶部
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+</script>
+</body>
+</html>
