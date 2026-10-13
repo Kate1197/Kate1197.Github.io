@@ -1074,29 +1074,39 @@
   .dq-status-live .dot{background:#4CAF50; animation: blink 1.5s infinite;}
   @keyframes blink{0%,100%{opacity:1;} 50%{opacity:.3;}}
 
-  /* 瀑布流 */
+  /* 单列卡片列表 */
   .dq-waterfall{
-    column-count:2; column-gap:12px;
+    display:flex; flex-direction:column; gap:12px;
   }
   .dq-item{
-    break-inside:avoid;
-    margin-bottom:12px;
     background:var(--md-surface-container-low);
     border-radius:12px;
-    overflow:hidden;
+    padding:16px 18px;
     cursor:pointer;
     transition:transform .2s, box-shadow .2s;
-    display:block;
+    display:flex; flex-direction:column; gap:8px;
+    border-left:4px solid var(--md-primary);
   }
   .dq-item:hover{transform:translateY(-2px); box-shadow:var(--md-elev-2);}
-  .dq-item img{width:100%; display:block;}
-  .dq-item-meta{
-    padding:8px 12px;
-    font-size:12px;
-    color:var(--md-on-surface-variant);
+  .dq-item-top{
     display:flex; justify-content:space-between; align-items:center;
   }
-  .dq-item-date{font-weight:600; color:var(--md-on-surface);}
+  .dq-item-date{
+    font-size:12px; font-weight:600;
+    color:var(--md-primary);
+    background:var(--md-primary-container);
+    padding:3px 10px; border-radius:20px;
+  }
+  .dq-item-title{
+    font-size:16px; font-weight:700; color:var(--md-on-surface);
+    line-height:1.4;
+  }
+  .dq-item-caption{
+    font-size:14px; color:var(--md-on-surface-variant);
+    line-height:1.6;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
 
   /* 弹窗 */
   .dq-modal{
@@ -1115,45 +1125,41 @@
     z-index:1;
     background:var(--md-surface);
     border-radius:16px;
-    overflow:hidden;
-    display:flex;
-    max-width:900px; width:92%;
-    max-height:88vh;
+    max-width:520px; width:92%;
+    max-height:85vh;
     animation:slideUp .25s;
+    display:flex; flex-direction:column;
+    overflow:hidden;
   }
   @keyframes slideUp{from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);}}
   .dq-modal-close{
     position:absolute; top:12px; right:12px; z-index:10;
     width:36px; height:36px; border-radius:50%;
-    background:rgba(0,0,0,.5); color:#fff;
+    background:var(--md-surface-container-high); color:var(--md-on-surface);
     border:none; cursor:pointer;
     display:flex; align-items:center; justify-content:center;
   }
-  .dq-modal-close:hover{background:rgba(0,0,0,.7);}
-  .dq-modal-left{
-    flex:1; min-width:0;
-    background:#000;
-    display:flex; align-items:center; justify-content:center;
-    max-width:60%;
-  }
-  .dq-modal-left img{max-width:100%; max-height:88vh; object-fit:contain;}
-  .dq-modal-right{
-    flex:1; min-width:250px;
-    padding:24px;
-    display:flex; flex-direction:column; gap:10px;
+  .dq-modal-close:hover{background:var(--md-outline-variant);}
+  .dq-modal-body{
+    padding:28px 24px 20px;
+    display:flex; flex-direction:column; gap:12px;
     overflow-y:auto;
   }
   .dq-modal-date{
     font-size:13px; color:var(--md-primary); font-weight:600; letter-spacing:.5px;
   }
   .dq-modal-title{
-    font-size:18px; font-weight:700; color:var(--md-on-surface);
+    font-size:20px; font-weight:700; color:var(--md-on-surface);
+    line-height:1.4;
   }
   .dq-modal-caption{
-    font-size:14px; line-height:1.7; color:var(--md-on-surface);
-    white-space:pre-wrap; flex:1;
+    font-size:15px; line-height:1.8; color:var(--md-on-surface);
+    white-space:pre-wrap;
   }
-  .dq-modal-footer{margin-top:auto; padding-top:16px;}
+  .dq-modal-footer{
+    padding:12px 24px 24px;
+    border-top:1px solid var(--md-outline-variant);
+  }
   .dq-modal-weibo-btn{
     display:inline-flex; align-items:center; gap:6px;
     padding:10px 18px; border-radius:20px;
@@ -1170,25 +1176,20 @@
   }
   .dq-tip a{color:var(--md-primary); text-decoration:none;}
 
-  /* 平板/桌面 */
+  /* 平板/桌面 — 仍然单列 */
   @media (min-width:768px){
-    .dq-waterfall{column-count:3; column-gap:14px;}
-    .dq-item{margin-bottom:14px;}
+    .dq-waterfall{max-width:640px; margin:0 auto;}
+    .dq-item{padding:18px 22px;}
   }
   @media (min-width:1024px){
-    .dq-waterfall{column-count:4; column-gap:16px;}
-    .dq-item{margin-bottom:16px;}
+    .dq-waterfall{max-width:680px;}
     .dq-header{padding-right:8px;}
-  }
-  @media (min-width:1440px){
-    .dq-waterfall{column-count:5;}
   }
   /* 弹窗手机端 */
   @media (max-width:640px){
-    .dq-modal-content{flex-direction:column; max-width:95%;}
-    .dq-modal-left{max-width:100%; max-height:50vh;}
-    .dq-modal-left img{max-height:50vh;}
-    .dq-modal-right{padding:16px;}
+    .dq-modal-content{max-width:95%;}
+    .dq-modal-body{padding:24px 18px 16px;}
+    .dq-modal-footer{padding:12px 18px 20px;}
   }
 </style>
 </head>
@@ -1875,19 +1876,16 @@
       <button class="dq-modal-close" id="dqModalClose" aria-label="关闭">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
-      <div class="dq-modal-left">
-        <img id="dqModalImg" src="" alt="日签" />
-      </div>
-      <div class="dq-modal-right">
+      <div class="dq-modal-body">
         <div class="dq-modal-date" id="dqModalDate"></div>
         <div class="dq-modal-title" id="dqModalTitle"></div>
         <div class="dq-modal-caption" id="dqModalCaption"></div>
-        <div class="dq-modal-footer">
-          <a id="dqModalLink" href="#" target="_blank" rel="noopener" class="dq-modal-weibo-btn">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16c-3.3 0-6-2-6-4s2.7-4 6-4 6 2 6 4-2.7 4-6 4zm0-6a2 2 0 110-4 2 2 0 010 4z"/></svg>
-            查看原微博
-          </a>
-        </div>
+      </div>
+      <div class="dq-modal-footer">
+        <a id="dqModalLink" href="#" target="_blank" rel="noopener" class="dq-modal-weibo-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16c-3.3 0-6-2-6-4s2.7-4 6-4 6 2 6 4-2.7 4-6 4zm0-6a2 2 0 110-4 2 2 0 010 4z"/></svg>
+          查看原微博
+        </a>
       </div>
     </div>
   </div>
@@ -2510,11 +2508,18 @@
   // 已渲染的 post_id 集合 (用于去重)
   const _renderedIds = new Set();
 
-  // 渲染单条日签到瀑布流
+  // 渲染单条日签到列表（纯文字卡片）
   function renderRiqianItem(item){
     const el = document.createElement('div');
     el.className = 'dq-item';
-    el.innerHTML = `<img src="${item.img}" loading="lazy" alt="${item.title}" onerror="this.style.background='var(--md-surface-container-high)';this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22><rect fill=%22%23eee%22 width=%22300%22 height=%22400%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2214%22>图片加载中…</text></svg>'"/><div class="dq-item-meta"><span class="dq-item-date">${item.title}</span><span>${item.date.split(' · ')[0].split(' ·')[0]}</span></div>`;
+    const cap = (item.caption || '').replace(/\n/g, ' ').trim();
+    el.innerHTML = `
+      <div class="dq-item-top">
+        <span class="dq-item-date">${item.date || ''}</span>
+      </div>
+      <div class="dq-item-title">${item.title || ''}</div>
+      <div class="dq-item-caption">${cap}</div>
+    `;
     el.addEventListener('click', () => openRiqianModal(item));
     waterfall.appendChild(el);
   }
@@ -2583,7 +2588,7 @@
         const textDiv = article.querySelector('.post-text');
         const caption = textDiv ? textDiv.textContent.trim().replace(/^#艾心日签\[超话\]#\s*/, '').replace(/^#艾米日签#\s*/, '').slice(0, 100) : dateText;
 
-        // 提取第一张 sinaimg 图片
+        // 提取第一张 sinaimg 图片（不再必需）
         const allImgs = article.querySelectorAll('img[src*="sinaimg.cn"]');
         let imgUrl = '';
         for (const img of allImgs) {
@@ -2592,8 +2597,6 @@
           imgUrl = src.replace('thumbnail/', 'large/').replace('middle/', 'large/');
           break;
         }
-
-        if (!imgUrl) return; // 没图片跳过
 
         // 生成稳定高度
         let h = 600 + (postId.charCodeAt(postId.length - 1) * 7 % 300);
@@ -2642,7 +2645,6 @@
   const dqModal = document.getElementById('dqModal');
   const dqModalClose = document.getElementById('dqModalClose');
   function openRiqianModal(item){
-    document.getElementById('dqModalImg').src = item.img;
     document.getElementById('dqModalDate').textContent = item.date;
     document.getElementById('dqModalTitle').textContent = item.title;
     document.getElementById('dqModalCaption').textContent = item.caption;
