@@ -318,7 +318,7 @@
   }
   .menu-btn svg{width:20px; height:20px; stroke:#fff;}
 
-  /* 全屏菜单覆盖层 */
+  /* 菜单覆盖层 - 手机端全屏下拉 */
   .menu-overlay{
     position: fixed; inset: 0;
     background: var(--md-surface);
@@ -365,6 +365,10 @@
   /* 页面切换 */
   .page{ display: none; }
   .page.active{ display: block; }
+
+  /* —— 大屏侧边栏布局（≥768px 平板/桌面）—— */
+  .app-shell{ display: block; }
+  .app-sidebar{ display: none; }
 
   /* 玡迩叻页面：动态分类tabs */
   .sub-tabs{
@@ -772,8 +776,72 @@
     .fab{right: 20px; bottom: 20px;}
   }
 
-  /* —— 平板: 768px ~ 1023px —— */
+  /* —— 大屏侧边栏: ≥768px 平板/桌面 —— */
   @media (min-width: 768px){
+    /* 切换为左右布局 */
+    .app-shell{
+      display: flex;
+      flex-direction: row;
+    }
+    /* 左侧固定侧边栏 */
+    .app-sidebar{
+      display: flex !important;
+      flex-direction: column;
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--md-surface-container-low);
+      border-right: 1px solid var(--md-outline-variant);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 50;
+    }
+    .app-sidebar .sidebar-header{
+      padding: 24px 20px 16px;
+      font-size: 18px; font-weight: 700;
+      color: var(--md-primary);
+      border-bottom: 1px solid var(--md-outline-variant);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .app-sidebar .sidebar-header svg{ width: 24px; height: 24px; }
+    .app-sidebar .menu-list{
+      padding: 12px;
+      gap: 4px;
+    }
+    .app-sidebar .menu-item{
+      padding: 14px 16px;
+    }
+    .app-sidebar .sidebar-footer{
+      margin-top: auto;
+      padding: 16px 20px;
+      border-top: 1px solid var(--md-outline-variant);
+      font-size: 12px;
+      color: var(--md-on-surface-variant);
+    }
+    .app-sidebar .sidebar-footer .footer-links{
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+    /* 右侧内容区 */
+    .app-content{
+      flex: 1;
+      min-width: 0;
+    }
+    .app-content .wrap{
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    /* 隐藏手机端全屏菜单和汉堡按钮 */
+    .menu-overlay{ display: none !important; }
+    .menu-btn{ display: none !important; }
+    .banner-time{ right: 20px; }
+    .msg-btn{ right: 20px; }
+    .theme-toggle{ left: 20px; }
+  }
+
+  /* —— 平板: 768px ~ 1023px 细节 —— */
+  @media (min-width: 768px) and (max-width: 1023px){
     .wrap{max-width: 860px; padding: 0 0 100px;}
     .banner img{height: 420px;}
     .banner-title{font-size: 26px;}
@@ -889,7 +957,47 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app-shell">
+  <!-- 左侧侧边栏（大屏显示） -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      艾米日签
+    </div>
+    <div class="menu-list">
+      <div class="menu-item active" data-page="page-home">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">主页</div>
+          <div class="sub">艾米日签 · 每日动态简报</div>
+        </div>
+      </div>
+      <div class="menu-item" data-page="page-yaerle">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">玡迩叻_ami</div>
+          <div class="sub">粉丝向 · 微博超话 & 抖音</div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          微博
+        </a>
+        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          抖音
+        </a>
+      </div>
+      <div style="margin-top:8px;">© 艾米日签 · 每日动态简报</div>
+    </div>
+  </aside>
+
+  <!-- 右侧内容区 -->
+  <div class="app-content">
+  <div class="wrap">
   <div class="page active" id="page-home">
 
   <!-- Banner -->
@@ -1323,7 +1431,9 @@
       数据来源：微博超话 / 抖音 · 仅供粉丝向参考
     </footer>
   </div><!-- /page-yaerle -->
-</div>
+  </div><!-- /wrap -->
+  </div><!-- /app-content -->
+</div><!-- /app-shell -->
 
 <!-- 全屏菜单 -->
 <div class="menu-overlay" id="menuOverlay">
@@ -1547,8 +1657,9 @@
       Object.entries(pages).forEach(([id, el]) => {
         el.classList.toggle('active', id === pageId);
       });
-      // 更新菜单高亮
-      menuItems.forEach(i => i.classList.toggle('active', i === item));
+      // 更新所有菜单项高亮（手机端 + 侧边栏同步）
+      menuItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageId));
+      // 手机端关闭菜单，大屏侧边栏无影响
       closeMenu();
       window.scrollTo({top:0, behavior:'instant'});
     });
