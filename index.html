@@ -1074,6 +1074,43 @@
   .dq-status-live .dot{background:#4CAF50; animation: blink 1.5s infinite;}
   @keyframes blink{0%,100%{opacity:1;} 50%{opacity:.3;}}
 
+  /* 日签页面头部（纯色条，带菜单按钮） */
+  .dq-page-header{
+    position:relative;
+    background:linear-gradient(135deg,#7B61FF,#9C27B0);
+    color:#fff;
+    padding:52px 20px 24px;
+    margin-bottom:16px;
+  }
+  [data-theme="dark"] .dq-page-header{
+    background:linear-gradient(135deg,#4A3FBF,#6A1B9A);
+  }
+  .dq-page-header .dq-title{
+    font-size:22px; font-weight:700; color:#fff; margin:0;
+    text-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .dq-page-header .dq-sub{
+    font-size:13px; opacity:.85; margin-top:4px;
+  }
+  .dq-page-header .menu-btn{
+    position:absolute; left:14px; top:14px;
+  }
+  @media (min-width:768px){
+    .dq-page-header .menu-btn{display:none !important;}
+  }
+  @supports (padding: env(safe-area-inset-top)){
+    .dq-page-header{padding-top:calc(52px + env(safe-area-inset-top));}
+    .dq-page-header .menu-btn{top:calc(14px + env(safe-area-inset-top));}
+  }
+
+  /* 日签页面容器内边距 */
+  #page-riqian .dq-body{
+    padding:0 16px 40px;
+  }
+  @media (min-width:768px){
+    #page-riqian .dq-body{padding:0 24px 60px;}
+  }
+
   /* 单列卡片列表 */
   .dq-waterfall{
     display:flex; flex-direction:column; gap:12px;
@@ -1833,38 +1870,29 @@
   <!-- ============ 日签页面 (独立) ============ -->
   <div class="page" id="page-riqian">
 
-    <!-- 停更公告横幅 -->
-    <div class="dq-notice">
-      <div class="dq-status-badge pause">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-        暂停更新
-      </div>
-      <div class="dq-notice-text">
-        <strong>停更公告：</strong>10月5日 — 10月20日 暂停更新，二创也会放缓偶尔更新。<br>
-        抱歉了大家！感谢大家支持！祝大家追星愉快，天天开心 💜
-      </div>
-    </div>
-
-    <!-- 页面标题行 -->
-    <div class="dq-header">
-      <h2 class="dq-title">艾米日签</h2>
-      <div class="dq-status dq-status-pause">
-        <span class="dot"></span> 暂停更新中（10/5 — 10/20）
-      </div>
-    </div>
-
-    <!-- 瀑布流 -->
-    <div class="dq-waterfall" id="dqWaterfall"></div>
-
-    <!-- 加载更多按钮 -->
-    <div class="dq-load-more" id="dqLoadMore" style="display:none;text-align:center;margin:20px 0;">
-      <button id="dqLoadMoreBtn" class="dq-load-btn" style="padding:10px 28px;border-radius:24px;border:1px solid var(--md-outline);background:var(--md-surface-container);color:var(--md-primary);cursor:pointer;font-weight:600;font-size:14px;">
-        加载更多历史日签
+    <!-- 顶部渐变条 + 菜单按钮 -->
+    <div class="dq-page-header">
+      <button class="menu-btn" id="menuBtn3" title="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
+      <h2 class="dq-title">艾米日签</h2>
+      <div class="dq-sub">每日文字卡片 · 数据来自 @玡迩叻_ami 微博</div>
     </div>
 
-    <div class="dq-tip">
-      数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a> ｜ 10月5日起因身体原因暂停更新
+    <div class="dq-body">
+      <!-- 单列卡片列表 -->
+      <div class="dq-waterfall" id="dqWaterfall"></div>
+
+      <!-- 加载更多按钮 -->
+      <div class="dq-load-more" id="dqLoadMore" style="display:none;text-align:center;margin:20px 0;">
+        <button id="dqLoadMoreBtn" class="dq-load-btn" style="padding:10px 28px;border-radius:24px;border:1px solid var(--md-outline);background:var(--md-surface-container);color:var(--md-primary);cursor:pointer;font-weight:600;font-size:14px;">
+          加载更多历史日签
+        </button>
+      </div>
+
+      <div class="dq-tip">
+        数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a>
+      </div>
     </div>
 
   </div><!-- /page-riqian -->
@@ -2175,6 +2203,7 @@
   const overlay = document.getElementById('menuOverlay');
   const menuBtn = document.getElementById('menuBtn');
   const menuBtn2 = document.getElementById('menuBtn2');
+  const menuBtn3 = document.getElementById('menuBtn3');
   const menuClose = document.getElementById('menuClose');
   const menuItems = document.querySelectorAll('.menu-item');
   const pages = {
@@ -2186,7 +2215,7 @@
   function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
   function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
 
-  [menuBtn, menuBtn2].forEach(b => b && b.addEventListener('click', openMenu));
+  [menuBtn, menuBtn2, menuBtn3].forEach(b => b && b.addEventListener('click', openMenu));
   menuClose.addEventListener('click', closeMenu);
 
   menuItems.forEach(item => {
