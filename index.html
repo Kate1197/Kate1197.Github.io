@@ -596,6 +596,76 @@
   .stat-card .health-good svg{stroke:var(--md-success);}
   .stat-card .value.health-good{color:var(--md-success);}
 
+  /* ===== 数据面板专用 ===== */
+  .ch-dash-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+  .ch-dash{
+    display:flex; gap:14px;
+    background:var(--md-surface-container-low);
+    border-radius:var(--md-radius-md);
+    padding:16px;
+    box-shadow:var(--md-elev-1);
+    align-items:center;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .ch-dash:hover{transform:translateY(-2px); box-shadow:var(--md-elev-2);}
+  .ch-dash-icon{
+    width:56px; height:56px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+  }
+  .ch-dash-info{flex:1; min-width:0;}
+  .ch-dash-value{font-size:22px; font-weight:700; color:var(--md-on-surface); line-height:1.1;}
+  .ch-dash-label{font-size:12px; color:var(--md-on-surface-variant); margin-top:2px;}
+  .ch-dash-sub{font-size:11px; color:var(--md-on-surface-variant); margin-top:2px; opacity:.75;}
+
+  /* 热帖列表 */
+  .dash-list{list-style:none; padding:0; margin:0;}
+  .dash-list-item{
+    display:flex; gap:14px;
+    padding:12px 0;
+    border-bottom:1px solid var(--md-outline-variant);
+    align-items:center;
+  }
+  .dash-list-item:last-child{border-bottom:none;}
+  .dash-list-item .rank{
+    width:28px; height:28px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:700; font-size:14px;
+    flex-shrink:0;
+  }
+  .dash-item-body{flex:1; min-width:0;}
+  .dash-item-title{font-size:14px; font-weight:500; color:var(--md-on-surface);}
+  .dash-item-meta{font-size:12px; color:var(--md-on-surface-variant); margin-top:4px; opacity:.8;}
+
+  /* 趋势图 */
+  .dash-trend{
+    display:flex; align-items:flex-end; gap:8px;
+    height:180px; padding:16px 8px 0;
+    border-bottom:1px solid var(--md-outline-variant);
+  }
+  .trend-row{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:6px;
+  }
+  .trend-label{font-size:10px; color:var(--md-on-surface-variant);}
+  .trend-bar{
+    width:100%; max-width:40px;
+    background:linear-gradient(180deg,#7C4DFF,#536DFE);
+    border-radius:6px 6px 2px 2px;
+    min-height:8px;
+    transition:height .6s ease;
+  }
+  .trend-val{font-size:10px; color:var(--md-on-surface-variant);}
+
+  /* 深色模式适配 */
+  [data-theme="dark"] .ch-dash{
+    background:var(--md-surface-container);
+  }
+
   /* 筛选器 */
   .filter-section{
     background: var(--md-surface-container-low);
@@ -840,6 +910,9 @@
     .banner-time .label, .banner-time .date{ font-size: 10px; }
     .msg-btn{ right: 20px; top: 20px; width: 38px; height: 38px; }
     .theme-toggle{ left: 20px; }
+    .ch-dash-grid{ grid-template-columns: repeat(4,1fr); gap:16px; }
+    .ch-dash-icon{ width:60px; height:60px; }
+    .ch-dash-value{ font-size:24px; }
   }
 
   /* —— 平板: 768px ~ 1023px 细节 —— */
@@ -1053,6 +1126,10 @@
     <button class="tab-btn" data-tab="bio">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       简介
+    </button>
+    <button class="tab-btn" data-tab="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      数据
     </button>
   </div>
 
@@ -1275,6 +1352,228 @@
     </div>
   </div><!-- /tab-pending -->
 
+  <!-- Tab: 数据面板 -->
+  <div class="tab-pane" id="tab-dashboard">
+
+  <div class="content">
+
+    <!-- 一、平台核心数据 -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        平台核心数据
+        <span style="font-size:12px; font-weight:400; opacity:0.6; margin-left:auto;">截至 2026-10-13</span>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#E6162D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            微博粉丝
+          </div>
+          <div class="value">289.4<small>万</small></div>
+          <div class="meta">@演员艾米</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FE2C55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            抖音粉丝
+          </div>
+          <div class="value">449.7<small>万</small></div>
+          <div class="meta">@玡迩叻_ami🦖</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00C853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            微博舆情健康
+          </div>
+          <div class="value" style="color:#2E7D32">优</div>
+          <div class="meta">无新增负面舆情</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00C853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            抖音舆情健康
+          </div>
+          <div class="value" style="color:#2E7D32">优</div>
+          <div class="meta">无新增负面舆情</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 二、超话数据面板（图标可视化） -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        #艾米[超话]# 数据面板
+        <span style="font-size:12px; font-weight:400; opacity:0.6; margin-left:auto;">今日</span>
+      </div>
+
+      <div class="ch-dash-grid">
+        <!-- 发帖量 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#FF6F00,#FF3D00);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">1,286</div>
+            <div class="ch-dash-label">今日发帖量</div>
+            <div class="ch-dash-sub" style="color:#4CAF50;">▲ 较昨日 +12%</div>
+          </div>
+        </div>
+
+        <!-- 超话总粉丝 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#7B1FA2,#4A148C);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">38.6<small style="font-size:14px;">万</small></div>
+            <div class="ch-dash-label">超话累计粉丝</div>
+            <div class="ch-dash-sub">截至今日</div>
+          </div>
+        </div>
+
+        <!-- 今日新增 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#00897B,#00695C);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">+1,842</div>
+            <div class="ch-dash-label">今日新增粉丝</div>
+            <div class="ch-dash-sub" style="color:#4CAF50;">▲ 活跃增长</div>
+          </div>
+        </div>
+
+        <!-- 活跃度 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#1565C0,#0D47A1);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">高</div>
+            <div class="ch-dash-label">超话活跃度</div>
+            <div class="ch-dash-sub" style="color:#4CAF50;">近7天持续走高</div>
+          </div>
+        </div>
+
+        <!-- 阅读量 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#C62828,#B71C1C);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">68.2<small style="font-size:14px;">亿</small></div>
+            <div class="ch-dash-label">话题总阅读量</div>
+            <div class="ch-dash-sub">历史累计</div>
+          </div>
+        </div>
+
+        <!-- 讨论数 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#6A1B9A,#4A148C);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">968.4<small style="font-size:14px;">万</small></div>
+            <div class="ch-dash-label">话题讨论数</div>
+            <div class="ch-dash-sub">历史累计</div>
+          </div>
+        </div>
+
+        <!-- 舆情 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#2E7D32,#1B5E20);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value" style="color:#2E7D32;font-size:28px;">正面</div>
+            <div class="ch-dash-label">超话舆情倾向</div>
+            <div class="ch-dash-sub">正向内容占 96%</div>
+          </div>
+        </div>
+
+        <!-- 粉丝等级分布 -->
+        <div class="ch-dash">
+          <div class="ch-dash-icon" style="background:linear-gradient(135deg,#FF8F00,#E65100);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="ch-dash-info">
+            <div class="ch-dash-value">LV6+ 12.4%</div>
+            <div class="ch-dash-label">核心粉丝占比</div>
+            <div class="ch-dash-sub">大粉/资深粉活跃</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 三、超话今日热帖 -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c1.5 4.5 4.5 6 4.5 10.5a4.5 4.5 0 0 1-9 0C7.5 8 10.5 6.5 12 2z"/></svg>
+        今日超话热帖 TOP5
+      </div>
+      <ul class="dash-list">
+        <li class="dash-list-item">
+          <span class="rank" style="background:#FF3D00;">1</span>
+          <div class="dash-item-body">
+            <div class="dash-item-title">「玉簟秋开播」蓝灵娥角色讨论帖</div>
+            <div class="dash-item-meta">👍 8.2万 · 💬 1.6万 · 🔥 热聊中</div>
+          </div>
+        </li>
+        <li class="dash-list-item">
+          <span class="rank" style="background:#FF6F00;">2</span>
+          <div class="dash-item-body">
+            <div class="dash-item-title">艾米后援会10月生日应援集资公告</div>
+            <div class="dash-item-meta">👍 3.7万 · 💬 8,214 · 📈 集资进行中</div>
+          </div>
+        </li>
+        <li class="dash-list-item">
+          <span class="rank" style="background:#FFB300;">3</span>
+          <div class="dash-item-body">
+            <div class="dash-item-title">时尚芭莎珠宝封面拍摄幕后花絮分享</div>
+            <div class="dash-item-meta">👍 2.9万 · 💬 5,103</div>
+          </div>
+        </li>
+        <li class="dash-list-item">
+          <span class="rank" style="background:#546E7A;">4</span>
+          <div class="dash-item-body">
+            <div class="dash-item-title">北电新生报到·艾米校园路透合集</div>
+            <div class="dash-item-meta">👍 1.8万 · 💬 3,672</div>
+          </div>
+        </li>
+        <li class="dash-list-item">
+          <span class="rank" style="background:#90A4AE;">5</span>
+          <div class="dash-item-body">
+            <div class="dash-item-title">CT投票冲刺帖·艾心们加油！</div>
+            <div class="dash-item-meta">👍 1.4万 · 💬 2,981 · ⏰ 倒计时3天</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 四、活跃度趋势 -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        近7日活跃趋势
+      </div>
+      <div class="dash-trend">
+        <div class="trend-row"><span class="trend-label">10/07</span><div class="trend-bar" style="height:42%;"></div><span class="trend-val">680</span></div>
+        <div class="trend-row"><span class="trend-label">10/08</span><div class="trend-bar" style="height:65%;"></div><span class="trend-val">1,052</span></div>
+        <div class="trend-row"><span class="trend-label">10/09</span><div class="trend-bar" style="height:52%;"></div><span class="trend-val">846</span></div>
+        <div class="trend-row"><span class="trend-label">10/10</span><div class="trend-bar" style="height:78%;"></div><span class="trend-val">1,264</span></div>
+        <div class="trend-row"><span class="trend-label">10/11</span><div class="trend-bar" style="height:88%;"></div><span class="trend-val">1,423</span></div>
+        <div class="trend-row"><span class="trend-label">10/12</span><div class="trend-bar" style="height:92%;"></div><span class="trend-val">1,587</span></div>
+        <div class="trend-row"><span class="trend-label">今日</span><div class="trend-bar" style="height:100%; background:linear-gradient(180deg,#E91E63,#AD1453);"></div><span class="trend-val">1,286</span></div>
+      </div>
+    </div>
+
+  </div>
+  </div><!-- /tab-dashboard -->
+
+  <!-- Tab: 简介 -->
   <!-- Tab: 简介 -->
   <div class="tab-pane" id="tab-bio">
     <div class="bio-section">
