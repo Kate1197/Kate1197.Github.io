@@ -297,10 +297,33 @@
   .footer-links a:hover{ background: var(--md-primary); color:#fff; transform: translateY(-2px); }
   .footer-links svg{ width:14px; height:14px; }
 
+  /* 横线上方的引导条：左文案 + 右按钮 */
+  .cc-cta{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px;
+    padding: 20px 16px 0;
+  }
+  .cc-cta-text{
+    flex: 1 1 auto; min-width: 0;
+    font-weight: 700; font-size: 25px; line-height: 1.35;
+    color: var(--md-on-surface);
+  }
+  .cc-cta-btn{
+    flex-shrink: 0;
+    display:inline-flex; align-items:center; gap:6px;
+    padding: 8px 18px; border-radius:999px;
+    background: var(--md-primary); color: var(--md-on-primary);
+    text-decoration:none; font-size:14px; font-weight:600;
+    transition: all 0.2s;
+  }
+  .cc-cta-btn:hover{ opacity:.9; transform: translateY(-2px); }
+  .cc-cta-btn svg{ width:14px; height:14px; }
+
   @media (max-width:640px){
     .cc-modal-content{ max-width:95%; }
     .cc-modal-body{ padding:24px 18px 16px; }
     .cc-modal-footer{ padding:12px 18px 20px; }
+    .cc-cta{ padding: 16px 16px 0; }
   }
 </style>
 </head>
@@ -335,6 +358,14 @@
   <div class="cc-filter-summary" id="ccFilterSummary" hidden></div>
 
   <div class="cc-list" id="ccList"></div>
+
+  <div class="cc-cta">
+    <div class="cc-cta-text">更多产出汇总信息可前往 @艾产速览 微博</div>
+    <a class="cc-cta-btn" href="https://weibo.com/7975536178" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
+      @艾产速览
+    </a>
+  </div>
 
   <footer>
     艾米动态监控 · 产出汇总（@艾产速览）<br>
