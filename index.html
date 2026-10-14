@@ -1246,7 +1246,7 @@
   .cc-tip{
     margin: 12px 16px 4px; font-size:12px; color:var(--md-on-surface-variant); line-height:1.6;
   }
-  .cc-list{ padding: 12px 16px 44px; display:flex; flex-direction:column; gap:10px; }
+  .cc-list{ padding: 12px 16px 44px; display:flex; flex-direction:column; gap:18px; }
   .cc-item{
     background: var(--md-surface-container, #fff);
     border:1px solid var(--md-outline-variant);
@@ -1261,7 +1261,22 @@
     font-size:12px; font-weight:700; color:var(--md-primary);
     background: var(--md-primary-container); padding:3px 10px; border-radius:999px;
   }
-  .cc-item-count{ font-size:11px; color:var(--md-on-surface-variant); margin-left:auto; }
+  .cc-item-count{
+    font-size:11px; color:var(--md-on-surface-variant);
+    border:1px solid var(--md-outline-variant); border-radius:999px; padding:2px 9px;
+  }
+  /* 日期分组：同日多份汇总并排展示 */
+  .cc-group{ display:flex; flex-direction:column; gap:8px; }
+  .cc-group-head{ display:flex; align-items:center; gap:8px; padding:0 2px; }
+  .cc-group-date{ font-size:13px; font-weight:800; color:var(--md-on-surface); letter-spacing:.3px; }
+  .cc-group-wd{ font-size:11px; color:var(--md-on-surface-variant); }
+  .cc-group-badge{
+    margin-left:auto; font-size:11px; font-weight:700;
+    color:var(--md-primary); background:var(--md-primary-container);
+    padding:2px 10px; border-radius:999px;
+  }
+  .cc-group-body{ display:grid; grid-template-columns:1fr; gap:10px; }
+  @media (min-width: 760px){ .cc-group-body.multi{ grid-template-columns:1fr 1fr; } }
   .cc-item-title{ font-size:15px; font-weight:700; color:var(--md-on-surface); margin-bottom:6px; }
   .cc-item-desc{
     font-size:13px; color:var(--md-on-surface-variant); line-height:1.7;
@@ -2881,8 +2896,9 @@
   // 条目格式：{ date:'YYYY-MM-DD', title:'当日标题', text:'正文/要点', link:'原贴链接', count:'当日新增 N 条(可选)' }
   // 维护方式：把新条目 push 进 entries，并同步更新 updatedAt 即可。
   const chanchuData = {
-    updatedAt: "2026-10-14 12:05",
+    updatedAt: "2026-10-14 12:20",
     entries: [
+      { date: "2026-10-02", title: "【261002】产出汇总（1/2）", text: "#艾米阿禅# 丨#艾米百妖谱# 【261002】产出汇总（1/2） 【饭修】 @米兔茸茸 @越光漂流瓶 @桉桉米_Mi @AIMI_困困包 @AIMI_困困包 @叫我祈祈酱_ @叫我祈祈酱_ @7RLEO_AIMI @在彩虹桥拍写真的小金鱼 @凉栀丨Amity @羽落赴洁 @晚风遇Aimee @羽落赴洁 @艾柒紫薯包 @艾你哟_haha @TTuicelloats_ @柒寻艾屿 @星落如雨_stardust @月亮不会开琑 @AIMI_困困包 @柚璐子 @才不是邪恶兔子_ @啾口萌兔oil_ @懵妍是萌妍Molirainy @雨叶·艾心 @Deviens-乌冬面- @拌勺樱桃小鱼- @y_米AIMI @吹山浅屿 @米妈警告 @雾米殇 @雨天捡只米 @柚璐子 @s_5z @椰椰欲睡zzz @吃掉小铭包- @青艾摇铃 @一颗紫生菜_ @不赴尘 @默痕_无声留白 @祈尔聆胜此春 @祈尔聆胜此春 @祈尔聆胜此春 @祈尔聆胜此春 @Puppy_iceTea @小华艾米粒 @无忧咒 @咬一颗栗子 @壹口生椰汁 @艾草葡萄 @Nek喵喵 @菠萝萝鹿茸_my @雾约逝水_only @栖笺汀枳娃_7m @萌兔主义系_ @柚璐子 @-请你闭麦- @雪竹米椰 @oneunss13_ @纯白誓盐 @遇晴安 @月夜雀影_mi @她恃美貌行凶_ @栖笺汀枳娃_7m @聆愿_ @阿丁来也BHS鹿畔遇明光 @煎雪_Snow @你萌得像只兔 @雾米殇 @森林里的书屋 @Success-祎在必得_被翻牌版 @沈韵-Aimee @7RLEO_AIMI @小桃冻_ @菱纱不是糊涂蛋 @Undec1m @葡萄常开心 @小鱼芽米yummy @桃雾恩恩 @用户小黄J @星落如雨_stardust @八两肉饼 @陌艾酪栀ino_ozZ @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @洛妍sy 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5349703237505317", count: "72 位老师 · 饭修" },
       { date: "2026-10-02", title: "【261002】产出汇总（2/2）", text: "#艾米阿禅# 丨#艾米百妖谱# 【261002】产出汇总（2/2） 【剧修】 @你萌得像只兔 @银迹夏厨- @Bamy_茉莉礼白 @春云栖芽 @半夏雨散 @熬夜酌米酒_07 【饭制】 @软兔牙印 @漂白液_ @小米姐姐桑 @艾你哟_haha @兔星使者 @盐妍酱 @吹山浅屿 @咬一口紫米酥 【饭剪】 @雾米殇 @_-Sissi-_ @梨筱悦 @米兔萌语_Aimi @七包番茄酱_ @妈妈咪艾 @iitsyoo 【饭拍】 @择情君 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5349703568073557", count: "22 位老师 · 剧修/饭制/饭剪/饭拍" },
       { date: "2026-10-01", title: "【261001】产出汇总【饭修】", text: "#艾米百妖谱# |#艾米阿禅# 【261001】产出汇总 【饭修】 @叕叕哆咪 @米兔茸茸 @艾米的three金 @小狗爱披萨_ @雾米殇 @y_米AIMI @雾米殇 @恬猫腮瑞 @尤祁快快游 @7RLEO_AIMI @kk四叶草在这里_ @七包番茄酱_ @七包番茄酱_ @小兔撞鹿Heart @艾意满星河 @醉于七秒 @晚风遇Aimee @AIMI_困困包 @馒头头头头梨 @s_5z @幸运水煮蛋_77 @小鱼芽米yummy @桜井兮- @雨天捡只米 @你萌得像只兔 @森林里的书屋 @她恃美貌行凶_ @Veloura @栖笺汀枳娃_7m @_-Sissi-_ @idleminnqi @小鱼芽米yummy @Dore米_1 @陌艾酪栀ino_ozZ @雪竹米椰 @柚璐子 @青提夏y @艾u兔牙 @添栀望榆 @zhanzhanyou @最爱咖喱鱼蛋 @拌勺樱桃小鱼- @打掉你的脑袋 @月亮不会开琑 @唯祎玖 @玡迩叻_ami @玡迩叻_ami @一枕清梨 @鹿屿茸Bailu @luck-小米粒 @才不是邪恶兔子_ @雾米殇 @柚璐子 @雪竹米椰 @归鹤揽仪屿_ @霖兔漫游记 @一颗紫生菜_ @小鹿很米 @鹿娜瑶BL @程鑫不诚心 @祈尔聆胜此春 @sleefish_睡醒小鱼不打盹 @艾声叹淇 @冬咲芽 @一目识蓝鲨- @祈尔聆胜此春 @我宣你-angel @咬一颗栗子 @给你一只柚 @雾米殇 @旧绪序诗 @雾米殇 @馒头头头头梨 @禾祎枝晓意 @米妈警告 @愿语恋 @馒头头头头梨 @Serenemia @梦见一颗小星星 @玉米侠_aimi @艾喝稀饭 @-请你闭麦- @艾喝稀饭 @TTuicelloats_ @Rosie_haha @雾米殇 @祎铭米菟 【饭剪】 @小AiMi北北 @柒寻艾屿 @咬一口紫米酥 @尖椒好吃否UxU @米兔萌语_Aimi @米兔萌语_Aimi @柒寻艾屿 @熬夜酌米酒_07 @鱼尾百合 @铭O-o 【饭制】 @米兔妈坐镇头牌 @ID桑婧婧 @熬夜酌米酒_07 @吟春序_win 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5349343416550857", count: "84 位老师 · 饭修/饭剪/饭制" }
     ]
@@ -2906,6 +2922,15 @@
       .slice(0, 31);
   }
 
+  function ccPartNo(it){
+    const m = /[（(]\s*(\d+)\s*\/\s*(\d+)\s*[）)]/.exec(it.title || '');
+    return m ? parseInt(m[1], 10) : 1;
+  }
+  function ccWeekday(ymd){
+    const d = new Date(ymd + 'T00:00:00');
+    return isNaN(d.getTime()) ? '' : '周' + '日一二三四五六'[d.getDay()];
+  }
+
   function ccRender(){
     const listEl = document.getElementById('ccList');
     if (!listEl) return;
@@ -2916,15 +2941,30 @@
       listEl.innerHTML = '<div class="cc-empty"><span class="big">📭</span>暂无本月产出汇总<br><span style="font-size:12px;">数据人工录入，等待 @艾产速览 更新 · 每月最后一天 23:00 归档清空，次月重新收集</span></div>';
       return;
     }
-    listEl.innerHTML = items.map((it, i) => `
-      <div class="cc-item" data-i="${i}">
-        <div class="cc-item-top">
-          <span class="cc-item-date">${it.date}</span>
-          ${it.count ? '<span class="cc-item-count">' + it.count + '</span>' : ''}
-        </div>
-        <div class="cc-item-title">${it.title || ''}</div>
-        <div class="cc-item-desc">${(it.text || '').replace(/</g, '&lt;')}</div>
-      </div>`).join('');
+    // 按日期分组（新的在上）；同一天拆分成多份汇总的，并排展示
+    const groups = [], gmap = {};
+    items.forEach(it => {
+      if (!gmap[it.date]) { gmap[it.date] = { date: it.date, items: [] }; groups.push(gmap[it.date]); }
+      gmap[it.date].items.push(it);
+    });
+    listEl.innerHTML = groups.map(g => {
+      g.items.sort((a, b) => ccPartNo(a) - ccPartNo(b));   // (1/2) 在前
+      const cards = g.items.map(it => `
+        <div class="cc-item" data-i="${items.indexOf(it)}">
+          ${it.count ? '<div class="cc-item-top"><span class="cc-item-count">' + it.count + '</span></div>' : ''}
+          <div class="cc-item-title">${it.title || ''}</div>
+          <div class="cc-item-desc">${(it.text || '').replace(/</g, '&lt;')}</div>
+        </div>`).join('');
+      return `
+        <div class="cc-group">
+          <div class="cc-group-head">
+            <span class="cc-group-date">${g.date}</span>
+            <span class="cc-group-wd">${ccWeekday(g.date)}</span>
+            <span class="cc-group-badge">${g.items.length} 份汇总</span>
+          </div>
+          <div class="cc-group-body${g.items.length > 1 ? ' multi' : ''}">${cards}</div>
+        </div>`;
+    }).join('');
     listEl.querySelectorAll('.cc-item').forEach(el => {
       el.addEventListener('click', () => ccOpenModal(items[+el.dataset.i]));
     });
