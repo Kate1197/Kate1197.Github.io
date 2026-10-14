@@ -202,6 +202,82 @@
   @keyframes fadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
   @keyframes slideUp{from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);}}
 
+  /* 筛选：入口按钮（位于「更新至」左侧） */
+  .cc-hero-right{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .cc-filter-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:12px; font-weight:600; font-family:inherit; cursor:pointer;
+    color: var(--md-on-surface-variant);
+    background: var(--md-surface-container-high);
+    border:1px solid var(--md-outline-variant);
+    padding:6px 12px; border-radius:999px; white-space:nowrap;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .cc-filter-btn svg{ width:14px; height:14px; stroke:currentColor; }
+  .cc-filter-btn:hover{ border-color:var(--md-primary); color:var(--md-primary); }
+  .cc-filter-btn.active{ background:var(--md-primary); color:var(--md-on-primary); border-color:var(--md-primary); }
+
+  /* 筛选结果摘要条 */
+  .cc-filter-summary{
+    margin: 10px 16px 0; padding: 10px 14px;
+    background: var(--md-primary-container); color: var(--md-on-primary-container);
+    border-radius: var(--md-radius-sm); font-size:12px; line-height:1.6;
+    display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  }
+  .cc-filter-summary[hidden]{ display:none; }
+  .cc-filter-summary .clear{
+    margin-left:auto; color:var(--md-primary); font-weight:700;
+    cursor:pointer; text-decoration:underline; white-space:nowrap;
+  }
+
+  /* 筛选弹窗 */
+  .cc-filter-modal{ display:none; position:fixed; inset:0; z-index:10000; }
+  .cc-filter-modal.open{ display:flex; align-items:center; justify-content:center; animation:fadeIn .2s; }
+  .cc-filter-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(3px); }
+  .cc-filter-content{
+    position:relative; z-index:1; background:var(--md-surface);
+    border-radius:20px; max-width:460px; width:92%; max-height:86vh;
+    display:flex; flex-direction:column; overflow:hidden; animation:slideUp .25s;
+  }
+  .cc-filter-head{
+    padding:18px 20px 12px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--md-outline-variant);
+  }
+  .cc-filter-head-title{ font-size:17px; font-weight:700; color:var(--md-on-surface); }
+  .cc-filter-close{
+    width:32px; height:32px; border-radius:50%; border:none; cursor:pointer;
+    background:var(--md-surface-container-high); color:var(--md-on-surface);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cc-filter-close svg{ width:18px; height:18px; stroke:currentColor; }
+  .cc-filter-body{ padding:16px 20px; overflow-y:auto; display:flex; flex-direction:column; gap:16px; }
+  .cc-field{ display:flex; flex-direction:column; gap:7px; }
+  .cc-field-label{ font-size:12px; font-weight:700; color:var(--md-on-surface-variant); letter-spacing:.3px; }
+  .cc-input{
+    width:100%; box-sizing:border-box;
+    padding:10px 12px; border-radius:10px;
+    border:1px solid var(--md-outline-variant);
+    background:var(--md-surface-container-low); color:var(--md-on-surface);
+    font-size:14px; font-family:inherit;
+  }
+  .cc-input:focus{ outline:none; border-color:var(--md-primary); }
+  .cc-range-row{ display:flex; align-items:center; gap:8px; }
+  .cc-range-row .cc-input{ flex:1; min-width:0; }
+  .cc-range-row .sep{ color:var(--md-on-surface-variant); font-size:13px; }
+  .cc-quick{ display:flex; gap:6px; flex-wrap:wrap; }
+  .cc-quick button{
+    padding:6px 12px; border-radius:999px; cursor:pointer; font-size:12px; font-family:inherit;
+    border:1px solid var(--md-outline-variant); background:transparent; color:var(--md-on-surface-variant);
+  }
+  .cc-quick button:hover{ border-color:var(--md-primary); color:var(--md-primary); }
+  .cc-filter-count{ font-size:13px; color:var(--md-on-surface-variant); text-align:center; padding:2px 0; }
+  .cc-filter-count strong{ color:var(--md-primary); font-weight:800; }
+  .cc-filter-foot{ padding:12px 20px 20px; display:flex; gap:10px; border-top:1px solid var(--md-outline-variant); }
+  .cc-btn{ flex:1; padding:12px; border-radius:12px; border:none; cursor:pointer; font-size:14px; font-weight:700; font-family:inherit; }
+  .cc-btn.ghost{ background:var(--md-surface-container-high); color:var(--md-on-surface); }
+  .cc-btn.primary{ background:var(--md-primary); color:var(--md-on-primary); }
+  .cc-btn.primary:hover{ opacity:.9; }
+
   footer{
     text-align:center; color: var(--md-on-surface-variant); font-size:12px;
     padding: 24px 16px 16px; line-height:1.6;
@@ -245,10 +321,18 @@
       <div class="cc-hero-title">产出汇总</div>
       <div class="cc-hero-sub">由 @艾产速览 整理汇总</div>
     </div>
-    <div class="cc-hero-time" id="ccUpdated">更新至 —</div>
+    <div class="cc-hero-right">
+      <button class="cc-filter-btn" id="ccFilterBtn" title="筛选产出汇总" aria-label="筛选产出汇总">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        <span>筛选</span>
+      </button>
+      <div class="cc-hero-time" id="ccUpdated">更新至 —</div>
+    </div>
   </div>
 
   <div class="cc-tip">收录本月 1 日至昨日的超话产出汇总，最多 31 天 · 每月最后一天 23:00 归档清空，次月重新收集</div>
+
+  <div class="cc-filter-summary" id="ccFilterSummary" hidden></div>
 
   <div class="cc-list" id="ccList"></div>
 
@@ -282,6 +366,44 @@
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
         查看原贴
       </a>
+    </div>
+  </div>
+</div>
+
+<!-- 产出汇总筛选弹窗 -->
+<div class="cc-filter-modal" id="ccFilterModal" aria-hidden="true">
+  <div class="cc-filter-backdrop"></div>
+  <div class="cc-filter-content">
+    <div class="cc-filter-head">
+      <div class="cc-filter-head-title">筛选产出汇总</div>
+      <button class="cc-filter-close" id="ccFilterClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="cc-filter-body">
+      <div class="cc-field">
+        <div class="cc-field-label">关键词</div>
+        <input class="cc-input" id="ccKw" type="search" placeholder="搜索标题或正文关键词，如：饭修、饭拍、老师名…">
+      </div>
+      <div class="cc-field">
+        <div class="cc-field-label">日期（定位某一天只填一个；看“几号到几号”把起止都填上）</div>
+        <div class="cc-range-row">
+          <input class="cc-input" id="ccFrom" type="date">
+          <span class="sep">~</span>
+          <input class="cc-input" id="ccTo" type="date">
+        </div>
+      </div>
+      <div class="cc-quick">
+        <button type="button" data-range="all">全部时间</button>
+        <button type="button" data-range="month">本月</button>
+        <button type="button" data-range="7">近7天</button>
+        <button type="button" data-range="3">近3天</button>
+      </div>
+      <div class="cc-filter-count" id="ccFilterCount">共 <strong>0</strong> 份汇总</div>
+    </div>
+    <div class="cc-filter-foot">
+      <button class="cc-btn ghost" id="ccFilterReset">重置</button>
+      <button class="cc-btn primary" id="ccFilterApply">应用筛选</button>
     </div>
   </div>
 </div>
@@ -360,14 +482,77 @@
     return isNaN(d.getTime()) ? '' : '周' + '日一二三四五六'[d.getDay()];
   }
 
+  // ========== 筛选（关键词 / 日期区间） ==========
+  const ccFilter = { keyword: '', from: '', to: '' };
+  function ccIsFilterActive(){ return !!(ccFilter.keyword || ccFilter.from || ccFilter.to); }
+  function ccApplyFilter(items){
+    let out = items;
+    const kw = (ccFilter.keyword || '').trim().toLowerCase();
+    if (kw){
+      out = out.filter(e =>
+        (e.title || '').toLowerCase().includes(kw) ||
+        (e.text || '').toLowerCase().includes(kw));
+    }
+    // 日期：只填一个 → 精确定位到该日；起止都填 → 该区间
+    if (ccFilter.from && ccFilter.to){
+      out = (ccFilter.from === ccFilter.to)
+        ? out.filter(e => e.date === ccFilter.from)
+        : out.filter(e => (e.date || '') >= ccFilter.from && (e.date || '') <= ccFilter.to);
+    } else if (ccFilter.from){
+      out = out.filter(e => e.date === ccFilter.from);
+    } else if (ccFilter.to){
+      out = out.filter(e => e.date === ccFilter.to);
+    }
+    return out;
+  }
+  function ccFilteredItems(){ return ccApplyFilter(ccVisibleEntries()); }
+
+  // 摘要文案：关键词「XX」 · 2026-10-01 ~ 2026-10-13 · 共 N 份汇总
+  function ccFilterSummaryText(count){
+    const parts = [];
+    if (ccFilter.keyword) parts.push('关键词「' + ccFilter.keyword + '」');
+    const f = ccFilter.from, t = ccFilter.to;
+    if (f && t) parts.push(f === t ? f : (f + ' ~ ' + t));
+    else if (f) parts.push(f);
+    else if (t) parts.push(t);
+    parts.push('共 ' + count + ' 份汇总');
+    return parts.join(' · ');
+  }
+  function ccUpdateFilterUI(count){
+    const active = ccIsFilterActive();
+    const btn = document.getElementById('ccFilterBtn');
+    if (btn) btn.classList.toggle('active', active);
+    const bar = document.getElementById('ccFilterSummary');
+    if (!bar) return;
+    if (active){
+      bar.hidden = false;
+      bar.innerHTML = '<span>' + ccFilterSummaryText(count) + '</span>' +
+        '<span class="clear" id="ccFilterClear">清除筛选</span>';
+      document.getElementById('ccFilterClear').addEventListener('click', ccResetFilterState);
+    } else {
+      bar.hidden = true;
+      bar.innerHTML = '';
+    }
+  }
+  function ccResetFilterState(){
+    ccFilter.keyword = ''; ccFilter.from = ''; ccFilter.to = '';
+    ccRender();
+  }
+
   function ccRender(){
     const listEl = document.getElementById('ccList');
     if (!listEl) return;
     const updEl = document.getElementById('ccUpdated');
     if (updEl) updEl.textContent = '更新至 ' + (chanchuData.updatedAt || '—');
-    const items = ccVisibleEntries();
+
+    const items = ccFilteredItems();
+    ccUpdateFilterUI(items.length);
+
     if (!items.length){
-      listEl.innerHTML = '<div class="cc-empty"><span class="big">📭</span>暂无本月产出汇总<br><span style="font-size:12px;">数据人工录入，等待 @艾产速览 更新 · 每月最后一天 23:00 归档清空，次月重新收集</span></div>';
+      const inner = ccIsFilterActive()
+        ? '<span class="big">🔍</span>没有符合条件的产出汇总<br><span style="font-size:12px;">试试更换关键词，或调整日期范围后重试</span>'
+        : '<span class="big">📭</span>暂无本月产出汇总<br><span style="font-size:12px;">数据人工录入，等待 @艾产速览 更新 · 每月最后一天 23:00 归档清空，次月重新收集</span>';
+      listEl.innerHTML = '<div class="cc-empty">' + inner + '</div>';
       return;
     }
     // 按日期分组（新的在上）；同一天拆分成多份汇总的，并排展示
@@ -420,6 +605,79 @@
     ccModalEl.querySelector('.cc-modal-backdrop').addEventListener('click', ccCloseModal);
     document.getElementById('ccModalClose').addEventListener('click', ccCloseModal);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && ccModalEl.classList.contains('open')) ccCloseModal(); });
+  }
+
+  // ========== 筛选弹窗交互 ==========
+  const ccFilterModalEl = document.getElementById('ccFilterModal');
+  const ccKwEl = document.getElementById('ccKw');
+  const ccFromEl = document.getElementById('ccFrom');
+  const ccToEl = document.getElementById('ccTo');
+  const ccFilterCountEl = document.getElementById('ccFilterCount');
+
+  // 实时估算匹配数量（不改变已生效的筛选，仅预览）
+  function ccPreviewCount(){
+    const prev = { keyword: ccFilter.keyword, from: ccFilter.from, to: ccFilter.to };
+    ccFilter.keyword = ccKwEl.value.trim();
+    ccFilter.from = ccFromEl.value;
+    ccFilter.to = ccToEl.value;
+    let ran = false;
+    try { const n = ccFilteredItems().length; ran = true; ccFilterCountEl.innerHTML = '共 <strong>' + n + '</strong> 份汇总'; }
+    finally { ccFilter.keyword = prev.keyword; ccFilter.from = prev.from; ccFilter.to = prev.to; }
+    void ran;
+  }
+  function ccOpenFilter(){
+    ccKwEl.value = ccFilter.keyword;
+    ccFromEl.value = ccFilter.from;
+    ccToEl.value = ccFilter.to;
+    ccPreviewCount();
+    ccFilterModalEl.classList.add('open');
+    ccFilterModalEl.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function ccCloseFilter(){
+    ccFilterModalEl.classList.remove('open');
+    ccFilterModalEl.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function ccApplyFromModal(){
+    ccFilter.keyword = ccKwEl.value.trim();
+    ccFilter.from = ccFromEl.value;
+    ccFilter.to = ccToEl.value;
+    ccCloseFilter();
+    ccRender();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+  function ccSetQuickRange(kind){
+    const now = new Date();
+    const yest = new Date(now); yest.setDate(now.getDate() - 1);
+    if (kind === 'all'){
+      ccFromEl.value = ''; ccToEl.value = '';
+    } else if (kind === 'month'){
+      ccFromEl.value = now.getFullYear() + '-' + ccPad(now.getMonth() + 1) + '-01';
+      ccToEl.value = ccYmd(yest);
+    } else {
+      const n = parseInt(kind, 10);
+      const s = new Date(now); s.setDate(now.getDate() - n);
+      ccFromEl.value = ccYmd(s); ccToEl.value = ccYmd(yest);
+    }
+    ccPreviewCount();
+  }
+
+  if (ccFilterModalEl){
+    document.getElementById('ccFilterBtn').addEventListener('click', ccOpenFilter);
+    document.getElementById('ccFilterClose').addEventListener('click', ccCloseFilter);
+    ccFilterModalEl.querySelector('.cc-filter-backdrop').addEventListener('click', ccCloseFilter);
+    document.getElementById('ccFilterApply').addEventListener('click', ccApplyFromModal);
+    document.getElementById('ccFilterReset').addEventListener('click', function(){
+      ccKwEl.value = ''; ccFromEl.value = ''; ccToEl.value = '';
+      ccPreviewCount();
+    });
+    [ccKwEl, ccFromEl, ccToEl].forEach(el => el.addEventListener('input', ccPreviewCount));
+    document.querySelectorAll('.cc-quick button').forEach(b =>
+      b.addEventListener('click', () => ccSetQuickRange(b.dataset.range)));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && ccFilterModalEl.classList.contains('open')) ccCloseFilter();
+    });
   }
 
   ccRender();
