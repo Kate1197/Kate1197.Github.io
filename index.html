@@ -835,7 +835,8 @@
     .banner-time .label, .banner-time .date{font-size: 8px;}
     .msg-btn{right: 10px; top: 10px; width: 32px; height: 32px;}
     .theme-toggle{left: 48px; top: 10px; width: 32px; height: 32px; font-size: 16px;}
-    .banner img.banner-logo{ left: 88px; top: 10px; height: 32px; }
+    /* 高度与深色模式按钮一致(=32px)；宽度自适应，窄屏自动收窄避免压到右上角时间胶囊 */
+    .banner img.banner-logo{ left: 88px; top: 10px; height: 32px; max-width: calc(100vw - 268px); }
     .menu-btn{left: 10px; top: 10px; width: 32px; height: 32px;}
     .menu-btn svg{width: 17px; height: 17px;}
     .stat-grid{grid-template-columns: repeat(2, 1fr); gap: 8px;}
