@@ -1228,6 +1228,89 @@
     .dq-modal-body{padding:24px 18px 16px;}
     .dq-modal-footer{padding:12px 18px 20px;}
   }
+
+  /* ========== 产出汇总页面 ========== */
+  .cc-hero{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+    padding: 22px 16px 14px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .cc-hero-left{ min-width:0; }
+  .cc-hero-title{ font-size:22px; font-weight:800; color:var(--md-on-surface); letter-spacing:.5px; }
+  .cc-hero-sub{ font-size:12px; color:var(--md-on-surface-variant); margin-top:5px; }
+  .cc-hero-time{
+    font-size:12px; font-weight:600; color:var(--md-primary);
+    background: var(--md-primary-container); padding:6px 12px; border-radius:999px;
+    white-space:nowrap;
+  }
+  .cc-tip{
+    margin: 12px 16px 4px; font-size:12px; color:var(--md-on-surface-variant); line-height:1.6;
+  }
+  .cc-list{ padding: 12px 16px 44px; display:flex; flex-direction:column; gap:10px; }
+  .cc-item{
+    background: var(--md-surface-container, #fff);
+    border:1px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-sm);
+    padding: 14px 16px; cursor:pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+  }
+  [data-theme="dark"] .cc-item{ background: var(--md-surface-container); }
+  .cc-item:hover{ transform: translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.08); border-color: var(--md-primary); }
+  .cc-item-top{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .cc-item-date{
+    font-size:12px; font-weight:700; color:var(--md-primary);
+    background: var(--md-primary-container); padding:3px 10px; border-radius:999px;
+  }
+  .cc-item-count{ font-size:11px; color:var(--md-on-surface-variant); margin-left:auto; }
+  .cc-item-title{ font-size:15px; font-weight:700; color:var(--md-on-surface); margin-bottom:6px; }
+  .cc-item-desc{
+    font-size:13px; color:var(--md-on-surface-variant); line-height:1.7;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .cc-empty{
+    margin: 28px 16px; padding: 34px 20px; text-align:center;
+    border:1px dashed var(--md-outline-variant); border-radius: var(--md-radius-sm);
+    color: var(--md-on-surface-variant); font-size:14px; line-height:1.7;
+  }
+  .cc-empty .big{ font-size:32px; display:block; margin-bottom:10px; }
+
+  /* 产出汇总 弹窗 */
+  .cc-modal{ display:none; position:fixed; inset:0; z-index:9999; }
+  .cc-modal.open{ display:flex; align-items:center; justify-content:center; animation:fadeIn .2s; }
+  .cc-modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(3px); }
+  .cc-modal-content{
+    position:relative; z-index:1; background:var(--md-surface);
+    border-radius:20px; max-width:540px; width:92%; max-height:82vh;
+    display:flex; flex-direction:column; overflow:hidden;
+    animation:slideUp .25s;
+  }
+  .cc-modal-close{
+    position:absolute; top:12px; right:12px; z-index:10;
+    width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+    background:var(--md-surface-container-high); color:var(--md-on-surface);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cc-modal-close:hover{ background:var(--md-outline-variant); }
+  .cc-modal-close svg{ width:18px; height:18px; stroke:currentColor; }
+  .cc-modal-body{ padding:26px 22px 18px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; }
+  .cc-modal-date{ font-size:13px; font-weight:700; color:var(--md-primary); letter-spacing:.5px; }
+  .cc-modal-title{ font-size:19px; font-weight:700; color:var(--md-on-surface); line-height:1.45; }
+  .cc-modal-text{ font-size:14px; line-height:1.85; color:var(--md-on-surface); white-space:pre-wrap; }
+  .cc-modal-footer{ padding:12px 22px 22px; border-top:1px solid var(--md-outline-variant); }
+  .cc-modal-link{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:10px 18px; border-radius:20px; background:#E6162D; color:#fff;
+    font-size:13px; font-weight:600; text-decoration:none; transition:opacity .2s;
+  }
+  .cc-modal-link:hover{ opacity:.85; }
+  .cc-modal-link svg{ width:16px; height:16px; }
+
+  /* 小屏：5 个 Tab 横向滚动，防止挤压换行 */
+  @media (max-width:767px){
+    .tab-nav{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    .tab-nav::-webkit-scrollbar{ display:none; }
+    .tab-btn{ flex:0 0 auto; white-space:nowrap; }
+  }
 </style>
 </head>
 <body>
@@ -1258,6 +1341,13 @@
         <div class="menu-item-text">
           <div class="txt">玡迩叻_ami</div>
           <div class="sub">粉丝向 · 微博超话 & 抖音</div>
+        </div>
+      </div>
+      <div class="menu-item" data-page="chanchu">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">产出汇总</div>
+          <div class="sub">由 @艾产速览 整理汇总</div>
         </div>
       </div>
     </div>
@@ -1335,6 +1425,10 @@
     <button class="tab-btn" data-tab="dashboard">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       数据
+    </button>
+    <button class="tab-btn" data-tab="chanchu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+      产出汇总
     </button>
   </div>
 
@@ -1868,6 +1962,23 @@
     </div>
   </div><!-- /tab-bio -->
 
+  <!-- Tab: 产出汇总 -->
+  <div class="tab-pane" id="tab-chanchu">
+
+    <div class="cc-hero">
+      <div class="cc-hero-left">
+        <div class="cc-hero-title">产出汇总</div>
+        <div class="cc-hero-sub">由 @艾产速览 整理汇总</div>
+      </div>
+      <div class="cc-hero-time" id="ccUpdated">更新至 —</div>
+    </div>
+
+    <div class="cc-tip">收录本月 1 日至昨日的超话产出汇总，最多 31 天 · 每月最后一天 23:00 归档清空，次月重新收集</div>
+
+    <div class="cc-list" id="ccList"></div>
+
+  </div><!-- /tab-chanchu -->
+
   <footer>
     艾米动态监控 · 平台范围：微博 / 抖音 / 小红书<br>
     舆情筛选：仅正面/中性 · 自动更新每日 08:00
@@ -1930,6 +2041,27 @@
         <a id="dqModalLink" href="#" target="_blank" rel="noopener" class="dq-modal-weibo-btn">
           <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16c-3.3 0-6-2-6-4s2.7-4 6-4 6 2 6 4-2.7 4-6 4zm0-6a2 2 0 110-4 2 2 0 010 4z"/></svg>
           查看原微博
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 产出汇总弹窗 -->
+  <div class="cc-modal" id="ccModal" aria-hidden="true">
+    <div class="cc-modal-backdrop"></div>
+    <div class="cc-modal-content">
+      <button class="cc-modal-close" id="ccModalClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="cc-modal-body">
+        <div class="cc-modal-date" id="ccModalDate"></div>
+        <div class="cc-modal-title" id="ccModalTitle"></div>
+        <div class="cc-modal-text" id="ccModalText"></div>
+      </div>
+      <div class="cc-modal-footer">
+        <a id="ccModalLink" href="#" target="_blank" rel="noopener" class="cc-modal-link">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
+          查看原贴
         </a>
       </div>
     </div>
@@ -2037,6 +2169,13 @@
       <div class="menu-item-text">
         <div class="txt">玡迩叻_ami</div>
         <div class="sub">粉丝向 · 微博超话 & 抖音</div>
+      </div>
+    </div>
+    <div class="menu-item" data-page="chanchu">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">产出汇总</div>
+        <div class="sub">由 @艾产速览 整理汇总</div>
       </div>
     </div>
   </div>
@@ -2242,18 +2381,36 @@
   [menuBtn, menuBtn2, menuBtn3].forEach(b => b && b.addEventListener('click', openMenu));
   menuClose.addEventListener('click', closeMenu);
 
+  // 当前导航标识：page-home / page-riqian / page-yaerle / chanchu
+  let currentNav = 'page-home';
+  function activateTab(tab){
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    const pane = document.getElementById('tab-' + tab);
+    if (pane) pane.classList.add('active');
+  }
+  function syncNavHighlight(){
+    menuItems.forEach(i => i.classList.toggle('active', i.dataset.page === currentNav));
+  }
+  // 切换到某个导航（chanchu 为「产出汇总」虚拟页：位于主页内，激活对应 Tab）
+  function applyNav(navId){
+    currentNav = navId;
+    if (navId === 'chanchu'){
+      Object.entries(pages).forEach(([id, el]) => el.classList.toggle('active', id === 'page-home'));
+      activateTab('chanchu');
+      if (typeof ccRender === 'function') ccRender();
+    } else {
+      Object.entries(pages).forEach(([id, el]) => el.classList.toggle('active', id === navId));
+      if (navId === 'page-home') activateTab('brief');
+    }
+    syncNavHighlight();
+    closeMenu();
+    window.scrollTo({top:0, behavior:'instant'});
+  }
+
   menuItems.forEach(item => {
     item.addEventListener('click', () => {
-      const pageId = item.dataset.page;
-      // 切换页面
-      Object.entries(pages).forEach(([id, el]) => {
-        el.classList.toggle('active', id === pageId);
-      });
-      // 更新所有菜单项高亮（手机端 + 侧边栏同步）
-      menuItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageId));
-      // 手机端关闭菜单，大屏侧边栏无影响
-      closeMenu();
-      window.scrollTo({top:0, behavior:'instant'});
+      applyNav(item.dataset.page);
     });
   });
 
@@ -2528,13 +2685,11 @@
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function(){
       const tab = this.dataset.tab;
-      // 切换按钮状态
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      // 切换面板
-      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-      const pane = document.getElementById('tab-' + tab);
-      if(pane) pane.classList.add('active');
+      activateTab(tab);
+      // 同步左侧菜单高亮：产出汇总 -> chanchu，其余 -> 主页
+      currentNav = (tab === 'chanchu') ? 'chanchu' : 'page-home';
+      syncNavHighlight();
+      if (tab === 'chanchu' && typeof ccRender === 'function') ccRender();
       // 回到顶部
       window.scrollTo({top: 0, behavior: 'smooth'});
     });
@@ -2720,6 +2875,85 @@
     dqModal.querySelector('.dq-modal-backdrop').addEventListener('click', closeRiqianModal);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && dqModal.classList.contains('open')) closeRiqianModal(); });
   }
+
+  // ========== 产出汇总（@艾产速览） ==========
+  // 数据由人工录入（微博风控，不自动抓取）。
+  // 条目格式：{ date:'YYYY-MM-DD', title:'当日标题', text:'正文/要点', link:'原贴链接', count:'当日新增 N 条(可选)' }
+  // 维护方式：把新条目 push 进 entries，并同步更新 updatedAt 即可。
+  const chanchuData = {
+    updatedAt: "2026-10-14 20:30",
+    entries: [
+      // 示例（待替换为真实内容）：
+      // { date:"2026-10-13", title:"10月13日 · 超话产出汇总", text:"……", link:"https://weibo.com/6320241831/xxxxxxxxxx", count:"当日新增 12 条" }
+    ]
+  };
+
+  function ccPad(n){ return String(n).padStart(2, '0'); }
+  function ccYmd(d){ return d.getFullYear() + '-' + ccPad(d.getMonth()+1) + '-' + ccPad(d.getDate()); }
+
+  // 可见条目：本月 1 日 ~ 昨天，最多 31 条；每月最后一天 23:00 起清空（次月重新收集）
+  function ccVisibleEntries(){
+    const now = new Date();
+    const y = now.getFullYear(), m = now.getMonth();
+    const firstYmd = y + '-' + ccPad(m+1) + '-01';
+    const lastDay = new Date(y, m+1, 0).getDate();
+    if (now.getDate() === lastDay && now.getHours() >= 23) return [];   // 月末 23:00 归档清空
+    const yest = new Date(now); yest.setDate(now.getDate() - 1);
+    const yestYmd = ccYmd(yest);
+    return (chanchuData.entries || [])
+      .filter(e => e && e.date && e.date >= firstYmd && e.date <= yestYmd)
+      .sort((a, b) => (a.date < b.date ? 1 : -1))
+      .slice(0, 31);
+  }
+
+  function ccRender(){
+    const listEl = document.getElementById('ccList');
+    if (!listEl) return;
+    const updEl = document.getElementById('ccUpdated');
+    if (updEl) updEl.textContent = '更新至 ' + (chanchuData.updatedAt || '—');
+    const items = ccVisibleEntries();
+    if (!items.length){
+      listEl.innerHTML = '<div class="cc-empty"><span class="big">📭</span>暂无本月产出汇总<br><span style="font-size:12px;">数据人工录入，等待 @艾产速览 更新 · 每月最后一天 23:00 归档清空，次月重新收集</span></div>';
+      return;
+    }
+    listEl.innerHTML = items.map((it, i) => `
+      <div class="cc-item" data-i="${i}">
+        <div class="cc-item-top">
+          <span class="cc-item-date">${it.date}</span>
+          ${it.count ? '<span class="cc-item-count">' + it.count + '</span>' : ''}
+        </div>
+        <div class="cc-item-title">${it.title || ''}</div>
+        <div class="cc-item-desc">${(it.text || '').replace(/</g, '&lt;')}</div>
+      </div>`).join('');
+    listEl.querySelectorAll('.cc-item').forEach(el => {
+      el.addEventListener('click', () => ccOpenModal(items[+el.dataset.i]));
+    });
+  }
+
+  const ccModalEl = document.getElementById('ccModal');
+  function ccOpenModal(it){
+    if (!ccModalEl || !it) return;
+    document.getElementById('ccModalDate').textContent = it.date || '';
+    document.getElementById('ccModalTitle').textContent = it.title || '';
+    document.getElementById('ccModalText').textContent = it.text || '';
+    document.getElementById('ccModalLink').href = it.link || 'https://weibo.com/';
+    ccModalEl.classList.add('open');
+    ccModalEl.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function ccCloseModal(){
+    if (!ccModalEl) return;
+    ccModalEl.classList.remove('open');
+    ccModalEl.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  if (ccModalEl){
+    ccModalEl.querySelector('.cc-modal-backdrop').addEventListener('click', ccCloseModal);
+    document.getElementById('ccModalClose').addEventListener('click', ccCloseModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && ccModalEl.classList.contains('open')) ccCloseModal(); });
+  }
+
+  ccRender();
 </script>
 </body>
 </html>
