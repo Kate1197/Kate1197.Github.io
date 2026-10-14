@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#9172CC">
+<title>产出汇总 · 艾米动态监控</title>
+<style>
+  :root{
+    /* Material 3 配色 - #9172CC 为核心 */
+    --md-primary: #9172CC;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #E9DDFF;
+    --md-on-primary-container: #250460;
+    --md-secondary: #5E5C71;
+    --md-secondary-container: #E4E0F4;
+    --md-on-secondary-container: #1B0A2E;
+    --md-tertiary: #7B5260;
+    --md-surface: #FEF7FF;
+    --md-surface-dim: #DED7E0;
+    --md-surface-bright: #FEF7FF;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F7F0FA;
+    --md-surface-container: #F2EBF5;
+    --md-surface-container-high: #ECE5EF;
+    --md-surface-container-highest: #E6E0E9;
+    --md-on-surface: #1D1B20;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-success: #2E7D32;
+    --md-success-container: #C8E6C9;
+    --md-warning: #ED6C02;
+    --md-warning-container: #FFE0B2;
+    --md-error: #B3261E;
+    --md-error-container: #F9DEDC;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 1px rgba(0,0,0,0.08);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.16), 0 2px 6px 2px rgba(0,0,0,0.10);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.10), 0 1px 3px 0 rgba(0,0,0,0.14);
+    --md-radius-sm: 8px;
+    --md-radius-md: 12px;
+    --md-radius-lg: 16px;
+  }
+  [data-theme="dark"]{
+    --md-surface: #141218;
+    --md-surface-dim: #141218;
+    --md-surface-bright: #141218;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-surface-container-highest: #36343B;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-primary-container: #4A3A6B;
+    --md-on-primary-container: #E9DDFF;
+    --md-secondary-container: #4A4759;
+    --md-on-secondary-container: #E4E0F4;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.20);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.40), 0 2px 6px 2px rgba(0,0,0,0.25);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.35), 0 1px 3px 0 rgba(0,0,0,0.30);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family: Roboto, "Roboto Flex", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+  }
+  .wrap{max-width: 720px; margin: 0 auto; padding: 0 0 60px;}
+
+  /* 顶部导航条：返回 + 标题 + 主题切换 */
+  .cc-topbar{
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  [data-theme="dark"] .cc-topbar{
+    background: rgba(20,18,24,0.82);
+  }
+  .cc-back{
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--md-surface-container-high); color: var(--md-on-surface);
+    text-decoration: none; border: none; cursor: pointer;
+  }
+  .cc-back svg{ width: 20px; height: 20px; stroke: currentColor; }
+  .cc-topbar-title{
+    flex: 1; min-width: 0;
+    font-size: 16px; font-weight: 700; color: var(--md-on-surface);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cc-theme{
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    border: none; cursor: pointer; font-size: 16px;
+    background: var(--md-surface-container-high); color: var(--md-on-surface);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ========== 产出汇总 ========== */
+  .cc-hero{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+    padding: 22px 16px 14px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .cc-hero-left{ min-width:0; }
+  .cc-hero-title{ font-size:22px; font-weight:800; color:var(--md-on-surface); letter-spacing:.5px; }
+  .cc-hero-sub{ font-size:12px; color:var(--md-on-surface-variant); margin-top:5px; }
+  .cc-hero-time{
+    font-size:12px; font-weight:600; color:var(--md-primary);
+    background: var(--md-primary-container); padding:6px 12px; border-radius:999px;
+    white-space:nowrap;
+  }
+  .cc-tip{
+    margin: 12px 16px 4px; font-size:12px; color:var(--md-on-surface-variant); line-height:1.6;
+  }
+  .cc-list{ padding: 12px 16px 120px; display:flex; flex-direction:column; gap:18px; }
+  .cc-item{
+    background: var(--md-surface-container, #fff);
+    border:1px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-sm);
+    padding: 14px 16px; cursor:pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+  }
+  [data-theme="dark"] .cc-item{ background: var(--md-surface-container); }
+  .cc-item:hover{ transform: translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.08); border-color: var(--md-primary); }
+  .cc-item-top{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .cc-item-date{
+    font-size:12px; font-weight:700; color:var(--md-primary);
+    background: var(--md-primary-container); padding:3px 10px; border-radius:999px;
+  }
+  .cc-item-count{
+    font-size:11px; color:var(--md-on-surface-variant);
+    border:1px solid var(--md-outline-variant); border-radius:999px; padding:2px 9px;
+  }
+  /* 日期分组：同日多份汇总并排展示 */
+  .cc-group{ display:flex; flex-direction:column; gap:8px; }
+  .cc-group-head{ display:flex; align-items:center; gap:8px; padding:0 2px; }
+  .cc-group-date{ font-size:13px; font-weight:800; color:var(--md-on-surface); letter-spacing:.3px; }
+  .cc-group-wd{ font-size:11px; color:var(--md-on-surface-variant); }
+  .cc-group-badge{
+    margin-left:auto; font-size:11px; font-weight:700;
+    color:var(--md-primary); background:var(--md-primary-container);
+    padding:2px 10px; border-radius:999px;
+  }
+  .cc-group-body{ display:grid; grid-template-columns:1fr; gap:10px; }
+  @media (min-width: 760px){ .cc-group-body.multi{ grid-template-columns:1fr 1fr; } }
+  .cc-item-title{ font-size:15px; font-weight:700; color:var(--md-on-surface); margin-bottom:6px; }
+  .cc-item-desc{
+    font-size:13px; color:var(--md-on-surface-variant); line-height:1.7;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .cc-empty{
+    margin: 28px 16px; padding: 34px 20px; text-align:center;
+    border:1px dashed var(--md-outline-variant); border-radius: var(--md-radius-sm);
+    color: var(--md-on-surface-variant); font-size:14px; line-height:1.7;
+  }
+  .cc-empty .big{ font-size:32px; display:block; margin-bottom:10px; }
+
+  /* 产出汇总 弹窗 */
+  .cc-modal{ display:none; position:fixed; inset:0; z-index:9999; }
+  .cc-modal.open{ display:flex; align-items:center; justify-content:center; animation:fadeIn .2s; }
+  .cc-modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(3px); }
+  .cc-modal-content{
+    position:relative; z-index:1; background:var(--md-surface);
+    border-radius:20px; max-width:540px; width:92%; max-height:82vh;
+    display:flex; flex-direction:column; overflow:hidden;
+    animation:slideUp .25s;
+  }
+  .cc-modal-close{
+    position:absolute; top:12px; right:12px; z-index:10;
+    width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+    background:var(--md-surface-container-high); color:var(--md-on-surface);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cc-modal-close:hover{ background:var(--md-outline-variant); }
+  .cc-modal-close svg{ width:18px; height:18px; stroke:currentColor; }
+  .cc-modal-body{ padding:26px 22px 18px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; }
+  .cc-modal-date{ font-size:13px; font-weight:700; color:var(--md-primary); letter-spacing:.5px; }
+  .cc-modal-title{ font-size:19px; font-weight:700; color:var(--md-on-surface); line-height:1.45; }
+  .cc-modal-text{ font-size:14px; line-height:1.85; color:var(--md-on-surface); white-space:pre-wrap; }
+  .cc-modal-footer{ padding:12px 22px 22px; border-top:1px solid var(--md-outline-variant); }
+  .cc-modal-link{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:10px 18px; border-radius:20px; background:#E6162D; color:#fff;
+    font-size:13px; font-weight:600; text-decoration:none; transition:opacity .2s;
+  }
+  .cc-modal-link:hover{ opacity:.85; }
+  .cc-modal-link svg{ width:16px; height:16px; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+  @keyframes slideUp{from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);}}
+
+  footer{
+    text-align:center; color: var(--md-on-surface-variant); font-size:12px;
+    padding: 24px 16px 16px; line-height:1.6;
+    border-top: 1px solid var(--md-outline-variant);
+    margin-top: 16px;
+  }
+  .footer-links{
+    display:flex; justify-content:center; gap:16px; margin:12px 0 8px; flex-wrap:wrap;
+  }
+  .footer-links a{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 14px; border-radius:999px;
+    background: var(--md-surface-container-high);
+    color: var(--md-primary); text-decoration:none;
+    font-size:12px; transition: all 0.2s;
+  }
+  .footer-links a:hover{ background: var(--md-primary); color:#fff; transform: translateY(-2px); }
+  .footer-links svg{ width:14px; height:14px; }
+
+  @media (max-width:640px){
+    .cc-modal-content{ max-width:95%; }
+    .cc-modal-body{ padding:24px 18px 16px; }
+    .cc-modal-footer{ padding:12px 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cc-topbar">
+  <button class="cc-back" id="ccBack" title="返回" aria-label="返回">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  </button>
+  <div class="cc-topbar-title">产出汇总</div>
+  <button class="cc-theme" id="ccTheme" title="切换深色/浅色">🌙</button>
+</div>
+
+<div class="wrap">
+
+  <div class="cc-hero">
+    <div class="cc-hero-left">
+      <div class="cc-hero-title">产出汇总</div>
+      <div class="cc-hero-sub">由 @艾产速览 整理汇总</div>
+    </div>
+    <div class="cc-hero-time" id="ccUpdated">更新至 —</div>
+  </div>
+
+  <div class="cc-tip">收录本月 1 日至昨日的超话产出汇总，最多 31 天 · 每月最后一天 23:00 归档清空，次月重新收集</div>
+
+  <div class="cc-list" id="ccList"></div>
+
+  <footer>
+    艾米动态监控 · 产出汇总（@艾产速览）<br>
+    数据人工录入 · 仅供粉丝向参考
+    <div class="footer-links">
+      <a href="https://weibo.com/7975536178" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
+        @艾产速览
+      </a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- 产出汇总弹窗 -->
+<div class="cc-modal" id="ccModal" aria-hidden="true">
+  <div class="cc-modal-backdrop"></div>
+  <div class="cc-modal-content">
+    <button class="cc-modal-close" id="ccModalClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="cc-modal-body">
+      <div class="cc-modal-date" id="ccModalDate"></div>
+      <div class="cc-modal-title" id="ccModalTitle"></div>
+      <div class="cc-modal-text" id="ccModalText"></div>
+    </div>
+    <div class="cc-modal-footer">
+      <a id="ccModalLink" href="#" target="_blank" rel="noopener" class="cc-modal-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10.098 20.323c-3.977.391-7.414-1.406-7.672-4.02-.259-2.609 2.759-5.047 6.74-5.441 3.979-.394 7.413 1.404 7.671 4.018.259 2.6-2.759 5.049-6.737 5.443zm-1.473-1.981c-2.417.228-4.444-.781-4.58-2.235-.139-1.455 1.708-2.863 4.126-3.091 2.417-.229 4.445.781 4.581 2.234.138 1.455-1.708 2.864-4.126 3.092z"/></svg>
+        查看原贴
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 深色模式（与主站共享 ami-theme，保持一致）
+  (function(){
+    const btn = document.getElementById('ccTheme');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('ami-theme');
+    if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      html.setAttribute('data-theme','dark');
+      btn.textContent = '☀️';
+    }
+    btn.addEventListener('click', function(){
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if(isDark){
+        html.removeAttribute('data-theme');
+        btn.textContent = '🌙';
+        localStorage.setItem('ami-theme','light');
+      }else{
+        html.setAttribute('data-theme','dark');
+        btn.textContent = '☀️';
+        localStorage.setItem('ami-theme','dark');
+      }
+    });
+  })();
+
+  // 返回：优先回到上一页，否则回主站首页
+  document.getElementById('ccBack').addEventListener('click', function(){
+    if(history.length > 1 && document.referrer){
+      history.back();
+    } else {
+      location.href = 'index.html';
+    }
+  });
+
+  // ========== 产出汇总（@艾产速览） ==========
+  // 数据由人工录入（微博风控，不自动抓取）。
+  // 条目格式：{ date:'YYYY-MM-DD', title:'当日标题', text:'正文/要点', link:'原贴链接', count:'当日新增 N 条(可选)' }
+  // 维护方式：把新条目 push 进 entries，并同步更新 updatedAt 即可。
+  const chanchuData = {
+    updatedAt: "2026-10-14 12:35",
+    entries: [
+      { date: "2026-10-13", title: "【261013】产出汇总【饭修】", text: "#京东健康医用金选大使艾米# 【261013】产出汇总 【饭修】 @她恃美貌行凶 @桃雾恩恩 @雾汀暮笙 @椿岸风晚 @Hi文淇 @Hi文淇 @别碰我的qi刘海 @鱼尾百合 @伊碗白周_my @沈韵-Aimee @熬夜酌米酒_07 @7RLEO_AIMI @归鹤揽仪屿 @伊风衔艾 @_Gujing_Yuuna @妈妈咪艾 @咬一口紫米酥 @-渡荒汀 @秋川无迹 @kk四叶草在这里_ @星如艾心 @桃雾恩恩 【饭制】 @艾吃龙虾-Eliauk @一莓兔耳 @艾老虎哟-拼豆版 @Cherish米米的祈愿笺 【饭剪】 @柒屿纾寻 @不对我撒撒娇吗 @梨筱悦 @妈妈咪艾 @在彩虹桥拍写真的小金鱼 @偷藏小米糕 @_-Sissi-_ 【饭拍】 @Fanbao_烦烦 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5353678690327796", count: "31 位老师 · 饭修/饭制/饭剪/饭拍" },
+      { date: "2026-10-02", title: "【261002】产出汇总（1/2）", text: "#艾米阿禅# 丨#艾米百妖谱# 【261002】产出汇总（1/2） 【饭修】 @米兔茸茸 @越光漂流瓶 @桉桉米_Mi @AIMI_困困包 @AIMI_困困包 @叫我祈祈酱_ @叫我祈祈酱_ @7RLEO_AIMI @在彩虹桥拍写真的小金鱼 @凉栀丨Amity @羽落赴洁 @晚风遇Aimee @羽落赴洁 @艾柒紫薯包 @艾你哟_haha @TTuicelloats_ @柒寻艾屿 @星落如雨_stardust @月亮不会开琑 @AIMI_困困包 @柚璐子 @才不是邪恶兔子_ @啾口萌兔oil_ @懵妍是萌妍Molirainy @雨叶·艾心 @Deviens-乌冬面- @拌勺樱桃小鱼- @y_米AIMI @吹山浅屿 @米妈警告 @雾米殇 @雨天捡只米 @柚璐子 @s_5z @椰椰欲睡zzz @吃掉小铭包- @青艾摇铃 @一颗紫生菜_ @不赴尘 @默痕_无声留白 @祈尔聆胜此春 @祈尔聆胜此春 @祈尔聆胜此春 @祈尔聆胜此春 @Puppy_iceTea @小华艾米粒 @无忧咒 @咬一颗栗子 @壹口生椰汁 @艾草葡萄 @Nek喵喵 @菠萝萝鹿茸_my @雾约逝水_only @栖笺汀枳娃_7m @萌兔主义系_ @柚璐子 @-请你闭麦- @雪竹米椰 @oneunss13_ @纯白誓盐 @遇晴安 @月夜雀影_mi @她恃美貌行凶_ @栖笺汀枳娃_7m @聆愿_ @阿丁来也BHS鹿畔遇明光 @煎雪_Snow @你萌得像只兔 @雾米殇 @森林里的书屋 @Success-祎在必得_被翻牌版 @沈韵-Aimee @7RLEO_AIMI @小桃冻_ @菱纱不是糊涂蛋 @Undec1m @葡萄常开心 @小鱼芽米yummy @桃雾恩恩 @用户小黄J @星落如雨_stardust @八两肉饼 @陌艾酪栀ino_ozZ @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @馒头头头头梨 @洛妍sy 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5349703237505317", count: "72 位老师 · 饭修" },
+      { date: "2026-10-02", title: "【261002】产出汇总（2/2）", text: "#艾米阿禅# 丨#艾米百妖谱# 【261002】产出汇总（2/2） 【剧修】 @你萌得像只兔 @银迹夏厨- @Bamy_茉莉礼白 @春云栖芽 @半夏雨散 @熬夜酌米酒_07 【饭制】 @软兔牙印 @漂白液_ @小米姐姐桑 @艾你哟_haha @兔星使者 @盐妍酱 @吹山浅屿 @咬一口紫米酥 【饭剪】 @雾米殇 @_-Sissi-_ @梨筱悦 @米兔萌语_Aimi @七包番茄酱_ @妈妈咪艾 @iitsyoo 【饭拍】 @择情君 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5349703568073557", count: "22 位老师 · 剧修/饭制/饭剪/饭拍" },
+      { date: "2026-10-01", title: "【261001】产出汇总【饭修】", text: "#艾米百妖谱# |#艾米阿禅# 【261001】产出汇总 【饭修】 @叕叕哆咪 @米兔茸茸 @艾米的three金 @小狗爱披萨_ @雾米殇 @y_米AIMI @雾米殇 @恬猫腮瑞 @尤祁快快游 @7RLEO_AIMI @kk四叶草在这里_ @七包番茄酱_ @七包番茄酱_ @小兔撞鹿Heart @艾意满星河 @醉于七秒 @晚风遇Aimee @AIMI_困困包 @馒头头头头梨 @s_5z @幸运水煮蛋_77 @小鱼芽米yummy @桜井兮- @雨天捡只米 @你萌得像只兔 @森林里的书屋 @她恃美貌行凶_ @Veloura @栖笺汀枳娃_7m @_-Sissi-_ @idleminnqi @小鱼芽米yummy @Dore米_1 @陌艾酪栀ino_ozZ @雪竹米椰 @柚璐子 @青提夏y @艾u兔牙 @添栀望榆 @zhanzhanyou @最爱咖喱鱼蛋 @拌勺樱桃小鱼- @打掉你的脑袋 @月亮不会开琑 @唯祎玖 @玡迩叻_ami @玡迩叻_ami @一枕清梨 @鹿屿茸Bailu @luck-小米粒 @才不是邪恶兔子_ @雾米殇 @柚璐子 @雪竹米椰 @归鹤揽仪屿_ @霖兔漫游记 @一颗紫生菜_ @小鹿很米 @鹿娜瑶BL @程鑫不诚心 @祈尔聆胜此春 @sleefish_睡醒小鱼不打盹 @艾声叹淇 @冬咲芽 @一目识蓝鲨- @祈尔聆胜此春 @我宣你-angel @咬一颗栗子 @给你一只柚 @雾米殇 @旧绪序诗 @雾米殇 @馒头头头头梨 @禾祎枝晓意 @米妈警告 @愿语恋 @馒头头头头梨 @Serenemia @梦见一颗小星星 @玉米侠_aimi @艾喝稀饭 @-请你闭麦- @艾喝稀饭 @TTuicelloats_ @Rosie_haha @雾米殇 @祎铭米菟 【饭剪】 @小AiMi北北 @柒寻艾屿 @咬一口紫米酥 @尖椒好吃否UxU @米兔萌语_Aimi @米兔萌语_Aimi @柒寻艾屿 @熬夜酌米酒_07 @鱼尾百合 @铭O-o 【饭制】 @米兔妈坐镇头牌 @ID桑婧婧 @熬夜酌米酒_07 @吟春序_win 感谢各位产出老师的分享！", link: "https://weibo.com/7975536178/5349343416550857", count: "84 位老师 · 饭修/饭剪/饭制" }
+    ]
+  };
+
+  function ccPad(n){ return String(n).padStart(2, '0'); }
+  function ccYmd(d){ return d.getFullYear() + '-' + ccPad(d.getMonth()+1) + '-' + ccPad(d.getDate()); }
+
+  // 可见条目：本月 1 日 ~ 昨天，最多 31 条；每月最后一天 23:00 起清空（次月重新收集）
+  function ccVisibleEntries(){
+    const now = new Date();
+    const y = now.getFullYear(), m = now.getMonth();
+    const firstYmd = y + '-' + ccPad(m+1) + '-01';
+    const lastDay = new Date(y, m+1, 0).getDate();
+    if (now.getDate() === lastDay && now.getHours() >= 23) return [];   // 月末 23:00 归档清空
+    const yest = new Date(now); yest.setDate(now.getDate() - 1);
+    const yestYmd = ccYmd(yest);
+    return (chanchuData.entries || [])
+      .filter(e => e && e.date && e.date >= firstYmd && e.date <= yestYmd)
+      .sort((a, b) => (a.date < b.date ? 1 : -1))
+      .slice(0, 31);
+  }
+
+  function ccPartNo(it){
+    const m = /[（(]\s*(\d+)\s*\/\s*(\d+)\s*[）)]/.exec(it.title || '');
+    return m ? parseInt(m[1], 10) : 1;
+  }
+  function ccWeekday(ymd){
+    const d = new Date(ymd + 'T00:00:00');
+    return isNaN(d.getTime()) ? '' : '周' + '日一二三四五六'[d.getDay()];
+  }
+
+  function ccRender(){
+    const listEl = document.getElementById('ccList');
+    if (!listEl) return;
+    const updEl = document.getElementById('ccUpdated');
+    if (updEl) updEl.textContent = '更新至 ' + (chanchuData.updatedAt || '—');
+    const items = ccVisibleEntries();
+    if (!items.length){
+      listEl.innerHTML = '<div class="cc-empty"><span class="big">📭</span>暂无本月产出汇总<br><span style="font-size:12px;">数据人工录入，等待 @艾产速览 更新 · 每月最后一天 23:00 归档清空，次月重新收集</span></div>';
+      return;
+    }
+    // 按日期分组（新的在上）；同一天拆分成多份汇总的，并排展示
+    const groups = [], gmap = {};
+    items.forEach(it => {
+      if (!gmap[it.date]) { gmap[it.date] = { date: it.date, items: [] }; groups.push(gmap[it.date]); }
+      gmap[it.date].items.push(it);
+    });
+    listEl.innerHTML = groups.map(g => {
+      g.items.sort((a, b) => ccPartNo(a) - ccPartNo(b));   // (1/2) 在前
+      const cards = g.items.map(it => `
+        <div class="cc-item" data-i="${items.indexOf(it)}">
+          ${it.count ? '<div class="cc-item-top"><span class="cc-item-count">' + it.count + '</span></div>' : ''}
+          <div class="cc-item-title">${it.title || ''}</div>
+          <div class="cc-item-desc">${(it.text || '').replace(/</g, '&lt;')}</div>
+        </div>`).join('');
+      return `
+        <div class="cc-group">
+          <div class="cc-group-head">
+            <span class="cc-group-date">${g.date}</span>
+            <span class="cc-group-wd">${ccWeekday(g.date)}</span>
+            <span class="cc-group-badge">${g.items.length} 份汇总</span>
+          </div>
+          <div class="cc-group-body${g.items.length > 1 ? ' multi' : ''}">${cards}</div>
+        </div>`;
+    }).join('');
+    listEl.querySelectorAll('.cc-item').forEach(el => {
+      el.addEventListener('click', () => ccOpenModal(items[+el.dataset.i]));
+    });
+  }
+
+  const ccModalEl = document.getElementById('ccModal');
+  function ccOpenModal(it){
+    if (!ccModalEl || !it) return;
+    document.getElementById('ccModalDate').textContent = it.date || '';
+    document.getElementById('ccModalTitle').textContent = it.title || '';
+    document.getElementById('ccModalText').textContent = it.text || '';
+    document.getElementById('ccModalLink').href = it.link || 'https://weibo.com/';
+    ccModalEl.classList.add('open');
+    ccModalEl.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function ccCloseModal(){
+    if (!ccModalEl) return;
+    ccModalEl.classList.remove('open');
+    ccModalEl.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  if (ccModalEl){
+    ccModalEl.querySelector('.cc-modal-backdrop').addEventListener('click', ccCloseModal);
+    document.getElementById('ccModalClose').addEventListener('click', ccCloseModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && ccModalEl.classList.contains('open')) ccCloseModal(); });
+  }
+
+  ccRender();
+</script>
+</body>
+</html>
