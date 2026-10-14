@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#9172CC">
-<title>艾米动态监控 · 每日简报</title>
+<title>艾米日签-动态简报</title>
 <style>
   :root{
     /* Material 3 配色 - #9172CC 为核心 */
@@ -1349,7 +1349,7 @@
     <div class="banner-content">
       <div class="banner-text">
         <div class="banner-title"><strong>艾米日签</strong> · 每日动态简报</div>
-        <div class="banner-sub">Hi, <span class="banner-greet" id="greetWord">早上好</span> · 微博 / 抖音 / 小红书 全平台监控</div>
+        <div class="banner-sub">Hi, <span class="banner-greet" id="greetWord">早上好</span> · 微博 / 抖音 / 小红书 全平台收录</div>
         <div class="banner-chips">
           <span class="banner-chip">微博</span>
           <span class="banner-chip">抖音</span>
@@ -1917,7 +1917,7 @@
   </div><!-- /tab-bio -->
 
   <footer>
-    艾米动态监控 · 平台范围：微博 / 抖音 / 小红书<br>
+    艾米日签-动态简报 · 平台范围：微博 / 抖音 / 小红书<br>
     舆情筛选：仅正面/中性 · 自动更新每日 08:00
     <div class="footer-links">
       <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">
@@ -2205,7 +2205,7 @@
       const dateStr = now.getFullYear() + '-' +
         String(now.getMonth()+1).padStart(2,'0') + '-' +
         String(now.getDate()).padStart(2,'0');
-      link.download = '艾米动态监控_' + dateStr + '.png';
+      link.download = '艾米日签-动态简报_' + dateStr + '.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
     } catch(e) {
