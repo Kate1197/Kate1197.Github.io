@@ -2174,7 +2174,7 @@
   [menuBtn, menuBtn2, menuBtn3].forEach(b => b && b.addEventListener('click', openMenu));
   menuClose.addEventListener('click', closeMenu);
 
-  // 当前导航标识：page-home / page-riqian / page-yaerle
+  // 当前导航标识：page-home / page-riqian
   let currentNav = 'page-home';
   function activateTab(tab){
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
