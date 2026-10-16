@@ -325,17 +325,102 @@
     .cc-modal-footer{ padding:12px 18px 20px; }
     .cc-cta{ padding: 16px 16px 0; }
   }
+
+  /* ===== 左侧侧边栏（大屏 ≥768px）+ 手机端汉堡菜单 ===== */
+  .app-shell{ display: block; }
+  .app-sidebar{ display: none; }
+  .menu-item{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; cursor:pointer; transition:background .2s; color:var(--md-on-surface); text-decoration:none; }
+  .menu-item:hover{ background:var(--md-surface-container-high); }
+  .menu-item.active{ background:var(--md-primary-container); }
+  .menu-item.active .ico{ color:var(--md-on-primary-container); }
+  .menu-item .ico{ width:24px; height:24px; color:var(--md-primary); flex-shrink:0; }
+  .menu-item .ico svg{ width:24px; height:24px; stroke:currentColor; }
+  .menu-item-text{ display:flex; flex-direction:column; flex:1; min-width:0; overflow:hidden; }
+  .menu-item .txt{ font-size:16px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-item .sub{ font-size:12px; color:var(--md-on-surface-variant); margin-top:2px; }
+  .menu-list{ padding:12px; display:flex; flex-direction:column; gap:4px; }
+  .sidebar-header{ padding:24px 20px 16px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; gap:10px; color:var(--md-primary); }
+  .sidebar-header svg{ width:24px; height:24px; }
+  .sidebar-header .brand-logo{ height:22px; width:auto; display:block; }
+  [data-theme="dark"] .sidebar-header .brand-logo{ filter:brightness(1.2); }
+  .sidebar-footer{ margin-top:auto; padding:16px 20px; border-top:1px solid var(--md-outline-variant); font-size:12px; color:var(--md-on-surface-variant); }
+  .sidebar-footer .footer-links a{ display:inline-flex; align-items:center; gap:6px; color:var(--md-primary); text-decoration:none; }
+  .sidebar-footer .footer-links svg{ width:15px; height:15px; stroke:currentColor; }
+
+  /* 全屏菜单（手机端） */
+  .menu-overlay{ position:fixed; inset:0; background:var(--md-surface); z-index:200; transform:translateY(-100%); transition:transform .4s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
+  .menu-overlay.open{ transform:translateY(0); }
+  .menu-close{ position:absolute; right:16px; top:16px; width:40px; height:40px; border-radius:50%; background:var(--md-surface-container-high); border:none; cursor:pointer; color:var(--md-on-surface); display:flex; align-items:center; justify-content:center; }
+  .menu-close svg{ width:22px; height:22px; stroke:currentColor; }
+  .menu-header{ padding:28px 24px 16px; font-size:20px; font-weight:700; color:var(--md-on-surface); border-bottom:1px solid var(--md-outline-variant); }
+
+  @media (min-width: 768px){
+    .app-shell{ display:flex; flex-direction:row; }
+    .app-sidebar{ width:240px; flex-shrink:0; display:flex !important; flex-direction:column; background:var(--md-surface-container-low); border-right:1px solid var(--md-outline-variant); position:sticky; top:0; height:100vh; overflow-y:auto; z-index:50; }
+    .app-content{ flex:1; min-width:0; }
+    .app-content .wrap{ max-width:none; margin:0; }
+    .menu-overlay{ display:none !important; }
+    .cc-menu-btn{ display:none !important; }
+  }
 </style>
 </head>
 <body>
 
-<div class="cc-topbar">
-  <button class="cc-back" id="ccBack" title="返回" aria-label="返回">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-  </button>
-  <div class="cc-topbar-title">产出汇总</div>
-  <button class="cc-theme" id="ccTheme" title="切换深色/浅色">🌙</button>
-</div>
+<div class="app-shell">
+  <!-- 左侧侧边栏（大屏显示） -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+    </div>
+    <div class="menu-list">
+      <a class="menu-item" href="index.html">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">主页</div>
+          <div class="sub">艾米日签 · 每日动态简报</div>
+        </div>
+      </a>
+      <a class="menu-item" href="index.html#riqian">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">日签</div>
+          <div class="sub">艾米日签合集 · 15期</div>
+        </div>
+      </a>
+      <a class="menu-item" href="aixin.html">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">艾心向善</div>
+          <div class="sub">粉丝公益 · 动态追踪</div>
+        </div>
+      </a>
+      <a class="menu-item active" href="chanchu.html">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">产出汇总</div>
+          <div class="sub">由 @艾产速览 整理汇总</div>
+        </div>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links" style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://weibo.com/7975536178" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> @艾产速览</a>
+        <a href="index.html" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> 主页</a>
+      </div>
+      <div style="margin-top:8px;">© 艾米日签 · 产出汇总</div>
+    </div>
+  </aside>
+
+  <!-- 右侧内容区 -->
+  <div class="app-content">
+  <div class="cc-topbar">
+    <button class="cc-back cc-menu-btn" id="menuBtn" title="菜单" aria-label="菜单">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="cc-topbar-title">产出汇总</div>
+    <button class="cc-theme" id="ccTheme" title="切换深色/浅色">🌙</button>
+  </div>
 
 <div class="wrap">
 
@@ -378,6 +463,46 @@
     </div>
   </footer>
 
+</div>
+  </div><!-- /app-content -->
+</div><!-- /app-shell -->
+
+<!-- 全屏菜单（手机端） -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="menu-header">页面导航</div>
+  <div class="menu-list">
+    <a class="menu-item" href="index.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">主页</div>
+        <div class="sub">艾米日签 · 每日动态简报</div>
+      </div>
+    </a>
+    <a class="menu-item" href="index.html#riqian">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">日签</div>
+        <div class="sub">艾米日签合集 · 15期</div>
+      </div>
+    </a>
+    <a class="menu-item" href="aixin.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">艾心向善</div>
+        <div class="sub">粉丝公益 · 动态追踪</div>
+      </div>
+    </a>
+    <a class="menu-item active" href="chanchu.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">产出汇总</div>
+        <div class="sub">由 @艾产速览 整理汇总</div>
+      </div>
+    </a>
+  </div>
 </div>
 
 <!-- 产出汇总弹窗 -->
@@ -463,14 +588,16 @@
     });
   })();
 
-  // 返回：优先回到上一页，否则回主站首页
-  document.getElementById('ccBack').addEventListener('click', function(){
-    if(history.length > 1 && document.referrer){
-      history.back();
-    } else {
-      location.href = 'index.html';
-    }
-  });
+  // 手机端全屏菜单开关
+  (function(){
+    const overlay = document.getElementById('menuOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const menuClose = document.getElementById('menuClose');
+    function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+    if(menuBtn) menuBtn.addEventListener('click', openMenu);
+    if(menuClose) menuClose.addEventListener('click', closeMenu);
+  })();
 
   // ========== 产出汇总（@艾产速览） ==========
   // 数据由人工录入（微博风控，不自动抓取）。
