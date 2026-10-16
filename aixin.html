@@ -2584,51 +2584,92 @@
     .ax-tl-title{ font-size: 14px; }
   }
 
-  /* 复用 chanchu 的 topbar 样式 */
-  .cc-topbar{ position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--md-surface-container); backdrop-filter: blur(12px); }
-  .cc-topbar-title{ font-weight: 600; font-size: 16px; color: var(--md-on-surface); }
-  .cc-back, .cc-theme{ background: none; border: none; padding: 8px; border-radius: 50%; cursor: pointer; color: var(--md-on-surface-variant); display: flex; align-items: center; justify-content: center; }
-  .cc-back:hover, .cc-theme:hover{ background: var(--md-surface-container-high); color: var(--md-on-surface); }
-  .cc-back svg{ width: 22px; height: 22px; }
-  .banner{ margin-top: 0; }
-  @media(min-width: 900px){
-    .cc-topbar{ padding: 16px 32px; }
-    .wrap{ max-width: 900px; margin: 0 auto; }
-  }
+  /* 艾心向善页：复用主站侧边栏（大屏）+ 手机端汉堡菜单 */
 </style>
 </head>
 <body data-page="aixin">
-<div class="cc-topbar">
-  <button class="cc-back" id="ccBack" title="返回" aria-label="返回">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-  </button>
-  <div class="cc-topbar-title">艾心向善</div>
-  <button class="cc-theme" id="ccTheme" title="切换深色/浅色">🌙</button>
-</div>
-
-<div class="wrap">
-
-  <!-- Banner -->
-  <div class="banner">
-    <img src="amy-banner.jpg?v=20261016b" alt="艾心向善" crossorigin="anonymous">
-    <div class="banner-mask"></div>
-    <div class="banner-content">
-      <div class="banner-title"><strong>艾心向善</strong></div>
-      <div class="banner-sub">粉丝公益 · 动态追踪</div>
+<div class="app-shell">
+  <!-- 左侧侧边栏（大屏显示） -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
     </div>
-  </div>
-
-  <!-- 最近动态（卡片保留，内容清空，sub-tabs 移除）-->
-  <div class="content">
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+    <div class="menu-list">
+      <a class="menu-item menu-item-link" href="index.html">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">主页</div>
+          <div class="sub">艾米日签 · 每日动态简报</div>
         </div>
-        <div class="card-title">最近动态</div>
+      </a>
+      <a class="menu-item menu-item-link" href="index.html#riqian">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">日签</div>
+          <div class="sub">艾米日签合集 · 15期</div>
+        </div>
+      </a>
+      <a class="menu-item menu-item-link active" href="aixin.html">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">艾心向善</div>
+          <div class="sub">粉丝公益 · 动态追踪</div>
+        </div>
+      </a>
+      <a class="menu-item menu-item-link" href="chanchu.html">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">产出汇总</div>
+          <div class="sub">由 @艾产速览 整理汇总</div>
+        </div>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          微博
+        </a>
+        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          抖音
+        </a>
       </div>
-      <div class="card-body">
-        
+      <div style="margin-top:8px;">© 艾米日签 · 每日动态简报</div>
+    </div>
+  </aside>
+
+  <!-- 右侧内容区 -->
+  <div class="app-content">
+  <div class="wrap">
+
+    <!-- Banner -->
+    <div class="banner">
+      <img src="amy-banner.jpg?v=20261016b" alt="艾心向善" crossorigin="anonymous">
+      <div class="banner-mask"></div>
+      <button class="menu-btn" id="menuBtn" title="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <button class="theme-toggle" id="themeToggle" title="切换深色/浅色">🌙</button>
+      <div class="banner-content">
+        <div class="banner-text">
+          <div class="banner-title"><strong>艾心向善</strong></div>
+          <div class="banner-sub">粉丝公益 · 动态追踪</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最近动态（时间线）-->
+    <div class="content">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div class="card-title">最近动态</div>
+        </div>
+        <div class="card-body">
 <div class="ax-timeline">
 
   <!-- 2026-10-12 卡丝慈善基金会 · 女生加油计划 -->
@@ -2689,51 +2730,89 @@
       查看原贴
     </a>
   </div>
-
 </div>
 
+        </div>
       </div>
     </div>
+
+    <footer>
+      艾心向善 · 粉丝公益动态追踪<br>
+      仅供粉丝向参考
+      <div class="footer-links" style="margin-top:12px;">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">粉丝站 @玡迩叻_ami</a>
+      </div>
+    </footer>
+
   </div>
+  </div>
+</div>
 
-  <footer>
-    艾心向善 · 粉丝公益动态追踪<br>
-    仅供粉丝向参考
-    <div class="footer-links" style="margin-top:12px;">
-      <a href="index.html" rel="noopener">← 返回主页</a>
-      <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">粉丝站 @玡迩叻_ami</a>
-    </div>
-  </footer>
-
+<!-- 全屏菜单（手机端） -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="menu-header">页面导航</div>
+  <div class="menu-list">
+    <a class="menu-item menu-item-link" href="index.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">主页</div>
+        <div class="sub">艾米日签 · 每日动态简报</div>
+      </div>
+    </a>
+    <a class="menu-item menu-item-link" href="index.html#riqian">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">日签</div>
+        <div class="sub">艾米日签合集 · 15期</div>
+      </div>
+    </a>
+    <a class="menu-item menu-item-link active" href="aixin.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">艾心向善</div>
+        <div class="sub">粉丝公益 · 动态追踪</div>
+      </div>
+    </a>
+    <a class="menu-item menu-item-link" href="chanchu.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">产出汇总</div>
+        <div class="sub">由 @艾产速览 整理汇总</div>
+      </div>
+    </a>
+  </div>
 </div>
 
 <script>
   // 深色模式（与主站共享 ami-theme）
   (function(){
-    const btn = document.getElementById('ccTheme');
+    const btn = document.getElementById('themeToggle');
     const html = document.documentElement;
     const saved = localStorage.getItem('ami-theme');
     if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
       html.setAttribute('data-theme','dark');
+      btn.textContent = '☀️';
     }
-    btn.addEventListener('click', () => {
-      const cur = html.getAttribute('data-theme');
-      const next = cur === 'dark' ? 'light' : 'dark';
-      html.setAttribute('data-theme', next);
-      localStorage.setItem('ami-theme', next);
-      btn.textContent = next === 'dark' ? '🌙' : '☀️';
+    btn.addEventListener('click', function(){
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if(isDark){ html.removeAttribute('data-theme'); btn.textContent='🌙'; localStorage.setItem('ami-theme','light'); }
+      else{ html.setAttribute('data-theme','dark'); btn.textContent='☀️'; localStorage.setItem('ami-theme','dark'); }
     });
   })();
 
-  // 返回主页
-  document.getElementById('ccBack').addEventListener('click', () => {
-    if(document.referrer && document.referrer.includes('kate1197.github.io')){
-      history.back();
-    } else {
-      location.href = 'index.html';
-    }
-  });
+  // 手机端全屏菜单开关
+  (function(){
+    const overlay = document.getElementById('menuOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const menuClose = document.getElementById('menuClose');
+    function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+    menuBtn.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+  })();
 </script>
-
 </body>
 </html>

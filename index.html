@@ -2202,6 +2202,12 @@
     });
   });
 
+  // 支持从其他页面带 hash 进入（如 aixin.html → index.html#riqian）
+  (function(){
+    const h = (location.hash || '').replace('#','');
+    if(h === 'riqian' || h === 'page-riqian'){ applyNav('page-riqian'); }
+  })();
+
   // ========== 玡迩叻页面：子tab切换 ==========
   document.querySelectorAll('.sub-tab').forEach(tab => {
     tab.addEventListener('click', () => {
