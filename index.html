@@ -459,7 +459,7 @@
   /* banner 内容：左对齐文字 + 右侧点赞按钮 */
   .banner-content{
     position: absolute; left:0; right:0; bottom:0;
-    padding: 18px 20px 22px;
+    padding: 18px 20px 40px;
     color: #fff;
     text-align: left;
     display: flex;
@@ -493,16 +493,15 @@
   }
   .banner-chip.success{background:rgba(46,125,50,0.6); border-color:rgba(74,222,128,0.4);}
 
-  /* 广告屏：副标题与「了解更多」按钮同行，副标题靠左、按钮靠右 */
-  .banner-sub-row{
+  /* 广告屏：标题与「了解更多」按钮同一行，标题靠左、按钮靠右 */
+  .banner-title-row{
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-top: 8px;
-    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 12px;
   }
-  .banner-sub-row .banner-sub{ margin-top: 0; }
+  /* 第二屏：标题与副标题缩小间距 */
+  .banner-slide--ad .banner-sub{ margin-top: 4px; }
   /* 了解更多按钮：30% 透明度半透明圆角矩形 */
   .banner-ad-btn{
     background: rgba(255,255,255,0.30);
@@ -973,7 +972,7 @@
     .footer-links a{font-size: 11px; padding: 5px 10px;}
     .like-btn{width: 40px; height: 40px;}
     .like-btn svg{width: 20px; height: 20px;}
-    .banner-content{padding: 12px 14px 16px;}
+    .banner-content{padding: 12px 14px 30px;}
     .drama-poster{width: 64px; height: 90px;}
     .drama-title{font-size: 15px;}
     .msg-box{max-width: calc(100% - 24px);}
@@ -1098,7 +1097,7 @@
     .fab-export{right: 28px; bottom: 104px; height: 48px; padding: 0 20px; font-size: 15px;}
     .like-btn{width: 52px; height: 52px;}
     .like-btn svg{width: 26px; height: 26px;}
-    .banner-content{padding: 22px 24px 26px;}
+    .banner-content{padding: 22px 24px 44px;}
     .drama-list{padding: 20px; gap: 20px;}
     .drama-poster{width: 96px; height: 132px;}
     .drama-title{font-size: 19px;}
@@ -1140,7 +1139,7 @@
     .like-btn{width: 56px; height: 56px;}
     .like-btn:hover{transform: scale(1.1); background: rgba(255,82,82,0.3);}
     .like-btn svg{width: 28px; height: 28px;}
-    .banner-content{padding: 24px 28px 28px;}
+    .banner-content{padding: 24px 28px 48px;}
     .drama-list{padding: 24px; gap: 24px;}
     .drama-poster{width: 104px; height: 144px;}
     .drama-poster img{border-radius: 12px;}
@@ -1163,7 +1162,7 @@
     .banner-title{font-size: 16px;}
     .banner-sub{font-size: 11px;}
     .banner-chips{margin-top: 6px;}
-    .banner-content{padding: 10px 14px 12px;}
+    .banner-content{padding: 10px 14px 24px;}
     .like-btn{width: 36px; height: 36px;}
     .like-btn svg{width: 18px; height: 18px;}
     .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 8px;}
@@ -1480,11 +1479,11 @@
         <div class="banner-mask"></div>
         <div class="banner-content">
           <div class="banner-text">
-            <div class="banner-title">医用金选下单送卡 好运送金</div>
-            <div class="banner-sub-row">
-              <span class="banner-sub">下单得艾米限量小卡 加入会员抢金卡</span>
+            <div class="banner-title-row">
+              <div class="banner-title">医用金选下单送卡 好运送金</div>
               <a class="banner-ad-btn" href="https://pro.m.jd.com/mall/active/3NANJ4pMdWdEBgjJveh5KBpFbxsX/index.html?gx=RnAomTM2b2Lcy5oT-oJ2WxbfpLhSfqk&gxd=RnAowjFbbzSMnZ5Hp9VyCAkEOjPDaD4&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL_shareid1f270ef6b8a5e161179249535493884116_tongtianta_02206342" target="_blank" rel="noopener noreferrer">了解更多</a>
             </div>
+            <div class="banner-sub">下单得艾米限量小卡 加入会员抢金卡</div>
           </div>
         </div>
       </div>
