@@ -175,11 +175,13 @@
     object-position: center 32%;
     display: block;
   }
-  /* 广告屏背景占位（主题深色渐变，后续替换为物料图） */
+  /* 广告屏背景图：底部锚定，需要裁切时只裁顶部，保证底部信息条与主体露出 */
   .banner-ad-bg{
     width: 100%;
     height: 380px;
-    background: linear-gradient(135deg, #1a1033 0%, #2d1b4e 45%, #4a2370 100%);
+    object-fit: cover;
+    object-position: center bottom;
+    display: block;
   }
   /* 仅底部渐变遮罩，保证文字可读，上半部分完全展示图片 */
   .banner-mask{
@@ -1475,9 +1477,9 @@
         </div>
       </div>
 
-      <!-- 第二屏：京东健康商务广告（背景待替换，先放主题色占位渐变） -->
+      <!-- 第二屏：京东健康商务广告 -->
       <div class="banner-slide banner-slide--ad">
-        <div class="banner-ad-bg" id="bannerAdBg"></div>
+        <img class="banner-ad-bg" src="jd-health-banner.jpg?v=20261020" alt="京东健康医用金选 · 艾米" crossorigin="anonymous">
         <div class="banner-mask"></div>
         <div class="banner-content">
           <div class="banner-text">
