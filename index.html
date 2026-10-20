@@ -175,13 +175,9 @@
     object-position: center 32%;
     display: block;
   }
-  /* 广告屏背景图：底部锚定，需要裁切时只裁顶部，保证底部信息条与主体露出 */
+  /* 广告屏背景图：仅覆盖对齐方式为底部锚定，尺寸继承 .banner-slide > img（随断点响应） */
   .banner-slide > img.banner-ad-bg{
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
     object-position: center bottom;
-    display: block;
   }
   /* 仅底部渐变遮罩，保证文字可读，上半部分完全展示图片 */
   .banner-mask{
