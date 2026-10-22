@@ -1289,28 +1289,72 @@
   }
 
   /* 日签页面容器内边距 */
+  /* ========== 日签页面布局 ========== */
   #page-riqian .dq-body{
-    padding:0 16px 40px;
+    padding: 0;
   }
-  @media (min-width:768px){
-    #page-riqian .dq-body{padding:0 24px 60px;}
+  .dq-layout{
+    display: flex;
+    flex-direction: column;
+  }
+  .dq-main{
+    padding: 16px 16px 40px;
+  }
+  .dq-side{
+    display: none;  /* 手机隐藏 */
   }
 
-  /* 单列卡片列表 */
+  /* 手机端 - 单列卡片 */
   .dq-waterfall{
     display:flex; flex-direction:column; gap:12px;
   }
+
+  /* 平板 + 桌面：左主列表 + 右 sticky 侧栏 */
   @media (min-width: 768px){
-    .dq-waterfall{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
+    .dq-layout{
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 24px;
+      padding: 20px 24px 60px;
+      align-items: start;
+    }
+    .dq-main{
+      padding: 0;
+    }
+    .dq-side{
+      display: block;
+    }
+    .dq-side-sticky{
+      position: sticky;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
   }
+
   @media (min-width: 1024px){
-    .dq-waterfall{
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:16px;
+    .dq-layout{
+      grid-template-columns: 1fr 260px;
+      gap: 32px;
+      padding: 28px 40px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+  }
+
+  /* 列表保持单列，卡片更宽 */
+  .dq-waterfall{
+    display:flex; flex-direction:column; gap:14px;
+  }
+  @media (min-width: 768px){
+    .dq-waterfall{ gap: 16px; }
+  }
+
+  /* 卡片宽度加大 */
+  @media (min-width: 768px){
+    .dq-item{
+      padding: 20px 24px;
     }
   }
   .dq-item{
@@ -1404,6 +1448,158 @@
     transition:opacity .2s;
   }
   .dq-modal-weibo-btn:hover{opacity:.85;}
+
+  /* ========== 侧栏卡片 ========== */
+  .dq-side-card{
+    background: var(--md-surface-container-low);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .dq-side-label{
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--md-on-surface-variant);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* 最新一期跳转卡 */
+  .dq-latest-card{
+    background: linear-gradient(135deg, rgba(155,114,204,0.14), rgba(123,97,255,0.10));
+    border: 1px solid rgba(155,114,204,0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  [data-theme="dark"] .dq-latest-card{
+    background: linear-gradient(135deg, rgba(123,97,255,0.22), rgba(155,114,204,0.16));
+    border-color: rgba(155,114,204,0.38);
+  }
+  .dq-latest-card::before{
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155,114,204,0.35), transparent 70%);
+    pointer-events: none;
+  }
+  .dq-latest-badge{
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--md-primary);
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.6px;
+  }
+  .dq-latest-date{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--md-primary);
+    margin-top: 10px;
+  }
+  .dq-latest-title{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--md-on-surface);
+    margin-top: 4px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .dq-latest-btn{
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 0;
+    border-radius: 10px;
+    border: 1px solid var(--md-primary);
+    background: transparent;
+    color: var(--md-primary);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: background .2s, color .2s;
+  }
+  .dq-latest-btn:hover{
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+  .dq-latest-btn svg{width:16px; height:16px; stroke:currentColor;}
+
+  /* 搜索框 */
+  .dq-search-wrap{
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .dq-search-ico{
+    position: absolute;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+    stroke: var(--md-on-surface-variant);
+    pointer-events: none;
+  }
+  .dq-search-input{
+    width: 100%;
+    padding: 9px 12px 9px 32px;
+    border-radius: 10px;
+    border: 1px solid var(--md-outline-variant);
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .dq-search-input:focus{
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(155,114,204,0.18);
+  }
+  .dq-search-input::placeholder{
+    color: var(--md-on-surface-variant);
+  }
+
+  /* 快速筛选 */
+  .dq-filter-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .dq-chip{
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--md-outline-variant);
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .dq-chip:hover{
+    border-color: var(--md-primary);
+    color: var(--md-primary);
+  }
+  .dq-chip.active{
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+  }
 
   .dq-tip{
     text-align:center; font-size:12px;
@@ -2080,18 +2276,57 @@
     </div>
 
     <div class="dq-body">
-      <!-- 单列卡片列表 -->
-      <div class="dq-waterfall" id="dqWaterfall"></div>
+      <div class="dq-layout">
+        <!-- 左侧主列表 -->
+        <div class="dq-main">
+          <div class="dq-waterfall" id="dqWaterfall"></div>
 
-      <!-- 加载更多按钮 -->
-      <div class="dq-load-more" id="dqLoadMore" style="display:none;text-align:center;margin:20px 0;">
-        <button id="dqLoadMoreBtn" class="dq-load-btn" style="padding:10px 28px;border-radius:24px;border:1px solid var(--md-outline);background:var(--md-surface-container);color:var(--md-primary);cursor:pointer;font-weight:600;font-size:14px;">
-          加载更多历史日签
-        </button>
-      </div>
+          <div class="dq-load-more" id="dqLoadMore" style="display:none;text-align:center;margin:20px 0;">
+            <button id="dqLoadMoreBtn" class="dq-load-btn" style="padding:10px 28px;border-radius:24px;border:1px solid var(--md-outline);background:var(--md-surface-container);color:var(--md-primary);cursor:pointer;font-weight:600;font-size:14px;">
+              加载更多历史日签
+            </button>
+          </div>
 
-      <div class="dq-tip">
-        数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a>
+          <div class="dq-tip">
+            数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a>
+          </div>
+        </div>
+
+        <!-- 右侧 sticky 侧栏（平板/桌面显示） -->
+        <aside class="dq-side">
+          <div class="dq-side-sticky">
+            <!-- 最新一期跳转卡 -->
+            <div class="dq-side-card dq-latest-card" id="dqLatestCard">
+              <div class="dq-latest-badge">最新一期</div>
+              <div class="dq-latest-date" id="dqLatestDate">—</div>
+              <div class="dq-latest-title" id="dqLatestTitle">—</div>
+              <button class="dq-latest-btn" id="dqLatestBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+                查看
+              </button>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="dq-side-card">
+              <div class="dq-side-label">搜索</div>
+              <div class="dq-search-wrap">
+                <svg class="dq-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="dqSearchInput" class="dq-search-input" placeholder="搜标题或正文…">
+              </div>
+            </div>
+
+            <!-- 快速筛选 -->
+            <div class="dq-side-card">
+              <div class="dq-side-label">快速筛选</div>
+              <div class="dq-filter-row">
+                <button class="dq-chip" data-filter="all">全部</button>
+                <button class="dq-chip" data-filter="vol">日签 Vol.</button>
+                <button class="dq-chip" data-filter="aixin">艾心日签</button>
+                <button class="dq-chip" data-filter="erchuang">二创</button>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
 
@@ -2904,6 +3139,70 @@
       renderRiqianItem(item);
     });
   }
+
+  // ======== 侧栏：最新一期 / 搜索 / 筛选 ========
+  (function(){
+    const latestDateEl = document.getElementById('dqLatestDate');
+    const latestTitleEl = document.getElementById('dqLatestTitle');
+    const latestBtn = document.getElementById('dqLatestBtn');
+    const searchInput = document.getElementById('dqSearchInput');
+    const chips = document.querySelectorAll('.dq-chip');
+    const items = document.querySelectorAll('#dqWaterfall .dq-item');
+
+    // 填充最新一期卡
+    if (riqianData.length && latestDateEl && latestTitleEl) {
+      const latest = riqianData[0];
+      latestDateEl.textContent = latest.date || '';
+      latestTitleEl.textContent = latest.title || '';
+    }
+    // "查看" 按钮：滚动到第一个卡片并打开弹窗
+    if (latestBtn && riqianData[0]) {
+      latestBtn.addEventListener('click', () => {
+        const firstItem = document.querySelector('#dqWaterfall .dq-item');
+        if (firstItem) {
+          firstItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => firstItem.click(), 400);
+        }
+      });
+    }
+
+    // 搜索过滤（标题 + 正文）
+    function applySearchAndFilter(){
+      if (!searchInput) return;
+      const q = (searchInput.value || '').trim().toLowerCase();
+      const activeChip = document.querySelector('.dq-chip.active');
+      const filterKey = activeChip ? activeChip.dataset.filter : 'all';
+
+      items.forEach((el, idx) => {
+        const item = riqianData[idx];
+        if (!item) { el.style.display = ''; return; }
+
+        // 搜索条件
+        const hay = ((item.title || '') + ' ' + (item.caption || '')).toLowerCase();
+        const matchSearch = !q || hay.includes(q);
+
+        // 筛选条件
+        let matchFilter = true;
+        if (filterKey === 'vol')       matchFilter = /Vol\.\d+/.test(item.title || '') || /^第\d+期/.test(item.date || '');
+        else if (filterKey === 'aixin') matchFilter = /艾心日签/.test(item.date || '') || /艾心/.test(item.title || '');
+        else if (filterKey === 'erchuang') matchFilter = /二创|调色/.test(item.title + ' ' + item.caption);
+
+        el.style.display = (matchSearch && matchFilter) ? '' : 'none';
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applySearchAndFilter);
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        applySearchAndFilter();
+      });
+    });
+  })();
 
   // ======== 动态加载更多 ========
   const dqLoadMore = document.getElementById('dqLoadMore');
