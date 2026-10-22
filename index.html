@@ -1253,8 +1253,19 @@
     position:relative;
     background:linear-gradient(135deg,#7B61FF,#9C27B0);
     color:#fff;
-    padding:52px 20px 24px;
-    margin-bottom:16px;
+    padding:52px 20px 32px;
+  }
+  @media (min-width: 1024px){
+    .dq-page-header{
+      padding: 72px 40px 40px;
+    }
+    .dq-page-header .dq-title{
+      font-size: 28px;
+    }
+    .dq-page-header .dq-sub{
+      font-size: 14px;
+      margin-top: 6px;
+    }
   }
   [data-theme="dark"] .dq-page-header{
     background:linear-gradient(135deg,#4A3FBF,#6A1B9A);
@@ -1298,9 +1309,8 @@
   }
   @media (min-width: 1024px){
     .dq-waterfall{
-      gap:18px;
-      max-width: 960px;
-      margin: 0 auto;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:16px;
     }
   }
   .dq-item{
