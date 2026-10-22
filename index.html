@@ -1289,6 +1289,20 @@
   .dq-waterfall{
     display:flex; flex-direction:column; gap:12px;
   }
+  @media (min-width: 768px){
+    .dq-waterfall{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+  }
+  @media (min-width: 1024px){
+    .dq-waterfall{
+      gap:18px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+  }
   .dq-item{
     background:var(--md-surface-container-low);
     border-radius:12px;
