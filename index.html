@@ -189,20 +189,23 @@
       rgba(0,0,0,0.78) 100%
     );
   }
-  /* 更新至时间：双段式组件 —— 上半实时时钟，下半更新至 */
+  /* 更新至时间：双段式组件 —— 上半实时时钟，下半更新至
+     尺寸自适应：用 clamp() 随 vw 平滑插值，4 个媒体查询里不再重复硬编码 */
   .banner-time{
-    position: absolute; right: 110px; top: calc(58px + env(safe-area-inset-top, 0px));
+    position: absolute;
+    right: clamp(10px, 2.2vw + 2px, 24px);
+    top: calc(clamp(50px, 1.8vw + 44px, 72px) + env(safe-area-inset-top, 0px));
     text-align: right; color: #fff;
     background: rgba(0,0,0,0.22);
     backdrop-filter: blur(14px) saturate(1.3);
     -webkit-backdrop-filter: blur(14px) saturate(1.3);
     border: 1px solid rgba(255,255,255,0.16);
     border-radius: 14px;
-    padding: 10px 14px;
+    padding: clamp(6px, 0.5vw + 4px, 10px) clamp(10px, 0.6vw + 8px, 16px);
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    min-width: 130px;
+    gap: clamp(4px, 0.3vw + 3px, 8px);
+    min-width: clamp(96px, 12vw, 150px);
     box-shadow: 0 4px 14px rgba(0,0,0,0.18);
   }
   .btm-live{
@@ -212,7 +215,7 @@
     gap: 2px;
   }
   .btm-live-label{
-    font-size: 10px;
+    font-size: clamp(8px, 0.6vw + 6px, 11px);
     letter-spacing: 1.2px;
     opacity: 0.7;
     font-weight: 500;
@@ -221,7 +224,7 @@
   .btm-live-time{
     font-family: "MiSans", "HarmonyOS Sans SC", inherit;
     font-variant-numeric: tabular-nums;
-    font-size: 22px;
+    font-size: clamp(16px, 1.6vw + 12px, 26px);
     font-weight: 700;
     color: #fff;
     letter-spacing: 0.5px;
@@ -230,45 +233,54 @@
   }
   .btm-update{
     border-top: 1px solid rgba(255,255,255,0.18);
-    padding-top: 8px;
+    padding-top: clamp(4px, 0.3vw + 3px, 8px);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 1px;
   }
   .btm-update-label{
-    font-size: 9px;
+    font-size: clamp(8px, 0.5vw + 6px, 10px);
     letter-spacing: 1px;
     opacity: 0.6;
   }
   .btm-update-time{
     font-family: "MiSans", "HarmonyOS Sans SC", inherit;
     font-variant-numeric: tabular-nums;
-    font-size: 13px;
+    font-size: clamp(11px, 0.6vw + 9px, 14px);
     font-weight: 600;
     color: #fff;
   }
   .btm-update-date{
-    font-size: 10px;
+    font-size: clamp(9px, 0.5vw + 7px, 11px);
     opacity: 0.7;
   }
-  /* 消息图标 */
+  /* 消息图标 - 尺寸自适应 */
   .msg-btn{
-    position: absolute; right: 110px; top: 14px;
-    width: 36px; height: 36px; border-radius: 50%;
+    position: absolute;
+    right: clamp(10px, 2.2vw + 2px, 24px);
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    width: clamp(30px, 1.4vw + 26px, 40px);
+    height: clamp(30px, 1.4vw + 26px, 40px);
+    border-radius: 50%;
     background: rgba(0,0,0,0.25);
-    backdrop-filter: blur(6px);
-    border: none; cursor: pointer;
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.14);
+    cursor: pointer;
     color: #fff;
     display: flex; align-items: center; justify-content: center;
     z-index: 55;
+    transition: background .2s, transform .2s;
   }
-  .msg-btn svg{width:18px; height:18px; stroke:#fff;}
-  /* 手机端 Banner logo（白色版，紧贴深色模式按钮右侧，尺寸与按钮一致）
-     注意：必须写成 .banner img.banner-logo，否则会被 .banner img 规则覆盖拉伸 */
+  .msg-btn svg{width: clamp(14px, 0.7vw + 12px, 20px); height: clamp(14px, 0.7vw + 12px, 20px); stroke:#fff;}
+  /* Banner logo - 尺寸自适应，跟随 theme-toggle 位置 */
   .banner img.banner-logo{
-    position: absolute; left: 100px; top: 17px;
-    width: auto; height: 30px;
+    position: absolute;
+    left: calc(14px + clamp(22px, 1.4vw + 18px, 32px) + 10px + clamp(30px, 1.4vw + 26px, 40px) + 6px);
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    width: auto;
+    height: clamp(24px, 1.6vw + 18px, 32px);
     object-fit: contain; display: block;
     z-index: 55; pointer-events: none;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,.55));
@@ -422,27 +434,34 @@
   .fan-toast-text{ font-size:13px; color: var(--md-on-surface); line-height:1.5; }
   .fan-toast-text strong{ color: var(--md-primary); font-weight:700; }
   .fan-toast-link{ color: var(--md-primary); font-weight:600; cursor:pointer; }
-  /* 深色模式开关 */
+  /* 深色模式开关 - 尺寸自适应 */
   .theme-toggle{
-    position: absolute; left: 56px; top: 14px;
-    width: 36px; height: 36px; border-radius: 50%;
+    position: absolute; left: calc(14px + clamp(22px, 1.4vw + 18px, 32px) + 10px);
+    top: calc(14px + env(safe-area-inset-top, 0px));
+    width: clamp(30px, 1.4vw + 26px, 40px);
+    height: clamp(30px, 1.4vw + 26px, 40px);
+    border-radius: 50%;
     background: rgba(0,0,0,0.25);
-    backdrop-filter: blur(6px);
-    border: none; cursor: pointer;
-    color: #fff; font-size: 18px;
+    backdrop-filter: blur(10px) saturate(1.3);
+    -webkit-backdrop-filter: blur(10px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.14);
+    cursor: pointer;
+    color: #fff;
     display: flex; align-items: center; justify-content: center;
     transition: transform .3s;
     z-index: 55;
   }
   .theme-toggle:hover{transform: rotate(15deg);}
-  .theme-toggle .theme-icon{width:20px; height:20px; stroke:currentColor;}
+  .theme-toggle .theme-icon{width: clamp(14px, 0.7vw + 12px, 20px); height: clamp(14px, 0.7vw + 12px, 20px); stroke:currentColor;}
   .theme-toggle .theme-icon-sun{display:none;}
   [data-theme="dark"] .theme-toggle .theme-icon-moon{display:none;}
   [data-theme="dark"] .theme-toggle .theme-icon-sun{display:block;}
-  /* 菜单按钮 */
+  /* 菜单按钮 - 尺寸自适应 */
   .menu-btn{
-    position: absolute; left: 14px; top: 14px;
-    width: 36px; height: 36px; border-radius: 50%;
+    position: absolute; left: 14px; top: calc(14px + env(safe-area-inset-top, 0px));
+    width: clamp(30px, 1.4vw + 26px, 40px);
+    height: clamp(30px, 1.4vw + 26px, 40px);
+    border-radius: 50%;
     background: rgba(0,0,0,0.22);
     backdrop-filter: blur(14px) saturate(1.4);
     -webkit-backdrop-filter: blur(14px) saturate(1.4);
@@ -1023,17 +1042,7 @@
     .banner-ad-bg{height: 300px;}
     .banner-title{font-size: 18px;}
     .banner-sub{font-size: 12px;}
-    .banner-time{right: 10px; top: calc(50px + env(safe-area-inset-top, 0px)); padding: 6px 10px; gap: 5px; min-width: 100px;}
-    .btm-live-time{font-size: 17px;}
-    .btm-update-time{font-size: 11px;}
-    .btm-live-label{font-size: 8px;}
-    .btm-update-label, .btm-update-date{font-size: 8px;}
-    .msg-btn{right: 10px; top: 10px; width: 32px; height: 32px;}
-    .theme-toggle{left: 48px; top: 10px; width: 32px; height: 32px; font-size: 16px;}
-    /* 高度与深色模式按钮一致(=32px)，紧贴其右侧 */
-    .banner img.banner-logo{ left: 88px; top: 13px; height: 26px; }
-    .menu-btn{left: 10px; top: 10px; width: 32px; height: 32px;}
-    .menu-btn svg{width: 17px; height: 17px;}
+
     .stat-grid{grid-template-columns: repeat(2, 1fr); gap: 8px;}
     .stat-card{padding: 12px;}
     .stat-card .value{font-size: 20px;}
@@ -1133,12 +1142,7 @@
     /* 隐藏手机端全屏菜单和汉堡按钮 */
     .menu-overlay{ display: none !important; }
     .menu-btn{ display: none !important; }
-    .banner-time{ right: 20px; top: calc(66px + env(safe-area-inset-top, 0px)); padding: 9px 14px; min-width: 140px; }
-    .btm-live-time{ font-size: 23px; }
-    .btm-update-time{ font-size: 13px; }
-    .btm-live-label, .btm-update-date{ font-size: 10px; }
-    .msg-btn{ right: 20px; top: 20px; width: 38px; height: 38px; }
-    .theme-toggle{ left: 20px; }
+
     .ch-dash-grid{ grid-template-columns: repeat(4,1fr); gap:16px; }
     .ch-dash-icon{ width:60px; height:60px; }
     .ch-dash-value{ font-size:24px; }
@@ -1151,13 +1155,7 @@
     .banner-ad-bg{height: 420px;}
     .banner-title{font-size: 26px;}
     .banner-sub{font-size: 14px;}
-    .banner-time{right: 20px; top: calc(68px + env(safe-area-inset-top, 0px)); padding: 9px 14px; min-width: 140px;}
-    .btm-live-time{font-size: 24px;}
-    .btm-update-time{font-size: 14px;}
-    .msg-btn{right: 20px; top: 20px; width: 40px; height: 40px;}
-    .theme-toggle{left: 64px; top: 20px; width: 40px; height: 40px; font-size: 20px;}
-    .menu-btn{left: 20px; top: 20px; width: 40px; height: 40px;}
-    .menu-btn svg{width: 22px; height: 22px;}
+
     .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 14px;}
     .stat-card{padding: 18px;}
     .stat-card .value{font-size: 26px;}
@@ -1199,10 +1197,7 @@
     .banner-ad-bg{height: 460px;}
     .banner-title{font-size: 30px; letter-spacing: 1.5px;}
     .banner-sub{font-size: 15px;}
-    .banner-time{right: 24px; top: calc(72px + env(safe-area-inset-top, 0px)); padding: 10px 16px; min-width: 150px;}
-    .msg-btn{right: 24px; top: 24px; width: 40px; height: 40px;}
-    .btm-live-time{font-size: 26px;}
-    .btm-update-time{font-size: 14px;}
+
     .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 16px;}
     .stat-card{padding: 20px;}
     .stat-card .value{font-size: 28px;}
@@ -1678,7 +1673,6 @@
     .dq-modal-footer{padding:12px 18px 20px;}
   }
 
-
   /* 小屏：5 个 Tab 横向滚动，防止挤压换行 */
   @media (max-width:767px){
     .tab-nav{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
@@ -2146,7 +2140,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- 三、超话今日热帖 -->
     <div class="card">
