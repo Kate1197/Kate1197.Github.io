@@ -189,18 +189,69 @@
       rgba(0,0,0,0.78) 100%
     );
   }
-  /* 更新至时间：静态标签（不实时跳动），统一挂在消息盒子铃铛下方 */
+  /* 更新至时间：双段式组件 —— 上半实时时钟，下半更新至 */
   .banner-time{
     position: absolute; right: 110px; top: calc(58px + env(safe-area-inset-top, 0px));
     text-align: right; color: #fff;
-    background: rgba(0,0,0,0.25);
-    backdrop-filter: blur(6px);
-    border-radius: 10px;
-    padding: 6px 10px;
+    background: rgba(0,0,0,0.22);
+    backdrop-filter: blur(14px) saturate(1.3);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 14px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 130px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
   }
-  .banner-time .label{font-size:9px; letter-spacing:1px; opacity:0.75;}
-  .banner-time .time{font-family: Roboto Mono, monospace; font-size:15px; font-weight:500; color:#fff; margin-top:1px;}
-  .banner-time .date{font-size:9px; opacity:0.75; margin-top:1px;}
+  .btm-live{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .btm-live-label{
+    font-size: 10px;
+    letter-spacing: 1.2px;
+    opacity: 0.7;
+    font-weight: 500;
+    font-family: inherit;
+  }
+  .btm-live-time{
+    font-family: "MiSans", "HarmonyOS Sans SC", inherit;
+    font-variant-numeric: tabular-nums;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  }
+  .btm-update{
+    border-top: 1px solid rgba(255,255,255,0.18);
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1px;
+  }
+  .btm-update-label{
+    font-size: 9px;
+    letter-spacing: 1px;
+    opacity: 0.6;
+  }
+  .btm-update-time{
+    font-family: "MiSans", "HarmonyOS Sans SC", inherit;
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .btm-update-date{
+    font-size: 10px;
+    opacity: 0.7;
+  }
   /* 消息图标 */
   .msg-btn{
     position: absolute; right: 110px; top: 14px;
@@ -972,9 +1023,11 @@
     .banner-ad-bg{height: 300px;}
     .banner-title{font-size: 18px;}
     .banner-sub{font-size: 12px;}
-    .banner-time{right: 10px; top: calc(50px + env(safe-area-inset-top, 0px)); padding: 4px 8px;}
-    .banner-time .time{font-size: 13px;}
-    .banner-time .label, .banner-time .date{font-size: 8px;}
+    .banner-time{right: 10px; top: calc(50px + env(safe-area-inset-top, 0px)); padding: 6px 10px; gap: 5px; min-width: 100px;}
+    .btm-live-time{font-size: 17px;}
+    .btm-update-time{font-size: 11px;}
+    .btm-live-label{font-size: 8px;}
+    .btm-update-label, .btm-update-date{font-size: 8px;}
     .msg-btn{right: 10px; top: 10px; width: 32px; height: 32px;}
     .theme-toggle{left: 48px; top: 10px; width: 32px; height: 32px; font-size: 16px;}
     /* 高度与深色模式按钮一致(=32px)，紧贴其右侧 */
@@ -1080,9 +1133,10 @@
     /* 隐藏手机端全屏菜单和汉堡按钮 */
     .menu-overlay{ display: none !important; }
     .menu-btn{ display: none !important; }
-    .banner-time{ right: 20px; top: calc(66px + env(safe-area-inset-top, 0px)); padding: 8px 14px; }
-    .banner-time .time{ font-size: 16px; }
-    .banner-time .label, .banner-time .date{ font-size: 10px; }
+    .banner-time{ right: 20px; top: calc(66px + env(safe-area-inset-top, 0px)); padding: 9px 14px; min-width: 140px; }
+    .btm-live-time{ font-size: 23px; }
+    .btm-update-time{ font-size: 13px; }
+    .btm-live-label, .btm-update-date{ font-size: 10px; }
     .msg-btn{ right: 20px; top: 20px; width: 38px; height: 38px; }
     .theme-toggle{ left: 20px; }
     .ch-dash-grid{ grid-template-columns: repeat(4,1fr); gap:16px; }
@@ -1097,9 +1151,9 @@
     .banner-ad-bg{height: 420px;}
     .banner-title{font-size: 26px;}
     .banner-sub{font-size: 14px;}
-    .banner-time{right: 20px; top: calc(68px + env(safe-area-inset-top, 0px)); padding: 8px 14px;}
-    .banner-time .time{font-size: 17px;}
-    .banner-time .label, .banner-time .date{font-size: 10px;}
+    .banner-time{right: 20px; top: calc(68px + env(safe-area-inset-top, 0px)); padding: 9px 14px; min-width: 140px;}
+    .btm-live-time{font-size: 24px;}
+    .btm-update-time{font-size: 14px;}
     .msg-btn{right: 20px; top: 20px; width: 40px; height: 40px;}
     .theme-toggle{left: 64px; top: 20px; width: 40px; height: 40px; font-size: 20px;}
     .menu-btn{left: 20px; top: 20px; width: 40px; height: 40px;}
@@ -1145,9 +1199,10 @@
     .banner-ad-bg{height: 460px;}
     .banner-title{font-size: 30px; letter-spacing: 1.5px;}
     .banner-sub{font-size: 15px;}
-    .banner-time{right: 24px; top: calc(72px + env(safe-area-inset-top, 0px)); padding: 8px 16px;}
+    .banner-time{right: 24px; top: calc(72px + env(safe-area-inset-top, 0px)); padding: 10px 16px; min-width: 150px;}
     .msg-btn{right: 24px; top: 24px; width: 40px; height: 40px;}
-    .banner-time .time{font-size: 18px;}
+    .btm-live-time{font-size: 26px;}
+    .btm-update-time{font-size: 14px;}
     .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 16px;}
     .stat-card{padding: 20px;}
     .stat-card .value{font-size: 28px;}
@@ -1750,9 +1805,17 @@
       <span class="msg-badge" id="msgBadge" style="display:none;">0</span>
     </button>
     <div class="banner-time">
-      <div class="label">内容更新至</div>
-      <div class="time" id="updateTime">09:36:00</div>
-      <div class="date" id="updateDate">2026-10-21</div>
+      <!-- 上半：实时动态时钟 -->
+      <div class="btm-live">
+        <div class="btm-live-label">当前时间</div>
+        <div class="btm-live-time" id="liveClock">00:00:00</div>
+      </div>
+      <!-- 下半：更新至 -->
+      <div class="btm-update">
+        <div class="btm-update-label">更新至</div>
+        <div class="btm-update-time" id="updateTime">09:36:00</div>
+        <div class="btm-update-date" id="updateDate">2026-10-21</div>
+      </div>
     </div>
 
     <!-- 轮播指示点 -->
@@ -2709,6 +2772,19 @@
         localStorage.setItem('ami-theme','dark');
       }
     });
+  })();
+
+  // Banner 实时时钟（每秒跳动）
+  (function(){
+    const el = document.getElementById('liveClock');
+    if (!el) return;
+    function pad(n){ return n < 10 ? '0' + n : '' + n; }
+    function tick(){
+      const d = new Date();
+      el.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    }
+    tick();
+    setInterval(tick, 1000);
   })();
 
   // 平台筛选器
