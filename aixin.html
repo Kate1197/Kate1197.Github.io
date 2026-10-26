@@ -925,15 +925,54 @@
       z-index: 50;
     }
     .app-sidebar .sidebar-header{
-      padding: 24px 20px 16px;
+      padding: 16px 14px 12px;
       font-size: 18px; font-weight: 700;
       color: var(--md-primary);
       border-bottom: 1px solid var(--md-outline-variant);
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
     }
-    .app-sidebar .sidebar-header svg{ width: 24px; height: 24px; }
+    .app-sidebar .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+    .app-sidebar .sidebar-header svg{ width: 24px; height: 24px; flex-shrink:0; }
     .app-sidebar .sidebar-header .brand-logo{ height: 22px; width: auto; display: block; }
     [data-theme="dark"] .app-sidebar .sidebar-header .brand-logo{ filter: brightness(1.2); }
+    .app-sidebar .sidebar-toggle{
+      width: 28px; height: 28px; flex-shrink:0;
+      display:inline-flex; align-items:center; justify-content:center;
+      border: 1px solid var(--md-outline-variant);
+      background: var(--md-surface-container);
+      color: var(--md-on-surface-variant);
+      border-radius: 8px; cursor: pointer;
+      transition: background .15s, color .15s, transform .25s;
+    }
+    .app-sidebar .sidebar-toggle svg{ width:16px; height:16px; }
+    .app-sidebar .sidebar-toggle:hover{ background: var(--md-surface-container-high); color: var(--md-primary); }
+    .app-sidebar.collapsed{ width: 64px; overflow: visible; transition: width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{
+      flex-direction: column; gap: 10px; padding: 16px 8px 12px; justify-content: flex-start;
+    }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform: rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding: 12px 8px; }
+    .app-sidebar.collapsed .menu-item{
+      padding: 12px 0; justify-content: center; border-radius: 12px; position:relative;
+    }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding: 12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{
+      flex-direction: column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap;
+    }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding: 8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{
+      content: attr(data-tooltip);
+      position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%);
+      background: var(--md-surface-container-highest); color: var(--md-on-surface);
+      padding: 6px 10px; border-radius: 8px; font-size: 12px; white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,.18); z-index: 200; pointer-events:none;
+    }
     /* 大屏由左侧菜单栏承载 logo，Banner 上的移动端 logo 隐藏 */
     .banner img.banner-logo{ display: none; }
     .app-sidebar .menu-list{
@@ -2188,15 +2227,54 @@
       z-index: 50;
     }
     .app-sidebar .sidebar-header{
-      padding: 24px 20px 16px;
+      padding: 16px 14px 12px;
       font-size: 18px; font-weight: 700;
       color: var(--md-primary);
       border-bottom: 1px solid var(--md-outline-variant);
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
     }
-    .app-sidebar .sidebar-header svg{ width: 24px; height: 24px; }
+    .app-sidebar .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+    .app-sidebar .sidebar-header svg{ width: 24px; height: 24px; flex-shrink:0; }
     .app-sidebar .sidebar-header .brand-logo{ height: 22px; width: auto; display: block; }
     [data-theme="dark"] .app-sidebar .sidebar-header .brand-logo{ filter: brightness(1.2); }
+    .app-sidebar .sidebar-toggle{
+      width: 28px; height: 28px; flex-shrink:0;
+      display:inline-flex; align-items:center; justify-content:center;
+      border: 1px solid var(--md-outline-variant);
+      background: var(--md-surface-container);
+      color: var(--md-on-surface-variant);
+      border-radius: 8px; cursor: pointer;
+      transition: background .15s, color .15s, transform .25s;
+    }
+    .app-sidebar .sidebar-toggle svg{ width:16px; height:16px; }
+    .app-sidebar .sidebar-toggle:hover{ background: var(--md-surface-container-high); color: var(--md-primary); }
+    .app-sidebar.collapsed{ width: 64px; overflow: visible; transition: width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{
+      flex-direction: column; gap: 10px; padding: 16px 8px 12px; justify-content: flex-start;
+    }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform: rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding: 12px 8px; }
+    .app-sidebar.collapsed .menu-item{
+      padding: 12px 0; justify-content: center; border-radius: 12px; position:relative;
+    }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding: 12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{
+      flex-direction: column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap;
+    }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding: 8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{
+      content: attr(data-tooltip);
+      position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%);
+      background: var(--md-surface-container-highest); color: var(--md-on-surface);
+      padding: 6px 10px; border-radius: 8px; font-size: 12px; white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,.18); z-index: 200; pointer-events:none;
+    }
     /* 大屏由左侧菜单栏承载 logo，Banner 上的移动端 logo 隐藏 */
     .banner img.banner-logo{ display: none; }
     .app-sidebar .menu-list{
@@ -2616,32 +2694,37 @@
   <!-- 左侧侧边栏（大屏显示） -->
   <aside class="app-sidebar" id="appSidebar">
     <div class="sidebar-header">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="折叠/展开侧边栏" aria-label="折叠/展开侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
     </div>
     <div class="menu-list">
-      <a class="menu-item menu-item-link" href="index.html">
+      <a class="menu-item menu-item-link" href="index.html" data-tooltip="主页">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">主页</div>
           <div class="sub">艾米日签 · 每日动态简报</div>
         </div>
       </a>
-      <a class="menu-item menu-item-link" href="index.html#riqian">
+      <a class="menu-item menu-item-link" href="index.html#riqian" data-tooltip="日签">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">日签</div>
           <div class="sub">艾米日签合集 · 15期</div>
         </div>
       </a>
-      <a class="menu-item menu-item-link active" href="aixin.html">
+      <a class="menu-item menu-item-link active" href="aixin.html" data-tooltip="艾心向善">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">艾心向善</div>
           <div class="sub">粉丝公益 · 动态追踪</div>
         </div>
       </a>
-      <a class="menu-item menu-item-link" href="chanchu.html">
+      <a class="menu-item menu-item-link" href="chanchu.html" data-tooltip="产出汇总">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">产出汇总</div>
@@ -2651,13 +2734,13 @@
     </div>
     <div class="sidebar-footer">
       <div class="footer-links">
-        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener" title="微博">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          微博
+          <span>微博</span>
         </a>
-        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">
+        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener" title="抖音">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-          抖音
+          <span>抖音</span>
         </a>
       </div>
       <div style="margin-top:8px;">© 艾米日签 · 每日动态简报</div>
@@ -2862,6 +2945,20 @@
       const isDark = html.getAttribute('data-theme') === 'dark';
       if(isDark){ html.removeAttribute('data-theme'); btn.textContent='🌙'; localStorage.setItem('ami-theme','light'); }
       else{ html.setAttribute('data-theme','dark'); btn.textContent='☀️'; localStorage.setItem('ami-theme','dark'); }
+    });
+  })();
+
+  // 侧边栏折叠/展开（仅电脑/平板端生效）
+  (function(){
+    const sidebar = document.getElementById('appSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    if(!sidebar || !toggle) return;
+    const collapsed = localStorage.getItem('ami-sidebar-collapsed') === '1';
+    sidebar.classList.toggle('collapsed', collapsed);
+    toggle.addEventListener('click', function(){
+      const willCollapse = !sidebar.classList.contains('collapsed');
+      sidebar.classList.toggle('collapsed', willCollapse);
+      localStorage.setItem('ami-sidebar-collapsed', willCollapse ? '1' : '0');
     });
   })();
 

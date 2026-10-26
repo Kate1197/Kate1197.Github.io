@@ -1129,10 +1129,9 @@
     /* 折叠状态 */
     .app-sidebar.collapsed{ width: 64px; overflow: visible; transition: width .25s cubic-bezier(.22,.61,.36,1); }
     .app-sidebar.collapsed .sidebar-header{
-      flex-direction: column; gap: 10px; padding: 16px 8px 12px;
+      flex-direction: column; gap: 10px; padding: 16px 8px 12px; justify-content: flex-start;
     }
-    .app-sidebar.collapsed .sidebar-brand{ justify-content:center; }
-    .app-sidebar.collapsed .sidebar-header .brand-logo{ display:none; }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
     .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
     .app-sidebar.collapsed .sidebar-toggle svg{ transform: rotate(180deg); }
     .app-sidebar.collapsed .menu-list{ padding: 12px 8px; }

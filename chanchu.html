@@ -367,10 +367,14 @@
   .menu-item .txt{ font-size:16px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .menu-item .sub{ font-size:12px; color:var(--md-on-surface-variant); margin-top:2px; }
   .menu-list{ padding:12px; display:flex; flex-direction:column; gap:4px; }
-  .sidebar-header{ padding:24px 20px 16px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; gap:10px; color:var(--md-primary); }
-  .sidebar-header svg{ width:24px; height:24px; }
+  .sidebar-header{ padding:16px 14px 12px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--md-primary); }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .sidebar-header svg{ width:24px; height:24px; flex-shrink:0; }
   .sidebar-header .brand-logo{ height:22px; width:auto; display:block; }
   [data-theme="dark"] .sidebar-header .brand-logo{ filter:brightness(1.2); }
+  .sidebar-toggle{ width:28px; height:28px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--md-outline-variant); background:var(--md-surface-container); color:var(--md-on-surface-variant); border-radius:8px; cursor:pointer; transition:background .15s,color .15s,transform .25s; }
+  .sidebar-toggle svg{ width:16px; height:16px; }
+  .sidebar-toggle:hover{ background:var(--md-surface-container-high); color:var(--md-primary); }
   .sidebar-footer{ margin-top:auto; padding:16px 20px; border-top:1px solid var(--md-outline-variant); font-size:12px; color:var(--md-on-surface-variant); }
   .sidebar-footer .footer-links a{ display:inline-flex; align-items:center; gap:6px; color:var(--md-primary); text-decoration:none; }
   .sidebar-footer .footer-links svg{ width:15px; height:15px; stroke:currentColor; }
@@ -385,6 +389,21 @@
   @media (min-width: 768px){
     .app-shell{ display:flex; flex-direction:row; }
     .app-sidebar{ width:240px; flex-shrink:0; display:flex !important; flex-direction:column; background:var(--md-surface-container-low); border-right:1px solid var(--md-outline-variant); position:sticky; top:0; height:100vh; overflow-y:auto; z-index:50; }
+    .app-sidebar.collapsed{ width:64px; overflow:visible; transition:width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{ flex-direction:column; gap:10px; padding:16px 8px 12px; justify-content:flex-start; }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform:rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding:12px 8px; }
+    .app-sidebar.collapsed .menu-item{ padding:12px 0; justify-content:center; border-radius:12px; position:relative; }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding:12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{ flex-direction:column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding:8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{ content:attr(data-tooltip); position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%); background:var(--md-surface-container-highest); color:var(--md-on-surface); padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.18); z-index:200; pointer-events:none; }
     .app-content{ flex:1; min-width:0; }
     .app-content .wrap{ max-width:none; margin:0; }
     .menu-overlay{ display:none !important; }
@@ -398,32 +417,37 @@
   <!-- 左侧侧边栏（大屏显示） -->
   <aside class="app-sidebar" id="appSidebar">
     <div class="sidebar-header">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="折叠/展开侧边栏" aria-label="折叠/展开侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
     </div>
     <div class="menu-list">
-      <a class="menu-item" href="index.html">
+      <a class="menu-item" href="index.html" data-tooltip="主页">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">主页</div>
           <div class="sub">艾米日签 · 每日动态简报</div>
         </div>
       </a>
-      <a class="menu-item" href="index.html#riqian">
+      <a class="menu-item" href="index.html#riqian" data-tooltip="日签">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">日签</div>
           <div class="sub">艾米日签合集 · 15期</div>
         </div>
       </a>
-      <a class="menu-item" href="aixin.html">
+      <a class="menu-item" href="aixin.html" data-tooltip="艾心向善">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">艾心向善</div>
           <div class="sub">粉丝公益 · 动态追踪</div>
         </div>
       </a>
-      <a class="menu-item active" href="chanchu.html">
+      <a class="menu-item active" href="chanchu.html" data-tooltip="产出汇总">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
         <div class="menu-item-text">
           <div class="txt">产出汇总</div>
@@ -433,8 +457,8 @@
     </div>
     <div class="sidebar-footer">
       <div class="footer-links" style="display:flex; gap:12px; flex-wrap:wrap;">
-        <a href="https://weibo.com/7975536178" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> @艾产速览</a>
-        <a href="index.html" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> 主页</a>
+        <a href="https://weibo.com/7975536178" target="_blank" rel="noopener" title="@艾产速览"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span> @艾产速览</span></a>
+        <a href="index.html" rel="noopener" title="主页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span> 主页</span></a>
       </div>
       <div style="margin-top:8px;">© 艾米日签 · 产出汇总</div>
     </div>
@@ -613,6 +637,20 @@
         html.setAttribute('data-theme','dark');
         localStorage.setItem('ami-theme','dark');
       }
+    });
+  })();
+
+  // 侧边栏折叠（电脑/平板端，与主站共享状态）
+  (function(){
+    const sidebar = document.getElementById('appSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    if(!sidebar || !toggle) return;
+    const collapsed = localStorage.getItem('ami-sidebar-collapsed') === '1';
+    sidebar.classList.toggle('collapsed', collapsed);
+    toggle.addEventListener('click', function(){
+      const willCollapse = !sidebar.classList.contains('collapsed');
+      sidebar.classList.toggle('collapsed', willCollapse);
+      localStorage.setItem('ami-sidebar-collapsed', willCollapse ? '1' : '0');
     });
   })();
 
