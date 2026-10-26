@@ -3548,6 +3548,12 @@
       start();
     };
 
+    // 当后台数据把某屏标记为隐藏时，自动重建轮播
+    var slideObserver = new MutationObserver(function(){
+      reinitBanner();
+    });
+    slideObserver.observe(slides, { attributes: true, attributeFilter: ['data-hidden'], subtree: true });
+
     layout();
     buildDots();
     go(0);
