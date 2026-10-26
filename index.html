@@ -438,8 +438,8 @@
   /* 深色模式开关 - 尺寸自适应 */
   .theme-toggle{
     position: absolute;
-    /* left = menu-btn.left + menu-btn 真实宽度 + 间距 10px，完全连锁 */
-    left: calc(14px + clamp(30px, 1.4vw + 26px, 40px) + 10px);
+    /* right = msg-btn.right + msg-btn.width + 间距 10px，贴在铃铛左侧 */
+    right: calc(clamp(10px, 2.2vw + 2px, 24px) + clamp(30px, 1.4vw + 26px, 40px) + 10px);
     top: calc(14px + env(safe-area-inset-top, 0px));
     width: clamp(30px, 1.4vw + 26px, 40px);
     height: clamp(30px, 1.4vw + 26px, 40px);
@@ -1194,8 +1194,8 @@
     /* 隐藏手机端全屏菜单和汉堡按钮 */
     .menu-overlay{ display: none !important; }
     .menu-btn{ display: none !important; }
-    /* menu-btn 隐藏后，theme-toggle 贴着 banner 左内沿 */
-    .theme-toggle{ left: 14px; }
+    /* menu-btn 隐藏后，theme-toggle 仍贴在铃铛左侧 */
+    .theme-toggle{ right: calc(clamp(10px, 2.2vw + 2px, 24px) + clamp(30px, 1.4vw + 26px, 40px) + 10px); }
     .banner img.banner-logo{
       left: calc(14px + clamp(30px, 1.4vw + 26px, 40px) + 6px);
     }
