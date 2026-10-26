@@ -1777,7 +1777,7 @@
       </div>
 
       <!-- 第二屏：京东健康商务广告 -->
-      <div class="banner-slide banner-slide--ad">
+      <div class="banner-slide banner-slide--ad" id="bannerAdSlide">
         <img class="banner-ad-bg" src="jd-health-banner.jpg?v=20261020" alt="京东健康医用金选 · 艾米" crossorigin="anonymous">
         <div class="banner-mask"></div>
         <div class="banner-content">
@@ -3590,10 +3590,41 @@
       applyMessages(messages);
     } catch(e){ /* 失败则保持内嵌内容 */ }
   }
+  function escHtml(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+  function renderExtraBanners(list){
+    const slidesEl = document.getElementById('bannerSlides');
+    if(!slidesEl) return;
+    // 先移除上一次生成的自定义 Banner，保证重复加载不会叠加
+    slidesEl.querySelectorAll('.banner-slide--extra').forEach(function(n){ n.remove(); });
+    if(!Array.isArray(list)) return;
+    const items = list.filter(function(item){
+      return item && item.image && item.enabled !== false;
+    }).slice(0, 10);
+    items.forEach(function(item){
+      const slide = document.createElement('div');
+      slide.className = 'banner-slide banner-slide--ad banner-slide--extra';
+      slide.innerHTML =
+        '<img class="banner-ad-bg" src="' + escHtml(item.image) + '" alt="' + escHtml(item.title || '') + '">' +
+        '<div class="banner-mask"></div>' +
+        '<div class="banner-content"><div class="banner-text"><div class="banner-title-row">' +
+          '<div class="banner-title">' + escHtml(item.title || '') + '</div>' +
+          (item.buttonText
+            ? '<a class="banner-ad-btn" href="' + escHtml(item.buttonUrl || '#') + '" target="_blank" rel="noopener noreferrer">' + escHtml(item.buttonText) + '</a>'
+            : '') +
+        '</div>' +
+        (item.subtitle ? '<div class="banner-sub">' + escHtml(item.subtitle) + '</div>' : '') +
+        '</div></div>';
+      slidesEl.appendChild(slide);
+    });
+  }
   function applyBanner(b){
     if(!b) return;
     const firstSlide = document.querySelector('#bannerSlides .banner-slide:not(.banner-slide--ad)');
-    const adSlide = document.querySelector('#bannerSlides .banner-slide--ad');
+    const adSlide = document.getElementById('bannerAdSlide');
     if(firstSlide){
       firstSlide.dataset.hidden = b.enabled === false ? 'true' : 'false';
       const img = firstSlide.querySelector('img');
@@ -3619,6 +3650,7 @@
         if(b.ad.buttonText) btn.textContent = b.ad.buttonText;
       }
     }
+    renderExtraBanners(b.extraBanners);
     if(typeof window.reinitBanner === 'function') window.reinitBanner();
   }
   function applyNotice(n){
