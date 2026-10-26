@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "image": "amy-banner.jpg?v=20261026c",
+  "title": "**艾米日签** · 每日动态简报",
+  "chips": [
+    "微博",
+    "抖音",
+    "小红书",
+    "仅正面/中性"
+  ],
+  "ad": {
+    "enabled": true,
+    "image": "jd-health-banner.jpg?v=20261020",
+    "title": "医用金选下单送卡 好运送金",
+    "subtitle": "下单得艾米限量小卡 加入会员抢金卡",
+    "buttonText": "了解更多",
+    "buttonUrl": "https://pro.m.jd.com/mall/active/3NANJ4pMdWdEBgjJveh5KBpFbxsX/index.html?gx=RnAomTM2b2Lcy5oT-oJ2WxbfpLhSfqk&gxd=RnAowjFbbzSMnZ5Hp9VyCAkEOjPDaD4&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL_shareid1f270ef6b8a5e161179249535493884116_tongtianta_02206342"
+  }
+}

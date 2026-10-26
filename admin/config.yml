@@ -1,0 +1,60 @@
+backend:
+  name: turbo-github
+  turbo_site_id: YOUR_TURBO_SITE_ID
+  branch: main
+
+site_url: https://kate1197.github.io
+display_url: https://kate1197.github.io
+logo_url: /logo_aimi_daily_white.png
+
+media_folder: /uploads
+public_folder: /uploads
+
+collections:
+  - name: home
+    label: 首页内容
+    files:
+      - name: banner
+        label: Banner
+        file: data/banner.json
+        fields:
+          - { name: enabled, label: 显示 Banner, widget: boolean, default: true }
+          - { name: image, label: Banner 图片, widget: image, allow_multiple: false, required: false }
+          - { name: title, label: 主标题, widget: string, hint: "可用 **文字** 加粗" }
+          - name: chips
+            label: 标签
+            widget: list
+            field: { name: chip, label: 标签, widget: string }
+          - name: ad
+            label: 广告位
+            widget: object
+            fields:
+              - { name: enabled, label: 显示广告, widget: boolean, default: true }
+              - { name: image, label: 广告图片, widget: image, allow_multiple: false }
+              - { name: title, label: 广告标题, widget: string }
+              - { name: subtitle, label: 广告副标题, widget: string }
+              - { name: buttonText, label: 按钮文字, widget: string }
+              - { name: buttonUrl, label: 按钮链接, widget: string }
+
+      - name: notice
+        label: 通知条
+        file: data/notice.json
+        fields:
+          - { name: enabled, label: 显示通知条, widget: boolean, default: true }
+          - { name: icon, label: 图标, widget: string, default: "ℹ" }
+          - { name: content, label: 通知内容, widget: markdown, hint: "可用 **文字** 加粗" }
+
+      - name: messages
+        label: 消息盒子
+        file: data/messages.json
+        fields:
+          - { name: date, label: 消息日期, widget: date, format: "YYYY-MM-DD" }
+          - name: msgs
+            label: 消息列表
+            widget: list
+            fields:
+              - { name: id, label: 消息 ID, widget: string, hint: "建议格式：年月日-简短标识，例如 20261026-hengdian" }
+              - { name: type, label: 类型, widget: select, options: [{ label: "更新", value: "update" }, { label: "粉丝", value: "fans" }, { label: "转发", value: "repost" }, { label: "商务", value: "business" }, { label: "自定义", value: "custom" }] }
+              - { name: title, label: 标题, widget: string }
+              - { name: body, label: 正文, widget: text }
+              - { name: time, label: 显示时间, widget: string, hint: "例如：2026年10月26日 09:30" }

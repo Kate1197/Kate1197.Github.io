@@ -1852,7 +1852,7 @@
   <!-- 2026年10月26日 更新提醒 -->
   <div class="notice">
     <span class="ico">ℹ</span>
-    <span>本次为<strong>2026年10月26日 更新</strong>。重点：<strong>艾米荣获第十届文荣奖「荣曜·青年电影女演员」</strong>（10/25）；<strong>横店影视节物料更新</strong>——艾米 10/24 21:54 发文「椰✌🏻 @横店影视节 #横店入戏30年#」，转发 1.2万、评论 6,128、点赞 2.1万；<strong>日签 Vol.037–039 三连更</strong>（10/24–10/26）；<strong>中华救助驰援那曲二次捐款</strong>（10/25 10:33，以「艾米&艾心」名义向中华社会救助慈善基金会捐款）；<strong>产出汇总 261023–261025</strong> 已归档。粉丝数（微博 289.7万 / 抖音 449.7万）。</span>
+    <span id="noticeContent">本次为<strong>2026年10月26日 更新</strong>。重点：<strong>艾米荣获第十届文荣奖「荣曜·青年电影女演员」</strong>（10/25）；<strong>横店影视节物料更新</strong>——艾米 10/24 21:54 发文「椰✌🏻 @横店影视节 #横店入戏30年#」，转发 1.2万、评论 6,128、点赞 2.1万；<strong>日签 Vol.037–039 三连更</strong>（10/24–10/26）；<strong>中华救助驰援那曲二次捐款</strong>（10/25 10:33，以「艾米&艾心」名义向中华社会救助慈善基金会捐款）；<strong>产出汇总 261023–261025</strong> 已归档。粉丝数（微博 289.7万 / 抖音 449.7万）。</span>
   </div>
 
   <div class="content">
@@ -3526,5 +3526,81 @@
   })();
 
 </script>
+
+<script>
+(function(){
+  function mdToHtml(md){
+    if(!md) return '';
+    return md
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g,'<em>$1</em>')
+      .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(/\n/g,'<br>');
+  }
+  async function loadData(){
+    try {
+      const [bannerRes, noticeRes, msgsRes] = await Promise.all([
+        fetch('data/banner.json?v=1'),
+        fetch('data/notice.json?v=1'),
+        fetch('data/messages.json?v=1')
+      ]);
+      if(!bannerRes.ok || !noticeRes.ok || !msgsRes.ok) return;
+      const banner = await bannerRes.json();
+      const notice = await noticeRes.json();
+      const messages = await msgsRes.json();
+      applyBanner(banner);
+      applyNotice(notice);
+      applyMessages(messages);
+    } catch(e){ /* 失败则保持内嵌内容 */ }
+  }
+  function applyBanner(b){
+    if(!b) return;
+    const firstSlide = document.querySelector('#bannerSlides .banner-slide:not(.banner-slide--ad)');
+    const adSlide = document.querySelector('#bannerSlides .banner-slide--ad');
+    if(firstSlide){
+      const img = firstSlide.querySelector('img');
+      if(img && b.image) img.src = b.image;
+      const title = firstSlide.querySelector('.banner-title');
+      if(title && b.title) title.innerHTML = mdToHtml(b.title);
+      const chipsWrap = firstSlide.querySelector('.banner-chips');
+      if(chipsWrap && Array.isArray(b.chips)){
+        chipsWrap.innerHTML = b.chips.map(function(c){ return '<span class="banner-chip">' + c + '</span>'; }).join('');
+      }
+    }
+    if(adSlide && b.ad){
+      const img = adSlide.querySelector('img');
+      if(img && b.ad.image) img.src = b.ad.image;
+      const title = adSlide.querySelector('.banner-title');
+      if(title && b.ad.title) title.textContent = b.ad.title;
+      const sub = adSlide.querySelector('.banner-sub');
+      if(sub && b.ad.subtitle) sub.textContent = b.ad.subtitle;
+      const btn = adSlide.querySelector('.banner-ad-btn');
+      if(btn){
+        if(b.ad.buttonUrl) btn.href = b.ad.buttonUrl;
+        if(b.ad.buttonText) btn.textContent = b.ad.buttonText;
+      }
+    }
+  }
+  function applyNotice(n){
+    if(!n) return;
+    const el = document.querySelector('.notice');
+    if(!el) return;
+    el.style.display = n.enabled === false ? 'none' : '';
+    const icon = el.querySelector('.ico');
+    if(icon && n.icon) icon.textContent = n.icon;
+    const content = document.getElementById('noticeContent');
+    if(content && n.content) content.innerHTML = mdToHtml(n.content);
+  }
+  function applyMessages(m){
+    if(!m || !m.msgs) return;
+    const script = document.getElementById('ami-embedded-msgs');
+    if(script) script.textContent = JSON.stringify({date: m.date || '', msgs: m.msgs});
+    if(typeof updateBadge === 'function') updateBadge();
+  }
+  loadData();
+})();
+</script>
+
 </body>
 </html>
