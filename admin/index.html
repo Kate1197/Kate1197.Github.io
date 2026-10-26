@@ -4,8 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>艾米日签 - 内容管理</title>
-<script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<style>
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #f7f0fa; color: #1d1b20; }
+  #loader { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  #loader .spinner { width: 40px; height: 40px; border: 4px solid #e9ddff; border-top-color: #9172cc; border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loader p { margin-top: 16px; color: #5e5c71; font-size: 14px; }
+  #error { display: none; max-width: 90%; padding: 20px; background: #fff; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center; }
+  #error h2 { margin: 0 0 8px; font-size: 18px; color: #b3261e; }
+  #error p { margin: 0 0 12px; font-size: 14px; color: #49454f; line-height: 1.5; }
+  #error code { display: block; margin-top: 8px; padding: 8px; background: #f2ebf5; border-radius: 8px; font-size: 12px; word-break: break-all; color: #250460; }
+</style>
 </head>
 <body>
+<div id="loader">
+  <div class="spinner"></div>
+  <p>正在加载编辑器，请稍候…</p>
+  <div id="error">
+    <h2>编辑器加载失败</h2>
+    <p>如果长时间空白，可能是网络波动导致脚本未加载。<br>建议刷新页面，或稍后再试。</p>
+    <code id="errorMsg"></code>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('error', function(e) {
+    var err = document.getElementById('error');
+    var msg = document.getElementById('errorMsg');
+    if (err && msg) { err.style.display = 'block'; msg.textContent = e.message || '未知错误'; }
+  });
+  setTimeout(function() {
+    var root = document.getElementById('nc-root');
+    if (!root) {
+      var err = document.getElementById('error');
+      var msg = document.getElementById('errorMsg');
+      if (err && msg) { err.style.display = 'block'; msg.textContent = '超过 10 秒仍未加载完成，请检查网络后刷新'; }
+    }
+  }, 10000);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>
