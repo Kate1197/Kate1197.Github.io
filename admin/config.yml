@@ -7,7 +7,7 @@ site_url: https://kate1197.github.io
 display_url: https://kate1197.github.io
 logo_url: /logo_aimi_daily_white.png
 
-media_folder: /uploads
+media_folder: uploads
 public_folder: /uploads
 
 collections:
