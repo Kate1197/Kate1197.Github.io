@@ -43,6 +43,14 @@
     }
   }, 10000);
 </script>
+<script>window.CMS_MANUAL_INIT = true;</script>
+<script src="locales/zh_Hans.js"></script>
 <script src="decap-cms.js"></script>
+<script>
+  if (window.CMS && window.__DECAP_ZH_HANS__) {
+    window.CMS.registerLocale('zh_Hans', window.__DECAP_ZH_HANS__);
+  }
+  window.CMS.init();
+</script>
 </body>
 </html>
