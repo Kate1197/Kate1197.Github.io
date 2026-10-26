@@ -275,11 +275,11 @@
     transition: background .2s, transform .2s;
   }
   .msg-btn svg{width: clamp(14px, 0.7vw + 12px, 20px); height: clamp(14px, 0.7vw + 12px, 20px); stroke:#fff;}
-  /* Banner logo - 尺寸自适应，跟随 theme-toggle 位置 */
+  /* Banner logo - 仅手机端显示，贴在菜单按钮右侧 */
   .banner img.banner-logo{
     position: absolute;
-    left: calc(14px + clamp(30px, 1.4vw + 26px, 40px) + 10px + clamp(30px, 1.4vw + 26px, 40px) + 6px);
-    top: calc(14px + env(safe-area-inset-top, 0px));
+    left: calc(14px + clamp(30px, 1.4vw + 26px, 40px) + 10px);
+    top: calc(14px + env(safe-area-inset-top, 0px) + 4px);
     width: auto;
     height: clamp(24px, 1.6vw + 18px, 32px);
     object-fit: contain; display: block;
