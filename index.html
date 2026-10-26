@@ -3540,10 +3540,11 @@
   }
   async function loadData(){
     try {
+      const cacheBust = '?v=' + Date.now();
       const [bannerRes, noticeRes, msgsRes] = await Promise.all([
-        fetch('data/banner.json?v=1'),
-        fetch('data/notice.json?v=1'),
-        fetch('data/messages.json?v=1')
+        fetch('data/banner.json' + cacheBust),
+        fetch('data/notice.json' + cacheBust),
+        fetch('data/messages.json' + cacheBust)
       ]);
       if(!bannerRes.ok || !noticeRes.ok || !msgsRes.ok) return;
       const banner = await bannerRes.json();
@@ -3559,6 +3560,7 @@
     const firstSlide = document.querySelector('#bannerSlides .banner-slide:not(.banner-slide--ad)');
     const adSlide = document.querySelector('#bannerSlides .banner-slide--ad');
     if(firstSlide){
+      firstSlide.style.display = b.enabled === false ? 'none' : '';
       const img = firstSlide.querySelector('img');
       if(img && b.image) img.src = b.image;
       const title = firstSlide.querySelector('.banner-title');
@@ -3569,6 +3571,7 @@
       }
     }
     if(adSlide && b.ad){
+      adSlide.style.display = b.ad.enabled === false ? 'none' : '';
       const img = adSlide.querySelector('img');
       if(img && b.ad.image) img.src = b.ad.image;
       const title = adSlide.querySelector('.banner-title');
