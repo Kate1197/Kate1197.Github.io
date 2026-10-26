@@ -10,7 +10,7 @@
     "test"
   ],
   "ad": {
-    "enabled": false,
+    "enabled": true,
     "image": "jd-health-banner.jpg?v=20261020",
     "title": "医用金选下单送卡 好运送金",
     "subtitle": "下单得艾米限量小卡 加入会员抢金卡",
