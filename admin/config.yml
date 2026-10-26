@@ -37,6 +37,19 @@ collections:
               - { name: subtitle, label: 广告副标题, widget: string }
               - { name: buttonText, label: 按钮文字, widget: string }
               - { name: buttonUrl, label: 按钮链接, widget: string }
+          - name: extraBanners
+            label: 自定义 Banner（最多 10 个）
+            widget: list
+            required: false
+            hint: "用于活动/推广，样式与广告位一致，排在广告位之后，最多显示 10 个"
+            summary: "{{fields.title}}"
+            fields:
+              - { name: enabled, label: 显示该 Banner, widget: boolean, default: true }
+              - { name: image, label: 背景图, widget: image, allow_multiple: false }
+              - { name: title, label: 标题, widget: string }
+              - { name: subtitle, label: 副标题, widget: string, required: false }
+              - { name: buttonText, label: 按钮文字, widget: string, required: false }
+              - { name: buttonUrl, label: 按钮链接, widget: string, required: false }
 
       - name: notice
         label: 通知条
