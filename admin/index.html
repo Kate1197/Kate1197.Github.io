@@ -48,12 +48,25 @@
       errorMsg.textContent = msg;
     }
   }
+  function hideLoader() {
+    var loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'none';
+  }
+  function watchRoot() {
+    var timer = setInterval(function() {
+      if (document.getElementById('nc-root')) {
+        clearInterval(timer);
+        hideLoader();
+      }
+    }, 300);
+  }
   function initCMS() {
     try {
       if (window.CMS && window.__DECAP_ZH_HANS__) {
         window.CMS.registerLocale('zh_Hans', window.__DECAP_ZH_HANS__);
       }
       window.CMS.init();
+      watchRoot();
     } catch (e) {
       showError('初始化失败：' + (e.message || '未知错误'));
     }
