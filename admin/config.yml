@@ -1,3 +1,5 @@
+locale: zh_Hans
+
 backend:
   name: turbo-github
   turbo_site_id: aace51e4-0706-42d3-95cd-98127232387d
