@@ -2983,9 +2983,9 @@
     // 折叠态下，点击空白/菜单项不影响；保留 hover 提示
   })();
 
-  // 平台筛选器
+  // 平台筛选器（范围限定简报页，避免隐藏「数据」等其它标签页的卡片）
   const filterBtns = document.querySelectorAll('.fbtn');
-  const cards = document.querySelectorAll('.card:not(.summary-card)');
+  const cards = document.querySelectorAll('#tab-brief .card:not(.summary-card)');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
@@ -3697,10 +3697,11 @@
   async function loadData(){
     try {
       const cacheBust = '?v=' + Date.now();
-      const [bannerRes, noticeRes, msgsRes] = await Promise.all([
+      const [bannerRes, noticeRes, msgsRes, secRes] = await Promise.all([
         fetch('data/banner.json' + cacheBust),
         fetch('data/notice.json' + cacheBust),
-        fetch('data/messages.json' + cacheBust)
+        fetch('data/messages.json' + cacheBust),
+        fetch('data/sections.json' + cacheBust)
       ]);
       if(!bannerRes.ok || !noticeRes.ok || !msgsRes.ok) return;
       const banner = await bannerRes.json();
@@ -3709,6 +3710,7 @@
       applyBanner(banner);
       applyNotice(notice);
       applyMessages(messages);
+      if(secRes.ok) applySections(await secRes.json());
     } catch(e){ /* 失败则保持内嵌内容 */ }
   }
   function escHtml(s){
@@ -3789,6 +3791,77 @@
     const script = document.getElementById('ami-embedded-msgs');
     if(script) script.textContent = JSON.stringify({date: m.date || '', msgs: m.msgs});
     if(typeof updateBadge === 'function') updateBadge();
+  }
+  // 六大板块：只回填内容，保留原有卡片结构与样式，平台筛选逻辑照旧生效
+  function applySections(d){
+    if(!d || !Array.isArray(d.sections) || !d.sections.length) return;
+    const cards = document.querySelectorAll('#tab-brief .card:not(.summary-card)');
+    d.sections.forEach(function(sec, i){
+      const card = cards[i];
+      if(!card || !sec) return;
+      card.style.display = '';
+      const titleEl = card.querySelector('.card-title');
+      if(titleEl && sec.title) titleEl.textContent = sec.title;
+      const badgeEl = card.querySelector('.card-badge');
+      if(badgeEl){
+        if(sec.badge){ badgeEl.textContent = sec.badge; badgeEl.style.display = ''; }
+        else { badgeEl.style.display = 'none'; }
+      }
+      const ul = card.querySelector('ul');
+      if(ul && Array.isArray(sec.items)){
+        ul.innerHTML = sec.items.filter(function(it){
+          return it && (typeof it === 'string' ? it : it.text);
+        }).map(function(it){
+          const plat = (typeof it === 'string') ? 'weibo' : (it.platform || 'weibo');
+          const txt = (typeof it === 'string') ? it : it.text;
+          return '<li data-platform="' + escHtml(plat) + '">' + mdToHtml(txt) + '</li>';
+        }).join('');
+      }
+    });
+    // 后台板块数量少于页面卡片数量时，隐藏多余卡片
+    for(let j = d.sections.length; j < cards.length; j++){ cards[j].style.display = 'none'; }
+
+    const sumCard = document.querySelector('.summary-card');
+    if(sumCard && d.summary){
+      const intro = sumCard.querySelector('.summary-intro');
+      if(intro){
+        const label = d.summary.toneLabel || '整体基调';
+        const pills = Array.isArray(d.summary.pills) ? d.summary.pills.map(function(p){
+          return typeof p === 'string' ? p : (p && p.pill) || '';
+        }).filter(Boolean) : [];
+        intro.innerHTML = '<strong>' + escHtml(label) + '</strong>：' +
+          pills.map(function(p){ return '<span class="pill">' + escHtml(p) + '</span>'; }).join('');
+      }
+      const sul = sumCard.querySelector('ul');
+      if(sul && Array.isArray(d.summary.items)){
+        sul.innerHTML = d.summary.items.filter(function(it){
+          return it && (typeof it === 'string' ? it : it.text);
+        }).map(function(it){
+          return '<li>' + mdToHtml((typeof it === 'string') ? it : it.text) + '</li>';
+        }).join('');
+      }
+    }
+
+    // 内容重建后重放当前平台筛选（范围限定简报页，避免影响其它标签页卡片）
+    const activeBtn = document.querySelector('.fbtn.active');
+    const plat = activeBtn ? (activeBtn.dataset.platform || 'all') : 'all';
+    cards.forEach(function(card){
+      const lis = card.querySelectorAll('li');
+      let visible = 0;
+      lis.forEach(function(li){
+        const match = (plat === 'all') || (li.dataset.platform === plat);
+        li.style.display = match ? '' : 'none';
+        if(match) visible++;
+      });
+      const hint = card.querySelector('.empty-hint');
+      if(visible === 0){
+        card.classList.add('hide');
+        if(hint) hint.style.display = 'block';
+      }else{
+        card.classList.remove('hide');
+        if(hint) hint.style.display = 'none';
+      }
+    });
   }
   loadData();
 })();

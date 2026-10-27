@@ -100,3 +100,39 @@ collections:
               - { name: link, label: 了解更多链接, widget: string, required: false, hint: "填写网页链接后，卡片底部才会出现「了解更多」按钮；留空则不显示" }
               - { name: showCover, label: 显示活动封面, widget: boolean, default: false, hint: "打开后请同时在下一项上传封面图" }
               - { name: cover, label: 活动封面图, widget: image, allow_multiple: false, required: false, hint: "仅在「显示活动封面」打开时生效，建议 16:9 横图" }
+
+      - name: sections
+        label: 六大板块
+        file: data/sections.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: sections
+            label: 板块列表
+            widget: list
+            summary: "{{fields.title}}（{{fields.items.length}} 条）"
+            hint: "按顺序对应首页的五个内容卡片：一、本人动态 / 二、商务代言 / 三、热搜舆情 / 四、粉丝动态 / 五、超话后援会。可直接拖动排序；删掉某个板块会隐藏对应卡片"
+            fields:
+              - { name: title, label: 板块标题, widget: string }
+              - { name: badge, label: 右上角标签, widget: string, required: false, hint: "例如：正面 / 进行中 / 健康 / 活跃 / 规范；留空则不显示" }
+              - name: items
+                label: 条目
+                widget: list
+                summary: "{{fields.text}}"
+                fields:
+                  - { name: platform, label: 平台, widget: select, options: [{ label: "微博", value: "weibo" }, { label: "抖音", value: "douyin" }, { label: "小红书", value: "xhs" }], hint: "决定首页「平台筛选」时这条属于哪个平台" }
+                  - { name: text, label: 内容, widget: text, hint: "支持 **粗体**、*斜体*、[文字](链接)；建议用「**标题**：正文」的写法" }
+          - name: summary
+            label: 总结与趋势研判
+            widget: object
+            fields:
+              - { name: toneLabel, label: 基调前缀, widget: string, default: "整体基调" }
+              - name: pills
+                label: 基调标签
+                widget: list
+                hint: "显示为一行小胶囊，例如：正面为主 / 舆情健康度高 / 无新增负面"
+                field: { name: pill, label: 标签文字, widget: string }
+              - name: items
+                label: 总结条目
+                widget: list
+                summary: "{{fields.text}}"
+                field: { name: text, label: 内容, widget: text, hint: "支持 **粗体**、*斜体*、[文字](链接)" }
