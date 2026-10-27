@@ -73,3 +73,30 @@ collections:
               - { name: title, label: 标题, widget: string }
               - { name: body, label: 正文, widget: text }
               - { name: time, label: 显示时间, widget: string, hint: "例如：2026年10月26日 09:30" }
+
+      - name: xingcheng
+        label: 行程活动
+        file: data/xingcheng.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS，例如 2026-10-27 13:20:00" }
+          - { name: intro, label: 副标题, widget: string, hint: "显示在页面标题下方的一句话" }
+          - name: types
+            label: 活动类型标签
+            widget: list
+            hint: "这里维护所有活动类型，前端的筛选按钮会自动按此列表生成；新增后即可在下方「活动类型」中选用"
+            field: { name: type, label: 标签名称, widget: string }
+          - name: events
+            label: 行程活动列表
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            hint: "按时间先后填写即可，前端会自动按「即将开始 / 已结束」排序分组"
+            fields:
+              - { name: title, label: 活动名称, widget: string }
+              - { name: type, label: 活动类型, widget: string, hint: "填写上方「活动类型标签」中的某一项，例如：红毯" }
+              - { name: date, label: 活动日期, widget: date, format: "YYYY-MM-DD", hint: "前端据此判断「即将开始 / 今天 / 已结束」" }
+              - { name: time, label: 活动时间, widget: string, required: false, hint: "例如：15:00；全天活动可留空" }
+              - { name: location, label: 地点, widget: string, required: false, hint: "例如：浙江 · 横店；线上活动可填「线上 · 微博」" }
+              - { name: note, label: 备注, widget: text, required: false }
+              - { name: link, label: 了解更多链接, widget: string, required: false, hint: "填写网页链接后，卡片底部才会出现「了解更多」按钮；留空则不显示" }
+              - { name: showCover, label: 显示活动封面, widget: boolean, default: false, hint: "打开后请同时在下一项上传封面图" }
+              - { name: cover, label: 活动封面图, widget: image, allow_multiple: false, required: false, hint: "仅在「显示活动封面」打开时生效，建议 16:9 横图" }
