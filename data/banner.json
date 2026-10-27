@@ -15,5 +15,15 @@
     "subtitle": "下单得艾米限量小卡 加入会员抢金卡",
     "buttonText": "了解更多",
     "buttonUrl": "https://pro.m.jd.com/mall/active/3NANJ4pMdWdEBgjJveh5KBpFbxsX/index.html?gx=RnAomTM2b2Lcy5oT-oJ2WxbfpLhSfqk&gxd=RnAowjFbbzSMnZ5Hp9VyCAkEOjPDaD4&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL_shareid1f270ef6b8a5e161179249535493884116_tongtianta_02206342"
-  }
+  },
+  "extraBanners": [
+    {
+      "enabled": true,
+      "image": "/uploads/1000059186.jpg",
+      "subtitle": "创见为光，新生为约，光影华章正启，10月31日不见不散！",
+      "title": "微博视界大会",
+      "buttonText": "了解更多",
+      "buttonUrl": "https://weibo.com/2637571067/5358676925219411"
+    }
+  ]
 }
