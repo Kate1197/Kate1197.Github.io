@@ -93,7 +93,7 @@ collections:
             fields:
               - { name: title, label: 活动名称, widget: string }
               - { name: type, label: 活动类型, widget: string, hint: "填写上方「活动类型标签」中的某一项，例如：红毯" }
-              - { name: date, label: 活动日期, widget: date, format: "YYYY-MM-DD", hint: "前端据此判断「即将开始 / 今天 / 已结束」" }
+              - { name: date, label: 活动日期, widget: string, hint: "手动填写，格式 YYYY-MM-DD，例如 2026-10-27（也兼容 2026/10/27、2026.10.27 等写法）。保存后卡片状态会自动重算：今天 / 即将开始 / 已结束" }
               - { name: time, label: 活动时间, widget: string, required: false, hint: "例如：15:00；全天活动可留空" }
               - { name: location, label: 地点, widget: string, required: false, hint: "例如：浙江 · 横店；线上活动可填「线上 · 微博」" }
               - { name: note, label: 备注, widget: text, required: false }

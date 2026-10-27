@@ -633,9 +633,16 @@
       const d = new Date();
       return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
     }
-    function fmtDate(str){
-      const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str || '');
-      if(!m) return str || '';
+    // 后台日期为手动填写，这里统一规范成 YYYY-MM-DD，兼容 2026/10/27、2026.10.27、2026年10月27日 等写法
+    function normDate(v){
+      const m = /(\d{4})\D+(\d{1,2})\D+(\d{1,2})/.exec(String(v == null ? '' : v).trim());
+      if(!m) return '';
+      return m[1] + '-' + String(m[2]).padStart(2,'0') + '-' + String(m[3]).padStart(2,'0');
+    }
+    function fmtDate(v){
+      const d = normDate(v);
+      const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d);
+      if(!m) return String(v == null ? '' : v);
       return Number(m[1]) + '年' + Number(m[2]) + '月' + Number(m[3]) + '日';
     }
     function normTypes(list){
@@ -658,9 +665,11 @@
       return { g1: p[0], g2: p[1] };
     }
     function statusOf(ev){
+      const d = normDate(ev.date);
       const today = todayStr();
-      if(ev.date === today) return 'today';
-      if(ev.date > today) return 'upcoming';
+      if(!d) return 'past';
+      if(d === today) return 'today';
+      if(d > today) return 'upcoming';
       return 'past';
     }
     function statusLabel(st){
@@ -679,9 +688,10 @@
       return data.events.slice().sort(function(a, b){
         const sa = statusOf(a), sb = statusOf(b);
         const pa = sa === 'past' ? 1 : 0, pb = sb === 'past' ? 1 : 0;
+        const da = normDate(a.date), db = normDate(b.date);
         if(pa !== pb) return pa - pb;                       // 未结束优先
-        if(pa === 0) return a.date < b.date ? -1 : (a.date > b.date ? 1 : 0);  // 未结束：日期近的在前
-        return a.date > b.date ? -1 : (a.date < b.date ? 1 : 0);              // 已结束：最近结束的在前
+        if(pa === 0) return da < db ? -1 : (da > db ? 1 : 0);  // 未结束：日期近的在前
+        return da > db ? -1 : (da < db ? 1 : 0);              // 已结束：最近结束的在前
       });
     }
 
@@ -749,7 +759,7 @@
         updatedAt: payload.updatedAt || '',
         intro: payload.intro || '艾米公开行程与活动 · 以官方发布为准',
         types: normTypes(payload.types),
-        events: Array.isArray(payload.events) ? payload.events.filter(function(e){ return e && e.title && e.date; }) : []
+        events: Array.isArray(payload.events) ? payload.events.filter(function(e){ return e && e.title; }) : []
       };
       if(updatedEl) updatedEl.textContent = data.updatedAt ? ('更新至 ' + data.updatedAt.slice(0,16)) : '更新至 —';
       if(introEl) introEl.textContent = data.intro;
