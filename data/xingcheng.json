@@ -38,9 +38,9 @@
       "date": "2026-10-18",
       "note": "受邀共庆 FRED 斐登品牌 90 周年，近赏高级珠宝作品，感受珍贵宝石与精妙匠艺交织的魅力。",
       "location": "上海",
-      "cover": "",
+      "cover": "/uploads/1000059190.jpg",
       "title": "FRED 斐登 90 周年 · 高级珠宝展",
-      "showCover": false,
+      "showCover": true,
       "type": "品牌活动",
       "link": "https://weibo.com/6671129497"
     },
@@ -49,9 +49,9 @@
       "date": "2026-10-18",
       "note": "医用金选大使专场直播，粉丝站组织有序应援，「艾的告白」限定小卡与医用金选真金卡同步释出。",
       "location": "上海京东MALL 七宝店",
-      "cover": "",
+      "cover": "/uploads/1000059191.jpg",
       "title": "京东健康 · 双11 采销直播",
-      "showCover": false,
+      "showCover": true,
       "type": "直播",
       "link": "https://weibo.com/6501165241"
     }
