@@ -77,13 +77,14 @@
       "link": "https://weibo.com/6501165241"
     },
     {
-      "showCover": false,
+      "showCover": true,
       "title": "商务",
       "type": "商务活动",
       "date": "2026/11/9",
       "location": "浙江·杭州",
       "note": "来自艾米工作室",
-      "link": "https://weibo.com/7754982812/5360005898305845"
+      "link": "https://weibo.com/7754982812/5360005898305845",
+      "cover": "/uploads/1000059966.jpg"
     }
   ]
 }
