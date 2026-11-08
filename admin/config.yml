@@ -101,6 +101,60 @@ collections:
               - { name: showCover, label: 显示活动封面, widget: boolean, default: false, hint: "打开后请同时在下一项上传封面图" }
               - { name: cover, label: 活动封面图, widget: image, allow_multiple: false, required: false, hint: "仅在「显示活动封面」打开时生效，建议 16:9 横图" }
 
+      - name: interview
+        label: 采访合集
+        file: data/interviews.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS，例如 2026-11-09 22:00:00" }
+          - { name: intro, label: 副标题, widget: string, hint: "显示在页面标题下方的一句话" }
+          - name: categories
+            label: 采访分类标签
+            widget: list
+            hint: "这里维护所有采访分类，前端的筛选按钮会自动按此列表生成；新增后即可在下方「采访分类」中选用"
+            field: { name: category, label: 分类名称, widget: string }
+          - name: interviews
+            label: 采访列表
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            hint: "前端会自动按日期倒序排列"
+            fields:
+              - { name: title, label: 采访标题, widget: string }
+              - { name: type, label: 类型, widget: select, options: [{ label: "图文", value: "图文" }, { label: "视频", value: "视频" }], hint: "决定卡片右上角角标：图文（蓝）/ 视频（红 ▶）" }
+              - { name: category, label: 采访分类, widget: string, hint: "填写上方「采访分类标签」中的某一项，例如：杂志" }
+              - { name: media, label: 媒体 / 平台, widget: string, required: false, hint: "例如：芭莎珠宝、新浪娱乐、封面新闻" }
+              - { name: date, label: 采访日期, widget: string, hint: "手动填写，格式 YYYY-MM-DD；只知道月份的填 YYYY-MM 也可以" }
+              - { name: drama, label: 关联作品 / 活动, widget: string, required: false, hint: "例如：雀骨、FRED 品牌挚友出镜；没有可留空" }
+              - { name: summary, label: 内容摘要, widget: text, required: false, hint: "一两句话概括采访亮点" }
+              - { name: link, label: 原文链接, widget: string, required: false, hint: "填写后卡片底部会出现「查看原文 / 观看视频」按钮；留空则不显示" }
+              - { name: showCover, label: 显示封面图, widget: boolean, default: false }
+              - { name: cover, label: 封面图, widget: image, allow_multiple: false, required: false, hint: "仅在「显示封面图」打开时生效，建议 16:9 横图" }
+
+      - name: brands
+        label: 商务代言
+        file: data/brands.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - { name: intro, label: 副标题, widget: string, hint: "显示在页面标题下方的一句话" }
+          - name: categories
+            label: 品类标签
+            widget: list
+            hint: "这里维护所有品类，前端的筛选按钮会自动按此列表生成"
+            field: { name: category, label: 品类名称, widget: string }
+          - name: brands
+            label: 品牌合作列表
+            widget: list
+            summary: "{{fields.name}} · {{fields.role}}"
+            hint: "页面只展示「进行中」的合作；已结束的把状态改成「已结束」即可归档隐藏，不用删除"
+            fields:
+              - { name: name, label: 品牌名称, widget: string }
+              - { name: role, label: 合作身份, widget: string, hint: "例如：代言人 / 青春大使 / 品牌挚友 / 合作推广" }
+              - { name: category, label: 品类, widget: string, hint: "填写上方「品类标签」中的某一项，例如：彩妆" }
+              - { name: since, label: 官宣日期, widget: string, required: false, hint: "格式 YYYY-MM-DD" }
+              - { name: status, label: 合作状态, widget: select, options: [{ label: "进行中", value: "进行中" }, { label: "已结束", value: "已结束" }], default: "进行中", hint: "选「已结束」后该品牌不在页面显示，但数据保留" }
+              - { name: desc, label: 合作说明, widget: text, required: false }
+              - { name: link, label: 官宣链接, widget: string, required: false, hint: "填写后卡片底部会出现「查看官宣」按钮" }
+              - { name: logo, label: 品牌图, widget: image, allow_multiple: false, required: false, hint: "可选，建议 16:9 横图；不上传则显示默认图标" }
+
       - name: sections
         label: 六大板块
         file: data/sections.json

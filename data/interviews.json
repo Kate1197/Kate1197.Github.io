@@ -1,0 +1,84 @@
+{
+  "updatedAt": "2026-11-09 22:00:00",
+  "intro": "艾米过往采访合集 · 点击卡片跳转原文链接",
+  "categories": [
+    "杂志",
+    "媒体专访",
+    "直播",
+    "综艺"
+  ],
+  "interviews": [
+    {
+      "title": "波司登「柔软力是底气也是勇气」企划专访",
+      "type": "图文",
+      "category": "媒体专访",
+      "media": "波司登 × 嘉人 / 文娱新说",
+      "date": "2026-10-14",
+      "drama": "波司登元气泡芙系列",
+      "summary": "面对「会不会被提早认定适合某类角色」，艾米有自己的从容：未来还有很长，她可以继续学习、尝试，用作品慢慢证明自己。泡芙感女孩的柔软不是被框住，而是带着好奇心，勇敢打开更多可能。",
+      "link": "https://www.sina.cn/news/detail/5353875411569821.html",
+      "showCover": false,
+      "cover": ""
+    },
+    {
+      "title": "《芭莎珠宝》十月刊封面：她的黄金时代来了",
+      "type": "图文",
+      "category": "杂志",
+      "media": "芭莎珠宝 BAZAAR Jewelry",
+      "date": "2026-10-13",
+      "drama": "FRED 品牌挚友出镜",
+      "summary": "十月刊封面人物专访。拍摄特别环节与白玉兰最佳女配角迟蓬展开跨代对谈，谈媒介变迁、成长节奏，以及「我不太会在网上搜自己」的松弛心态。",
+      "link": "http://www.trendsgroup.com.cn/2026/1013/229574.shtml",
+      "showCover": false,
+      "cover": ""
+    },
+    {
+      "title": "京东健康医用金选大使 · 采销直播专场",
+      "type": "视频",
+      "category": "直播",
+      "media": "京东健康",
+      "date": "2026-10-18",
+      "drama": "京东健康（合作已收尾）",
+      "summary": "上海京东MALL七宝店专场直播，京东健康 × 艾米合作期的高光节点；次日官方释出「艾的告白」限定小卡。",
+      "link": "https://weibo.com/6501165241",
+      "showCover": false,
+      "cover": ""
+    },
+    {
+      "title": "封面新闻·有艺思：从《雀骨》到《功夫女足》，在18岁的夏天迎来丰收",
+      "type": "图文",
+      "category": "媒体专访",
+      "media": "封面新闻 / 华西都市报",
+      "date": "2026-07-28",
+      "drama": "雀骨 · 功夫女足",
+      "summary": "首挑大梁出演古装剧女主：被谢嘉鱼坚韧的性格和清晰的成长线吸引，从天真烂漫到肩负重任，人物底色里不变的善良、热烈与坚持最打动她。",
+      "link": "http://m.toutiao.com/group/7667865503369413155/",
+      "showCover": false,
+      "cover": ""
+    },
+    {
+      "title": "新浪娱乐对话艾米：我是0岁的大人，人生不是爽文",
+      "type": "视频",
+      "category": "媒体专访",
+      "media": "新浪娱乐",
+      "date": "2026-07",
+      "drama": "雀骨",
+      "summary": "谈第一次演古装女主的欣喜与压力：控制自己不做小动作，害怕让谢嘉鱼显得不够聪明；谈高考为什么只报北电——档期太满，也很向往北电。",
+      "link": "https://m.weibo.cn/detail/5326386852006163",
+      "showCover": false,
+      "cover": ""
+    },
+    {
+      "title": "《SoFigaro 中文版》18岁生日刊封面大片",
+      "type": "图文",
+      "category": "杂志",
+      "media": "SoFigaro 中文版",
+      "date": "2026-01",
+      "drama": "",
+      "summary": "18岁生日刊封面大片，成年节点的时尚记录。",
+      "link": "https://www.163.com/dy/article/L1O8QFBR05374EDE.html",
+      "showCover": false,
+      "cover": ""
+    }
+  ]
+}

@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>商务代言 · 艾米日签</title>
+<meta name="description" content="艾米日签 · 商务代言 — 汇总艾米进行中品牌合作，按品类分类（彩妆 / 服饰 / 珠宝 / 健康 / 食品），含身份、官宣日期与官宣链接。">
+<meta name="theme-color" content="#9172CC">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="商务代言 · 艾米日签">
+<meta property="og:description" content="艾米进行中品牌合作 · 按品类分类">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --md-primary: #9172CC;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #E9DDFF;
+    --md-on-primary-container: #250460;
+    --md-secondary: #5E5C71;
+    --md-secondary-container: #E4E0F4;
+    --md-on-secondary-container: #1B0A2E;
+    --md-surface: #FEF7FF;
+    --md-surface-dim: #DED7E0;
+    --md-surface-bright: #FEF7FF;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F7F0FA;
+    --md-surface-container: #F2EBF5;
+    --md-surface-container-high: #ECE5EF;
+    --md-surface-container-highest: #E6E0E9;
+    --md-on-surface: #1D1B20;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-success: #2E7D32;
+    --md-success-container: #C8E6C9;
+    --md-warning: #ED6C02;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 1px rgba(0,0,0,0.08);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.16), 0 2px 6px 2px rgba(0,0,0,0.10);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.10), 0 1px 3px 0 rgba(0,0,0,0.14);
+    --md-radius-sm: 8px;
+    --md-radius-md: 12px;
+    --md-radius-lg: 16px;
+  }
+  [data-theme="dark"]{
+    --md-surface: #141218;
+    --md-surface-dim: #141218;
+    --md-surface-bright: #141218;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-surface-container-highest: #36343B;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-primary-container: #4A3A6B;
+    --md-on-primary-container: #E9DDFF;
+    --md-secondary-container: #4A4759;
+    --md-on-secondary-container: #E4E0F4;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.20);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.40), 0 2px 6px 2px rgba(0,0,0,0.25);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.35), 0 1px 3px 0 rgba(0,0,0,0.30);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family: "MiSans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Roboto, system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+  }
+  .wrap{max-width: 1180px; margin: 0 auto; padding: 0 16px 60px;}
+
+  /* ===== 顶部导航条 ===== */
+  .bd-topbar{
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  [data-theme="dark"] .bd-topbar{ background: rgba(20,18,24,0.82); }
+  .bd-icon-btn{
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--md-surface-container-high); color: var(--md-on-surface);
+    text-decoration: none; border: none; cursor: pointer;
+  }
+  .bd-icon-btn svg{ width: 20px; height: 20px; stroke: currentColor; }
+  .bd-topbar-title{
+    flex: 1; min-width: 0;
+    font-size: 16px; font-weight: 700; color: var(--md-on-surface);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .bd-theme .theme-icon{width:20px; height:20px; stroke:currentColor;}
+  .bd-theme .theme-icon-sun{display:none;}
+  [data-theme="dark"] .bd-theme .theme-icon-moon{display:none;}
+  [data-theme="dark"] .bd-theme .theme-icon-sun{display:block;}
+
+  /* ===== Hero ===== */
+  .bd-hero{
+    padding: 26px 4px 18px;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  }
+  .bd-hero-left{ min-width: 0; }
+  .bd-hero-kicker{
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--md-primary);
+    background: var(--md-primary-container); padding: 4px 10px; border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .bd-hero-kicker svg{ width:13px; height:13px; stroke:currentColor; }
+  .bd-hero-title{ font-size: 28px; font-weight: 800; letter-spacing: .5px; line-height: 1.15; }
+  .bd-hero-sub{ font-size: 13px; color: var(--md-on-surface-variant); margin-top: 7px; }
+  .bd-hero-right{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .bd-count-pill{
+    font-size: 12px; font-weight: 700; color: var(--md-on-primary);
+    background: linear-gradient(135deg, #9172CC, #5E4BA6);
+    padding: 7px 13px; border-radius: 999px; white-space: nowrap;
+  }
+  .bd-updated{
+    font-size: 12px; font-weight: 600; color: var(--md-on-primary-container);
+    background: var(--md-primary-container); padding: 7px 12px; border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* ===== 筛选区 ===== */
+  .bd-filter{
+    position: sticky; top: 59px; z-index: 15;
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 12px 4px;
+    background: var(--md-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .bd-chips{ display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  .bd-chips::-webkit-scrollbar{ display: none; }
+  .bd-chip{
+    border: 1px solid var(--md-outline-variant); background: transparent;
+    color: var(--md-on-surface-variant);
+    font-size: 13px; font-weight: 600; font-family: inherit;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+    transition: all .18s; flex-shrink: 0;
+  }
+  .bd-chip:hover{ border-color: var(--md-primary); color: var(--md-primary); }
+  .bd-chip.active{ background: var(--md-primary); border-color: var(--md-primary); color: var(--md-on-primary); }
+
+  /* ===== 卡片网格 ===== */
+  .bd-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 18px 0 8px;
+  }
+  .bd-card{
+    display: flex; flex-direction: column;
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-lg);
+    overflow: hidden;
+    transition: transform .22s cubic-bezier(.22,.61,.36,1), box-shadow .22s, border-color .22s;
+  }
+  .bd-card:hover{ transform: translateY(-3px); box-shadow: var(--md-elev-3); border-color: var(--md-primary); }
+
+  /* 封面 / 占位头图 */
+  .bd-cover{
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--g1, #9172CC), var(--g2, #5E4BA6));
+    overflow: hidden; flex-shrink: 0;
+  }
+  .bd-cover img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bd-cover-ph{
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.92);
+  }
+  .bd-cover-ph svg{ width: 44px; height: 44px; opacity: .85; }
+  .bd-cover::after{
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,0) 38%, rgba(0,0,0,.42) 100%);
+  }
+  .bd-badge{
+    position: absolute; left: 12px; top: 12px; z-index: 2;
+    font-size: 11px; font-weight: 700; letter-spacing: .4px;
+    color: #fff; background: rgba(0,0,0,.34);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 4px 10px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.28);
+  }
+  .bd-role{
+    position: absolute; right: 12px; top: 12px; z-index: 2;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(255,255,255,.94); color: #B8860B;
+  }
+
+  /* 卡片正文 */
+  .bd-body{ display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px; flex: 1; }
+  .bd-title{ font-size: 18px; font-weight: 800; line-height: 1.35; }
+  .bd-meta{ display: flex; flex-direction: column; gap: 6px; }
+  .bd-meta-row{
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--md-on-surface-variant);
+  }
+  .bd-meta-row svg{ width: 15px; height: 15px; stroke: var(--md-primary); flex-shrink: 0; }
+  .bd-meta-row .val{ min-width: 0; }
+  .bd-status-dot{
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--md-success); flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(46,125,50,.18);
+  }
+  .bd-note{
+    font-size: 12.5px; line-height: 1.6; color: var(--md-on-surface-variant);
+    display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .bd-btns{ margin-top: auto; padding-top: 6px; }
+  .bd-btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    width: 100%;
+    padding: 10px 16px; border-radius: 999px;
+    background: var(--md-primary); color: var(--md-on-primary);
+    font-size: 13px; font-weight: 700; text-decoration: none;
+    transition: filter .18s, transform .18s;
+  }
+  .bd-btn:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+  .bd-btn svg{ width: 15px; height: 15px; stroke: currentColor; }
+
+  /* 空状态 */
+  .bd-empty{
+    text-align: center; padding: 70px 20px; color: var(--md-on-surface-variant);
+  }
+  .bd-empty .big{ font-size: 40px; display: block; margin-bottom: 12px; }
+  .bd-empty .line{ font-size: 13px; }
+
+  /* 页脚 */
+  .bd-footer{
+    margin-top: 34px; padding-top: 20px;
+    border-top: 1px solid var(--md-outline-variant);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+    font-size: 12px; color: var(--md-on-surface-variant);
+  }
+  .bd-footer a{ color: var(--md-primary); text-decoration: none; }
+  .bd-tip{
+    font-size: 12px; color: var(--md-on-surface-variant);
+    background: var(--md-surface-container); border-radius: var(--md-radius-md);
+    padding: 10px 14px; margin-top: 14px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .bd-tip svg{ width: 15px; height: 15px; stroke: var(--md-primary); flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== 侧边栏（大屏） ===== */
+  .app-shell{ display: block; }
+  .app-sidebar{ display: none; }
+  .menu-item{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; cursor:pointer; transition:background .2s; color:var(--md-on-surface); text-decoration:none; }
+  .menu-item:hover{ background:var(--md-surface-container-high); }
+  .menu-item.active{ background:var(--md-primary-container); }
+  .menu-item.active .ico{ color:var(--md-on-primary-container); }
+  .menu-item .ico{ width:24px; height:24px; color:var(--md-primary); flex-shrink:0; }
+  .menu-item .ico svg{ width:24px; height:24px; stroke:currentColor; }
+  .menu-item-text{ display:flex; flex-direction:column; flex:1; min-width:0; overflow:hidden; }
+  .menu-item .txt{ font-size:16px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-item .sub{ font-size:12px; color:var(--md-on-surface-variant); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-list{ padding:12px; display:flex; flex-direction:column; gap:4px; }
+  .sidebar-header{ padding:16px 14px 12px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--md-primary); }
+  .sidebar-header svg{ width:24px; height:24px; flex-shrink:0; }
+  .sidebar-header .brand-logo{ height:22px; width:auto; display:block; }
+  [data-theme="dark"] .sidebar-header .brand-logo{ filter:brightness(1.2); }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .sidebar-toggle{ width:28px; height:28px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--md-outline-variant); background:var(--md-surface-container); color:var(--md-on-surface-variant); border-radius:8px; cursor:pointer; transition:background .15s,color .15s,transform .25s; }
+  .sidebar-toggle svg{ width:16px; height:16px; }
+  .sidebar-toggle:hover{ background:var(--md-surface-container-high); color:var(--md-primary); }
+  .sidebar-footer{ margin-top:auto; padding:16px 20px; border-top:1px solid var(--md-outline-variant); font-size:12px; color:var(--md-on-surface-variant); }
+  .sidebar-footer .footer-links a{ display:inline-flex; align-items:center; gap:6px; color:var(--md-primary); text-decoration:none; }
+  .sidebar-footer .footer-links svg{ width:15px; height:15px; stroke:currentColor; }
+
+  /* ===== 手机端全屏菜单 ===== */
+  .menu-overlay{ position:fixed; inset:0; background:var(--md-surface); z-index:200; transform:translateY(-100%); transition:transform .4s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
+  .menu-overlay.open{ transform:translateY(0); }
+  .menu-close{ position:absolute; right:16px; top:16px; width:40px; height:40px; border-radius:50%; background:var(--md-surface-container-high); border:none; cursor:pointer; color:var(--md-on-surface); display:flex; align-items:center; justify-content:center; }
+  .menu-close svg{ width:22px; height:22px; stroke:currentColor; }
+  .menu-header{ padding:28px 24px 16px; font-size:20px; font-weight:700; color:var(--md-on-surface); border-bottom:1px solid var(--md-outline-variant); }
+
+  @media (min-width: 768px){
+    .app-shell{ display:flex; flex-direction:row; }
+    .app-sidebar{ width:240px; flex-shrink:0; display:flex !important; flex-direction:column; background:var(--md-surface-container-low); border-right:1px solid var(--md-outline-variant); position:sticky; top:0; height:100vh; overflow-y:auto; z-index:50; }
+    .app-sidebar.collapsed{ width:64px; overflow:visible; transition:width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{ flex-direction:column; gap:10px; padding:16px 8px 12px; justify-content:flex-start; }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform:rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding:12px 8px; }
+    .app-sidebar.collapsed .menu-item{ padding:12px 0; justify-content:center; border-radius:12px; position:relative; }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding:12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{ flex-direction:column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding:8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{ content:attr(data-tooltip); position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%); background:var(--md-surface-container-highest); color:var(--md-on-surface); padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.18); z-index:200; pointer-events:none; }
+    .app-content{ flex:1; min-width:0; }
+    .app-content .wrap{ max-width:none; margin:0; }
+    .menu-overlay{ display:none !important; }
+    .bd-menu-btn{ display:none !important; }
+    .bd-filter{ top: 58px; }
+    .bd-grid{ grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 20px; }
+  }
+  @media (min-width: 1280px){
+    .bd-grid{ grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+    .bd-hero-title{ font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- 左侧侧边栏（平板 / 电脑显示） -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="折叠/展开侧边栏" aria-label="折叠/展开侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </div>
+    <div class="menu-list">
+      <a class="menu-item" href="index.html" data-tooltip="主页">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">主页</div>
+          <div class="sub">艾米日签 · 每日动态简报</div>
+        </div>
+      </a>
+      <a class="menu-item" href="index.html#riqian" data-tooltip="日签">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">日签</div>
+          <div class="sub">艾米日签合集</div>
+        </div>
+      </a>
+      <a class="menu-item" href="aixin.html" data-tooltip="艾心向善">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">艾心向善</div>
+          <div class="sub">粉丝公益 · 动态追踪</div>
+        </div>
+      </a>
+      <a class="menu-item" href="xingcheng.html" data-tooltip="行程活动">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">行程活动</div>
+          <div class="sub">公开行程 · 活动汇总</div>
+        </div>
+      </a>
+      <a class="menu-item" href="chanchu.html" data-tooltip="产出汇总">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">产出汇总</div>
+          <div class="sub">由 @艾产速览 整理汇总</div>
+        </div>
+      </a>
+      <a class="menu-item" href="interview.html" data-tooltip="采访合集">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">采访合集</div>
+          <div class="sub">杂志 · 专访 · 直播 · 综艺</div>
+        </div>
+      </a>
+      <a class="menu-item active" href="brands.html" data-tooltip="商务代言">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">商务代言</div>
+          <div class="sub">进行中品牌合作</div>
+        </div>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links" style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://weibo.com/6320241831" target="_blank" rel="noopener" title="@玡迩叻_ami"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span> @玡迩叻_ami</span></a>
+        <a href="index.html" rel="noopener" title="主页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span> 主页</span></a>
+      </div>
+      <div style="margin-top:8px;">© 艾米日签 · 商务代言</div>
+    </div>
+  </aside>
+
+  <!-- 内容区 -->
+  <div class="app-content">
+    <div class="bd-topbar">
+      <button class="bd-icon-btn bd-menu-btn" id="menuBtn" title="菜单" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="bd-topbar-title">商务代言</div>
+      <button class="bd-icon-btn bd-theme" id="bdTheme" title="切换深色/浅色" aria-label="切换深色/浅色">
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
+      </button>
+    </div>
+
+    <div class="wrap">
+      <div class="bd-hero">
+        <div class="bd-hero-left">
+          <div class="bd-hero-kicker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            ENDORSEMENTS
+          </div>
+          <h1 class="bd-hero-title">商务代言</h1>
+          <div class="bd-hero-sub" id="bdIntro">艾米进行中品牌合作 · 以官方官宣为准</div>
+        </div>
+        <div class="bd-hero-right">
+          <div class="bd-count-pill" id="bdCount">进行中 0 个</div>
+          <div class="bd-updated" id="bdUpdated">更新至 —</div>
+        </div>
+      </div>
+
+      <div class="bd-tip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>本页仅展示进行中的品牌合作，按品类分类；点击卡片下方按钮跳转官宣原文。合作身份与期限以品牌官方发布为准。</span>
+      </div>
+
+      <div class="bd-filter">
+        <div class="bd-chips" id="bdChips"></div>
+      </div>
+
+      <div class="bd-grid" id="bdGrid"></div>
+      <div class="bd-empty" id="bdEmpty" hidden>
+        <span class="big">🛍️</span>
+        <div class="line">该品类下暂无进行中的品牌合作</div>
+      </div>
+
+      <footer class="bd-footer">
+        <div>艾米日签 · 商务代言 · 信息整理自品牌官方发布</div>
+        <div><a href="index.html">返回主页</a></div>
+      </footer>
+    </div>
+  </div><!-- /app-content -->
+</div><!-- /app-shell -->
+
+<!-- 全屏菜单（手机端） -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose" aria-label="关闭菜单">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="menu-header">页面导航</div>
+  <div class="menu-list">
+    <a class="menu-item" href="index.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">主页</div>
+        <div class="sub">艾米日签 · 每日动态简报</div>
+      </div>
+    </a>
+    <a class="menu-item" href="index.html#riqian">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">日签</div>
+        <div class="sub">艾米日签合集</div>
+      </div>
+    </a>
+    <a class="menu-item" href="aixin.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">艾心向善</div>
+        <div class="sub">粉丝公益 · 动态追踪</div>
+      </div>
+    </a>
+    <a class="menu-item" href="xingcheng.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">行程活动</div>
+        <div class="sub">公开行程 · 活动汇总</div>
+      </div>
+    </a>
+    <a class="menu-item" href="chanchu.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">产出汇总</div>
+        <div class="sub">由 @艾产速览 整理汇总</div>
+      </div>
+    </a>
+    <a class="menu-item" href="interview.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">采访合集</div>
+        <div class="sub">杂志 · 专访 · 直播 · 综艺</div>
+      </div>
+    </a>
+    <a class="menu-item active" href="brands.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">商务代言</div>
+        <div class="sub">进行中品牌合作</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- 内嵌数据（后台更新 data/brands.json 后自动生效；此段为兜底） -->
+<script id="bd-embedded" type="application/json">
+{
+  "updatedAt": "2026-11-09 22:00:00",
+  "intro": "艾米进行中商务合作 · 以官方官宣为准",
+  "categories": [
+    "彩妆",
+    "服饰",
+    "珠宝",
+    "健康",
+    "食品",
+    "其他"
+  ],
+  "brands": [
+    {
+      "name": "UKISS 悠珂思",
+      "role": "青春大使",
+      "category": "彩妆",
+      "since": "2026-11-06",
+      "status": "进行中",
+      "desc": "携悠珂思 Pingu 联名系列官宣，同款「Pin不动了gu一下」彩妆上线，轻唇釉 M03 林间红莓等同款热销。",
+      "link": "https://m.weibo.cn/detail/5362195246613562",
+      "logo": ""
+    },
+    {
+      "name": "波司登",
+      "role": "合作推广",
+      "category": "服饰",
+      "since": "2026-10-14",
+      "status": "进行中",
+      "desc": "元气泡芙系列「柔软力是底气也是勇气」企划：粉色泡芙羽绒服造型释出，谈柔软力与角色从容。",
+      "link": "https://m.weibo.cn/detail/5353875281282807",
+      "logo": ""
+    },
+    {
+      "name": "FRED 斐登",
+      "role": "品牌挚友",
+      "category": "珠宝",
+      "since": "2026-10-13",
+      "status": "进行中",
+      "desc": "佩戴多款珠宝出镜《芭莎珠宝》十月刊封面；10/18 受邀出席 FRED 斐登 90 周年高级珠宝展（上海）。",
+      "link": "http://www.trendsgroup.com.cn/2026/1013/229574.shtml",
+      "logo": ""
+    }
+  ]
+}
+</script>
+
+<script>
+  // 深色模式（与全站共享 ami-theme）
+  (function(){
+    const btn = document.getElementById('bdTheme');
+    const html = document.documentElement;
+    const saved = localStorage.getItem('ami-theme');
+    if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      html.setAttribute('data-theme','dark');
+    }
+    btn.addEventListener('click', function(){
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if(isDark){
+        html.removeAttribute('data-theme');
+        localStorage.setItem('ami-theme','light');
+      }else{
+        html.setAttribute('data-theme','dark');
+        localStorage.setItem('ami-theme','dark');
+      }
+    });
+  })();
+
+  // 侧边栏折叠（平板 / 电脑，与全站共享状态）
+  (function(){
+    const sidebar = document.getElementById('appSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    if(!sidebar || !toggle) return;
+    const collapsed = localStorage.getItem('ami-sidebar-collapsed') === '1';
+    sidebar.classList.toggle('collapsed', collapsed);
+    toggle.addEventListener('click', function(){
+      const willCollapse = !sidebar.classList.contains('collapsed');
+      sidebar.classList.toggle('collapsed', willCollapse);
+      localStorage.setItem('ami-sidebar-collapsed', willCollapse ? '1' : '0');
+    });
+  })();
+
+  // 手机端全屏菜单
+  (function(){
+    const overlay = document.getElementById('menuOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const menuClose = document.getElementById('menuClose');
+    if(!overlay) return;
+    function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+    if(menuBtn) menuBtn.addEventListener('click', openMenu);
+    if(menuClose) menuClose.addEventListener('click', closeMenu);
+  })();
+
+  // ========== 商务代言渲染 ==========
+  (function(){
+    const PALETTE = [
+      ['#FF6F91','#C2185B'],
+      ['#9172CC','#5E4BA6'],
+      ['#FFB300','#EF6C00'],
+      ['#4A9EFF','#1565C0'],
+      ['#3FBF9F','#00796B'],
+      ['#B06AB3','#4568DC'],
+      ['#F78C6B','#C43E1C'],
+      ['#5AA9E6','#1B5E9E']
+    ];
+    const ICON_BAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>';
+    const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+    const ICON_ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+    const grid = document.getElementById('bdGrid');
+    const chipsBox = document.getElementById('bdChips');
+    const emptyEl = document.getElementById('bdEmpty');
+    const countEl = document.getElementById('bdCount');
+    const updatedEl = document.getElementById('bdUpdated');
+    const introEl = document.getElementById('bdIntro');
+
+    let data = null;
+    let filterCat = 'all';
+
+    function esc(s){
+      return String(s == null ? '' : s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+    function normDate(v){
+      const s = String(v == null ? '' : v).trim();
+      let m = /(\d{4})\D+(\d{1,2})\D+(\d{1,2})/.exec(s);
+      if(m) return m[1] + '-' + String(m[2]).padStart(2,'0') + '-' + String(m[3]).padStart(2,'0');
+      m = /(\d{4})\D+(\d{1,2})/.exec(s);
+      if(m) return m[1] + '-' + String(m[2]).padStart(2,'0') + '-01';
+      return '';
+    }
+    function fmtDate(v){
+      const d = normDate(v);
+      const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d);
+      if(!m) return String(v == null ? '' : v);
+      return Number(m[1]) + '年' + Number(m[2]) + '月' + Number(m[3]) + '日';
+    }
+    function normCats(list){
+      if(!Array.isArray(list)) return [];
+      return list.map(function(t){
+        if(typeof t === 'string') return t;
+        if(t && typeof t === 'object') return t.category || t.label || t.name || '';
+        return '';
+      }).filter(Boolean);
+    }
+    function catIndex(t){
+      const i = data.categories.indexOf(t);
+      if(i >= 0) return i;
+      let h = 0;
+      for(let k = 0; k < t.length; k++) h = (h * 31 + t.charCodeAt(k)) >>> 0;
+      return h;
+    }
+    function gradients(t){
+      const p = PALETTE[catIndex(t) % PALETTE.length];
+      return { g1: p[0], g2: p[1] };
+    }
+    function isActive(b){
+      return String(b.status || '进行中') !== '已结束';
+    }
+
+    function renderChips(){
+      const all = ['all'].concat(data.categories);
+      chipsBox.innerHTML = all.map(function(t){
+        const label = t === 'all' ? '全部品类' : t;
+        return '<button class="bd-chip' + (filterCat === t ? ' active' : '') + '" data-cat="' + esc(t) + '">' + esc(label) + '</button>';
+      }).join('');
+    }
+
+    function activeBrands(){
+      return data.brands.filter(isActive).sort(function(a, b){
+        const da = normDate(a.since), db = normDate(b.since);
+        return da > db ? -1 : (da < db ? 1 : 0);
+      });
+    }
+
+    function cardHTML(b){
+      const grad = gradients(b.category || '其他');
+      const hasLogo = !!b.logo;
+      return '<article class="bd-card">'
+        +   '<div class="bd-cover" style="--g1:' + grad.g1 + ';--g2:' + grad.g2 + '">'
+        +     (hasLogo ? '<img src="' + esc(b.logo) + '" alt="' + esc(b.name) + '" loading="lazy">' : '')
+        +     (!hasLogo ? '<div class="bd-cover-ph">' + ICON_BAG + '</div>' : '')
+        +     '<span class="bd-badge">' + esc(b.category || '品牌') + '</span>'
+        +     (b.role ? '<span class="bd-role">' + esc(b.role) + '</span>' : '')
+        +   '</div>'
+        +   '<div class="bd-body">'
+        +     '<h3 class="bd-title">' + esc(b.name) + '</h3>'
+        +     '<div class="bd-meta">'
+        +       '<div class="bd-meta-row"><span class="bd-status-dot"></span><span class="val">进行中</span></div>'
+        +       (b.since ? '<div class="bd-meta-row">' + ICON_CAL + '<span class="val">官宣于 ' + esc(fmtDate(b.since)) + '</span></div>' : '')
+        +     '</div>'
+        +     (b.desc ? '<p class="bd-note">' + esc(b.desc) + '</p>' : '')
+        +     (b.link ? '<div class="bd-btns"><a class="bd-btn" href="' + esc(b.link) + '" target="_blank" rel="noopener">查看官宣' + ICON_ARROW + '</a></div>' : '')
+        +   '</div>'
+        + '</article>';
+    }
+
+    function render(){
+      if(!data) return;
+      const all = activeBrands();
+      const shown = all.filter(function(b){
+        if(filterCat !== 'all' && b.category !== filterCat) return false;
+        return true;
+      });
+      grid.innerHTML = shown.map(cardHTML).join('');
+      emptyEl.hidden = shown.length > 0;
+      countEl.textContent = '进行中 ' + all.length + ' 个';
+    }
+
+    function bind(){
+      chipsBox.addEventListener('click', function(e){
+        const btn = e.target.closest('.bd-chip');
+        if(!btn) return;
+        filterCat = btn.dataset.cat;
+        Array.prototype.forEach.call(chipsBox.children, function(b){ b.classList.toggle('active', b === btn); });
+        render();
+      });
+    }
+
+    function apply(payload){
+      data = {
+        updatedAt: payload.updatedAt || '',
+        intro: payload.intro || '艾米进行中品牌合作 · 以官方官宣为准',
+        categories: normCats(payload.categories),
+        brands: Array.isArray(payload.brands) ? payload.brands.filter(function(e){ return e && e.name; }) : []
+      };
+      if(updatedEl) updatedEl.textContent = data.updatedAt ? ('更新至 ' + data.updatedAt.slice(0,16)) : '更新至 —';
+      if(introEl) introEl.textContent = data.intro;
+      renderChips();
+      render();
+    }
+
+    // 兜底：先读内嵌数据
+    try{
+      const raw = document.getElementById('bd-embedded');
+      apply(JSON.parse(raw.textContent));
+    }catch(e){ /* 忽略，等 fetch */ }
+
+    bind();
+
+    // 优先读后台维护的 JSON（带防缓存）
+    fetch('data/brands.json?v=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){ if(j) apply(j); })
+      .catch(function(){ /* 失败则保持内嵌内容 */ });
+  })();
+</script>
+</body>
+</html>
