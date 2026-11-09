@@ -3136,7 +3136,7 @@
   // ========== 日签瀑布流 + 弹窗 + 加载更多 ==========
   // 日签数据 - 来源: @玡迩叻_ami 微博 (通过 sina.cn 代理抓取)
   // 仅收录带 Vol. 的正式期数，超话/二创等其他帖子不收录
-  const riqianData = [
+  let riqianData = [
     {date:"第52期 · 11月8日", title:"Vol.052 · 我觉得我也很自由", caption:"我看见鸟儿在天上飞，我觉得他很自由；\n我看见鱼儿在水中游，我觉得他很自由；\n我在路上走着，我觉得我也很自由。 —— one读者·想和小熊打招呼\n图源 艾米 （2024/11/21 小红书 P8）", img:"", h:680, weiboUrl:"https://weibo.com/6320241831"},
     {date:"第51期 · 11月7日", title:"Vol.051 · 立冬特辑", caption:"昨夜清霜冷絮裯，纷纷红叶满阶头。\n园林尽扫西风去，惟有黄花不负秋。 —— 《立冬前一日霜对菊有感》Cr.网络\n图源 艾米 （2026/5/21 小红书 P2）", img:"", h:660, weiboUrl:"https://weibo.com/6320241831"},
     {date:"第50期 · 11月6日", title:"Vol.050 · 开出自己的花来", caption:"不要自己还是春天，却忙得像秋天，想要结果。\n现在的年轻人首要考虑如何开出自己的花来，\n哪怕是一朵小蓓蕾，足矣。 —— 梁永安\n图源 艾米 （2026/11/5 小红书 P11）", img:"", h:680, weiboUrl:"https://weibo.com/6320241831"},
@@ -3179,15 +3179,27 @@
 
   // 渲染瀑布流 (初始 + 追加共用)
   const waterfall = document.getElementById('dqWaterfall');
-  if (waterfall && riqianData.length) {
-    riqianData.forEach(item => {
-      if (item.weiboUrl) {
-        const m = item.weiboUrl.match(/\/(\d+)$/);
-        if (m) _renderedIds.add(m[1]);
+  // 用后台 data/riqian.json 重新渲染日签独立页，保证后台更新后首页与日签页同步
+  function applyRiqianData(list){
+    riqianData = Array.isArray(list) ? list.slice() : [];
+    if(waterfall) waterfall.innerHTML = '';
+    _renderedIds.clear();
+    riqianData.forEach(function(item){
+      if(item && item.weiboUrl){
+        var m = item.weiboUrl.match(/\/(\d+)$/);
+        if(m) _renderedIds.add(m[1]);
       }
       renderRiqianItem(item);
     });
+    var latest = riqianData[0];
+    var latestDateEl = document.getElementById('dqLatestDate');
+    var latestTitleEl = document.getElementById('dqLatestTitle');
+    if(latest){
+      if(latestDateEl) latestDateEl.textContent = latest.date || '';
+      if(latestTitleEl) latestTitleEl.textContent = latest.title || '';
+    }
   }
+  applyRiqianData(riqianData);
 
   // ======== 侧栏：最新一期 / 搜索 / 筛选 ========
   (function(){
@@ -3196,7 +3208,7 @@
     const latestBtn = document.getElementById('dqLatestBtn');
     const searchInput = document.getElementById('dqSearchInput');
     const chips = document.querySelectorAll('.dq-chip');
-    const items = document.querySelectorAll('#dqWaterfall .dq-item');
+    var items = document.querySelectorAll('#dqWaterfall .dq-item');
 
     // 填充最新一期卡
     if (riqianData.length && latestDateEl && latestTitleEl) {
@@ -3222,7 +3234,7 @@
       const activeChip = document.querySelector('.dq-chip.active');
       const filterKey = activeChip ? activeChip.dataset.filter : 'all';
 
-      items.forEach((el, idx) => {
+      document.querySelectorAll('#dqWaterfall .dq-item').forEach((el, idx) => {
         const item = riqianData[idx];
         if (!item) { el.style.display = ''; return; }
 
@@ -3792,6 +3804,7 @@
     if(data.messages) applyMessages(data.messages);
     applySite(data.site);
     applyRiqianPage(data.pages && data.pages.riqian);
+    if(data.riqian && Array.isArray(data.riqian.items)) applyRiqianData(data.riqian.items);
     renderRec({ xingcheng: data.xingcheng, riqian: data.riqian, chanchu: data.chanchu, interviews: data.interviews, brands: data.brands });
     renderPending(data.pending);
     renderBio(data.bio);
