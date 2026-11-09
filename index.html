@@ -1768,18 +1768,6 @@
 
   /* ===== 首页推荐（原简报） ===== */
   .rec-wrap{ padding:16px 16px 8px; display:flex; flex-direction:column; gap:18px; }
-  .rec-hero{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    padding:16px 18px; border-radius:18px;
-    background:linear-gradient(135deg,var(--md-primary),#6f52b5);
-    color:#fff; box-shadow:var(--md-elev-2);
-  }
-  .rec-hero-title{ font-size:22px; font-weight:800; letter-spacing:.5px; }
-  .rec-hero-sub{ font-size:12px; opacity:.85; margin-top:4px; }
-  .rec-hero-badge{
-    font-size:11px; font-weight:800; letter-spacing:2px;
-    background:rgba(255,255,255,.22); padding:5px 10px; border-radius:999px;
-  }
   .rec-sec{ display:flex; flex-direction:column; gap:10px; }
   .rec-sec[hidden]{ display:none; }
   .rec-sec-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
@@ -2025,14 +2013,6 @@
   </div>
 
   <div class="rec-wrap">
-    <div class="rec-hero">
-      <div>
-        <div class="rec-hero-title">推荐</div>
-        <div class="rec-hero-sub" id="recUpdated">各页面最新内容，更新后自动同步</div>
-      </div>
-      <span class="rec-hero-badge">NEW</span>
-    </div>
-
     <!-- 行程活动：仅显示今天及以后，过期自动隐藏 -->
     <section class="rec-sec" id="recEventSec">
       <div class="rec-sec-head">
@@ -3624,10 +3604,6 @@
       }).join('') || '<div class="rec-empty">暂无商务合作</div>';
     }
     showSec('recBrandSec', bs.length > 0);
-
-    var upd = (d.xingcheng && d.xingcheng.updatedAt) || (d.riqian && d.riqian.updatedAt) || '';
-    var updEl = document.getElementById('recUpdated');
-    if(updEl && upd) updEl.textContent = '各页面最新内容 · 更新至 ' + upd;
   }
 
   // ===== 待播 =====
