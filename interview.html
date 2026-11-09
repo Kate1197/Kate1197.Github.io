@@ -830,5 +830,25 @@
       .catch(function(){ /* 失败则保持内嵌内容 */ });
   })();
 </script>
+
+<script>
+(function(){ /* pages-loader:interview */
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function setText(sel, v){ if(v === undefined || v === null || v === '') return; var el=document.querySelector(sel); if(el) el.textContent = v; }
+  function setLastText(sel, v){ if(v === undefined || v === null || v === '') return; var el=document.querySelector(sel); if(!el) return; for(var i=el.childNodes.length-1;i>=0;i--){ var n=el.childNodes[i]; if(n.nodeType===3 && n.nodeValue.trim()){ n.nodeValue=' '+v; return; } } el.appendChild(document.createTextNode(' '+v)); }
+  fetch('data/pages.json?v=' + Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+    var p = d && d.pages && d.pages["interview"];
+    if(!p) return;
+
+    setText('.iv-topbar-title', p.topTitle);
+    setLastText('.iv-hero-kicker', p.kicker);
+    setText('.iv-hero-title', p.title);
+    setText('.iv-tip span', p.tip);
+    setText('#ivEmpty .line', p.empty);
+    setText('.iv-footer div:first-child', p.footer);
+    setText('.iv-footer a', p.back);
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

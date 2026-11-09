@@ -3494,6 +3494,65 @@
       .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
       .replace(/\n/g,'<br>');
   }
+  // ===== 全站通用文案（data/site.json + data/pages.json） =====
+  var siteText = {
+    tabs: { brief: '推荐', pending: '待播', bio: '简介', dashboard: '数据' },
+    rec: {
+      more: '全部 ›',
+      sections: { event: '行程活动', riqian: '日签', chanchu: '产出总汇', interview: '采访合集', brand: '商务合集' },
+      empty: { event: '暂无即将开始的行程', riqian: '暂无日签更新', chanchu: '暂无产出汇总', interview: '暂无采访内容', brand: '暂无商务合作' }
+    }
+  };
+  function setLastText(el, text){
+    if(!el || text === undefined || text === null || text === '') return;
+    for(var i = el.childNodes.length - 1; i >= 0; i--){
+      var n = el.childNodes[i];
+      if(n.nodeType === 3 && n.nodeValue.trim()){ n.nodeValue = ' ' + text; return; }
+    }
+    el.appendChild(document.createTextNode(' ' + text));
+  }
+  function setPlainText(sel, text){
+    if(text === undefined || text === null || text === '') return;
+    var el = document.querySelector(sel);
+    if(el) el.textContent = text;
+  }
+  function applySite(site){
+    if(!site) return;
+    if(site.tabs){
+      Object.keys(site.tabs).forEach(function(k){
+        var btn = document.querySelector('.tab-btn[data-tab="' + k + '"]');
+        setLastText(btn, site.tabs[k]);
+      });
+    }
+    if(site.rec){
+      if(site.rec.sections){
+        var secMap = { recEventSec: 'event', recRiqianSec: 'riqian', recChanchuSec: 'chanchu', recInterviewSec: 'interview', recBrandSec: 'brand' };
+        Object.keys(secMap).forEach(function(id){
+          var title = site.rec.sections[secMap[id]];
+          var el = document.querySelector('#' + id + ' .rec-sec-title');
+          if(el && title) el.innerHTML = '<span class="rec-dot"></span>' + escHtml(title);
+        });
+      }
+      if(site.rec.more){
+        document.querySelectorAll('.rec-more').forEach(function(a){ a.textContent = site.rec.more; });
+      }
+      if(site.rec.empty){
+        Object.keys(site.rec.empty).forEach(function(k){ if(site.rec.empty[k]) siteText.rec.empty[k] = site.rec.empty[k]; });
+      }
+    }
+  }
+  function applyRiqianPage(p){
+    if(!p) return;
+    setPlainText('#page-riqian .dq-title', p.title);
+    setPlainText('#page-riqian .dq-sub', p.sub);
+    var search = document.getElementById('dqSearchInput');
+    if(search && p.searchPlaceholder) search.placeholder = p.searchPlaceholder;
+    var exportSpan = document.querySelector('#exportBtn span');
+    if(exportSpan && p.exportBtn) exportSpan.textContent = p.exportBtn;
+    var modalLink = document.getElementById('dqModalLink');
+    setLastText(modalLink, p.modalLink);
+  }
+
   // ===== 推荐页：聚合各页面最新内容 =====
   function ymdStart(s){
     if(!s) return null;
@@ -3537,7 +3596,7 @@
           '<div class="rec-meta"><span>' + escHtml(e.date || '') + (e.time ? ' · ' + escHtml(e.time) : '') + '</span>' +
             (e.location ? '<span>' + escHtml(e.location) + '</span>' : '') + '</div>' +
         '</a>';
-      }).join('') || '<div class="rec-empty">暂无即将开始的行程</div>';
+      }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.event) + '</div>';
     }
     showSec('recEventSec', true);
 
@@ -3553,7 +3612,7 @@
           '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
           '<div class="rec-desc">' + escHtml(cap) + '</div>' +
         '</a>';
-      }).join('') || '<div class="rec-empty">暂无日签更新</div>';
+      }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.riqian) + '</div>';
     }
     showSec('recRiqianSec', rq.length > 0);
 
@@ -3569,7 +3628,7 @@
           (cc.count ? '<span class="rec-count">' + escHtml(cc.count) + '</span>' : '') + '</div>' +
         '<div class="rec-title">' + escHtml(cc.title || '') + '</div>' +
         '<div class="rec-desc">' + escHtml((cc.text || '').replace(/\n/g, ' ')) + '</div>' +
-      '</a>') : '<div class="rec-empty">暂无产出汇总</div>';
+      '</a>') : '<div class="rec-empty">' + escHtml(siteText.rec.empty.chanchu) + '</div>';
     }
     showSec('recChanchuSec', !!cc);
 
@@ -3586,7 +3645,7 @@
           '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
           '<div class="rec-desc">' + escHtml(it.summary || '') + '</div>' +
         '</a>';
-      }).join('') || '<div class="rec-empty">暂无采访内容</div>';
+      }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.interview) + '</div>';
     }
     showSec('recInterviewSec', ivs.length > 0);
 
@@ -3601,7 +3660,7 @@
           '<div class="rec-title">' + escHtml(b.name || '') + (b.role ? ' · ' + escHtml(b.role) : '') + '</div>' +
           '<div class="rec-desc">' + escHtml(b.desc || '') + '</div>' +
         '</a>';
-      }).join('') || '<div class="rec-empty">暂无商务合作</div>';
+      }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.brand) + '</div>';
     }
     showSec('recBrandSec', bs.length > 0);
   }
@@ -3724,13 +3783,15 @@
         .then(function(r){ return r.ok ? r.json() : null; })
         .catch(function(){ return null; });
     }
-    const keys = ['banner','notice','messages','xingcheng','riqian','chanchu','interviews','brands','pending','bio','stats'];
+    const keys = ['banner','notice','messages','xingcheng','riqian','chanchu','interviews','brands','pending','bio','stats','site','pages'];
     const res = await Promise.all(keys.map(get));
     const data = {};
     keys.forEach(function(k, i){ data[k] = res[i]; });
     if(data.banner) applyBanner(data.banner);
     if(data.notice) applyNotice(data.notice);
     if(data.messages) applyMessages(data.messages);
+    applySite(data.site);
+    applyRiqianPage(data.pages && data.pages.riqian);
     renderRec({ xingcheng: data.xingcheng, riqian: data.riqian, chanchu: data.chanchu, interviews: data.interviews, brands: data.brands });
     renderPending(data.pending);
     renderBio(data.bio);

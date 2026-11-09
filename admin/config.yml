@@ -281,3 +281,132 @@ collections:
               - { name: value, label: 数值, widget: string }
               - { name: height, label: 柱高（0-100）, widget: number, default: 80 }
               - { name: highlight, label: 高亮, widget: select, options: [{ label: "普通", value: "" }, { label: "高亮（粉）", value: "highlight" }, { label: "今日（紫）", value: "today" }], default: "" }
+
+
+      - name: site
+        label: 全站通用文案
+        file: data/site.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: tabs
+            label: 首页 Tab 名称
+            widget: object
+            fields:
+              - { name: brief, label: 第一个 Tab, widget: string, default: "推荐" }
+              - { name: pending, label: 第二个 Tab, widget: string, default: "待播" }
+              - { name: bio, label: 第三个 Tab, widget: string, default: "简介" }
+              - { name: dashboard, label: 第四个 Tab, widget: string, default: "数据" }
+          - name: rec
+            label: 首页推荐板块
+            widget: object
+            fields:
+              - { name: more, label: 「全部」按钮文案, widget: string, default: "全部 ›" }
+              - name: sections
+                label: 板块标题
+                widget: object
+                fields:
+                  - { name: event, label: 行程活动, widget: string, default: "行程活动" }
+                  - { name: riqian, label: 日签, widget: string, default: "日签" }
+                  - { name: chanchu, label: 产出总汇, widget: string, default: "产出总汇" }
+                  - { name: interview, label: 采访合集, widget: string, default: "采访合集" }
+                  - { name: brand, label: 商务合集, widget: string, default: "商务合集" }
+              - name: empty
+                label: 空状态文案
+                widget: object
+                fields:
+                  - { name: event, label: 行程空状态, widget: string, default: "暂无即将开始的行程" }
+                  - { name: riqian, label: 日签空状态, widget: string, default: "暂无日签更新" }
+                  - { name: chanchu, label: 产出空状态, widget: string, default: "暂无产出汇总" }
+                  - { name: interview, label: 采访空状态, widget: string, default: "暂无采访内容" }
+                  - { name: brand, label: 商务空状态, widget: string, default: "暂无商务合作" }
+
+      - name: pages
+        label: 页面文案
+        file: data/pages.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: pages
+            label: 各页面文案
+            widget: object
+            fields:
+              - name: riqian
+                label: 日签页
+                widget: object
+                fields:
+                  - { name: title, label: 标题, widget: string }
+                  - { name: sub, label: 副标题, widget: string }
+                  - { name: searchPlaceholder, label: 搜索框占位, widget: string, required: false }
+                  - { name: exportBtn, label: 下载按钮, widget: string, required: false }
+                  - { name: modalLink, label: 弹窗原微博按钮, widget: string, required: false }
+              - name: xingcheng
+                label: 行程活动页
+                widget: object
+                fields:
+                  - { name: topTitle, label: 顶栏标题, widget: string }
+                  - { name: kicker, label: 英文小标, widget: string, required: false }
+                  - { name: title, label: 大标题, widget: string }
+                  - { name: tip, label: 提示条, widget: text, required: false }
+                  - { name: empty, label: 空状态, widget: string, required: false }
+                  - { name: footer, label: 页脚, widget: string, required: false }
+                  - { name: back, label: 返回链接, widget: string, required: false }
+              - name: chanchu
+                label: 产出汇总页
+                widget: object
+                fields:
+                  - { name: topTitle, label: 顶栏标题, widget: string }
+                  - { name: title, label: 大标题, widget: string }
+                  - { name: sub, label: 副标题, widget: string, required: false }
+                  - { name: tip, label: 提示条, widget: text, required: false }
+                  - { name: empty, label: 空状态, widget: string, required: false }
+                  - { name: filterTitle, label: 筛选弹层标题, widget: string, required: false }
+                  - { name: filterApply, label: 应用筛选按钮, widget: string, required: false }
+                  - { name: filterReset, label: 重置按钮, widget: string, required: false }
+              - name: interview
+                label: 采访合集页
+                widget: object
+                fields:
+                  - { name: topTitle, label: 顶栏标题, widget: string }
+                  - { name: kicker, label: 英文小标, widget: string, required: false }
+                  - { name: title, label: 大标题, widget: string }
+                  - { name: tip, label: 提示条, widget: text, required: false }
+                  - { name: empty, label: 空状态, widget: string, required: false }
+                  - { name: footer, label: 页脚, widget: string, required: false }
+                  - { name: back, label: 返回链接, widget: string, required: false }
+              - name: brands
+                label: 商务代言页
+                widget: object
+                fields:
+                  - { name: topTitle, label: 顶栏标题, widget: string }
+                  - { name: kicker, label: 英文小标, widget: string, required: false }
+                  - { name: title, label: 大标题, widget: string }
+                  - { name: tip, label: 提示条, widget: text, required: false }
+                  - { name: empty, label: 空状态, widget: string, required: false }
+                  - { name: footer, label: 页脚, widget: string, required: false }
+                  - { name: back, label: 返回链接, widget: string, required: false }
+              - name: aixin
+                label: 艾心向善页
+                widget: object
+                fields:
+                  - { name: bannerTitle, label: Banner 标题, widget: string }
+                  - { name: bannerSub, label: Banner 副标题, widget: string, required: false }
+                  - { name: cardTitle, label: 卡片标题, widget: string, required: false }
+                  - { name: footer, label: 页脚第一行, widget: string, required: false }
+                  - { name: footerNote, label: 页脚第二行, widget: string, required: false }
+                  - { name: footerLink, label: 页脚链接文字, widget: string, required: false }
+                  - { name: footerLinkUrl, label: 页脚链接地址, widget: string, required: false }
+
+      - name: aixin
+        label: 艾心向善
+        file: data/aixin.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: items
+            label: 公益动态
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            fields:
+              - { name: date, label: 日期, widget: string }
+              - { name: title, label: 标题, widget: string }
+              - { name: meta, label: 元信息, widget: text, required: false, hint: "可用 <b>...</b>、<br>" }
+              - { name: desc, label: 内容, widget: text, required: false }
+              - { name: link, label: 原贴链接, widget: string, required: false }

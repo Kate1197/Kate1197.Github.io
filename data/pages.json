@@ -1,0 +1,58 @@
+{
+  "updatedAt": "2026-11-09 23:00:00",
+  "pages": {
+    "riqian": {
+      "title": "艾米日签",
+      "sub": "每日文字卡片 · 数据来自 @玡迩叻_ami 微博",
+      "searchPlaceholder": "搜标题或正文…",
+      "exportBtn": "下载日签图片",
+      "modalLink": "查看原微博"
+    },
+    "xingcheng": {
+      "topTitle": "行程活动",
+      "kicker": "SCHEDULE",
+      "title": "行程活动",
+      "tip": "仅整理公开发布的行程与活动，未公开行程不收录；如有变动以官方发布为准。",
+      "empty": "当前筛选条件下暂无行程",
+      "footer": "艾米日签 · 行程活动 · 信息整理自公开发布",
+      "back": "返回主页"
+    },
+    "chanchu": {
+      "topTitle": "产出汇总",
+      "title": "产出汇总",
+      "sub": "由 @艾产速览 整理汇总",
+      "tip": "收录本月 1 日至昨日的超话产出汇总，最多 31 天 · 每月最后一天 23:00 归档清空，次月重新收集",
+      "empty": "没有找到符合条件的产出汇总",
+      "filterTitle": "筛选产出汇总",
+      "filterApply": "应用筛选",
+      "filterReset": "重置"
+    },
+    "interview": {
+      "topTitle": "采访合集",
+      "kicker": "INTERVIEWS",
+      "title": "采访合集",
+      "tip": "采访内容整理自公开报道与官方发布，点击卡片下方按钮跳转原始链接（新窗口打开）。视频类采访将跳转至原平台播放。",
+      "empty": "该筛选条件下暂无采访内容",
+      "footer": "艾米日签 · 采访合集 · 内容整理自公开报道与官方发布",
+      "back": "返回主页"
+    },
+    "brands": {
+      "topTitle": "商务代言",
+      "kicker": "ENDORSEMENTS",
+      "title": "商务代言",
+      "tip": "本页仅展示进行中的品牌合作，按品类分类；点击卡片下方按钮跳转官宣原文。合作身份与期限以品牌官方发布为准。",
+      "empty": "该品类下暂无进行中的品牌合作",
+      "footer": "艾米日签 · 商务代言 · 信息整理自品牌官方发布",
+      "back": "返回主页"
+    },
+    "aixin": {
+      "bannerTitle": "艾心向善",
+      "bannerSub": "粉丝公益 · 动态追踪",
+      "cardTitle": "最近动态",
+      "footer": "艾心向善 · 粉丝公益动态追踪",
+      "footerNote": "仅供粉丝向参考",
+      "footerLink": "粉丝站 @玡迩叻_ami",
+      "footerLinkUrl": "https://weibo.com/u/6320241831"
+    }
+  }
+}
