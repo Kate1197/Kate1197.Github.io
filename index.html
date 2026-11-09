@@ -796,6 +796,35 @@
   .work-name{ font-size:14px; font-weight:600; color:var(--md-on-surface); }
   .work-role{ font-size:12px; color:var(--md-on-surface-variant); margin-top:3px; }
   .work-role::before{ content:"饰 "; color:var(--md-primary); font-weight:500; }
+  .work-tag{
+    font-size:10px; font-weight:700; color:var(--md-primary);
+    background:var(--md-primary-container); padding:1px 7px; border-radius:999px;
+    margin-left:6px; vertical-align:middle; white-space:nowrap;
+  }
+  /* 作品集：电影 / 电视剧切换 + 已播 / 待播分组 */
+  .works-tabs{
+    display:flex; gap:4px; margin-bottom:6px;
+    background:var(--md-surface-container-high); padding:4px; border-radius:999px;
+  }
+  .works-tab{
+    flex:1; border:none; background:transparent; font-family:inherit;
+    color:var(--md-on-surface-variant); font-size:13px; font-weight:600;
+    padding:9px 10px; border-radius:999px; cursor:pointer; transition:background .2s,color .2s;
+    white-space:nowrap;
+  }
+  .works-tab.active{ background:var(--md-primary); color:var(--md-on-primary); }
+  .works-tab .num{ font-size:11px; opacity:.8; margin-left:2px; }
+  .works-group{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:700; letter-spacing:.5px; color:var(--md-primary);
+    margin:14px 0 2px;
+  }
+  .works-group:first-child{ margin-top:8px; }
+  .works-group .cnt{
+    font-size:11px; font-weight:600; color:var(--md-on-surface-variant);
+    background:var(--md-surface-container-high); padding:1px 8px; border-radius:999px;
+  }
+  .works-empty{ font-size:13px; color:var(--md-on-surface-variant); padding:16px 0; }
 
   /* 主内容区 */
   .content{padding: 16px 16px 0;}
@@ -2323,7 +2352,7 @@
           个人简介
         </div>
         <p class="bio-text">
-          <strong>艾米</strong>，2008年7月13日出生于北京市，中国内地女演员。6岁出道，拥有12年戏龄，参演超过20部影视作品。2026年参加全国高考，以专业课第三名的成绩考入北京电影学院表演系。童星出道的她，凭借自然灵动的表演风格和扎实的演技功底，逐步从配角成长为独挑大梁的女主角，是05后小花中势头最猛的代表之一。
+          <strong>艾米</strong>，2008年7月13日出生于北京市，中国内地女演员。6岁出道，拥有12年戏龄，参演超过50部影视作品。2026年参加全国高考，以专业课第三名的成绩考入北京电影学院表演系。童星出道的她，凭借自然灵动的表演风格和扎实的演技功底，逐步从配角成长为独挑大梁的女主角，是05后小花中势头最猛的代表之一。
         </p>
         <p class="bio-text" style="margin-top:10px;">
           2026年7月年满18岁，正式步入成年演员行列。她以真诚、边界感清晰、尊重原创的公众形象著称，因在微博为配图逐一标注版权来源而被赞"严谨态度成风向标"。手中握有《百妖谱》《阿禅》《烽影燃梅香》《城墙之上》四部待播女主剧，题材涵盖古装奇幻、奇幻悬爱、古装谍战、年代悬疑，演艺储备充足。
@@ -2336,7 +2365,7 @@
           代表作品
         </div>
         <p class="bio-text">
-          <strong>电视剧</strong>：《雀骨》谢嘉鱼、《百妖谱》陈艾米、《师兄太稳健》蓝灵娥、《城墙之上》林双笙、《阿禅》李微意、《烽影燃梅香》如焰、《仙台有树》丘喜儿、《仁心俱乐部》于嘉、《墨雨云间》桐儿、《大梦归离》青耕、《清平乐》高滔滔、《山海情》等。<br><br>
+          <strong>电视剧</strong>：《雀骨》谢嘉鱼、《百妖谱》桃夭、《师兄太稳健》蓝灵娥、《城墙之上》林双笙、《阿禅》李微意、《烽影燃梅香》如焰、《仙台有树》丘喜儿、《仁心俱乐部》于嘉、《墨雨云间》桐儿、《大梦归离》青耕、《清平乐》高滔滔、《山海情》等。<br><br>
           <strong>电影</strong>：《长津湖》红围巾女孩、《海的尽头是草原》杜思珩、《功夫女足》、《大突围》、《封神第二部：战火西岐》、《晴雅集》、《催眠·裁决》等。
         </p>
       </div>
@@ -2346,26 +2375,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           历年作品与角色
         </div>
-        <div class="work-item"><div class="work-year">2026</div><div class="work-detail"><div class="work-name">雀骨</div><div class="work-role">谢嘉鱼（女主）</div></div></div>
-        <div class="work-item"><div class="work-year">2026</div><div class="work-detail"><div class="work-name">师兄太稳健</div><div class="work-role">蓝灵娥</div></div></div>
-        <div class="work-item"><div class="work-year">2026</div><div class="work-detail"><div class="work-name">功夫女足</div><div class="work-role">参演</div></div></div>
-        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">水龙吟</div><div class="work-role">水多婆</div></div></div>
-        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">目之所及</div><div class="work-role">曲桐（高中时期）</div></div></div>
-        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">仁心俱乐部</div><div class="work-role">于嘉</div></div></div>
-        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">仙台有树</div><div class="work-role">丘喜儿</div></div></div>
-        <div class="work-item"><div class="work-year">2025</div><div class="work-detail"><div class="work-name">封神第二部：战火西岐</div><div class="work-role">参演（电影）</div></div></div>
-        <div class="work-item"><div class="work-year">2024</div><div class="work-detail"><div class="work-name">大梦归离</div><div class="work-role">青耕</div></div></div>
-        <div class="work-item"><div class="work-year">2024</div><div class="work-detail"><div class="work-name">墨雨云间</div><div class="work-role">桐儿</div></div></div>
-        <div class="work-item"><div class="work-year">2024</div><div class="work-detail"><div class="work-name">大突围</div><div class="work-role">主演（电影）</div></div></div>
-        <div class="work-item"><div class="work-year">2022</div><div class="work-detail"><div class="work-name">海的尽头是草原</div><div class="work-role">杜思珩（电影）</div></div></div>
-        <div class="work-item"><div class="work-year">2021</div><div class="work-detail"><div class="work-name">长津湖</div><div class="work-role">红围巾女孩（电影）</div></div></div>
-        <div class="work-item"><div class="work-year">2021</div><div class="work-detail"><div class="work-name">山海情</div><div class="work-role">得福女儿（小）</div></div></div>
-        <div class="work-item"><div class="work-year">2020</div><div class="work-detail"><div class="work-name">晴雅集</div><div class="work-role">参演（电影）</div></div></div>
-        <div class="work-item"><div class="work-year">2020</div><div class="work-detail"><div class="work-name">清平乐</div><div class="work-role">高滔滔</div></div></div>
-        <div class="work-item"><div class="work-year">2019</div><div class="work-detail"><div class="work-name">催眠·裁决</div><div class="work-role">参演（电影）</div></div></div>
-        <div class="work-item"><div class="work-year">2019</div><div class="work-detail"><div class="work-name">倚天屠龙记</div><div class="work-role">少年周芷若</div></div></div>
-        <div class="work-item"><div class="work-year">2018</div><div class="work-detail"><div class="work-name">镇魂街</div><div class="work-role">参演</div></div></div>
-        <div class="work-item"><div class="work-year">2016</div><div class="work-detail"><div class="work-name">人民检察官</div><div class="work-role">参演</div></div></div>
+        <div class="works-tabs" id="worksTabs">
+          <button class="works-tab active" data-type="电影">电影<span class="num" id="cntMovie"></span></button>
+          <button class="works-tab" data-type="电视剧">电视剧<span class="num" id="cntTv"></span></button>
+        </div>
+        <div id="worksList">
+          <div class="works-empty">作品加载中…</div>
+        </div>
       </div>
 
       <div class="bio-card">
@@ -3725,6 +3741,539 @@
     });
   }
   loadData();
+})();
+</script>
+<script id="works-embedded" type="application/json">
+{
+  "updatedAt": "2026-11-09 22:30:00",
+  "works": [
+    {
+      "name": "功夫女足",
+      "role": "初三",
+      "type": "电影",
+      "status": "已播",
+      "year": 2026,
+      "note": "主演"
+    },
+    {
+      "name": "封神第二部：战火西岐",
+      "role": "吃桃少女",
+      "type": "电影",
+      "status": "已播",
+      "year": 2025,
+      "note": ""
+    },
+    {
+      "name": "大突围",
+      "role": "肖雯",
+      "type": "电影",
+      "status": "已播",
+      "year": 2024,
+      "note": "主演"
+    },
+    {
+      "name": "海的尽头是草原",
+      "role": "青年杜思珩",
+      "type": "电影",
+      "status": "已播",
+      "year": 2022,
+      "note": ""
+    },
+    {
+      "name": "世界上最爱我的人",
+      "role": "丁雁",
+      "type": "电影",
+      "status": "已播",
+      "year": 2022,
+      "note": ""
+    },
+    {
+      "name": "以青春之名",
+      "role": "樊星",
+      "type": "电影",
+      "status": "已播",
+      "year": 2022,
+      "note": "网络电影"
+    },
+    {
+      "name": "长津湖",
+      "role": "红围巾女孩",
+      "type": "电影",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "侍神令",
+      "role": "小百旎",
+      "type": "电影",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "歌带你回家",
+      "role": "女一百灵",
+      "type": "电影",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "征途",
+      "role": "女一幼年",
+      "type": "电影",
+      "status": "已播",
+      "year": 2020,
+      "note": ""
+    },
+    {
+      "name": "晴雅集",
+      "role": "蜜虫",
+      "type": "电影",
+      "status": "已播",
+      "year": 2020,
+      "note": ""
+    },
+    {
+      "name": "解放·终局营救",
+      "role": "林默雪",
+      "type": "电影",
+      "status": "已播",
+      "year": 2019,
+      "note": ""
+    },
+    {
+      "name": "催眠·裁决",
+      "role": "女一许仲茵",
+      "type": "电影",
+      "status": "已播",
+      "year": 2019,
+      "note": ""
+    },
+    {
+      "name": "大蛇2",
+      "role": "魏佳欢",
+      "type": "电影",
+      "status": "已播",
+      "year": 2019,
+      "note": ""
+    },
+    {
+      "name": "拉面王子",
+      "role": "小王子美",
+      "type": "电影",
+      "status": "已播",
+      "year": 2018,
+      "note": ""
+    },
+    {
+      "name": "别有动机",
+      "role": "女一女儿",
+      "type": "电影",
+      "status": "已播",
+      "year": 2015,
+      "note": ""
+    },
+    {
+      "name": "不可造次",
+      "role": "洋洋",
+      "type": "电影",
+      "status": "已播",
+      "year": null,
+      "note": "微电影"
+    },
+    {
+      "name": "师兄太稳健",
+      "role": "蓝灵娥",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2026,
+      "note": ""
+    },
+    {
+      "name": "雀骨",
+      "role": "谢嘉鱼",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2026,
+      "note": "女主"
+    },
+    {
+      "name": "水龙吟",
+      "role": "水多婆",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2025,
+      "note": ""
+    },
+    {
+      "name": "目之所及",
+      "role": "高中曲桐",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2025,
+      "note": ""
+    },
+    {
+      "name": "仁心俱乐部",
+      "role": "于嘉",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2025,
+      "note": ""
+    },
+    {
+      "name": "仙台有树",
+      "role": "丘喜儿",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2025,
+      "note": ""
+    },
+    {
+      "name": "大梦归离",
+      "role": "青耕",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2024,
+      "note": ""
+    },
+    {
+      "name": "墨雨云间",
+      "role": "桐儿",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2024,
+      "note": ""
+    },
+    {
+      "name": "但愿人长久",
+      "role": "九岁邓丽君",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2024,
+      "note": ""
+    },
+    {
+      "name": "长风渡",
+      "role": "印红",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2023,
+      "note": ""
+    },
+    {
+      "name": "云之羽",
+      "role": "云雀",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2023,
+      "note": ""
+    },
+    {
+      "name": "为有暗香来",
+      "role": "千芷",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2023,
+      "note": ""
+    },
+    {
+      "name": "少年歌行",
+      "role": "小神医华锦",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2022,
+      "note": ""
+    },
+    {
+      "name": "且试天下",
+      "role": "白琅华",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2022,
+      "note": ""
+    },
+    {
+      "name": "相逢时节",
+      "role": "少年宁宥",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2022,
+      "note": ""
+    },
+    {
+      "name": "斛珠夫人",
+      "role": "城主萨莉亚",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "玉楼春",
+      "role": "小姚滴珠",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "我们的新时代·幸福的处方",
+      "role": "童年柳石兰",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "美好的日子",
+      "role": "彩凤",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "乌鸦小姐与蜥蜴先生",
+      "role": "童年姜小宁",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "玉昭令",
+      "role": "小蚊子",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "山海情",
+      "role": "贝贝",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "女孩子不好惹",
+      "role": "小叮当",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2021,
+      "note": ""
+    },
+    {
+      "name": "旗袍美探",
+      "role": "少年郦宇娟",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2020,
+      "note": ""
+    },
+    {
+      "name": "少女大人",
+      "role": "童年苏瓷",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2020,
+      "note": ""
+    },
+    {
+      "name": "清平乐",
+      "role": "少年高滔滔",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2020,
+      "note": ""
+    },
+    {
+      "name": "长相守",
+      "role": "小花锦绣",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2020,
+      "note": ""
+    },
+    {
+      "name": "倚天屠龙记",
+      "role": "史红石",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2019,
+      "note": ""
+    },
+    {
+      "name": "让我听懂你的语言",
+      "role": "依金",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2019,
+      "note": ""
+    },
+    {
+      "name": "绽放吧百合",
+      "role": "小雨",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2018,
+      "note": ""
+    },
+    {
+      "name": "镇魂街",
+      "role": "狗儿",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2017,
+      "note": ""
+    },
+    {
+      "name": "画江湖之不良人",
+      "role": "小陆林轩",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2016,
+      "note": ""
+    },
+    {
+      "name": "人民检察官",
+      "role": "张曼",
+      "type": "电视剧",
+      "status": "已播",
+      "year": 2016,
+      "note": ""
+    },
+    {
+      "name": "丛林大冒险",
+      "role": "女一希希",
+      "type": "电视剧",
+      "status": "已播",
+      "year": null,
+      "note": "央视儿童剧"
+    },
+    {
+      "name": "百妖谱",
+      "role": "桃夭",
+      "type": "电视剧",
+      "status": "待播",
+      "year": null,
+      "note": "女主"
+    },
+    {
+      "name": "阿禅",
+      "role": "李微意",
+      "type": "电视剧",
+      "status": "待播",
+      "year": null,
+      "note": "女主"
+    },
+    {
+      "name": "烽影燃梅香",
+      "role": "如焰",
+      "type": "电视剧",
+      "status": "待播",
+      "year": null,
+      "note": "女主"
+    },
+    {
+      "name": "城墙之上",
+      "role": "林双笙",
+      "type": "电视剧",
+      "status": "待播",
+      "year": null,
+      "note": "女主"
+    }
+  ]
+}
+</script>
+<script>
+(function(){
+  var listEl = document.getElementById('worksList');
+  var tabsEl = document.getElementById('worksTabs');
+  if(!listEl || !tabsEl) return;
+
+  var state = { type: '电影' };
+  var data = null;
+
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function itemHTML(w){
+    var year = (w.year === null || w.year === undefined || w.year === '') ? '—' : w.year;
+    return '<div class="work-item">'
+      + '<div class="work-year">' + esc(year) + '</div>'
+      + '<div class="work-detail">'
+      +   '<div class="work-name">' + esc(w.name) + (w.note ? '<span class="work-tag">' + esc(w.note) + '</span>' : '') + '</div>'
+      +   '<div class="work-role">' + esc(w.role || '—') + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+
+  function render(){
+    if(!data) return;
+    var all = data.works.filter(function(w){ return w.type === state.type; });
+    var aired = all.filter(function(w){ return w.status !== '待播'; }).sort(function(a, b){
+      var ya = (a.year == null) ? -1 : a.year;
+      var yb = (b.year == null) ? -1 : b.year;
+      return yb - ya;
+    });
+    var upcoming = all.filter(function(w){ return w.status === '待播'; });
+
+    var html = '';
+    if(aired.length){
+      html += '<div class="works-group">已播<span class="cnt">' + aired.length + '</span></div>';
+      html += aired.map(itemHTML).join('');
+    }
+    if(upcoming.length){
+      html += '<div class="works-group">待播<span class="cnt">' + upcoming.length + '</span></div>';
+      html += upcoming.map(itemHTML).join('');
+    }
+    if(!html) html = '<div class="works-empty">暂无作品</div>';
+    listEl.innerHTML = html;
+  }
+
+  function updateCounts(){
+    if(!data) return;
+    var mv = data.works.filter(function(w){ return w.type === '电影'; }).length;
+    var tv = data.works.filter(function(w){ return w.type === '电视剧'; }).length;
+    var cm = document.getElementById('cntMovie');
+    var ct = document.getElementById('cntTv');
+    if(cm) cm.textContent = ' ' + mv;
+    if(ct) ct.textContent = ' ' + tv;
+  }
+
+  function apply(payload){
+    data = { works: Array.isArray(payload.works) ? payload.works.filter(function(w){ return w && w.name; }) : [] };
+    updateCounts();
+    render();
+  }
+
+  tabsEl.addEventListener('click', function(e){
+    var btn = e.target.closest('.works-tab');
+    if(!btn) return;
+    state.type = btn.dataset.type;
+    Array.prototype.forEach.call(tabsEl.querySelectorAll('.works-tab'), function(b){
+      b.classList.toggle('active', b === btn);
+    });
+    render();
+  });
+
+  try{
+    var raw = document.getElementById('works-embedded');
+    apply(JSON.parse(raw.textContent));
+  }catch(e){ /* 忽略，等 fetch */ }
+
+  fetch('data/works.json?v=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ if(j) apply(j); })
+    .catch(function(){ /* 失败则保持内嵌内容 */ });
 })();
 </script>
 

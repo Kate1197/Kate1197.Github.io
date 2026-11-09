@@ -155,6 +155,24 @@ collections:
               - { name: link, label: 官宣链接, widget: string, required: false, hint: "填写后卡片底部会出现「查看官宣」按钮" }
               - { name: logo, label: 品牌图, widget: image, allow_multiple: false, required: false, hint: "可选，建议 16:9 横图；不上传则显示默认图标" }
 
+      - name: works
+        label: 作品集
+        file: data/works.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: works
+            label: 作品列表
+            widget: list
+            summary: "{{fields.type}} · {{fields.name}} · {{fields.role}}"
+            hint: "前端按「电影 / 电视剧」切换，并在各自内部分「已播 / 待播」；已播按年份倒序排列"
+            fields:
+              - { name: name, label: 片名, widget: string }
+              - { name: role, label: 角色, widget: string, hint: "官方角色名，例如：谢嘉鱼" }
+              - { name: type, label: 类型, widget: select, options: [{ label: "电影", value: "电影" }, { label: "电视剧", value: "电视剧" }], default: "电视剧" }
+              - { name: status, label: 状态, widget: select, options: [{ label: "已播", value: "已播" }, { label: "待播", value: "待播" }], default: "已播" }
+              - { name: year, label: 年份, widget: number, required: false, hint: "播出 / 上映年份，例如 2026；待播或不确定可留空" }
+              - { name: note, label: 备注, widget: string, required: false, hint: "可选，例如：女主、主演、微电影、网络电影、央视儿童剧" }
+
       - name: sections
         label: 六大板块
         file: data/sections.json
