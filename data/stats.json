@@ -1,0 +1,77 @@
+{
+  "updatedAt": "2026-11-09",
+  "cards": [
+    {
+      "label": "微博粉丝",
+      "value": "289.9",
+      "unit": "万",
+      "meta": "@演员艾米 · 11/09 更新",
+      "color": "#E6162D",
+      "icon": "heart",
+      "health": false
+    },
+    {
+      "label": "抖音粉丝",
+      "value": "449.7",
+      "unit": "万",
+      "meta": "@艾米 · 抖音官方账号",
+      "color": "#FE2C55",
+      "icon": "music",
+      "health": false
+    },
+    {
+      "label": "微博舆情健康",
+      "value": "优",
+      "unit": "",
+      "meta": "无新增负面舆情",
+      "color": "#00C853",
+      "icon": "check",
+      "health": true
+    },
+    {
+      "label": "抖音舆情健康",
+      "value": "优",
+      "unit": "",
+      "meta": "无新增负面舆情",
+      "color": "#00C853",
+      "icon": "check",
+      "health": true
+    }
+  ],
+  "hot": [
+    {
+      "title": "🐧 UKISS 青春大使艾米 × Pingu 联名系列官宣",
+      "meta": "@UKISS悠珂思 · 11-06 10:38 · 「Pin不动了gu一下」同款彩妆上线",
+      "link": "https://weibo.com/6320241831"
+    },
+    {
+      "title": "💜 #柔软力是底气也是勇气# · 艾米谈角色从容",
+      "meta": "采访释出 · 11-08 18:45 · 「用作品慢慢证明自己」",
+      "link": "https://weibo.com/6320241831"
+    },
+    {
+      "title": "🐻 日签 Vol.052 ·「我觉得我也很自由」",
+      "meta": "@玡迩叻_ami · 11-08 11:31 · Vol.050→052 三连更",
+      "link": "https://weibo.com/6320241831"
+    },
+    {
+      "title": "🎨 产出汇总【261108】· 三连归档",
+      "meta": "@艾产速览 · 11-08 23:02 · #艾米阿禅# ｜#艾米百妖谱#",
+      "link": "https://weibo.com/7975536178"
+    },
+    {
+      "title": "🍂 粉丝站自制物料合集更新至 2026.11.6",
+      "meta": "@玡迩叻_ami · 11-06 14:49 · 安利待播·自制物料",
+      "link": "https://weibo.com/6320241831"
+    }
+  ],
+  "trend": [
+    { "label": "11/02", "value": "1,900", "height": 93, "highlight": "" },
+    { "label": "11/03", "value": "1,780", "height": 87, "highlight": "" },
+    { "label": "11/04", "value": "1,850", "height": 90, "highlight": "" },
+    { "label": "11/05", "value": "1,720", "height": 84, "highlight": "" },
+    { "label": "11/06", "value": "2,050", "height": 100, "highlight": "highlight" },
+    { "label": "11/08", "value": "1,950", "height": 95, "highlight": "" },
+    { "label": "今日", "value": "1,600", "height": 78, "highlight": "today" }
+  ]
+}

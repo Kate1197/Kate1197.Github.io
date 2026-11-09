@@ -984,6 +984,18 @@
   }
 
   ccRender();
+
+  // 后台数据（data/chanchu.json）优先，加载失败时保留页面内嵌数据
+  fetch('data/chanchu.json?v=' + Date.now())
+    .then(r => r.ok ? r.json() : null)
+    .then(j => {
+      if(j && Array.isArray(j.entries)){
+        chanchuData.updatedAt = j.updatedAt || chanchuData.updatedAt;
+        chanchuData.entries = j.entries;
+        ccRender();
+      }
+    })
+    .catch(() => {});
 </script>
 </body>
 </html>

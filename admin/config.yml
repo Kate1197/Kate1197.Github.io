@@ -173,38 +173,111 @@ collections:
               - { name: year, label: 年份, widget: number, required: false, hint: "播出 / 上映年份，例如 2026；待播或不确定可留空" }
               - { name: note, label: 备注, widget: string, required: false, hint: "可选，例如：女主、主演、微电影、网络电影、央视儿童剧" }
 
-      - name: sections
-        label: 六大板块
-        file: data/sections.json
+      - name: riqian
+        label: 日签
+        file: data/riqian.json
         fields:
           - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
-          - name: sections
-            label: 板块列表
+          - name: items
+            label: 日签列表
             widget: list
-            summary: "{{fields.title}}（{{fields.items.length}} 条）"
-            hint: "按顺序对应首页的五个内容卡片：一、本人动态 / 二、商务代言 / 三、热搜舆情 / 四、粉丝动态 / 五、超话后援会。可直接拖动排序；删掉某个板块会隐藏对应卡片"
+            summary: "{{fields.date}} · {{fields.title}}"
+            hint: "按最新在前排列；首页推荐只展示前 3 条"
             fields:
-              - { name: title, label: 板块标题, widget: string }
-              - { name: badge, label: 右上角标签, widget: string, required: false, hint: "例如：正面 / 进行中 / 健康 / 活跃 / 规范；留空则不显示" }
-              - name: items
-                label: 条目
-                widget: list
-                summary: "{{fields.text}}"
-                fields:
-                  - { name: platform, label: 平台, widget: select, options: [{ label: "微博", value: "weibo" }, { label: "抖音", value: "douyin" }, { label: "小红书", value: "xhs" }], hint: "决定首页「平台筛选」时这条属于哪个平台" }
-                  - { name: text, label: 内容, widget: text, hint: "支持 **粗体**、*斜体*、[文字](链接)；建议用「**标题**：正文」的写法" }
-          - name: summary
-            label: 总结与趋势研判
+              - { name: date, label: 期数 / 日期, widget: string, hint: "例如：第52期 · 11月8日" }
+              - { name: title, label: 标题, widget: string, hint: "例如：Vol.052 · 我觉得我也很自由" }
+              - { name: caption, label: 正文, widget: text, hint: "日签文案，可换行" }
+              - { name: weiboUrl, label: 微博链接, widget: string, required: false }
+              - { name: img, label: 配图, widget: image, allow_multiple: false, required: false }
+              - { name: h, label: 图片高度, widget: number, required: false, hint: "可选，默认 660" }
+
+      - name: chanchu
+        label: 产出总汇
+        file: data/chanchu.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: entries
+            label: 产出汇总列表
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            hint: "首页推荐只展示日期最新的一条"
+            fields:
+              - { name: date, label: 日期, widget: string, hint: "格式 YYYY-MM-DD" }
+              - { name: title, label: 标题, widget: string, hint: "例如：【261108】产出汇总" }
+              - { name: text, label: 正文, widget: text }
+              - { name: link, label: 原帖链接, widget: string, required: false }
+              - { name: count, label: 归档标签, widget: string, required: false, hint: "例如：饭修归档 · 261108" }
+
+      - name: pending
+        label: 待播剧
+        file: data/pending.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: items
+            label: 待播列表
+            widget: list
+            summary: "{{fields.title}} · {{fields.role}}"
+            fields:
+              - { name: title, label: 剧名, widget: string }
+              - { name: role, label: 角色, widget: string }
+              - { name: tag, label: 标签, widget: string, hint: "例如：待播 · 古装奇幻" }
+              - { name: poster, label: 海报, widget: image, allow_multiple: false, required: false }
+              - { name: emoji, label: 占位图标, widget: string, required: false, hint: "没有海报时显示的 emoji" }
+              - { name: desc, label: 简介, widget: text }
+
+      - name: bio
+        label: 简介
+        file: data/bio.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - name: intro
+            label: 个人简介段落
+            widget: list
+            field: { name: text, label: 段落, widget: text }
+            hint: "每段一条，支持 **粗体**"
+          - name: representative
+            label: 代表作品
             widget: object
             fields:
-              - { name: toneLabel, label: 基调前缀, widget: string, default: "整体基调" }
-              - name: pills
-                label: 基调标签
-                widget: list
-                hint: "显示为一行小胶囊，例如：正面为主 / 舆情健康度高 / 无新增负面"
-                field: { name: pill, label: 标签文字, widget: string }
-              - name: items
-                label: 总结条目
-                widget: list
-                summary: "{{fields.text}}"
-                field: { name: text, label: 内容, widget: text, hint: "支持 **粗体**、*斜体*、[文字](链接)" }
+              - { name: tv, label: 电视剧, widget: text }
+              - { name: movie, label: 电影, widget: text }
+          - name: honors
+            label: 荣誉与成绩
+            widget: list
+            field: { name: text, label: 条目, widget: text }
+            hint: "每行一条，支持 **粗体**"
+
+      - name: stats
+        label: 数据面板
+        file: data/stats.json
+        fields:
+          - { name: updatedAt, label: 数据截至, widget: string, hint: "例如：2026-11-09" }
+          - name: cards
+            label: 核心数据卡
+            widget: list
+            summary: "{{fields.label}} · {{fields.value}}{{fields.unit}}"
+            fields:
+              - { name: label, label: 名称, widget: string }
+              - { name: value, label: 数值, widget: string }
+              - { name: unit, label: 单位, widget: string, required: false, hint: "例如：万" }
+              - { name: meta, label: 说明, widget: string, required: false }
+              - { name: color, label: 图标颜色, widget: string, required: false, hint: "例如 #E6162D" }
+              - { name: icon, label: 图标, widget: select, options: [{ label: "爱心", value: "heart" }, { label: "音符", value: "music" }, { label: "对勾", value: "check" }] }
+              - { name: health, label: 健康状态样式, widget: boolean, default: false }
+          - name: hot
+            label: 超话热帖 TOP5
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: 标题, widget: string }
+              - { name: meta, label: 来源 / 时间, widget: string, required: false }
+              - { name: link, label: 原帖链接, widget: string, required: false }
+          - name: trend
+            label: 近 7 日活跃趋势
+            widget: list
+            summary: "{{fields.label}} · {{fields.value}}"
+            fields:
+              - { name: label, label: 日期, widget: string }
+              - { name: value, label: 数值, widget: string }
+              - { name: height, label: 柱高（0-100）, widget: number, default: 80 }
+              - { name: highlight, label: 高亮, widget: select, options: [{ label: "普通", value: "" }, { label: "高亮（粉）", value: "highlight" }, { label: "今日（紫）", value: "today" }], default: "" }

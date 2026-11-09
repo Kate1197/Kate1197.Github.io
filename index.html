@@ -1765,6 +1765,70 @@
     .tab-nav::-webkit-scrollbar{ display:none; }
     .tab-btn{ flex:0 0 auto; white-space:nowrap; }
   }
+
+  /* ===== 首页推荐（原简报） ===== */
+  .rec-wrap{ padding:16px 16px 8px; display:flex; flex-direction:column; gap:18px; }
+  .rec-hero{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 18px; border-radius:18px;
+    background:linear-gradient(135deg,var(--md-primary),#6f52b5);
+    color:#fff; box-shadow:var(--md-elev-2);
+  }
+  .rec-hero-title{ font-size:22px; font-weight:800; letter-spacing:.5px; }
+  .rec-hero-sub{ font-size:12px; opacity:.85; margin-top:4px; }
+  .rec-hero-badge{
+    font-size:11px; font-weight:800; letter-spacing:2px;
+    background:rgba(255,255,255,.22); padding:5px 10px; border-radius:999px;
+  }
+  .rec-sec{ display:flex; flex-direction:column; gap:10px; }
+  .rec-sec[hidden]{ display:none; }
+  .rec-sec-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .rec-sec-title{ display:flex; align-items:center; gap:8px; font-size:16px; font-weight:800; color:var(--md-on-surface); }
+  .rec-dot{ width:7px; height:16px; border-radius:4px; background:var(--md-primary); display:inline-block; }
+  .rec-more{ font-size:12px; color:var(--md-primary); text-decoration:none; font-weight:600; white-space:nowrap; padding:4px 2px; }
+  .rec-list{ display:flex; flex-direction:column; gap:10px; }
+  .rec-item{
+    background:var(--md-surface-container-low); border:1px solid var(--md-outline-variant);
+    border-radius:14px; padding:12px 14px; text-decoration:none; color:inherit; display:block;
+    transition:transform .15s, border-color .15s;
+  }
+  .rec-item:hover{ transform:translateY(-1px); border-color:var(--md-primary); }
+  .rec-item-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  .rec-tag{
+    font-size:11px; font-weight:700; color:var(--md-on-primary);
+    background:var(--md-primary); border-radius:999px; padding:2px 9px;
+  }
+  .rec-count{
+    font-size:11px; font-weight:800; color:var(--md-on-primary);
+    background:var(--md-primary); border-radius:999px; padding:2px 9px; margin-left:auto;
+  }
+  .rec-title{ font-size:14.5px; font-weight:700; color:var(--md-on-surface); line-height:1.45; }
+  .rec-desc{
+    font-size:12.5px; color:var(--md-on-surface-variant); line-height:1.6; margin-top:4px;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .rec-meta{ font-size:11.5px; color:var(--md-on-surface-variant); opacity:.9; margin-top:6px; display:flex; gap:10px; flex-wrap:wrap; }
+  .rec-scroll{
+    display:flex; gap:10px; overflow-x:auto; padding-bottom:6px;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .rec-scroll::-webkit-scrollbar{ display:none; }
+  .rec-card{
+    flex:0 0 78%; max-width:300px; scroll-snap-align:start;
+    background:var(--md-surface-container-low); border:1px solid var(--md-outline-variant);
+    border-radius:14px; padding:12px 14px; text-decoration:none; color:inherit;
+    display:flex; flex-direction:column; gap:6px; min-height:132px;
+  }
+  .rec-card:hover{ border-color:var(--md-primary); }
+  .rec-card .rec-title{ font-size:14px; }
+  .rec-date{ margin-left:auto; font-size:11px; color:var(--md-on-surface-variant); }
+  .rec-empty{
+    font-size:12.5px; color:var(--md-on-surface-variant); padding:14px;
+    border:1px dashed var(--md-outline-variant); border-radius:12px; text-align:center;
+  }
+  @media (min-width:768px){
+    .rec-card{ flex-basis:46%; }
+  }
 </style>
 </head>
 <body>
@@ -1935,7 +1999,7 @@
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="brief">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-      简报
+      推荐
     </button>
     <button class="tab-btn" data-tab="pending">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1951,7 +2015,7 @@
     </button>
   </div>
 
-  <!-- Tab: 简报 -->
+  <!-- Tab: 推荐 -->
   <div class="tab-pane active" id="tab-brief">
 
   <!-- 2026年11月3日 更新提醒 -->
@@ -1960,187 +2024,66 @@
     <span id="noticeContent">本次为<strong>2026年11月9日 更新</strong>。重点：<strong>UKISS 青春大使艾米 × Pingu 联名系列官宣</strong>（11/06）——同款「Pin不动了gu一下」彩妆上线；<strong>#柔软力是底气也是勇气# 采访释出</strong>（11/08），艾米谈角色从容「未来还有很长，用作品慢慢证明自己」；<strong>日签 Vol.050→052 三连更</strong>（11/06→11/08，含立冬特辑）；<strong>产出汇总【261105】【261107】【261108】</strong>归档；粉丝数（微博 289.9万 / 抖音 449.7万）。</span>
   </div>
 
-  <div class="content">
-
-    <!-- 统计卡片 -->
-    <div class="stat-grid">
-      <div class="stat-card">
-        <div class="label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          微博粉丝
-        </div>
-        <div class="value">289.9<small>万</small></div>
-        <div class="meta">@演员艾米 · u/6671129497 · 11/09 更新</div>
+  <div class="rec-wrap">
+    <div class="rec-hero">
+      <div>
+        <div class="rec-hero-title">推荐</div>
+        <div class="rec-hero-sub" id="recUpdated">各页面最新内容，更新后自动同步</div>
       </div>
-      <div class="stat-card">
-        <div class="label">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-          抖音粉丝
-        </div>
-        <div class="value">449.7<small>万</small></div>
-        <div class="meta">@艾米 · 抖音官方账号</div>
-      </div>
-      <div class="stat-card">
-        <div class="label health-good">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          微博舆情健康
-        </div>
-        <div class="value health-good">优</div>
-        <div class="meta">无新增负面舆情</div>
-      </div>
-      <div class="stat-card">
-        <div class="label health-good">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          抖音舆情健康
-        </div>
-        <div class="value health-good">优</div>
-        <div class="meta">无新增负面舆情</div>
-      </div>
+      <span class="rec-hero-badge">NEW</span>
     </div>
 
-    <!-- 平台筛选器 -->
-    <div class="filter-section">
-      <div class="filter-label">平台筛选</div>
-      <div class="filter-chips">
-        <button class="fbtn active" data-platform="all">全部</button>
-        <button class="fbtn" data-platform="weibo">微博</button>
-        <button class="fbtn" data-platform="douyin">抖音</button>
-        <button class="fbtn" data-platform="xhs">小红书</button>
+    <!-- 行程活动：仅显示今天及以后，过期自动隐藏 -->
+    <section class="rec-sec" id="recEventSec">
+      <div class="rec-sec-head">
+        <div class="rec-sec-title"><span class="rec-dot"></span>行程活动</div>
+        <a class="rec-more" href="xingcheng.html">全部 ›</a>
       </div>
-    </div>
+      <div class="rec-list" id="recEventList"></div>
+    </section>
 
-    <!-- 1 本人动态 -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg></div>
-        <div class="card-title">一、艾米本人动态</div>
-        <div class="card-badge">正面</div>
+    <!-- 日签：最近 3 条 -->
+    <section class="rec-sec" id="recRiqianSec">
+      <div class="rec-sec-head">
+        <div class="rec-sec-title"><span class="rec-dot"></span>日签</div>
+        <a class="rec-more" href="index.html#riqian">全部 ›</a>
       </div>
-      <ul>
-        <li data-platform="weibo"><strong>10/24 21:54 横店影视节物料 · #横店入戏30年#</strong>：艾米本人发文"椰✌🏻 @横店影视节 #米有物料啦# #横店入戏30年#"，新鲜物料更新；互动量续涨，截至 10/27 转发 1.6万、评论 7,242、点赞 2.3万，为本周互动最高的一条。</li>
-        <li data-platform="weibo"><strong>10/23 18:50 「风起时」新物料</strong>：艾米本人发文"风起时 #米有物料啦# #生活有星意#"，配图物料更新，发布于浙江；截至 10/27 转发 1万、评论 4,436、点赞 1.7万，日常物料热度稳定。</li>
-        <li data-platform="weibo"><strong>10/21 19:03 #长征胜利90周年# 致敬帖</strong>：艾米本人发文"长征胜利90周年，致敬英雄，缅怀先烈！#一人一句致敬红军先辈##长征胜利90周年#"，转发央视新闻，点赞 4,034，主旋律正向输出。</li>
-        <li data-platform="weibo"><strong>10/21 05:27 转发《长征答案》微视频</strong>：艾米本人发文"长征路上，他们走过千山万水。跨越90年，向前，书写新的答案！#我们的长征路# #微视频长征答案#"，转发@人民日报，点赞 4,252，长征胜利90周年预热物料。</li>
-        <li data-platform="weibo"><strong>10/20 18:27 京东健康双11「一日主包体验卡」</strong>：艾米发文"双十一 一日主包体验卡！专属健康祝福去'京东医用金选'里看看吧@京东健康 ～"，带 #京东健康医用金选大使艾米# #京东健康医用金选# 双话题，点赞 1.1万，双11商务主场持续。</li>
-        <li data-platform="weibo"><strong>10/18 三连物料更新</strong>：10月18日艾米微博连发三条 #米有物料啦#——12:00「奔赴一场与光芒的相遇」（FRED 斐登 90 周年珠宝活动）、18:51「Hi👋🏻」、22:17「幸福就是 从此时此刻到彼时彼刻」，日常物料与商业露出节奏稳定，粉丝互动活跃。</li>
-        <li data-platform="weibo"><strong>出席 FRED 斐登品牌 90 周年活动</strong>：10月18日艾米发文"奔赴一场与光芒的相遇。很高兴与@FRED斐登 共庆品牌90周年，近赏高级珠宝作品，感受珍贵宝石与精妙匠艺交织的魅力，将这份明媚珍藏于心"，品牌珠宝活动露出，时尚资源拓展。</li>
-        <li data-platform="weibo"><strong>京东健康医用金选大使官宣</strong>：10月9日艾米本人发文"认真对待每一个角色，也认真对待生活里的每一件小事"，双11 京东健康医用金选合作正式启动。</li>
-        <li data-platform="weibo"><strong>《百妖谱》开机</strong>：8月11日横店开机，爱奇艺S+古装奇幻剧，郭敬明执导，邓为男主，全剧36集拍摄约130天，艾米饰演桃夭。</li>
-        <li data-platform="weibo"><strong>微博视界大会入围</strong>：饰演的谢嘉鱼、蓝灵娥两个角色入围2026「微博视界大会年度推荐」，艾米亲自发文感谢陪伴与支持。</li>
-      </ul>
-      <div class="empty-hint">该平台暂无相关内容</div>
-    </div>
+      <div class="rec-list" id="recRiqianList"></div>
+    </section>
 
-    <!-- 2 商务代言 -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg></div>
-        <div class="card-title">二、商务代言（已官宣 / 进行中）</div>
-        <div class="card-badge">进行中</div>
+    <!-- 产出总汇：最新 1 条 -->
+    <section class="rec-sec" id="recChanchuSec">
+      <div class="rec-sec-head">
+        <div class="rec-sec-title"><span class="rec-dot"></span>产出总汇</div>
+        <a class="rec-more" href="chanchu.html">全部 ›</a>
       </div>
-      <ul>
-        <li data-platform="weibo"><strong>京东健康医用金选大使</strong>：10月9日艾米本人官宣，"认真对待每一个角色，也认真对待生活里的每一件小事"。<strong>10月26日 11:00 京东健康官微发布「微光汇聚，终成星河」应援文案</strong>——"这份美好，属于艾米，也属于每一位「艾心」，每一次奔赴、每一声应援，都是双向的心意"，并提示"上京东🔍【艾米医用金选】，下单送小卡活动持续进行中"。<strong>10月20日 18:27 发布「双11 一日主包体验卡」</strong>；10月20日 17:57 京东健康官方加码<strong>#健康免单#</strong>（健康大牌低至6.8折）。此前节点：10月18日 19:00 采销直播已完成（📍上海京东MALL七宝店）；10月19日 18:44 官方释出「艾的告白」限定小卡获取攻略——①「艾的告白」限定小卡系列（全新未公开照片＋艾米手写卡背）②「医用金选真金卡」限量 521 张（含金量 5mg）。</li>
-        <li data-platform="weibo"><strong>FRED 斐登品牌活动</strong>：10月18日艾米出席 FRED 斐登品牌 90 周年活动，近赏高级珠宝作品，品牌珠宝合作露出，时尚资源持续拓展。</li>
-        <li data-platform="xhs"><strong>美力城 MERRYCHENG 品牌青春大使</strong>：粉丝端"星品影响力"种草互动活跃，#艾米美力城品牌青春大使# 话题打call。</li>
-        <li data-platform="weibo"><strong>嘉人 & 波司登 平台合作</strong>：宣发已落地——10月11日平面合影、10月14日 10:00 单人视频、11:00 单人大片，微博@波司登 @嘉人 同步发布。波司登官微发文"18岁的成长，是一场温柔且自由的探索"，元气泡芙系列，花苞廓形轻盈包裹。</li>
-        <li data-platform="weibo"><strong>UKISS 悠珂思青春大使</strong>：小红书端"星品影响力"种草互动持续，带动粉丝打call。</li>
-      </ul>
-      <div class="empty-hint">该平台暂无相关内容</div>
-    </div>
+      <div class="rec-list" id="recChanchuList"></div>
+    </section>
 
-    <!-- 3 热搜舆情 -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.281m5.94 2.28l-2.28 5.941"/></svg></div>
-        <div class="card-title">三、热搜舆情（正面/中性）</div>
-        <div class="card-badge">健康</div>
+    <!-- 采访合集：横向滑动，全部展示 -->
+    <section class="rec-sec" id="recInterviewSec">
+      <div class="rec-sec-head">
+        <div class="rec-sec-title"><span class="rec-dot"></span>采访合集</div>
+        <a class="rec-more" href="interview.html">全部 ›</a>
       </div>
-      <ul>
-        <li data-platform="weibo"><strong>#微博视界大会# 官宣节奏公布（10/26–10/27）</strong>：粉丝站 10/26 23:45 发布「艾心速报」，公布微博视界大会官宣节奏——<strong>10月27日 15:00 官宣海报</strong>（具体时间以实际发布为准）。艾米饰演的谢嘉鱼、蓝灵娥已入围 2026 年度推荐赛道，官方物料释出在即，话题预热升温。</li>
-        <li data-platform="weibo"><strong>#艾米文荣奖荣曜青年电影女演员#（10/25）</strong>：艾米荣获第十届文荣奖「荣曜·青年电影女演员」，粉丝站 10/25 10:33 发文祝贺，并宣布以「艾米&艾心」名义向中华社会救助慈善基金会「中华救助驰援那曲」项目再次捐款，公益与荣誉双向赋能。</li>
-        <li data-platform="weibo"><strong>#横店入戏30年# / #横店影视节#（10/24）</strong>：艾米 10/24 21:54 发布横店影视节物料「椰✌🏻 @横店影视节 #米有物料啦##横店入戏30年#」，截至 10/27 转发 1.6万、评论 7,242、点赞 2.3万，为本周互动最高，活动热度持续发酵。</li>
-        <li data-platform="weibo"><strong>#西藏那曲地震# 持续公益响应（10/23–10/25）</strong>：10/22 22:33 那曲巴青 7.0 级地震后，粉丝站 10/23 首次通过中国社会福利基金会「驰援那曲地震」项目捐款，10/25 再次以「艾米&艾心」名义向中华社会救助慈善基金会「中华救助驰援那曲」项目捐款，正能量口碑持续释放。</li>
-        <li data-platform="weibo"><strong>微博视界大会年度推荐（10/22）</strong>：粉丝站 10/22 13:13 连发两帖，分别推荐《雀骨》剧集赛道与 @演员艾米 本人赛道，「剧综人物/影视CP/影视角色/剧集」等八大赛道入围赛进行中。</li>
-        <li data-platform="weibo"><strong>#曝李昀锐下一部古装女主艾米#（中性·已辟谣）</strong>：10月20日相关爆料话题出现，粉丝站@玡迩叻_ami 00:28 发文"非官不宣，以官宣消息为准，切记不信谣不传谣"，引导粉丝期待待播作品，舆论平稳、以正向引导为主。</li>
-        <li data-platform="weibo"><strong>帮朋友剧宣《玉簟秋》</strong>：10月12日《玉簟秋》开播，艾米转发帮朋友宣传新剧，义气互动获粉丝好评，"虞昶轩的地盘都听他的"配文引发讨论。</li>
-        <li data-platform="douyin"><strong>暑期涨粉延续</strong>：《雀骨》播出期间全平台涨粉破百万，抖音粉丝突破400万，后续商务合作持续释放热度。</li>
-      </ul>
-      <div class="empty-hint">该平台暂无相关内容</div>
-    </div>
+      <div class="rec-scroll" id="recInterviewList"></div>
+    </section>
 
-    <!-- 4 粉丝动态 -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg></div>
-        <div class="card-title">四、粉丝动态（三平台涨粉与应援）</div>
-        <div class="card-badge">活跃</div>
+    <!-- 商务合集：横向滑动，全部展示 -->
+    <section class="rec-sec" id="recBrandSec">
+      <div class="rec-sec-head">
+        <div class="rec-sec-title"><span class="rec-dot"></span>商务合集</div>
+        <a class="rec-more" href="brands.html">全部 ›</a>
       </div>
-      <ul>
-        <li data-platform="weibo"><strong>微博</strong>：粉丝<em>289.9万</em>（较上期持平），超话 #艾米[超话]# 活跃。</li>
-        <li data-platform="douyin"><strong>抖音</strong>：粉丝<em>449.7万</em>（数据暂未获取最新值，保持昨日口径），《雀骨》余热+商务物料持续带动互动。</li>
-        <li data-platform="xhs"><strong>小红书</strong>：种草/安利向笔记稳定输出，美力城、UKISS 合作带动"星品影响力"互动。</li>
-        <li data-platform="weibo"><strong>微博视界大会官宣节奏（10/26 23:45）</strong>：粉丝站发布「艾心速报📣」公布官宣节奏——10月27日（今天）15:00 官宣海报，具体时间以实际发布为准，粉丝端提前进入等物料状态。</li>
-        <li data-platform="weibo"><strong>日签 Vol.040 更新（10/27 00:08）</strong>：粉丝站发布「🐻日签 | Vol.040」——"人有时需要陪伴，有时需要独处，因为心并非恒定值，在变幻莫测的环境中调整情绪才能更好地生活。 cr.网络"，图源 @艾米工作室 微博（2025/12/08 微博 P7），日签四连更节奏延续。</li>
-        <li data-platform="weibo"><strong>产出汇总【261026】更新（10/26 22:07）</strong>：@艾产速览 发布【261026】产出汇总，@星落如雨_stardust、@Hawthorn_山楂日記、@呆艾米、@桃雾恩恩 等饭修作品归档，产出节奏稳定。</li>
-        <li data-platform="weibo"><strong>文荣奖获奖 + 二次公益捐款（10/25）</strong>：粉丝站祝贺艾米荣获第十届文荣奖「荣曜·青年电影女演员」，并宣布以「艾米&艾心」名义向中华社会救助慈善基金会「中华救助驰援那曲」项目再次捐款，公益与荣誉并行。</li>
-        <li data-platform="weibo"><strong>日签 Vol.039 更新（10/26 00:19）</strong>：粉丝站发布「🌠日签 | Vol.039」——"我不想成为任何东西的象征。我只做我自己。——安·兰德"，图源 @艾米工作室 2026/10/17 微博 P7，推荐歌曲《是你想成为的大人吗》。</li>
-        <li data-platform="weibo"><strong>日签 Vol.038 更新（10/25 00:27）</strong>：粉丝站发布「🌠日签 | Vol.038」——"翅膀上的每一根羽毛都见证了过去那些充满努力与艰辛的日子……愿你早日到达星辰彼岸"，二创文案与金句并行。</li>
-        <li data-platform="weibo"><strong>日签 Vol.037 更新（10/24 00:13）</strong>：粉丝站发布「🎞️日签 | Vol.037」——"生活中我们其实都在即兴表演，不是吗？不过赞的是你开始用心感受了，而且你要一直感受下去。——《少年时代》"，图源 @艾米工作室 2025/10/23 微博 P3，并附爱心行动报告。</li>
-        <li data-platform="weibo"><strong>横店影视节物料互动（10/24）</strong>：艾米本人发布横店影视节物料后，粉丝站与粉丝快速响应，#米有物料啦##横店入戏30年# 话题互动活跃。</li>
-        <li data-platform="weibo"><strong>粉丝自发公益</strong>：10月12日 粉丝@玡迩叻_ami 受京东健康"守护健康日常"立意启发，以「艾米&艾心」名义发起"乡村女童守护行动"一起捐，向上海仁德基金会「留守女童春柳计划」捐赠，为乡村女童成长护航。</li>
-        <li data-platform="weibo"><strong>应援氛围</strong>：粉丝以"米米熊""艾心"等称呼互动，微博视界大会投票、CT打投等组织化应援常态化。</li>
-      </ul>
-      <div class="empty-hint">该平台暂无相关内容</div>
-    </div>
-
-    <!-- 5 超话后援会 -->
-    <div class="card">
-      <div class="card-head">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg></div>
-        <div class="card-title">五、超话后援会职能管理动态</div>
-        <div class="card-badge">规范</div>
-      </div>
-      <ul>
-        <li data-platform="weibo"><strong>官方组织架构</strong>：@艾米官方粉丝后援会 + @明星粉丝联盟 + @超话社区 联合运营，职能分工明确。</li>
-        <li data-platform="weibo"><strong>10/26 视界大会官宣节奏预告</strong>：23:45 发布「艾心速报📣」，公布微博视界大会 10月27日 15:00 官宣海报，提示"具体时间以实际发布为准"，提前统一口径、组织等物料。</li>
-        <li data-platform="weibo"><strong>10/27 日签 Vol.040 更新</strong>：00:08 发布 Vol.040（"人有时需要陪伴，有时需要独处"），图源 @艾米工作室 2025/12/08 微博 P7，日签更新节奏已实现四连更（Vol.037→040）。</li>
-        <li data-platform="weibo"><strong>10/25 文荣奖获奖 + 二次公益动员</strong>：粉丝站 10:33 祝贺艾米荣获第十届文荣奖「荣曜·青年电影女演员」，并宣布以「艾米&艾心」名义向中华社会救助慈善基金会「中华救助驰援那曲」项目再次捐款，响应迅速、口径统一。</li>
-        <li data-platform="weibo"><strong>10/26 日签 Vol.039 更新</strong>：00:19 发布 Vol.039（安·兰德"我只做我自己"），图源 @艾米工作室 2026/10/17 微博 P7，日签三连更节奏稳定。</li>
-        <li data-platform="weibo"><strong>10/25 日签 Vol.038 更新</strong>：00:27 发布 Vol.038（"翅膀上的每一根羽毛"），二创文案与金句并行。</li>
-        <li data-platform="weibo"><strong>10/24 日签 Vol.037 更新</strong>：00:13 发布 Vol.037（《少年时代》"即兴表演"），图源 @艾米工作室 2025/10/23 微博 P3，并附爱心行动报告。</li>
-        <li data-platform="weibo"><strong>10/24 横店影视节物料联动</strong>：艾米本人 21:54 发布横店影视节物料，粉丝端正向呼应，#横店入戏30年# 话题热度上升。</li>
-        <li data-platform="weibo"><strong>10/23 那曲地震首次公益响应</strong>：凌晨起连续转发 #西藏那曲地震# 官方通报与"愿平安"，12:37 完成"驰援那曲地震"项目捐款（@中国社会福利基金会），12:47 以「艾米&艾心」名义发起捐款公告。</li>
-        <li data-platform="weibo"><strong>10/22 视界大会双赛道推进</strong>：13:13 连发两帖，分别推荐《雀骨》剧集赛道与 @演员艾米 本人赛道，八大赛道入围赛持续。</li>
-        <li data-platform="weibo"><strong>10/20 小站宣传与公益回顾</strong>：21:21 粉丝站公开宣传「艾米日签」小站，并说明停更期间"做了很多公益"，小站为其中一项成果，体现粉丝站长期主义运营思路。</li>
-        <li data-platform="weibo"><strong>10/18 直播应援</strong>：10月18日 19:00 京东健康采销直播，粉丝站 18:56 发文"【京东健康采销】正在直播，准备来支持艾米咯"，组织有序、响应及时，直播顺利完成。</li>
-        <li data-platform="weibo"><strong>《百妖谱》开机应援</strong>：8月11日开机应援公告"山海有灵，浮生有念；桃夭入世，恰逢佳期"，组织有序。</li>
-        <li data-platform="weibo"><strong>商务渠道管理</strong>：京东健康、美力城、波司登等商务采用"花卷小派"审核机制，CCL全部确收并附实物图，资金管理透明。</li>
-        <li data-platform="weibo"><strong>粉丝自发公益</strong>：10月12日粉丝@玡迩叻_ami 以「艾米&艾心」名义发起"乡村女童守护行动"一起捐（留守女童春柳计划），呼应京东健康"守护健康日常"理念，体现粉丝公益属性与正向引导。</li>
-      </ul>
-      <div class="empty-hint">该平台暂无相关内容</div>
-    </div>
-
-    <!-- 总结 -->
-    <div class="card summary-card">
-      <div class="card-head">
-        <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
-        <div class="card-title">总结与趋势研判</div>
-      </div>
-      <p class="summary-intro"><strong>整体基调</strong>：<span class="pill">正面为主</span><span class="pill">舆情健康度高</span><span class="pill">无新增负面</span></p>
-      <ul>
-        <li><strong>关键事件</strong>：<strong>微博视界大会官宣节奏公布</strong>——粉丝站 10/26 23:45 发布艾心速报，<strong>10月27日 15:00 官宣海报</strong>；<strong>日签 Vol.040 更新</strong>（10/27 00:08，"人有时需要陪伴，有时需要独处"），日签已实现 Vol.037→040 四连更；<strong>产出汇总【261026】</strong>已归档；<strong>京东健康 × 艾米医用金选</strong>官微 10/26 11:00 发文「微光汇聚，终成星河」，下单送小卡持续；横店影视节物料（10/24 21:54）互动续涨至转发 1.6万 / 评论 7,242 / 点赞 2.3万；京东健康双11、FRED 斐登 90 周年、《百妖谱》拍摄中。</li>
-        <li><strong>舆情走向</strong>：正面标签（奖项认可、公益担当、主旋律正能量、商务拓展、时尚资源、作品储备）持续强化；本轮最强正向事件为<strong>文荣奖获奖＋视界大会官宣预热</strong>，粉丝站口径统一、行动快，评论区以"恭喜""等物料"为主；横店影视节物料互动量继续上涨，热度未衰减；未发现新增负面舆情。</li>
-        <li><strong>趋势研判</strong>：艾米处于<strong>奖项口碑＋公益担当＋商务势能＋作品储备</strong>叠加期，《百妖谱》拍摄中，《阿禅》《烽影燃梅香》《城墙之上》待播；<strong>10月27日 15:00 微博视界大会官宣海报</strong>是近期最重要节点，谢嘉鱼、蓝灵娥双角色入围，值得重点跟进；京东健康双11进入收尾阶段，限定小卡与真金卡持续带动晒单；日签四连更（Vol.037→040）＋产出汇总日更，粉丝内容运营进入稳定高产期；后续关注视界大会结果与《百妖谱》拍摄路透。</li>
-      </ul>
-    </div>
-
+      <div class="rec-scroll" id="recBrandList"></div>
+    </section>
   </div>
 
   </div><!-- /tab-brief -->
 
   <!-- Tab: 待播 -->
   <div class="tab-pane" id="tab-pending">
-    <div class="drama-list">
+    <div class="drama-list" id="pendingList">
 
       <div class="drama-card">
         <div class="drama-header">
@@ -2225,10 +2168,10 @@
       <div class="card-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
         平台核心数据
-        <span style="font-size:12px; font-weight:400; opacity:0.6; margin-left:auto;">截至 2026-11-09</span>
+        <span id="dashUpdated" style="font-size:12px; font-weight:400; opacity:0.6; margin-left:auto;">截至 2026-11-09</span>
       </div>
 
-      <div class="stat-grid">
+      <div class="stat-grid" id="dashStatGrid">
         <div class="stat-card">
           <div class="label">
             <svg viewBox="0 0 24 24" fill="none" stroke="#E6162D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -2271,7 +2214,7 @@
         今日超话热帖 TOP5
         <span style="font-size:12px;font-weight:normal;color:var(--text-muted);margin-left:auto;">#艾米[超话]# · 来源：@玡迩叻_ami / @演员艾米 2026-11-09 手动整理（仅收录可访问原帖）</span>
       </div>
-                  <ul class="dash-list">
+                  <ul class="dash-list" id="dashHotList">
         <li class="dash-list-item">
           <span class="rank" style="background:#FF3D00;">1</span>
           <div class="dash-item-body">
@@ -2326,7 +2269,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
         近7日活跃趋势
       </div>
-                  <div class="dash-trend">
+                  <div class="dash-trend" id="dashTrend">
         <div class="trend-row"><span class="trend-label">11/02</span><div class="trend-bar" style="height:93%;"></div><span class="trend-val">1,900</span></div>
         <div class="trend-row"><span class="trend-label">11/03</span><div class="trend-bar" style="height:87%;"></div><span class="trend-val">1,780</span></div>
         <div class="trend-row"><span class="trend-label">11/04</span><div class="trend-bar" style="height:90%;"></div><span class="trend-val">1,850</span></div>
@@ -2351,10 +2294,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           个人简介
         </div>
-        <p class="bio-text">
+        <p class="bio-text" id="bioIntro1">
           <strong>艾米</strong>，2008年7月13日出生于北京市，中国内地女演员。6岁出道，拥有12年戏龄，参演超过50部影视作品。2026年参加全国高考，以专业课第三名的成绩考入北京电影学院表演系。童星出道的她，凭借自然灵动的表演风格和扎实的演技功底，逐步从配角成长为独挑大梁的女主角，是05后小花中势头最猛的代表之一。
         </p>
-        <p class="bio-text" style="margin-top:10px;">
+        <p class="bio-text" id="bioIntro2" style="margin-top:10px;">
           2026年7月年满18岁，正式步入成年演员行列。她以真诚、边界感清晰、尊重原创的公众形象著称，因在微博为配图逐一标注版权来源而被赞"严谨态度成风向标"。手中握有《百妖谱》《阿禅》《烽影燃梅香》《城墙之上》四部待播女主剧，题材涵盖古装奇幻、奇幻悬爱、古装谍战、年代悬疑，演艺储备充足。
         </p>
       </div>
@@ -2364,7 +2307,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 0 0 .95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 0 0-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 0 0-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 0 0-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 0 0 .951-.69l1.519-4.674z"/></svg>
           代表作品
         </div>
-        <p class="bio-text">
+        <p class="bio-text" id="bioReps">
           <strong>电视剧</strong>：《雀骨》谢嘉鱼、《百妖谱》桃夭、《师兄太稳健》蓝灵娥、《城墙之上》林双笙、《阿禅》李微意、《烽影燃梅香》如焰、《仙台有树》丘喜儿、《仁心俱乐部》于嘉、《墨雨云间》桐儿、《大梦归离》青耕、《清平乐》高滔滔、《山海情》等。<br><br>
           <strong>电影</strong>：《长津湖》红围巾女孩、《海的尽头是草原》杜思珩、《功夫女足》、《大突围》、《封神第二部：战火西岐》、《晴雅集》、《催眠·裁决》等。
         </p>
@@ -2389,7 +2332,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           荣誉与成绩
         </div>
-        <p class="bio-text">
+        <p class="bio-text" id="bioHonors">
           • 2026年北京电影学院表演系专业课<strong>全国第三名</strong><br>
           • 《雀骨》《师兄太稳健》角色入围2026微博视界大会年度推荐<br>
           • 2026暑期全平台涨粉破百万，抖音粉丝突破400万<br>
@@ -3571,24 +3514,251 @@
       .replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
       .replace(/\n/g,'<br>');
   }
+  // ===== 推荐页：聚合各页面最新内容 =====
+  function ymdStart(s){
+    if(!s) return null;
+    var m = String(s).match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+    if(!m) return null;
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function todayStart(){
+    var n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  }
+  function dayGap(a, b){
+    return Math.round((a.getTime() - b.getTime()) / 86400000);
+  }
+  function showSec(id, show){
+    var el = document.getElementById(id);
+    if(el) el.hidden = !show;
+  }
+  function renderRec(d){
+    d = d || {};
+    var today = todayStart();
+
+    // 行程活动：今天及以后，自动隐藏过期
+    var evs = ((d.xingcheng && d.xingcheng.events) || []).map(function(e){
+      var dt = ymdStart(e && e.date);
+      return dt ? { e: e, d: dt } : null;
+    }).filter(function(x){ return x && x.d >= today; }).sort(function(a, b){ return a.d - b.d; });
+    var evEl = document.getElementById('recEventList');
+    if(evEl){
+      evEl.innerHTML = evs.map(function(x){
+        var gap = dayGap(x.d, today);
+        var cd = gap === 0 ? '进行中' : (gap === 1 ? '明天' : '还有 ' + gap + ' 天');
+        var e = x.e;
+        return '<a class="rec-item" href="' + escHtml(e.link || 'xingcheng.html') + '"' + (e.link ? ' target="_blank" rel="noopener"' : '') + '>' +
+          '<div class="rec-item-top">' +
+            (e.type ? '<span class="rec-tag">' + escHtml(e.type) + '</span>' : '') +
+            '<span class="rec-count">' + escHtml(cd) + '</span>' +
+          '</div>' +
+          '<div class="rec-title">' + escHtml(e.title || '') + '</div>' +
+          '<div class="rec-meta"><span>' + escHtml(e.date || '') + (e.time ? ' · ' + escHtml(e.time) : '') + '</span>' +
+            (e.location ? '<span>' + escHtml(e.location) + '</span>' : '') + '</div>' +
+        '</a>';
+      }).join('') || '<div class="rec-empty">暂无即将开始的行程</div>';
+    }
+    showSec('recEventSec', true);
+
+    // 日签：最近 3 条
+    var rq = (d.riqian && d.riqian.items) || (typeof riqianData !== 'undefined' ? riqianData : []);
+    rq = rq.slice(0, 3);
+    var rqEl = document.getElementById('recRiqianList');
+    if(rqEl){
+      rqEl.innerHTML = rq.map(function(it){
+        var cap = (it.caption || '').replace(/\n/g, ' ');
+        return '<a class="rec-item" href="index.html#riqian">' +
+          '<div class="rec-item-top"><span class="rec-tag">' + escHtml(it.date || '') + '</span></div>' +
+          '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
+          '<div class="rec-desc">' + escHtml(cap) + '</div>' +
+        '</a>';
+      }).join('') || '<div class="rec-empty">暂无日签更新</div>';
+    }
+    showSec('recRiqianSec', rq.length > 0);
+
+    // 产出总汇：最新 1 条
+    var entries = ((d.chanchu && d.chanchu.entries) || []).slice().sort(function(a, b){
+      return String(b.date || '').localeCompare(String(a.date || ''));
+    });
+    var cc = entries[0];
+    var ccEl = document.getElementById('recChanchuList');
+    if(ccEl){
+      ccEl.innerHTML = cc ? ('<a class="rec-item" href="chanchu.html">' +
+        '<div class="rec-item-top"><span class="rec-tag">' + escHtml(cc.date || '') + '</span>' +
+          (cc.count ? '<span class="rec-count">' + escHtml(cc.count) + '</span>' : '') + '</div>' +
+        '<div class="rec-title">' + escHtml(cc.title || '') + '</div>' +
+        '<div class="rec-desc">' + escHtml((cc.text || '').replace(/\n/g, ' ')) + '</div>' +
+      '</a>') : '<div class="rec-empty">暂无产出汇总</div>';
+    }
+    showSec('recChanchuSec', !!cc);
+
+    // 采访合集：全部，横向滑动
+    var ivs = ((d.interviews && d.interviews.interviews) || []).slice().sort(function(a, b){
+      return String(b.date || '').localeCompare(String(a.date || ''));
+    });
+    var ivEl = document.getElementById('recInterviewList');
+    if(ivEl){
+      ivEl.innerHTML = ivs.map(function(it){
+        return '<a class="rec-card" href="' + escHtml(it.link || 'interview.html') + '"' + (it.link ? ' target="_blank" rel="noopener"' : '') + '>' +
+          '<div class="rec-item-top">' + (it.category ? '<span class="rec-tag">' + escHtml(it.category) + '</span>' : '') +
+            '<span class="rec-date">' + escHtml(it.date || '') + '</span></div>' +
+          '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
+          '<div class="rec-desc">' + escHtml(it.summary || '') + '</div>' +
+        '</a>';
+      }).join('') || '<div class="rec-empty">暂无采访内容</div>';
+    }
+    showSec('recInterviewSec', ivs.length > 0);
+
+    // 商务合集：进行中，全部，横向滑动
+    var bs = ((d.brands && d.brands.brands) || []).filter(function(b){ return b && b.status !== '已结束'; });
+    var bEl = document.getElementById('recBrandList');
+    if(bEl){
+      bEl.innerHTML = bs.map(function(b){
+        return '<a class="rec-card" href="' + escHtml(b.link || 'brands.html') + '"' + (b.link ? ' target="_blank" rel="noopener"' : '') + '>' +
+          '<div class="rec-item-top">' + (b.category ? '<span class="rec-tag">' + escHtml(b.category) + '</span>' : '') +
+            (b.status ? '<span class="rec-count">' + escHtml(b.status) + '</span>' : '') + '</div>' +
+          '<div class="rec-title">' + escHtml(b.name || '') + (b.role ? ' · ' + escHtml(b.role) : '') + '</div>' +
+          '<div class="rec-desc">' + escHtml(b.desc || '') + '</div>' +
+        '</a>';
+      }).join('') || '<div class="rec-empty">暂无商务合作</div>';
+    }
+    showSec('recBrandSec', bs.length > 0);
+
+    var upd = (d.xingcheng && d.xingcheng.updatedAt) || (d.riqian && d.riqian.updatedAt) || '';
+    var updEl = document.getElementById('recUpdated');
+    if(updEl && upd) updEl.textContent = '各页面最新内容 · 更新至 ' + upd;
+  }
+
+  // ===== 待播 =====
+  function renderPending(d){
+    var el = document.getElementById('pendingList');
+    if(!el || !d || !Array.isArray(d.items)) return;
+    el.innerHTML = d.items.filter(function(it){ return it && it.title; }).map(function(it){
+      var poster = it.poster
+        ? '<img src="' + escHtml(it.poster) + '" alt="' + escHtml(it.title) + '" onerror="this.style.display=\'none\'">'
+        : (it.emoji || '🎬');
+      return '<div class="drama-card">' +
+        '<div class="drama-header">' +
+          '<div class="drama-poster">' + poster + '</div>' +
+          '<div class="drama-info">' +
+            '<div class="drama-title">' + escHtml(it.title) + '</div>' +
+            '<div class="drama-role">' + escHtml(it.role || '') + '</div>' +
+            (it.tag ? '<span class="drama-tag">' + escHtml(it.tag) + '</span>' : '') +
+          '</div>' +
+        '</div>' +
+        (it.desc ? '<div class="drama-desc">' + escHtml(it.desc) + '</div>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  // ===== 简介 =====
+  function listText(v){
+    if(typeof v === 'string') return v;
+    if(v && typeof v === 'object') return v.text || v.value || '';
+    return '';
+  }
+  function renderBio(d){
+    if(!d) return;
+    if(Array.isArray(d.intro)){
+      var p1 = document.getElementById('bioIntro1');
+      var p2 = document.getElementById('bioIntro2');
+      var a = listText(d.intro[0]), b = listText(d.intro[1]);
+      if(p1 && d.intro[0] !== undefined) p1.innerHTML = mdToHtml(a);
+      if(p2 && d.intro[1] !== undefined){
+        p2.innerHTML = mdToHtml(b);
+        p2.style.display = b ? '' : 'none';
+      }
+    }
+    var reps = document.getElementById('bioReps');
+    if(reps && d.representative){
+      reps.innerHTML = '<strong>电视剧</strong>：' + mdToHtml(d.representative.tv || '') +
+        '<br><br><strong>电影</strong>：' + mdToHtml(d.representative.movie || '');
+    }
+    var honors = document.getElementById('bioHonors');
+    if(honors && Array.isArray(d.honors)){
+      honors.innerHTML = d.honors.map(listText).filter(Boolean).map(function(t){ return '• ' + mdToHtml(t); }).join('<br>');
+    }
+  }
+
+  // ===== 数据面板 =====
+  function statIcon(name, color){
+    var st = ' stroke="' + (color || 'currentColor') + '"';
+    if(name === 'heart'){
+      return '<svg viewBox="0 0 24 24" fill="none"' + st + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+    }
+    if(name === 'music'){
+      return '<svg viewBox="0 0 24 24" fill="none"' + st + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+    }
+    return '<svg viewBox="0 0 24 24" fill="none"' + st + ' stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+  }
+  function renderStats(d){
+    if(!d) return;
+    if(Array.isArray(d.cards)){
+      var grid = document.getElementById('dashStatGrid');
+      if(grid){
+        grid.innerHTML = d.cards.map(function(c){
+          return '<div class="stat-card">' +
+            '<div class="label' + (c.health ? ' health-good' : '') + '">' + statIcon(c.icon, c.color) + escHtml(c.label || '') + '</div>' +
+            '<div class="value"' + (c.health ? ' style="color:var(--md-success)"' : '') + '>' + escHtml(c.value || '') +
+              (c.unit ? '<small>' + escHtml(c.unit) + '</small>' : '') + '</div>' +
+            '<div class="meta">' + escHtml(c.meta || '') + '</div>' +
+          '</div>';
+        }).join('');
+      }
+    }
+    if(Array.isArray(d.hot)){
+      var hot = document.getElementById('dashHotList');
+      var ranks = ['#FF3D00', '#FF6F00', '#FFB300', '#546E7A', '#90A4AE'];
+      if(hot){
+        hot.innerHTML = d.hot.map(function(it, i){
+          return '<li class="dash-list-item">' +
+            '<span class="rank" style="background:' + (ranks[i] || '#90A4AE') + ';">' + (i + 1) + '</span>' +
+            '<div class="dash-item-body">' +
+              '<div class="dash-item-title">' + escHtml(it.title || '') + '</div>' +
+              '<div class="dash-item-meta">' + escHtml(it.meta || '') +
+                (it.link ? ' <a href="' + escHtml(it.link) + '" target="_blank" rel="noopener" style="color:#9172CC;text-decoration:none;margin-left:8px;">查看原帖 ↗</a>' : '') +
+              '</div>' +
+            '</div>' +
+          '</li>';
+        }).join('');
+      }
+    }
+    if(Array.isArray(d.trend)){
+      var tr = document.getElementById('dashTrend');
+      if(tr){
+        tr.innerHTML = d.trend.map(function(t){
+          var bg = t.highlight === 'today'
+            ? 'background:linear-gradient(180deg,#9172CC,#5E4BA6);'
+            : (t.highlight ? 'background:linear-gradient(180deg,#E91E63,#AD1457);' : '');
+          return '<div class="trend-row"><span class="trend-label">' + escHtml(t.label || '') + '</span>' +
+            '<div class="trend-bar" style="height:' + Number(t.height || 0) + '%;' + bg + '"></div>' +
+            '<span class="trend-val">' + escHtml(t.value || '') + '</span></div>';
+        }).join('');
+      }
+    }
+    var updEl = document.getElementById('dashUpdated');
+    if(updEl && d.updatedAt) updEl.textContent = '截至 ' + d.updatedAt;
+  }
+
   async function loadData(){
-    try {
-      const cacheBust = '?v=' + Date.now();
-      const [bannerRes, noticeRes, msgsRes, secRes] = await Promise.all([
-        fetch('data/banner.json' + cacheBust),
-        fetch('data/notice.json' + cacheBust),
-        fetch('data/messages.json' + cacheBust),
-        fetch('data/sections.json' + cacheBust)
-      ]);
-      if(!bannerRes.ok || !noticeRes.ok || !msgsRes.ok) return;
-      const banner = await bannerRes.json();
-      const notice = await noticeRes.json();
-      const messages = await msgsRes.json();
-      applyBanner(banner);
-      applyNotice(notice);
-      applyMessages(messages);
-      if(secRes.ok) applySections(await secRes.json());
-    } catch(e){ /* 失败则保持内嵌内容 */ }
+    const cacheBust = '?v=' + Date.now();
+    function get(name){
+      return fetch('data/' + name + '.json' + cacheBust)
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .catch(function(){ return null; });
+    }
+    const keys = ['banner','notice','messages','xingcheng','riqian','chanchu','interviews','brands','pending','bio','stats'];
+    const res = await Promise.all(keys.map(get));
+    const data = {};
+    keys.forEach(function(k, i){ data[k] = res[i]; });
+    if(data.banner) applyBanner(data.banner);
+    if(data.notice) applyNotice(data.notice);
+    if(data.messages) applyMessages(data.messages);
+    renderRec({ xingcheng: data.xingcheng, riqian: data.riqian, chanchu: data.chanchu, interviews: data.interviews, brands: data.brands });
+    renderPending(data.pending);
+    renderBio(data.bio);
+    renderStats(data.stats);
   }
   function escHtml(s){
     return String(s == null ? '' : s)
