@@ -3,7 +3,7 @@
   "cards": [
     {
       "label": "微博粉丝",
-      "value": "289.9",
+      "value": "290",
       "unit": "万",
       "meta": "@演员艾米 · 11/09 更新",
       "color": "#E6162D",
@@ -66,12 +66,47 @@
     }
   ],
   "trend": [
-    { "label": "11/02", "value": "1,900", "height": 93, "highlight": "" },
-    { "label": "11/03", "value": "1,780", "height": 87, "highlight": "" },
-    { "label": "11/04", "value": "1,850", "height": 90, "highlight": "" },
-    { "label": "11/05", "value": "1,720", "height": 84, "highlight": "" },
-    { "label": "11/06", "value": "2,050", "height": 100, "highlight": "highlight" },
-    { "label": "11/08", "value": "1,950", "height": 95, "highlight": "" },
-    { "label": "今日", "value": "1,600", "height": 78, "highlight": "today" }
+    {
+      "label": "11/02",
+      "value": "1,900",
+      "height": 93,
+      "highlight": "highlight"
+    },
+    {
+      "label": "11/03",
+      "value": "1,780",
+      "height": 87,
+      "highlight": "highlight"
+    },
+    {
+      "label": "11/04",
+      "value": "1,850",
+      "height": 90,
+      "highlight": "highlight"
+    },
+    {
+      "label": "11/05",
+      "value": "1,720",
+      "height": 84,
+      "highlight": "highlight"
+    },
+    {
+      "label": "11/06",
+      "value": "2,050",
+      "height": 100,
+      "highlight": "highlight"
+    },
+    {
+      "label": "11/08",
+      "value": "1,950",
+      "height": 95,
+      "highlight": "highlight"
+    },
+    {
+      "label": "今日",
+      "value": "1,600",
+      "height": 78,
+      "highlight": "today"
+    }
   ]
 }
