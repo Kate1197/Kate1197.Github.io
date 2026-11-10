@@ -3031,18 +3031,36 @@
   }
 
   // ========== 消息加载 & toast 触发 ==========
-  // 消息数据内嵌在 HTML（#ami-embedded-msgs），由定时任务每日更新
+  // 消息数据内嵌在 HTML（#ami-embedded-msgs）；后台保存后由 applyMessages 覆盖并再次触发
   // 已读状态存 localStorage（ami-read-msgs），每设备独立
-  function loadMsgsAndToast(){
+  // toast 记录（ami-toast-shown）：同一条消息每台设备只弹一次，7 天后过期
+  const TOAST_KEY = 'ami-toast-shown';
+  const TOAST_EXPIRE_MS = 7 * 24 * 60 * 60 * 1000;
+  function getToastMap(){
+    try { return JSON.parse(localStorage.getItem(TOAST_KEY)) || {}; }
+    catch(e){ return {}; }
+  }
+  function saveToastMap(m){ localStorage.setItem(TOAST_KEY, JSON.stringify(m)); }
+  function toastKeyOf(m){ return String(m.id || '') + '|' + String(m.title || ''); }
+  let _msgToastTimer = null;
+
+  // 取最新一条「未读且未弹过」的消息弹 toast，并记录，避免每次刷新重复弹
+  function toastNewestUnread(){
     const msgs = getMsgs();
     updateBadge();
-    // 有未读消息就弹 toast（取最新一条未读）
-    const unread = msgs.filter(m => !m.read);
-    if(unread.length > 0){
-      const latest = unread[unread.length - 1];
-      setTimeout(() => showMsgToast(latest), 800);
-    }
+    const shown = getToastMap();
+    const now = Date.now();
+    Object.keys(shown).forEach(k => { if(now - shown[k] > TOAST_EXPIRE_MS) delete shown[k]; });
+    saveToastMap(shown);
+    const latest = msgs.find(m => !m.read && !shown[toastKeyOf(m)]);
+    if(!latest) return;
+    shown[toastKeyOf(latest)] = now;
+    saveToastMap(shown);
+    if(_msgToastTimer) clearTimeout(_msgToastTimer);
+    _msgToastTimer = setTimeout(() => showMsgToast(latest), 800);
   }
+
+  function loadMsgsAndToast(){ toastNewestUnread(); }
 
   updateBadge();
   loadMsgsAndToast();
@@ -3887,7 +3905,9 @@
     if(!m || !m.msgs) return;
     const script = document.getElementById('ami-embedded-msgs');
     if(script) script.textContent = JSON.stringify({date: m.date || '', msgs: m.msgs});
-    if(typeof updateBadge === 'function') updateBadge();
+    // 后台数据到达后重新计算红点并补弹 toast（后台手动编辑同样生效）
+    if(typeof toastNewestUnread === 'function') toastNewestUnread();
+    else if(typeof updateBadge === 'function') updateBadge();
   }
   // 六大板块：只回填内容，保留原有卡片结构与样式，平台筛选逻辑照旧生效
   function applySections(d){
