@@ -425,7 +425,7 @@ collections:
             hint: "在这里维护标签（名称 + 颜色）；文章里的「标签」请填写这里的名称，前台会自动上色"
             fields:
               - { name: name, label: 标签名称, widget: string }
-              - { name: color, label: 标签颜色, widget: color, default: "#9172CC" }
+              - { name: color, label: 标签颜色, widget: string, default: "#9172CC", hint: "填十六进制色值，例如 #9172CC、#4C8BF5" }
           - name: posts
             label: 文章列表
             widget: list
