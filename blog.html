@@ -315,14 +315,28 @@
   @keyframes bgFade{ from{opacity:0} to{opacity:1} }
   @keyframes bgUp{ from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:translateY(0)} }
 
-  @media (min-width: 760px){
-    .bg-hero{ padding: 26px 24px 12px; }
+  /* Pad / 桌面：双列卡片，隐藏时间线竖线与圆点 */
+  @media (min-width: 700px){
+    .wrap{ max-width: 860px; }
+    .bg-hero{ padding: 28px 24px 14px; }
+    .bg-hero-title{ font-size: 24px; }
     .bg-filter{ padding: 4px 24px 12px; }
-    .bg-timeline{ padding: 4px 24px 26px; }
+    .bg-timeline{
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      padding: 4px 24px 28px;
+    }
+    .bg-item{ padding-left: 0; padding-bottom: 0; }
+    .bg-item::before, .bg-dot{ display: none; }
     .bg-card{ padding: 16px 20px; }
+    .bg-card-cover{ height: 150px; }
+    .bg-card:hover{ transform: translateY(-2px); }
     .bg-modal-scroll{ padding: 28px 26px 30px; }
     .bg-modal-title{ font-size: 22px; }
     .bg-body p, .bg-body li{ font-size: 14.5px; }
+  }
+  @media (min-width: 1080px){
+    .bg-card-cover{ height: 172px; }
+    .bg-title{ font-size: 16px; }
   }
 </style>
 </head>

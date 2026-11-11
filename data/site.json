@@ -13,14 +13,16 @@
       "riqian": "日签",
       "chanchu": "产出总汇",
       "interview": "采访合集",
-      "brand": "商务合集"
+      "brand": "商务合集",
+      "blog": "站点日志"
     },
     "empty": {
       "event": "暂无即将开始的行程",
       "riqian": "暂无日签更新",
       "chanchu": "暂无产出汇总",
       "interview": "暂无采访内容",
-      "brand": "暂无商务合作"
+      "brand": "暂无商务合作",
+      "blog": "暂无站点日志"
     }
   }
 }

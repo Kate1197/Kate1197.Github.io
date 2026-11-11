@@ -310,6 +310,7 @@ collections:
                   - { name: chanchu, label: 产出总汇, widget: string, default: "产出总汇" }
                   - { name: interview, label: 采访合集, widget: string, default: "采访合集" }
                   - { name: brand, label: 商务合集, widget: string, default: "商务合集" }
+                  - { name: blog, label: 站点日志, widget: string, default: "站点日志" }
               - name: empty
                 label: 空状态文案
                 widget: object
@@ -319,6 +320,7 @@ collections:
                   - { name: chanchu, label: 产出空状态, widget: string, default: "暂无产出汇总" }
                   - { name: interview, label: 采访空状态, widget: string, default: "暂无采访内容" }
                   - { name: brand, label: 商务空状态, widget: string, default: "暂无商务合作" }
+                  - { name: blog, label: 日志空状态, widget: string, default: "暂无站点日志" }
 
       - name: pages
         label: 页面文案
