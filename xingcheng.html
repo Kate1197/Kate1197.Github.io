@@ -8,6 +8,9 @@
 <meta name="theme-color" content="#9172CC">
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-title" content="艾米日签">
+<meta name="application-name" content="艾米日签">
 <meta property="og:title" content="行程活动 · 艾米日签">
 <meta property="og:description" content="艾米公开行程与活动 · 以官方发布为准">
 <meta property="og:type" content="website">
@@ -902,6 +905,15 @@
     setText('.xc-footer a', p.back);
   }).catch(function(){});
 })();
+</script>
+
+<script>
+/* PWA Service Worker 注册 */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function(){});
+  });
+}
 </script>
 </body>
 </html>

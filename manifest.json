@@ -1,0 +1,28 @@
+{
+  "name": "艾米日签 · 动态简报",
+  "short_name": "艾米日签",
+  "description": "演员艾米的粉丝向每日动态汇总：日签、行程活动、待播剧、商务代言、采访合集、产出汇总、平台数据。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "./index.html?source=pwa",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "theme_color": "#9172CC",
+  "background_color": "#FEF7FF",
+  "categories": ["news", "entertainment"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "行程活动", "short_name": "行程", "url": "./xingcheng.html" },
+    { "name": "艾米日签", "short_name": "日签", "url": "./index.html#riqian" },
+    { "name": "采访合集", "short_name": "采访", "url": "./interview.html" },
+    { "name": "商务代言", "short_name": "商务", "url": "./brands.html" },
+    { "name": "产出汇总", "short_name": "产出", "url": "./chanchu.html" }
+  ]
+}
