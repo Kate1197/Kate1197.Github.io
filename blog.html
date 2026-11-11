@@ -315,54 +315,65 @@
   @keyframes bgFade{ from{opacity:0} to{opacity:1} }
   @keyframes bgUp{ from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:translateY(0)} }
 
-  /* 大屏：左侧页面菜单 + 内容区 */
-  .bg-shell{ display: block; }
-  .bg-sidebar{ display: none; }
+  /* ===== 左侧侧边栏（与其它页面一致，大屏 ≥768px）===== */
+  .app-shell{ display: block; }
+  .app-sidebar{ display: none; }
+  .menu-item{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; cursor:pointer; transition:background .2s; color:var(--md-on-surface); text-decoration:none; }
+  .menu-item:hover{ background:var(--md-surface-container-high); }
+  .menu-item.active{ background:var(--md-primary-container); }
+  .menu-item.active .ico{ color:var(--md-on-primary-container); }
+  .menu-item .ico{ width:24px; height:24px; color:var(--md-primary); flex-shrink:0; }
+  .menu-item .ico svg{ width:24px; height:24px; stroke:currentColor; }
+  .menu-item-text{ display:flex; flex-direction:column; flex:1; min-width:0; overflow:hidden; }
+  .menu-item .txt{ font-size:16px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-item .sub{ font-size:12px; color:var(--md-on-surface-variant); margin-top:2px; }
+  .menu-list{ padding:12px; display:flex; flex-direction:column; gap:4px; }
+  .sidebar-header{ padding:16px 14px 12px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--md-primary); }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .sidebar-header svg{ width:24px; height:24px; flex-shrink:0; }
+  .sidebar-header .brand-logo{ height:22px; width:auto; display:block; }
+  [data-theme="dark"] .sidebar-header .brand-logo{ filter:brightness(1.2); }
+  .sidebar-toggle{ width:28px; height:28px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--md-outline-variant); background:var(--md-surface-container); color:var(--md-on-surface-variant); border-radius:8px; cursor:pointer; transition:background .15s,color .15s,transform .25s; }
+  .sidebar-toggle svg{ width:16px; height:16px; }
+  .sidebar-toggle:hover{ background:var(--md-surface-container-high); color:var(--md-primary); }
+  .sidebar-footer{ margin-top:auto; padding:16px 20px; border-top:1px solid var(--md-outline-variant); font-size:12px; color:var(--md-on-surface-variant); }
+  .sidebar-footer .footer-links a{ display:inline-flex; align-items:center; gap:6px; color:var(--md-primary); text-decoration:none; }
+  .sidebar-footer .footer-links svg{ width:15px; height:15px; stroke:currentColor; }
+
   @media (min-width: 768px){
-    .bg-shell{ display: flex; min-height: 100vh; }
-    .bg-sidebar{
-      display: flex; flex-direction: column;
-      width: 240px; flex-shrink: 0;
-      position: sticky; top: 0; height: 100vh; overflow-y: auto;
-      background: var(--md-surface-container-low);
-      border-right: 1px solid var(--md-outline-variant);
-      z-index: 50;
+    .app-shell{ display:flex; flex-direction:row; }
+    .app-sidebar{
+      width:240px; flex-shrink:0; display:flex !important; flex-direction:column;
+      background:var(--md-surface-container-low);
+      border-right:1px solid var(--md-outline-variant);
+      position:sticky; top:0; height:100vh; overflow-y:auto; z-index:50;
     }
-    .bg-main{ flex: 1; min-width: 0; }
-    .bg-sidebar .sb-head{
-      display: flex; align-items: center; gap: 10px;
-      text-decoration: none;
-      padding: 16px 16px 14px;
-      color: var(--md-primary); font-weight: 800; font-size: 16px;
+    .app-sidebar.collapsed{ width:64px; overflow:visible; transition:width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{ flex-direction:column; gap:10px; padding:16px 8px 12px; justify-content:flex-start; }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform:rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding:12px 8px; }
+    .app-sidebar.collapsed .menu-item{ padding:12px 0; justify-content:center; border-radius:12px; position:relative; }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding:12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{ flex-direction:column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding:8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{
+      content:attr(data-tooltip); position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%);
+      background:var(--md-surface-container-highest); color:var(--md-on-surface);
+      padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap;
+      box-shadow:0 4px 12px rgba(0,0,0,.18); z-index:200; pointer-events:none;
     }
-    .bg-sidebar .sb-head .brand-logo{ height: 22px; width: auto; display: block; }
-    [data-theme="dark"] .bg-sidebar .sb-head .brand-logo{ filter: brightness(1.2); }
-    .bg-sidebar .sb-menu{ padding: 6px 10px 10px; display: flex; flex-direction: column; gap: 2px; }
-    .bg-sidebar .sb-item{
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 12px; border-radius: 10px;
-      text-decoration: none; color: var(--md-on-surface);
-      transition: background .18s;
-    }
-    .bg-sidebar .sb-item:hover{ background: var(--md-surface-container-high); }
-    .bg-sidebar .sb-item.active{ background: var(--md-primary-container); }
-    .bg-sidebar .sb-item .ico{ width: 20px; height: 20px; color: var(--md-primary); flex-shrink: 0; }
-    .bg-sidebar .sb-item .ico svg{ width: 20px; height: 20px; stroke: currentColor; }
-    .bg-sidebar .sb-item > span:last-child{ display: flex; flex-direction: column; min-width: 0; }
-    .bg-sidebar .sb-item .txt{ font-size: 14px; font-weight: 600; }
-    .bg-sidebar .sb-item .sub{ font-size: 11px; color: var(--md-on-surface-variant); margin-top: 1px; }
-    .bg-sidebar .sb-foot{
-      margin-top: auto; padding: 12px 14px 18px;
-      font-size: 11px; color: var(--md-on-surface-variant); line-height: 1.8;
-      border-top: 1px solid var(--md-outline-variant);
-    }
-    .bg-sidebar .sb-foot a{ color: var(--md-primary); text-decoration: none; font-weight: 600; }
-    .bg-sidebar .sb-foot .links{ display: flex; gap: 12px; margin-bottom: 6px; }
+    .app-content{ flex:1; min-width:0; }
+    .app-content .wrap{ max-width:none; margin:0; }
   }
 
   /* Pad / 桌面：双列卡片，隐藏时间线竖线与圆点 */
   @media (min-width: 700px){
-    .wrap{ max-width: 860px; }
     .bg-hero{ padding: 28px 24px 14px; }
     .bg-hero-title{ font-size: 24px; }
     .bg-filter{ padding: 4px 24px 12px; }
@@ -379,63 +390,101 @@
     .bg-modal-title{ font-size: 22px; }
     .bg-body p, .bg-body li{ font-size: 14.5px; }
   }
-  @media (min-width: 1080px){
+  @media (min-width: 1200px){
+    .bg-timeline{ grid-template-columns: repeat(3, 1fr); }
     .bg-card-cover{ height: 172px; }
     .bg-title{ font-size: 16px; }
   }
 </style>
 </head>
 <body>
-<div class="bg-shell">
-  <aside class="bg-sidebar" aria-label="站点导航">
-    <a class="sb-head" href="index.html" aria-label="返回首页">
-      <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
-      <span>艾米日签</span>
-    </a>
-    <nav class="sb-menu">
-      <a class="sb-item" href="index.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-        <span><span class="txt">主页</span><span class="sub">每日动态简报</span></span>
-      </a>
-      <a class="sb-item" href="index.html#riqian">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
-        <span><span class="txt">日签</span><span class="sub">艾米日签合集</span></span>
-      </a>
-      <a class="sb-item" href="xingcheng.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></span>
-        <span><span class="txt">行程活动</span></span>
-      </a>
-      <a class="sb-item" href="chanchu.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
-        <span><span class="txt">产出汇总</span></span>
-      </a>
-      <a class="sb-item" href="interview.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></span>
-        <span><span class="txt">采访合集</span></span>
-      </a>
-      <a class="sb-item" href="brands.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
-        <span><span class="txt">商务代言</span></span>
-      </a>
-      <a class="sb-item" href="aixin.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
-        <span><span class="txt">艾心向善</span></span>
-      </a>
-      <a class="sb-item active" href="blog.html">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
-        <span><span class="txt">站点日志</span><span class="sub">公告 · 更新动态</span></span>
-      </a>
-    </nav>
-    <div class="sb-foot">
-      <div class="links">
-        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">微博</a>
-        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">抖音</a>
+<div class="app-shell">
+  <!-- 左侧侧边栏（大屏显示） -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
       </div>
-      © 艾米日签 · 每日动态简报
+      <button class="sidebar-toggle" id="sidebarToggle" title="折叠/展开侧边栏" aria-label="折叠/展开侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </div>
+    <div class="menu-list">
+      <a class="menu-item" href="index.html" data-tooltip="主页">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">主页</div>
+          <div class="sub">艾米日签 · 每日动态简报</div>
+        </div>
+      </a>
+      <a class="menu-item" href="index.html#riqian" data-tooltip="日签">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">日签</div>
+          <div class="sub">艾米日签合集 · 8期</div>
+        </div>
+      </a>
+      <a class="menu-item" href="aixin.html" data-tooltip="艾心向善">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">艾心向善</div>
+          <div class="sub">粉丝公益 · 动态追踪</div>
+        </div>
+      </a>
+      <a class="menu-item" href="xingcheng.html" data-tooltip="行程活动">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">行程活动</div>
+          <div class="sub">公开行程 · 活动汇总</div>
+        </div>
+      </a>
+      <a class="menu-item" href="chanchu.html" data-tooltip="产出汇总">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">产出汇总</div>
+          <div class="sub">由 @艾产速览 整理汇总</div>
+        </div>
+      </a>
+      <a class="menu-item" href="interview.html" data-tooltip="采访合集">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">采访合集</div>
+          <div class="sub">杂志 · 专访 · 直播 · 综艺</div>
+        </div>
+      </a>
+      <a class="menu-item" href="brands.html" data-tooltip="商务代言">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">商务代言</div>
+          <div class="sub">进行中品牌合作</div>
+        </div>
+      </a>
+      <a class="menu-item active" href="blog.html" data-tooltip="站点日志">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">站点日志</div>
+          <div class="sub">公告 · 更新动态</div>
+        </div>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener" title="微博">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>微博</span>
+        </a>
+        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener" title="抖音">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <span>抖音</span>
+        </a>
+      </div>
+      <div style="margin-top:8px;">© 艾米日签 · 每日动态简报</div>
     </div>
   </aside>
 
-  <div class="bg-main">
+  <!-- 右侧内容区 -->
+  <div class="app-content">
 <div class="wrap">
 
   <header class="bg-topbar">
@@ -469,8 +518,8 @@
     <a href="index.html">返回首页</a>
   </footer>
 </div>
-  </div><!-- /bg-main -->
-</div><!-- /bg-shell -->
+  </div><!-- /app-content -->
+</div><!-- /app-shell -->
 
 <!-- 文章弹窗 -->
 <div class="bg-modal" id="bgModal" aria-hidden="true">
@@ -741,6 +790,21 @@
     .then(function(r){ return r.ok ? r.json() : null; })
     .then(apply)
     .catch(function(){ /* 保留空状态 */ });
+})();
+</script>
+
+<script>
+// 侧边栏折叠/展开（仅电脑/平板端生效）
+(function(){
+  var sidebar = document.getElementById('appSidebar');
+  var toggle = document.getElementById('sidebarToggle');
+  if(!sidebar || !toggle) return;
+  if(localStorage.getItem('ami-sidebar-collapsed') === '1') sidebar.classList.add('collapsed');
+  toggle.addEventListener('click', function(){
+    var willCollapse = !sidebar.classList.contains('collapsed');
+    sidebar.classList.toggle('collapsed', willCollapse);
+    localStorage.setItem('ami-sidebar-collapsed', willCollapse ? '1' : '0');
+  });
 })();
 </script>
 
