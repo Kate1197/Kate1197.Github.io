@@ -315,6 +315,51 @@
   @keyframes bgFade{ from{opacity:0} to{opacity:1} }
   @keyframes bgUp{ from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:translateY(0)} }
 
+  /* 大屏：左侧页面菜单 + 内容区 */
+  .bg-shell{ display: block; }
+  .bg-sidebar{ display: none; }
+  @media (min-width: 768px){
+    .bg-shell{ display: flex; min-height: 100vh; }
+    .bg-sidebar{
+      display: flex; flex-direction: column;
+      width: 240px; flex-shrink: 0;
+      position: sticky; top: 0; height: 100vh; overflow-y: auto;
+      background: var(--md-surface-container-low);
+      border-right: 1px solid var(--md-outline-variant);
+      z-index: 50;
+    }
+    .bg-main{ flex: 1; min-width: 0; }
+    .bg-sidebar .sb-head{
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+      padding: 16px 16px 14px;
+      color: var(--md-primary); font-weight: 800; font-size: 16px;
+    }
+    .bg-sidebar .sb-head .brand-logo{ height: 22px; width: auto; display: block; }
+    [data-theme="dark"] .bg-sidebar .sb-head .brand-logo{ filter: brightness(1.2); }
+    .bg-sidebar .sb-menu{ padding: 6px 10px 10px; display: flex; flex-direction: column; gap: 2px; }
+    .bg-sidebar .sb-item{
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: 10px;
+      text-decoration: none; color: var(--md-on-surface);
+      transition: background .18s;
+    }
+    .bg-sidebar .sb-item:hover{ background: var(--md-surface-container-high); }
+    .bg-sidebar .sb-item.active{ background: var(--md-primary-container); }
+    .bg-sidebar .sb-item .ico{ width: 20px; height: 20px; color: var(--md-primary); flex-shrink: 0; }
+    .bg-sidebar .sb-item .ico svg{ width: 20px; height: 20px; stroke: currentColor; }
+    .bg-sidebar .sb-item > span:last-child{ display: flex; flex-direction: column; min-width: 0; }
+    .bg-sidebar .sb-item .txt{ font-size: 14px; font-weight: 600; }
+    .bg-sidebar .sb-item .sub{ font-size: 11px; color: var(--md-on-surface-variant); margin-top: 1px; }
+    .bg-sidebar .sb-foot{
+      margin-top: auto; padding: 12px 14px 18px;
+      font-size: 11px; color: var(--md-on-surface-variant); line-height: 1.8;
+      border-top: 1px solid var(--md-outline-variant);
+    }
+    .bg-sidebar .sb-foot a{ color: var(--md-primary); text-decoration: none; font-weight: 600; }
+    .bg-sidebar .sb-foot .links{ display: flex; gap: 12px; margin-bottom: 6px; }
+  }
+
   /* Pad / 桌面：双列卡片，隐藏时间线竖线与圆点 */
   @media (min-width: 700px){
     .wrap{ max-width: 860px; }
@@ -341,6 +386,56 @@
 </style>
 </head>
 <body>
+<div class="bg-shell">
+  <aside class="bg-sidebar" aria-label="站点导航">
+    <a class="sb-head" href="index.html" aria-label="返回首页">
+      <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      <span>艾米日签</span>
+    </a>
+    <nav class="sb-menu">
+      <a class="sb-item" href="index.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        <span><span class="txt">主页</span><span class="sub">每日动态简报</span></span>
+      </a>
+      <a class="sb-item" href="index.html#riqian">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+        <span><span class="txt">日签</span><span class="sub">艾米日签合集</span></span>
+      </a>
+      <a class="sb-item" href="xingcheng.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></span>
+        <span><span class="txt">行程活动</span></span>
+      </a>
+      <a class="sb-item" href="chanchu.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+        <span><span class="txt">产出汇总</span></span>
+      </a>
+      <a class="sb-item" href="interview.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></span>
+        <span><span class="txt">采访合集</span></span>
+      </a>
+      <a class="sb-item" href="brands.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+        <span><span class="txt">商务代言</span></span>
+      </a>
+      <a class="sb-item" href="aixin.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+        <span><span class="txt">艾心向善</span></span>
+      </a>
+      <a class="sb-item active" href="blog.html">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></span>
+        <span><span class="txt">站点日志</span><span class="sub">公告 · 更新动态</span></span>
+      </a>
+    </nav>
+    <div class="sb-foot">
+      <div class="links">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">微博</a>
+        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener">抖音</a>
+      </div>
+      © 艾米日签 · 每日动态简报
+    </div>
+  </aside>
+
+  <div class="bg-main">
 <div class="wrap">
 
   <header class="bg-topbar">
@@ -374,6 +469,8 @@
     <a href="index.html">返回首页</a>
   </footer>
 </div>
+  </div><!-- /bg-main -->
+</div><!-- /bg-shell -->
 
 <!-- 文章弹窗 -->
 <div class="bg-modal" id="bgModal" aria-hidden="true">
