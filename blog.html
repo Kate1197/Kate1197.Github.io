@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#9172CC">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-title" content="艾米日签">
+<meta name="application-name" content="艾米日签">
+<title>站点日志 · 艾米日签-动态简报</title>
+<meta name="description" content="艾米日签 · 站点日志 — 记录站点公告、功能更新、活动通知与临时维护，仅保留最近 30 天内容。">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kate1197.github.io/blog.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="艾米日签-动态简报">
+<meta property="og:title" content="站点日志 · 艾米日签-动态简报">
+<meta property="og:description" content="记录站点公告、功能更新、活动通知与临时维护，仅保留最近 30 天内容。">
+<meta property="og:url" content="https://kate1197.github.io/blog.html">
+
+<style>
+  :root{
+    --md-primary: #9172CC;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #E9DDFF;
+    --md-on-primary-container: #250460;
+    --md-surface: #FEF7FF;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F7F0FA;
+    --md-surface-container: #F2EBF5;
+    --md-surface-container-high: #ECE5EF;
+    --md-on-surface: #1D1B20;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-success: #2E7D32;
+    --md-warning: #ED6C02;
+    --md-warning-container: #FFF3E0;
+    --md-error: #B3261E;
+    --md-error-container: #FDECEA;
+    --md-radius-sm: 8px;
+    --md-radius-md: 12px;
+    --md-radius-lg: 16px;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 1px rgba(0,0,0,0.08);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.16), 0 2px 6px 2px rgba(0,0,0,0.10);
+  }
+  [data-theme="dark"]{
+    --md-surface: #141218;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-primary-container: #4A3A6B;
+    --md-on-primary-container: #E9DDFF;
+    --md-warning-container: #4A2F0A;
+    --md-error-container: #4A1F1C;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family: "MiSans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Roboto, system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+  }
+  .wrap{max-width: 720px; margin: 0 auto; padding: 0 0 60px;}
+
+  /* 顶栏 */
+  .bg-topbar{
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  [data-theme="dark"] .bg-topbar{ background: rgba(20,18,24,0.82); }
+  .bg-back{
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--md-surface-container-high); color: var(--md-on-surface);
+    text-decoration: none; border: none; cursor: pointer;
+  }
+  .bg-back svg{ width: 20px; height: 20px; stroke: currentColor; }
+  .bg-topbar-title{
+    flex: 1; min-width: 0;
+    font-size: 16px; font-weight: 700;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .bg-theme{
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    border: none; cursor: pointer;
+    background: var(--md-surface-container-high); color: var(--md-on-surface);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bg-theme svg{ width: 20px; height: 20px; stroke: currentColor; }
+  .bg-theme .sun{ display: none; }
+  [data-theme="dark"] .bg-theme .sun{ display: block; }
+  [data-theme="dark"] .bg-theme .moon{ display: none; }
+
+  /* 头部 */
+  .bg-hero{
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+    padding: 22px 16px 14px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .bg-hero-title{ font-size: 22px; font-weight: 800; letter-spacing: .5px; }
+  .bg-hero-sub{ font-size: 12px; color: var(--md-on-surface-variant); margin-top: 5px; }
+  .bg-hero-time{
+    font-size: 12px; font-weight: 600; color: var(--md-primary);
+    background: var(--md-primary-container); padding: 6px 12px; border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* 标签筛选 */
+  .bg-filter{
+    display: flex; gap: 8px; overflow-x: auto; padding: 14px 16px 6px;
+    scrollbar-width: none;
+  }
+  .bg-filter::-webkit-scrollbar{ display: none; }
+  .bg-chip{
+    flex-shrink: 0; border: 1px solid var(--md-outline-variant);
+    background: var(--md-surface-container-low);
+    color: var(--md-on-surface-variant);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer;
+    transition: background .15s, color .15s, border-color .15s;
+  }
+  .bg-chip.active{
+    background: var(--md-primary); border-color: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+
+  /* 时间线 */
+  .bg-timeline{ padding: 18px 16px 20px; position: relative; }
+  .bg-item{
+    position: relative; padding-left: 26px; padding-bottom: 20px;
+  }
+  .bg-item::before{
+    content: ""; position: absolute; left: 7px; top: 22px; bottom: -6px;
+    width: 2px; background: var(--md-outline-variant);
+  }
+  .bg-item:last-child::before{ display: none; }
+  .bg-dot{
+    position: absolute; left: 1px; top: 12px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--md-surface);
+    border: 3px solid var(--md-primary);
+    z-index: 1;
+  }
+  .bg-date{
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    font-size: 12px; font-weight: 700; color: var(--md-on-surface-variant);
+    padding: 4px 0 10px;
+  }
+  .bg-date .wd{ font-weight: 500; opacity: .8; }
+  .bg-pin{
+    font-size: 11px; font-weight: 700; color: var(--md-error);
+    background: var(--md-error-container); padding: 2px 8px; border-radius: 999px;
+  }
+  .bg-card{
+    background: var(--md-surface-container-lowest);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-md);
+    padding: 16px;
+    box-shadow: var(--md-elev-1);
+  }
+  [data-theme="dark"] .bg-card{ background: var(--md-surface-container); }
+  .bg-card-top{ display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+  .bg-tag{
+    font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .bg-title{ font-size: 16px; font-weight: 800; line-height: 1.45; }
+  .bg-summary{
+    margin-top: 6px; font-size: 13px; color: var(--md-on-surface-variant); line-height: 1.7;
+  }
+  .bg-cover{
+    display: block; width: 100%; margin-top: 12px; border-radius: var(--md-radius-sm);
+    border: 1px solid var(--md-outline-variant); object-fit: cover; max-height: 320px;
+  }
+
+  /* 内容模块 */
+  .bg-body{ margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+  .bg-body p{ font-size: 14px; line-height: 1.85; color: var(--md-on-surface); }
+  .bg-body .bg-h{ font-size: 15px; font-weight: 800; margin-top: 2px; }
+  .bg-body ul{ padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .bg-body li{ font-size: 14px; line-height: 1.75; }
+  .bg-hr{ border: none; border-top: 1px dashed var(--md-outline-variant); }
+  .bg-body blockquote{
+    position: relative; margin: 0; padding: 12px 14px 12px 16px;
+    border-left: 3px solid var(--md-primary);
+    background: var(--md-surface-container);
+    border-radius: 0 var(--md-radius-sm) var(--md-radius-sm) 0;
+    font-size: 13.5px; line-height: 1.8; color: var(--md-on-surface-variant);
+  }
+  .bg-body blockquote cite{
+    display: block; margin-top: 6px; font-size: 12px; font-style: normal;
+    color: var(--md-primary); font-weight: 700;
+  }
+  .bg-callout{
+    display: flex; gap: 10px; padding: 12px 14px; border-radius: var(--md-radius-sm);
+    border: 1px solid transparent; font-size: 13px; line-height: 1.75;
+  }
+  .bg-callout .ico{ flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; }
+  .bg-callout .ico svg{ width: 18px; height: 18px; stroke: currentColor; }
+  .bg-callout b{ display: block; margin-bottom: 2px; font-size: 13px; }
+  .bg-callout.tip{
+    background: var(--md-primary-container); color: var(--md-on-primary-container);
+    border-color: rgba(145,114,204,0.35);
+  }
+  .bg-callout.warn{
+    background: var(--md-warning-container); color: #7A3E00;
+    border-color: rgba(237,108,2,0.35);
+  }
+  [data-theme="dark"] .bg-callout.warn{ color: #FFDDB2; }
+  .bg-figure{ margin: 0; }
+  .bg-figure img{
+    width: 100%; border-radius: var(--md-radius-sm);
+    border: 1px solid var(--md-outline-variant); display: block;
+  }
+  .bg-figure figcaption{
+    margin-top: 6px; font-size: 12px; color: var(--md-on-surface-variant); text-align: center;
+  }
+  .bg-file{
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; text-decoration: none;
+    background: var(--md-surface-container);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-sm);
+    color: var(--md-on-surface);
+    transition: border-color .15s, transform .15s;
+  }
+  .bg-file:hover{ border-color: var(--md-primary); transform: translateY(-1px); }
+  .bg-file .ico{
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    background: var(--md-primary-container); color: var(--md-on-primary-container);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bg-file .ico svg{ width: 18px; height: 18px; stroke: currentColor; }
+  .bg-file .meta{ min-width: 0; flex: 1; }
+  .bg-file .name{ font-size: 13.5px; font-weight: 700; word-break: break-all; }
+  .bg-file .desc{ font-size: 12px; color: var(--md-on-surface-variant); margin-top: 2px; }
+  .bg-file .arrow{ flex-shrink: 0; color: var(--md-primary); font-size: 12px; font-weight: 700; }
+  .bg-actions{ display: flex; flex-wrap: wrap; gap: 10px; }
+  .bg-btn{
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 9px 18px; border-radius: 999px; font-size: 13px; font-weight: 700;
+    text-decoration: none; border: 1px solid transparent; cursor: pointer;
+    transition: opacity .15s, transform .15s;
+  }
+  .bg-btn:hover{ opacity: .88; transform: translateY(-1px); }
+  .bg-btn.primary{ background: var(--md-primary); color: var(--md-on-primary); }
+  .bg-btn.ghost{
+    background: transparent; color: var(--md-primary);
+    border-color: var(--md-primary);
+  }
+
+  .bg-empty{
+    margin: 26px 16px; padding: 38px 20px; text-align: center;
+    border: 1px dashed var(--md-outline-variant); border-radius: var(--md-radius-sm);
+    color: var(--md-on-surface-variant); font-size: 13.5px; line-height: 1.8;
+  }
+  .bg-empty .big{ font-size: 30px; display: block; margin-bottom: 10px; }
+
+  footer{
+    text-align: center; font-size: 12px; color: var(--md-on-surface-variant);
+    padding: 24px 20px 40px; line-height: 1.9;
+  }
+  footer a{ color: var(--md-primary); text-decoration: none; font-weight: 600; }
+
+  @media (min-width: 760px){
+    .bg-hero{ padding: 28px 24px 16px; }
+    .bg-filter{ padding: 16px 24px 6px; }
+    .bg-timeline{ padding: 22px 24px 28px; }
+    .bg-card{ padding: 20px 22px; }
+    .bg-title{ font-size: 18px; }
+    .bg-body p, .bg-body li{ font-size: 14.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="bg-topbar">
+    <a class="bg-back" href="index.html" aria-label="返回首页">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <div class="bg-topbar-title">站点日志</div>
+    <button class="bg-theme" id="bgTheme" aria-label="切换深色/浅色">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.42 1.42"/></svg>
+    </button>
+  </header>
+
+  <section class="bg-hero">
+    <div>
+      <div class="bg-hero-title">站点日志</div>
+      <div class="bg-hero-sub">站点公告 · 更新动态 · 仅保留最近 30 天</div>
+    </div>
+    <div class="bg-hero-time" id="bgUpdated">更新至 —</div>
+  </section>
+
+  <div class="bg-filter" id="bgFilter"></div>
+  <main class="bg-timeline" id="bgTimeline"></main>
+  <div class="bg-empty" id="bgEmpty" hidden>
+    <span class="big">🗒️</span>
+    最近 30 天暂无日志<br>有新公告时会显示在这里
+  </div>
+
+  <footer>
+    艾米日签 · 站点日志<br>
+    <a href="index.html">返回首页</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var DEFAULT_RETENTION = 30;
+  var data = { updatedAt: '', retentionDays: DEFAULT_RETENTION, tags: [], posts: [] };
+  var activeTag = '全部';
+
+  var WEEK = ['周日','周一','周二','周三','周四','周五','周六'];
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function inline(s){
+    var out = esc(s);
+    out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    out = out.replace(/\n/g, '<br>');
+    return out;
+  }
+  function normDate(str){
+    if(!str) return null;
+    var m = String(str).match(/(\d{4})[-\/.年](\d{1,2})[-\/.月](\d{1,2})/);
+    if(!m) return null;
+    var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function fmtDate(str){
+    var m = String(str || '').match(/(\d{4})[-\/.年](\d{1,2})[-\/.月](\d{1,2})(?:[ T](\d{1,2}):(\d{2}))?/);
+    if(!m) return { day: esc(str || ''), time: '' };
+    var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+    var day = (Number(m[2])) + '月' + (Number(m[3])) + '日';
+    var wd = isNaN(d.getTime()) ? '' : WEEK[d.getDay()];
+    var time = (m[4] !== undefined) ? (' ' + m[4] + ':' + m[5]) : '';
+    return { day: day + time, wd: wd };
+  }
+  function tagColor(name){
+    for(var i = 0; i < data.tags.length; i++){
+      if(data.tags[i] && data.tags[i].name === name) return data.tags[i].color || '#9172CC';
+    }
+    return '#9172CC';
+  }
+  function fileIcon(){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+  }
+  function calloutIcon(type){
+    if(type === 'warn'){
+      return '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+    }
+    return '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+  }
+
+  function renderBlock(b){
+    if(!b || !b.type) return '';
+    switch(b.type){
+      case 'heading':
+        return b.text ? '<div class="bg-h">' + inline(b.text) + '</div>' : '';
+      case 'text':
+        return b.text ? '<p>' + inline(b.text) + '</p>' : '';
+      case 'list':
+        if(!b.items || !b.items.length) return '';
+        return '<ul>' + b.items.filter(function(x){ return x; }).map(function(x){
+          return '<li>' + inline(x) + '</li>';
+        }).join('') + '</ul>';
+      case 'tip':
+      case 'warn':
+        if(!b.text && !b.title) return '';
+        return '<div class="bg-callout ' + (b.type === 'warn' ? 'warn' : 'tip') + '">'
+          + '<span class="ico">' + calloutIcon(b.type) + '</span>'
+          + '<div>' + (b.title ? '<b>' + esc(b.title) + '</b>' : '') + inline(b.text || '') + '</div>'
+          + '</div>';
+      case 'quote':
+        if(!b.text) return '';
+        return '<blockquote>' + inline(b.text) + (b.cite ? '<cite>— ' + esc(b.cite) + '</cite>' : '') + '</blockquote>';
+      case 'image':
+        if(!b.image) return '';
+        return '<figure class="bg-figure"><img src="' + esc(b.image) + '" alt="' + esc(b.caption || '') + '" loading="lazy">'
+          + (b.caption ? '<figcaption>' + esc(b.caption) + '</figcaption>' : '') + '</figure>';
+      case 'file':
+        if(!b.file) return '';
+        var fname = b.label || b.file.split('/').pop();
+        return '<a class="bg-file" href="' + esc(b.file) + '" target="_blank" rel="noopener" download>'
+          + '<span class="ico">' + fileIcon() + '</span>'
+          + '<span class="meta"><span class="name">' + esc(fname) + '</span>'
+          + (b.desc ? '<span class="desc">' + esc(b.desc) + '</span>' : '')
+          + '</span><span class="arrow">下载</span></a>';
+      case 'button':
+        if(!b.url) return '';
+        return '<div class="bg-actions"><a class="bg-btn ' + (b.style === 'ghost' ? 'ghost' : 'primary') + '" href="' + esc(b.url) + '">'
+          + esc(b.label || '查看') + '</a></div>';
+      case 'divider':
+        return '<hr class="bg-hr">';
+      default:
+        return b.text ? '<p>' + inline(b.text) + '</p>' : '';
+    }
+  }
+
+  function visiblePosts(){
+    var days = Number(data.retentionDays) || DEFAULT_RETENTION;
+    var cutoff = new Date();
+    cutoff.setHours(0,0,0,0);
+    cutoff.setDate(cutoff.getDate() - days);
+    var list = (data.posts || []).filter(function(p){
+      if(!p || p.archived) return false;
+      var d = normDate(p.date);
+      return d && d >= cutoff;
+    });
+    list.sort(function(a, b){
+      if(!!a.pinned !== !!b.pinned) return a.pinned ? -1 : 1;
+      var da = normDate(a.date), db = normDate(b.date);
+      return (db ? db.getTime() : 0) - (da ? da.getTime() : 0);
+    });
+    return list;
+  }
+
+  function renderFilter(){
+    var box = document.getElementById('bgFilter');
+    if(!box) return;
+    var names = ['全部'];
+    (data.tags || []).forEach(function(t){ if(t && t.name && names.indexOf(t.name) === -1) names.push(t.name); });
+    (data.posts || []).forEach(function(p){ if(p && p.tag && names.indexOf(p.tag) === -1) names.push(p.tag); });
+    box.innerHTML = names.map(function(n){
+      return '<button class="bg-chip' + (n === activeTag ? ' active' : '') + '" data-tag="' + esc(n) + '">' + esc(n) + '</button>';
+    }).join('');
+    Array.prototype.forEach.call(box.querySelectorAll('.bg-chip'), function(btn){
+      btn.addEventListener('click', function(){
+        activeTag = btn.getAttribute('data-tag') || '全部';
+        renderFilter();
+        renderList();
+      });
+    });
+  }
+
+  function renderList(){
+    var listEl = document.getElementById('bgTimeline');
+    var emptyEl = document.getElementById('bgEmpty');
+    var posts = visiblePosts().filter(function(p){
+      return activeTag === '全部' || p.tag === activeTag;
+    });
+    if(!posts.length){
+      listEl.innerHTML = '';
+      if(emptyEl) emptyEl.hidden = false;
+      return;
+    }
+    if(emptyEl) emptyEl.hidden = true;
+    listEl.innerHTML = posts.map(function(p){
+      var d = fmtDate(p.date);
+      var color = tagColor(p.tag);
+      var blocks = (p.blocks || []).map(renderBlock).join('');
+      var cover = p.cover ? '<img class="bg-cover" src="' + esc(p.cover) + '" alt="' + esc(p.title || '') + '" loading="lazy">' : '';
+      return '<article class="bg-item">'
+        + '<span class="bg-dot"></span>'
+        + '<div class="bg-date">' + esc(d.day) + (d.wd ? '<span class="wd">' + d.wd + '</span>' : '')
+        + (p.pinned ? '<span class="bg-pin">置顶</span>' : '') + '</div>'
+        + '<div class="bg-card">'
+        + '<div class="bg-card-top">'
+        + (p.tag ? '<span class="bg-tag" style="color:' + esc(color) + ';border-color:' + esc(color) + '33;background:' + esc(color) + '1a;">' + esc(p.tag) + '</span>' : '')
+        + '</div>'
+        + '<div class="bg-title">' + esc(p.title || '') + '</div>'
+        + (p.summary ? '<div class="bg-summary">' + inline(p.summary) + '</div>' : '')
+        + cover
+        + (blocks ? '<div class="bg-body">' + blocks + '</div>' : '')
+        + '</div>'
+        + '</article>';
+    }).join('');
+  }
+
+  function apply(json){
+    if(!json) return;
+    data.updatedAt = json.updatedAt || data.updatedAt;
+    data.retentionDays = json.retentionDays || data.retentionDays;
+    data.tags = Array.isArray(json.tags) ? json.tags : [];
+    data.posts = Array.isArray(json.posts) ? json.posts : [];
+    var upd = document.getElementById('bgUpdated');
+    if(upd) upd.textContent = '更新至 ' + (data.updatedAt || '—');
+    renderFilter();
+    renderList();
+  }
+
+  // 主题
+  var html = document.documentElement;
+  if(localStorage.getItem('ami-theme') === 'dark') html.setAttribute('data-theme', 'dark');
+  var themeBtn = document.getElementById('bgTheme');
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var dark = html.getAttribute('data-theme') === 'dark';
+      if(dark){ html.removeAttribute('data-theme'); localStorage.setItem('ami-theme', 'light'); }
+      else { html.setAttribute('data-theme', 'dark'); localStorage.setItem('ami-theme', 'dark'); }
+    });
+  }
+
+  renderFilter();
+  renderList();
+  fetch('data/blog.json?v=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(apply)
+    .catch(function(){ /* 保留空状态 */ });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

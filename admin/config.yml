@@ -410,3 +410,75 @@ collections:
               - { name: meta, label: 元信息, widget: text, required: false, hint: "可用 <b>...</b>、<br>" }
               - { name: desc, label: 内容, widget: text, required: false }
               - { name: link, label: 原贴链接, widget: string, required: false }
+
+
+      - name: blog
+        label: 站点日志
+        file: data/blog.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - { name: retentionDays, label: 页面保留天数, widget: number, default: 30, hint: "前台只展示最近 N 天的文章，更早的自动隐藏（数据不删除）" }
+          - name: tags
+            label: 类型标签
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "在这里维护标签（名称 + 颜色）；文章里的「标签」请填写这里的名称，前台会自动上色"
+            fields:
+              - { name: name, label: 标签名称, widget: string }
+              - { name: color, label: 标签颜色, widget: color, default: "#9172CC" }
+          - name: posts
+            label: 文章列表
+            widget: list
+            summary: "{{fields.date}} · {{fields.title}}"
+            hint: "按日期从新到旧排；勾选「置顶」会排在时间线最前。删除请点单条右侧删除按钮（Decap 列表暂不支持勾选多条删除）"
+            fields:
+              - { name: date, label: 发布时间, widget: string, hint: "格式 YYYY-MM-DD HH:mm，例如 2026-11-11 10:30" }
+              - { name: title, label: 标题, widget: string }
+              - { name: tag, label: 标签, widget: string, hint: "填写上方「类型标签」里的名称，例如：公告" }
+              - { name: pinned, label: 置顶, widget: boolean, default: false }
+              - { name: archived, label: 归档隐藏, widget: boolean, default: false, hint: "打开后前台不展示，相当于批量隐藏的替代方案" }
+              - { name: summary, label: 摘要, widget: text, required: false, hint: "显示在标题下方，可留空" }
+              - { name: cover, label: 封面图, widget: image, allow_multiple: false, required: false }
+              - name: blocks
+                label: 正文模块
+                widget: list
+                summary: "{{fields.type}}"
+                hint: "按顺序添加模块。type 选择后只需填对应字段：正文→text；小标题→text；列表→items；提示/警告→title+text；引用→text+cite；图片→image+caption；文件→file+label+desc；按钮→label+url+style；分割线无需填写。可上下拖动排序"
+                fields:
+                  - name: type
+                    label: 模块类型
+                    widget: select
+                    options:
+                      - { label: "正文", value: "text" }
+                      - { label: "小标题", value: "heading" }
+                      - { label: "列表", value: "list" }
+                      - { label: "提示", value: "tip" }
+                      - { label: "警告", value: "warn" }
+                      - { label: "引用", value: "quote" }
+                      - { label: "图片", value: "image" }
+                      - { label: "文件下载", value: "file" }
+                      - { label: "按钮", value: "button" }
+                      - { label: "分割线", value: "divider" }
+                  - { name: text, label: "正文 / 内容", widget: text, required: false, hint: "支持 **加粗** 与 [文字](链接)，换行会保留" }
+                  - { name: title, label: "提示标题", widget: string, required: false, hint: "仅提示 / 警告模块使用" }
+                  - name: items
+                    label: 列表项
+                    widget: list
+                    required: false
+                    field: { name: item, label: 内容, widget: string }
+                    hint: "仅「列表」模块使用"
+                  - { name: image, label: 图片, widget: image, allow_multiple: false, required: false, hint: "仅「图片」模块使用" }
+                  - { name: caption, label: 图片说明, widget: string, required: false }
+                  - { name: file, label: 附件文件, widget: file, required: false, hint: "仅「文件下载」模块使用，可上传 PDF / 图片 / 压缩包等" }
+                  - { name: label, label: "文件名称 / 按钮文字", widget: string, required: false }
+                  - { name: desc, label: 文件说明, widget: string, required: false }
+                  - { name: url, label: 按钮链接, widget: string, required: false, hint: "可填站内页面（如 xingcheng.html）或完整网址" }
+                  - name: style
+                    label: 按钮样式
+                    widget: select
+                    required: false
+                    default: primary
+                    options:
+                      - { label: "实心", value: "primary" }
+                      - { label: "描边", value: "ghost" }
+                  - { name: cite, label: 引用来源, widget: string, required: false }
