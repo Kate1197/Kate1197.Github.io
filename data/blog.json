@@ -2,10 +2,22 @@
   "updatedAt": "2026-11-11 10:30:00",
   "retentionDays": 30,
   "tags": [
-    { "name": "公告", "color": "#9172CC" },
-    { "name": "更新", "color": "#4C8BF5" },
-    { "name": "活动", "color": "#ED6C02" },
-    { "name": "维护", "color": "#B3261E" }
+    {
+      "name": "公告",
+      "color": "#9172CC"
+    },
+    {
+      "name": "更新",
+      "color": "#4C8BF5"
+    },
+    {
+      "name": "活动",
+      "color": "#ED6C02"
+    },
+    {
+      "name": "维护",
+      "color": "#B3261E"
+    }
   ],
   "posts": [
     {
@@ -20,7 +32,10 @@
           "type": "text",
           "text": "为了方便大家第一时间了解站点变化，新增了「站点日志」页面。以后的功能更新、临时维护、活动通知都会发在这里。"
         },
-        { "type": "heading", "text": "这次更新了什么" },
+        {
+          "type": "heading",
+          "text": "这次更新了什么"
+        },
         {
           "type": "list",
           "items": [
@@ -35,14 +50,23 @@
           "title": "使用提示",
           "text": "日志仅保留最近 **30 天**，更早的内容会自动从页面隐藏（数据不会被删除）。"
         },
-        { "type": "divider" },
+        {
+          "type": "divider"
+        },
         {
           "type": "quote",
           "text": "如果你有想加的板块或模块样式，可以在微博或消息盒子反馈。",
           "cite": "艾米日签"
         },
-        { "type": "button", "label": "返回首页看看推荐", "url": "index.html", "style": "primary" }
-      ]
+        {
+          "type": "button",
+          "label": "返回首页看看推荐",
+          "url": "index.html",
+          "style": "primary"
+        }
+      ],
+      "showCover": false,
+      "cover": ""
     },
     {
       "date": "2026-11-10 21:00",
@@ -52,7 +76,10 @@
       "archived": false,
       "summary": "Android / iOS 均可把站点添加到主屏幕，全屏打开、支持离线访问最近内容。",
       "blocks": [
-        { "type": "text", "text": "站点已支持 PWA，可以像 App 一样添加到手机桌面。" },
+        {
+          "type": "text",
+          "text": "站点已支持 PWA，可以像 App 一样添加到手机桌面。"
+        },
         {
           "type": "list",
           "items": [
@@ -65,8 +92,15 @@
           "title": "注意",
           "text": "首次访问后建议刷新一次，让离线缓存生效；iOS 推送需要 16.4 以上系统，并从主屏幕打开。"
         },
-        { "type": "button", "label": "查看行程活动", "url": "xingcheng.html", "style": "ghost" }
-      ]
+        {
+          "type": "button",
+          "label": "查看行程活动",
+          "url": "xingcheng.html",
+          "style": "ghost"
+        }
+      ],
+      "showCover": false,
+      "cover": ""
     }
   ]
 }

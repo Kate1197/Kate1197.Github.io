@@ -439,6 +439,7 @@ collections:
               - { name: archived, label: 归档隐藏, widget: boolean, default: false, hint: "打开后前台不展示，相当于批量隐藏的替代方案" }
               - { name: summary, label: 摘要, widget: text, required: false, hint: "显示在标题下方，可留空" }
               - { name: cover, label: 封面图, widget: image, allow_multiple: false, required: false }
+              - { name: showCover, label: 显示封面图, widget: boolean, default: false, hint: "打开后列表卡片和文章弹窗都会显示封面（请同时上传封面图）" }
               - name: blocks
                 label: 正文模块
                 widget: list
