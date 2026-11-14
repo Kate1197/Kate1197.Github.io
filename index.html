@@ -775,48 +775,32 @@
     100% { transform: translateY(-80px) scale(0.6); opacity: 0; }
   }
 
-  /* Tab 导航 - Win11 独立大圆角按钮组（无外框） */
+  /* Tab 导航 - 经典下划线样式（保留 Fluent 图标） */
   .tab-nav{
-    display:flex; gap:8px;
-    margin:10px 12px 0;
-    padding:0;
-    justify-content: space-between; align-items: stretch;
-    position:sticky; top:calc(6px + env(safe-area-inset-top, 0px)); z-index:5;
-    background: transparent; border:none; box-shadow:none;
+    display:flex; gap:0;
+    margin:0;
+    padding:12px 16px 0;
+    align-items: stretch;
+    position:sticky; top:0; z-index:50;
+    background: var(--md-surface-container-lowest);
+    border-bottom: 1px solid var(--md-outline-variant);
   }
   .tab-btn{
-    flex:1 1 0; min-width:0; min-height:44px;
-    padding:10px 14px; border:1px solid rgba(0,0,0,0.07);
+    flex:1 1 0; min-width:0;
+    padding:10px 8px;
+    border:none; border-bottom:2px solid transparent;
     cursor:pointer; touch-action:manipulation;
-    background: rgba(255,255,255,0.72);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    backdrop-filter: blur(30px) saturate(180%);
+    background: transparent;
     color: var(--md-on-surface-variant);
-    font-size:14px; font-weight:500;
-    border-radius: 16px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.70), 0 2px 6px rgba(0,0,0,0.05);
-    transition: background .18s, color .18s, box-shadow .18s, border-color .18s;
+    font-size:14px; font-weight:600;
+    transition: color .2s, border-color .2s, background .2s;
     display:flex; align-items:center; justify-content:center; gap:6px;
   }
-  .tab-btn:hover{ background: rgba(255,255,255,0.88); }
+  .tab-btn:hover{ color: var(--md-on-surface); background: var(--md-surface-container-low); }
   .tab-btn.active{
     color: var(--md-primary);
-    background: rgba(233,221,255,0.92);
-    border-color: rgba(145,114,204,0.45);
+    border-bottom-color: var(--md-primary);
     font-weight:700;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.75), 0 3px 10px rgba(145,114,204,0.18);
-  }
-  [data-theme="dark"] .tab-btn{
-    background: rgba(48,44,56,0.72);
-    border-color: rgba(255,255,255,0.09);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 8px rgba(0,0,0,0.35);
-  }
-  [data-theme="dark"] .tab-btn:hover{ background: rgba(58,54,66,0.85); }
-  [data-theme="dark"] .tab-btn.active{
-    background: rgba(74,58,107,0.85);
-    border-color: rgba(179,157,219,0.45);
-    color: #D1C4E9;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 12px rgba(0,0,0,0.40);
   }
   .tab-btn svg{ width:16px; height:16px; }
   .tab-pane{ display:none; }
@@ -1359,7 +1343,7 @@
     .card{padding: 24px;}
     .card-title{font-size: 18px;}
     .card li{font-size: 14.5px; line-height: 1.65;}
-    .tab-nav{margin: 12px 16px 0;}
+    .tab-nav{padding: 12px 20px 0;}
     .tab-btn{font-size: 16px; padding: 12px 16px;}
     .tab-btn svg{width: 18px; height: 18px;}
     .filter-section{padding: 14px 20px;}
@@ -1399,7 +1383,7 @@
     .card-title{font-size: 19px;}
     .card li{font-size: 15px; line-height: 1.7;}
     .card:hover{box-shadow: var(--md-elev-3); transform: translateY(-1px); transition: all .25s;}
-    .tab-nav{margin: 14px 20px 0;}
+    .tab-nav{padding: 14px 24px 0;}
     .tab-btn{font-size: 17px; padding: 12px 20px;}
     .fab{width: 64px; height: 64px; right: 32px; bottom: 32px; font-size: 28px;}
     .fab:hover{transform: scale(1.08); transition: transform .2s;}
@@ -1437,7 +1421,7 @@
     .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 8px;}
     .stat-card{padding: 10px;}
     .stat-card .value{font-size: 18px;}
-    .tab-nav{margin: 8px 12px 0;}
+    .tab-nav{padding: 10px 12px 0;}
     .tab-btn{padding: 6px 10px; font-size: 13px;}
   }
 
