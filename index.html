@@ -1859,6 +1859,20 @@
   .rec-sec-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
   .rec-sec-title{ display:flex; align-items:center; gap:8px; font-size:16px; font-weight:800; color:var(--md-on-surface); }
   .rec-dot{ width:7px; height:16px; border-radius:4px; background:var(--md-primary); display:inline-block; }
+  .rec-head-tools{ display:flex; align-items:center; gap:8px; flex-shrink:0; }
+  .rec-nav{ display:flex; gap:4px; }
+  .rec-nav-btn{
+    width:30px; height:30px; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--md-outline-variant); border-radius:9px;
+    background:var(--md-surface-container-lowest); color:var(--md-on-surface-variant);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s, opacity .15s;
+  }
+  .rec-nav-btn svg{ width:16px; height:16px; display:block; }
+  .rec-nav-btn:hover:not(:disabled){ color:var(--md-primary); border-color:var(--md-primary); background:var(--md-surface-container-low); }
+  .rec-nav-btn:active:not(:disabled){ transform:scale(.94); }
+  .rec-nav-btn:disabled{ opacity:.32; cursor:default; }
   .rec-more{ font-size:12px; color:var(--md-primary); text-decoration:none; font-weight:600; white-space:nowrap; padding:4px 2px; }
   .rec-list{ display:flex; flex-direction:column; gap:10px; }
   .rec-item{
@@ -1867,6 +1881,25 @@
     transition:transform .15s, border-color .15s;
   }
   .rec-item:hover{ transform:translateY(-1px); border-color:var(--md-primary); }
+  /* 纵向卡片：左侧封面缩略图 + 右侧文字，有图用图，无图用板块色占位 */
+  .rec-item.has-cover{ display:flex; gap:12px; align-items:flex-start; }
+  .rec-item-body{ min-width:0; flex:1; }
+  .rec-thumb-box{
+    position:relative; flex-shrink:0; overflow:hidden;
+    width:92px; height:76px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,.94);
+  }
+  .rec-thumb-box::after{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(120% 100% at 16% 0%, rgba(255,255,255,.34), rgba(255,255,255,0) 58%);
+  }
+  .rec-thumb-box svg{
+    position:relative; z-index:1; width:22px; height:22px;
+    fill:none; stroke:currentColor; stroke-width:1.8;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  .rec-thumb{ position:absolute; inset:0; z-index:2; width:100%; height:100%; object-fit:cover; display:block; }
   .rec-item-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
   .rec-tag{
     font-size:11px; font-weight:700; color:var(--md-on-primary);
@@ -1883,25 +1916,52 @@
   }
   .rec-meta{ font-size:11.5px; color:var(--md-on-surface-variant); opacity:.9; margin-top:6px; display:flex; gap:10px; flex-wrap:wrap; }
   .rec-scroll{
-    display:flex; gap:10px; overflow-x:auto; padding-bottom:6px;
+    display:flex; gap:10px; overflow-x:auto; padding:2px 2px 6px;
     scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
   }
   .rec-scroll::-webkit-scrollbar{ display:none; }
   .rec-card{
-    flex:0 0 78%; max-width:300px; scroll-snap-align:start;
+    flex:0 0 80%; max-width:320px; scroll-snap-align:start;
     background:var(--md-surface-container-low); border:1px solid var(--md-outline-variant);
-    border-radius:14px; padding:12px 14px; text-decoration:none; color:inherit;
-    display:flex; flex-direction:column; gap:6px; min-height:132px;
+    border-radius:16px; text-decoration:none; color:inherit;
+    display:flex; flex-direction:column; overflow:hidden; min-height:132px;
+    transition:transform .15s, border-color .15s, box-shadow .15s;
   }
-  .rec-card:hover{ border-color:var(--md-primary); }
+  .rec-card:hover{ transform:translateY(-1px); border-color:var(--md-primary); box-shadow:0 6px 18px rgba(0,0,0,.07); }
   .rec-card .rec-title{ font-size:14px; }
+  .rec-card-body{ padding:12px 14px; display:flex; flex-direction:column; gap:6px; flex:1; }
   .rec-date{ margin-left:auto; font-size:11px; color:var(--md-on-surface-variant); }
+  /* 卡片封面：有图时铺满，无图/加载失败时显示板块色渐变占位 */
+  .rec-cover-box{ position:relative; height:104px; flex-shrink:0; background:var(--md-surface-container); overflow:hidden; }
+  .rec-cover{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .rec-cover-ph{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,.94);
+  }
+  .rec-cover-ph::after{
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(120% 100% at 16% 0%, rgba(255,255,255,.34), rgba(255,255,255,0) 58%);
+  }
+  .rec-cover-ph svg{
+    position:relative; z-index:1; width:26px; height:26px;
+    fill:none; stroke:currentColor; stroke-width:1.8;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+  .rec-cover-ph.k-event, .rec-thumb-box.k-event{ background:linear-gradient(135deg,#7C8DFF,#A98BFF); }
+  .rec-cover-ph.k-riqian, .rec-thumb-box.k-riqian{ background:linear-gradient(135deg,#B08BFF,#9172CC); }
+  .rec-cover-ph.k-chanchu, .rec-thumb-box.k-chanchu{ background:linear-gradient(135deg,#FF9FB2,#FFB47A); }
+  .rec-cover-ph.k-interview, .rec-thumb-box.k-interview{ background:linear-gradient(135deg,#6FD3D8,#4FA8E8); }
+  .rec-cover-ph.k-brand, .rec-thumb-box.k-brand{ background:linear-gradient(135deg,#E7C56B,#D79A4E); }
+  .rec-cover-ph.k-blog, .rec-thumb-box.k-blog{ background:linear-gradient(135deg,#7FD4A3,#4FB98B); }
+  .rec-scroll .rec-empty{ flex:1 0 100%; }
   .rec-empty{
     font-size:12.5px; color:var(--md-on-surface-variant); padding:14px;
     border:1px dashed var(--md-outline-variant); border-radius:12px; text-align:center;
   }
   @media (min-width:768px){
-    .rec-card{ flex-basis:46%; }
+    .rec-card{ flex-basis:calc(50% - 5px); max-width:none; }
+    .rec-cover-box{ height:128px; }
   }
 
   /* Pad / 桌面：Tab 栏默认透明，吸顶后渐显不透明底色 */
@@ -2175,7 +2235,13 @@
     <section class="rec-sec" id="recInterviewSec">
       <div class="rec-sec-head">
         <div class="rec-sec-title"><span class="rec-dot"></span>采访合集</div>
-        <a class="rec-more" href="interview.html">全部 ›</a>
+        <div class="rec-head-tools">
+          <div class="rec-nav" data-for="recInterviewList">
+            <button class="rec-nav-btn" type="button" data-dir="-1" aria-label="向左翻页"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="rec-nav-btn" type="button" data-dir="1" aria-label="向右翻页"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+          <a class="rec-more" href="interview.html">全部 ›</a>
+        </div>
       </div>
       <div class="rec-scroll" id="recInterviewList"></div>
     </section>
@@ -2184,7 +2250,13 @@
     <section class="rec-sec" id="recBrandSec">
       <div class="rec-sec-head">
         <div class="rec-sec-title"><span class="rec-dot"></span>商务合集</div>
-        <a class="rec-more" href="brands.html">全部 ›</a>
+        <div class="rec-head-tools">
+          <div class="rec-nav" data-for="recBrandList">
+            <button class="rec-nav-btn" type="button" data-dir="-1" aria-label="向左翻页"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="rec-nav-btn" type="button" data-dir="1" aria-label="向右翻页"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+          <a class="rec-more" href="brands.html">全部 ›</a>
+        </div>
       </div>
       <div class="rec-scroll" id="recBrandList"></div>
     </section>
@@ -3769,6 +3841,62 @@
     var el = document.getElementById(id);
     if(el) el.hidden = !show;
   }
+  // 推荐板块：封面占位图标（按板块区分配色）
+  var REC_ICONS = {
+    event:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    riqian:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+    chanchu:'<svg viewBox="0 0 24 24"><path d="M12 3l2.2 5.1L19 10l-4.8 1.9L12 17l-2.2-5.1L5 10l4.8-1.9z"/></svg>',
+    interview:'<svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg>',
+    brand:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>',
+    blog:'<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>'
+  };
+  // 横向大卡片顶部封面
+  function recCoverBox(kind, src, alt){
+    var ph = '<div class="rec-cover-ph k-' + kind + '">' + (REC_ICONS[kind] || '') + '</div>';
+    if(!src) return '<div class="rec-cover-box">' + ph + '</div>';
+    return '<div class="rec-cover-box">' + ph +
+      '<img class="rec-cover" src="' + escHtml(src) + '" alt="' + escHtml(alt || '') + '" loading="lazy" onerror="this.remove()">' +
+    '</div>';
+  }
+  // 纵向卡片左侧缩略图
+  function recThumb(kind, src, alt){
+    var inner = src
+      ? '<img class="rec-thumb" src="' + escHtml(src) + '" alt="' + escHtml(alt || '') + '" loading="lazy" onerror="this.remove()">'
+      : '';
+    return '<div class="rec-thumb-box k-' + kind + '">' + (REC_ICONS[kind] || '') + inner + '</div>';
+  }
+  // 横向板块：左右翻页按钮
+  (function(){
+    var navs = document.querySelectorAll('.rec-nav');
+    function setup(nav){
+      var box = document.getElementById(nav.getAttribute('data-for'));
+      if(!box) return;
+      var prev = nav.querySelector('[data-dir="-1"]');
+      var next = nav.querySelector('[data-dir="1"]');
+      function cardStep(){
+        var card = box.querySelector('.rec-card');
+        return card ? card.getBoundingClientRect().width + 10 : box.clientWidth * 0.8;
+      }
+      function sync(){
+        var max = Math.max(0, box.scrollWidth - box.clientWidth);
+        if(prev) prev.disabled = box.scrollLeft <= 2;
+        if(next) next.disabled = box.scrollLeft >= max - 2;
+      }
+      nav.addEventListener('click', function(ev){
+        var btn = ev.target.closest ? ev.target.closest('[data-dir]') : null;
+        if(!btn) return;
+        box.scrollBy({ left: cardStep() * Number(btn.getAttribute('data-dir')), behavior: 'smooth' });
+      });
+      box.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      nav.__sync = sync;
+      sync();
+    }
+    Array.prototype.forEach.call(navs, setup);
+    window.__syncRecNav = function(){
+      Array.prototype.forEach.call(navs, function(n){ if(n.__sync) n.__sync(); });
+    };
+  })();
   function renderRec(d){
     d = d || {};
     var today = todayStart();
@@ -3784,14 +3912,18 @@
         var gap = dayGap(x.d, today);
         var cd = gap === 0 ? '进行中' : (gap === 1 ? '明天' : '还有 ' + gap + ' 天');
         var e = x.e;
-        return '<a class="rec-item" href="' + escHtml(e.link || 'xingcheng.html') + '"' + (e.link ? ' target="_blank" rel="noopener"' : '') + '>' +
-          '<div class="rec-item-top">' +
-            (e.type ? '<span class="rec-tag">' + escHtml(e.type) + '</span>' : '') +
-            '<span class="rec-count">' + escHtml(cd) + '</span>' +
+        var cover = (e.showCover && e.cover) ? e.cover : '';
+        return '<a class="rec-item has-cover" href="' + escHtml(e.link || 'xingcheng.html') + '"' + (e.link ? ' target="_blank" rel="noopener"' : '') + '>' +
+          recThumb('event', cover, e.title) +
+          '<div class="rec-item-body">' +
+            '<div class="rec-item-top">' +
+              (e.type ? '<span class="rec-tag">' + escHtml(e.type) + '</span>' : '') +
+              '<span class="rec-count">' + escHtml(cd) + '</span>' +
+            '</div>' +
+            '<div class="rec-title">' + escHtml(e.title || '') + '</div>' +
+            '<div class="rec-meta"><span>' + escHtml(e.date || '') + (e.time ? ' · ' + escHtml(e.time) : '') + '</span>' +
+              (e.location ? '<span>' + escHtml(e.location) + '</span>' : '') + '</div>' +
           '</div>' +
-          '<div class="rec-title">' + escHtml(e.title || '') + '</div>' +
-          '<div class="rec-meta"><span>' + escHtml(e.date || '') + (e.time ? ' · ' + escHtml(e.time) : '') + '</span>' +
-            (e.location ? '<span>' + escHtml(e.location) + '</span>' : '') + '</div>' +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.event) + '</div>';
     }
@@ -3804,10 +3936,13 @@
     if(rqEl){
       rqEl.innerHTML = rq.map(function(it){
         var cap = (it.caption || '').replace(/\n/g, ' ');
-        return '<a class="rec-item" href="index.html#riqian">' +
-          '<div class="rec-item-top"><span class="rec-tag">' + escHtml(it.date || '') + '</span></div>' +
-          '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
-          '<div class="rec-desc">' + escHtml(cap) + '</div>' +
+        return '<a class="rec-item has-cover" href="index.html#riqian">' +
+          recThumb('riqian', it.img || '', it.title) +
+          '<div class="rec-item-body">' +
+            '<div class="rec-item-top"><span class="rec-tag">' + escHtml(it.date || '') + '</span></div>' +
+            '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
+            '<div class="rec-desc">' + escHtml(cap) + '</div>' +
+          '</div>' +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.riqian) + '</div>';
     }
@@ -3820,11 +3955,14 @@
     var cc = entries[0];
     var ccEl = document.getElementById('recChanchuList');
     if(ccEl){
-      ccEl.innerHTML = cc ? ('<a class="rec-item" href="chanchu.html">' +
-        '<div class="rec-item-top"><span class="rec-tag">' + escHtml(cc.date || '') + '</span>' +
-          (cc.count ? '<span class="rec-count">' + escHtml(cc.count) + '</span>' : '') + '</div>' +
-        '<div class="rec-title">' + escHtml(cc.title || '') + '</div>' +
-        '<div class="rec-desc">' + escHtml((cc.text || '').replace(/\n/g, ' ')) + '</div>' +
+      ccEl.innerHTML = cc ? ('<a class="rec-item has-cover" href="chanchu.html">' +
+        recThumb('chanchu', cc.cover || '', cc.title) +
+        '<div class="rec-item-body">' +
+          '<div class="rec-item-top"><span class="rec-tag">' + escHtml(cc.date || '') + '</span>' +
+            (cc.count ? '<span class="rec-count">' + escHtml(cc.count) + '</span>' : '') + '</div>' +
+          '<div class="rec-title">' + escHtml(cc.title || '') + '</div>' +
+          '<div class="rec-desc">' + escHtml((cc.text || '').replace(/\n/g, ' ')) + '</div>' +
+        '</div>' +
       '</a>') : '<div class="rec-empty">' + escHtml(siteText.rec.empty.chanchu) + '</div>';
     }
     showSec('recChanchuSec', !!cc);
@@ -3836,11 +3974,15 @@
     var ivEl = document.getElementById('recInterviewList');
     if(ivEl){
       ivEl.innerHTML = ivs.map(function(it){
+        var cover = (it.showCover && it.cover) ? it.cover : '';
         return '<a class="rec-card" href="' + escHtml(it.link || 'interview.html') + '"' + (it.link ? ' target="_blank" rel="noopener"' : '') + '>' +
-          '<div class="rec-item-top">' + (it.category ? '<span class="rec-tag">' + escHtml(it.category) + '</span>' : '') +
-            '<span class="rec-date">' + escHtml(it.date || '') + '</span></div>' +
-          '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
-          '<div class="rec-desc">' + escHtml(it.summary || '') + '</div>' +
+          recCoverBox('interview', cover, it.title) +
+          '<div class="rec-card-body">' +
+            '<div class="rec-item-top">' + (it.category ? '<span class="rec-tag">' + escHtml(it.category) + '</span>' : '') +
+              '<span class="rec-date">' + escHtml(it.date || '') + '</span></div>' +
+            '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
+            '<div class="rec-desc">' + escHtml(it.summary || '') + '</div>' +
+          '</div>' +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.interview) + '</div>';
     }
@@ -3852,10 +3994,13 @@
     if(bEl){
       bEl.innerHTML = bs.map(function(b){
         return '<a class="rec-card" href="' + escHtml(b.link || 'brands.html') + '"' + (b.link ? ' target="_blank" rel="noopener"' : '') + '>' +
-          '<div class="rec-item-top">' + (b.category ? '<span class="rec-tag">' + escHtml(b.category) + '</span>' : '') +
-            (b.status ? '<span class="rec-count">' + escHtml(b.status) + '</span>' : '') + '</div>' +
-          '<div class="rec-title">' + escHtml(b.name || '') + (b.role ? ' · ' + escHtml(b.role) : '') + '</div>' +
-          '<div class="rec-desc">' + escHtml(b.desc || '') + '</div>' +
+          recCoverBox('brand', b.logo || '', b.name) +
+          '<div class="rec-card-body">' +
+            '<div class="rec-item-top">' + (b.category ? '<span class="rec-tag">' + escHtml(b.category) + '</span>' : '') +
+              (b.status ? '<span class="rec-count">' + escHtml(b.status) + '</span>' : '') + '</div>' +
+            '<div class="rec-title">' + escHtml(b.name || '') + (b.role ? ' · ' + escHtml(b.role) : '') + '</div>' +
+            '<div class="rec-desc">' + escHtml(b.desc || '') + '</div>' +
+          '</div>' +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.brand) + '</div>';
     }
@@ -3876,15 +4021,20 @@
     var blEl = document.getElementById('recBlogList');
     if(blEl){
       blEl.innerHTML = bposts.map(function(p){
-        return '<a class="rec-item" href="blog.html">' +
-          '<div class="rec-item-top">' + (p.tag ? '<span class="rec-tag">' + escHtml(p.tag) + '</span>' : '') +
-            '<span class="rec-count">' + escHtml(p.date || '') + '</span></div>' +
-          '<div class="rec-title">' + escHtml(p.title || '') + '</div>' +
-          (p.summary ? '<div class="rec-desc">' + escHtml(String(p.summary).replace(/\n/g, ' ')) + '</div>' : '') +
+        var cover = (p.showCover && p.cover) ? p.cover : '';
+        return '<a class="rec-item has-cover" href="blog.html">' +
+          recThumb('blog', cover, p.title) +
+          '<div class="rec-item-body">' +
+            '<div class="rec-item-top">' + (p.tag ? '<span class="rec-tag">' + escHtml(p.tag) + '</span>' : '') +
+              '<span class="rec-count">' + escHtml(p.date || '') + '</span></div>' +
+            '<div class="rec-title">' + escHtml(p.title || '') + '</div>' +
+            (p.summary ? '<div class="rec-desc">' + escHtml(String(p.summary).replace(/\n/g, ' ')) + '</div>' : '') +
+          '</div>' +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.blog) + '</div>';
     }
     showSec('recBlogSec', bposts.length > 0);
+    if(window.__syncRecNav) window.__syncRecNav();
   }
 
   // ===== 待播 =====

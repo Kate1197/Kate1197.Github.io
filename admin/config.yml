@@ -205,6 +205,7 @@ collections:
               - { name: text, label: 正文, widget: text }
               - { name: link, label: 原帖链接, widget: string, required: false }
               - { name: count, label: 归档标签, widget: string, required: false, hint: "例如：饭修归档 · 261108" }
+              - { name: cover, label: 封面图, widget: image, allow_multiple: false, required: false, hint: "可选，首页推荐卡片会显示；建议 16:9 横图" }
 
       - name: pending
         label: 待播剧
