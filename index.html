@@ -1904,7 +1904,7 @@
     .rec-card{ flex-basis:46%; }
   }
 
-  /* Pad / 桌面：Tab 栏默认透明，吸顶后渐显白色毛玻璃 */
+  /* Pad / 桌面：Tab 栏默认透明，吸顶后渐显不透明底色 */
   @media (min-width:768px){
     .tab-nav{
       background: transparent;
@@ -1924,12 +1924,7 @@
       box-shadow: 0 3px 16px rgba(0,0,0,0.06);
     }
     .tab-nav.is-stuck .tab-nav-bg{
-      opacity:0.82;
-      -webkit-backdrop-filter: blur(18px) saturate(1.6);
-      backdrop-filter: blur(18px) saturate(1.6);
-    }
-    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
-      .tab-nav.is-stuck .tab-nav-bg{ opacity:0.97; }
+      opacity:1;
     }
   }
   @media (min-width:768px) and (prefers-reduced-motion: reduce){
