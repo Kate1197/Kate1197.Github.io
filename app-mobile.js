@@ -24,7 +24,7 @@
 
   var TABS = [
     { id: 'home', label: '首页', href: 'index.html', icon: 'home' },
-    { id: 'riqian', label: '日签', href: 'index.html#riqian', icon: 'quote' },
+    { id: 'riqian', label: '日签', href: 'riqian.html', icon: 'quote' },
     { id: 'xingcheng', label: '行程', href: 'xingcheng.html', icon: 'calendar' },
     { id: 'chanchu', label: '产出', href: 'chanchu.html', icon: 'layers' },
     { id: 'more', label: '更多', icon: 'grid' }
@@ -53,6 +53,7 @@
     if (file === '' || file === 'index.html') {
       return hash.indexOf('riqian') > -1 ? 'riqian' : 'home';
     }
+    if (file === 'riqian.html') return 'riqian';
     if (file === 'xingcheng.html') return 'xingcheng';
     if (file === 'chanchu.html') return 'chanchu';
     if (file === 'interview.html' || file === 'brands.html' || file === 'aixin.html' || file === 'blog.html') return 'more';

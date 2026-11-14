@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#9172CC">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-title" content="艾米日签">
+<meta name="application-name" content="艾米日签">
+<title>日签 · 艾米日签-动态简报</title>
+<meta name="description" content="艾米日签 · 日签 — 每日文字卡片合集，收录 Vol. 正式期数与艾心日签，数据来自 @玡迩叻_ami 微博，支持搜索与快速筛选。">
+<meta name="keywords" content="艾米,演员艾米,艾米日签,艾米动态简报,艾米超话,艾米粉丝站,艾米日签合集,艾心日签">
+<meta name="author" content="艾米日签">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kate1197.github.io/riqian.html">
+
+<!-- Open Graph / 社交分享卡片 -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="艾米日签-动态简报">
+<meta property="og:title" content="日签 · 艾米日签-动态简报">
+<meta property="og:description" content="艾米日签 · 日签 — 每日文字卡片合集，收录 Vol. 正式期数与艾心日签。">
+<meta property="og:url" content="https://kate1197.github.io/riqian.html">
+<meta property="og:image" content="https://kate1197.github.io/amy-banner.jpg">
+<meta property="og:image:alt" content="艾米日签 banner">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="日签 · 艾米日签-动态简报">
+<meta name="twitter:description" content="艾米日签 · 日签 — 每日文字卡片合集，收录 Vol. 正式期数与艾心日签。">
+<meta name="twitter:image" content="https://kate1197.github.io/amy-banner.jpg">
+
+<style>
+  :root{
+    --md-primary: #9172CC;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #E9DDFF;
+    --md-on-primary-container: #250460;
+    --md-secondary: #5E5C71;
+    --md-secondary-container: #E4E0F4;
+    --md-on-secondary-container: #1B0A2E;
+    --md-surface: #FEF7FF;
+    --md-surface-dim: #DED7E0;
+    --md-surface-bright: #FEF7FF;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F7F0FA;
+    --md-surface-container: #F2EBF5;
+    --md-surface-container-high: #ECE5EF;
+    --md-surface-container-highest: #E6E0E9;
+    --md-on-surface: #1D1B20;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-success: #2E7D32;
+    --md-success-container: #C8E6C9;
+    --md-warning: #ED6C02;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 1px rgba(0,0,0,0.08);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.16), 0 2px 6px 2px rgba(0,0,0,0.10);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.10), 0 1px 3px 0 rgba(0,0,0,0.14);
+    --md-radius-sm: 8px;
+    --md-radius-md: 12px;
+    --md-radius-lg: 16px;
+  }
+  [data-theme="dark"]{
+    --md-surface: #141218;
+    --md-surface-dim: #141218;
+    --md-surface-bright: #141218;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-surface-container-highest: #36343B;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-primary-container: #4A3A6B;
+    --md-on-primary-container: #E9DDFF;
+    --md-secondary-container: #4A4759;
+    --md-on-secondary-container: #E4E0F4;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.20);
+    --md-elev-2: 0 1px 2px 0 rgba(0,0,0,0.40), 0 2px 6px 2px rgba(0,0,0,0.25);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.35), 0 1px 3px 0 rgba(0,0,0,0.30);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{
+    font-family: "MiSans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Roboto, system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+  }
+  .wrap{max-width: 1180px; margin: 0 auto; padding: 0 16px 60px;}
+
+  /* ===== 顶部导航条 ===== */
+  .xc-topbar{
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    padding-top: calc(10px + env(safe-area-inset-top, 0px));
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  [data-theme="dark"] .xc-topbar{ background: rgba(20,18,24,0.82); }
+  .xc-icon-btn{
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--md-surface-container-high); color: var(--md-on-surface);
+    text-decoration: none; border: none; cursor: pointer;
+  }
+  .xc-icon-btn svg{ width: 20px; height: 20px; stroke: currentColor; }
+  .xc-topbar-title{
+    flex: 1; min-width: 0;
+    font-size: 16px; font-weight: 700; color: var(--md-on-surface);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .xc-theme .theme-icon{width:20px; height:20px; stroke:currentColor;}
+  .xc-theme .theme-icon-sun{display:none;}
+  [data-theme="dark"] .xc-theme .theme-icon-moon{display:none;}
+  [data-theme="dark"] .xc-theme .theme-icon-sun{display:block;}
+
+  /* ===== Hero ===== */
+  .xc-hero{
+    padding: 26px 4px 18px;
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  }
+  .xc-hero-left{ min-width: 0; }
+  .xc-hero-kicker{
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--md-primary);
+    background: var(--md-primary-container); padding: 4px 10px; border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .xc-hero-kicker svg{ width:13px; height:13px; stroke:currentColor; }
+  .xc-hero-title{ font-size: 28px; font-weight: 800; letter-spacing: .5px; line-height: 1.15; }
+  .xc-hero-sub{ font-size: 13px; color: var(--md-on-surface-variant); margin-top: 7px; }
+  .xc-hero-right{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .xc-count-pill{
+    font-size: 12px; font-weight: 700; color: var(--md-on-primary);
+    background: linear-gradient(135deg, #9172CC, #5E4BA6);
+    padding: 7px 13px; border-radius: 999px; white-space: nowrap;
+  }
+  .xc-updated{
+    font-size: 12px; font-weight: 600; color: var(--md-on-primary-container);
+    background: var(--md-primary-container); padding: 7px 12px; border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* ===== 筛选区 ===== */
+  .xc-filter{
+    position: sticky; top: 59px; z-index: 15;
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 12px 4px;
+    background: var(--md-surface);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .xc-segment{
+    display: inline-flex; gap: 3px; padding: 3px;
+    background: var(--md-surface-container-high); border-radius: 999px;
+    align-self: flex-start;
+  }
+  .xc-seg{
+    border: none; cursor: pointer; background: transparent;
+    color: var(--md-on-surface-variant);
+    font-size: 13px; font-weight: 600; font-family: inherit;
+    padding: 7px 16px; border-radius: 999px; transition: background .2s, color .2s;
+    white-space: nowrap;
+  }
+  .xc-seg.active{ background: var(--md-surface-container-lowest); color: var(--md-on-primary-container); box-shadow: var(--md-elev-1); }
+  [data-theme="dark"] .xc-seg.active{ background: var(--md-surface-container-highest); color: var(--md-on-primary-container); }
+  .xc-chips{ display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+  .xc-chips::-webkit-scrollbar{ display: none; }
+  .xc-chip{
+    border: 1px solid var(--md-outline-variant); background: transparent;
+    color: var(--md-on-surface-variant);
+    font-size: 13px; font-weight: 600; font-family: inherit;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+    transition: all .18s; flex-shrink: 0;
+  }
+  .xc-chip:hover{ border-color: var(--md-primary); color: var(--md-primary); }
+  .xc-chip.active{ background: var(--md-primary); border-color: var(--md-primary); color: var(--md-on-primary); }
+
+  /* ===== 卡片网格 ===== */
+  .xc-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 18px 0 8px;
+  }
+  .xc-card{
+    display: flex; flex-direction: column;
+    background: var(--md-surface-container-low);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: var(--md-radius-lg);
+    overflow: hidden;
+    transition: transform .22s cubic-bezier(.22,.61,.36,1), box-shadow .22s, border-color .22s;
+  }
+  .xc-card:hover{ transform: translateY(-3px); box-shadow: var(--md-elev-3); border-color: var(--md-primary); }
+  .xc-card.is-past{ opacity: .78; }
+  .xc-card.is-past:hover{ opacity: 1; }
+
+  /* 封面 / 占位头图 */
+  .xc-cover{
+    position: relative; width: 100%; aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--g1, #9172CC), var(--g2, #5E4BA6));
+    overflow: hidden; flex-shrink: 0;
+  }
+  .xc-cover img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  .xc-cover-ph{
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.92);
+  }
+  .xc-cover-ph svg{ width: 44px; height: 44px; opacity: .85; }
+  .xc-cover::after{
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,0) 38%, rgba(0,0,0,.42) 100%);
+  }
+  .xc-badge{
+    position: absolute; left: 12px; top: 12px; z-index: 2;
+    font-size: 11px; font-weight: 700; letter-spacing: .4px;
+    color: #fff; background: rgba(0,0,0,.34);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    padding: 4px 10px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.28);
+  }
+  .xc-status{
+    position: absolute; right: 12px; top: 12px; z-index: 2;
+    font-size: 11px; font-weight: 700;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .xc-status.st-today{ background: #FFFFFF; color: #C2185B; }
+  .xc-status.st-upcoming{ background: rgba(255,255,255,.94); color: #1565C0; }
+  .xc-status.st-past{ background: rgba(0,0,0,.42); color: rgba(255,255,255,.88); }
+
+  /* 卡片正文 */
+  .xc-body{ display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px; flex: 1; }
+  .xc-title{ font-size: 17px; font-weight: 700; line-height: 1.35; }
+  .xc-meta{ display: flex; flex-direction: column; gap: 6px; }
+  .xc-meta-row{
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--md-on-surface-variant);
+  }
+  .xc-meta-row svg{ width: 15px; height: 15px; stroke: var(--md-primary); flex-shrink: 0; }
+  .xc-meta-row .val{ min-width: 0; }
+  .xc-note{
+    font-size: 12.5px; line-height: 1.6; color: var(--md-on-surface-variant);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .xc-btns{ margin-top: auto; padding-top: 6px; }
+  .xc-btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    width: 100%;
+    padding: 10px 16px; border-radius: 999px;
+    background: var(--md-primary); color: var(--md-on-primary);
+    font-size: 13px; font-weight: 700; text-decoration: none;
+    transition: filter .18s, transform .18s;
+  }
+  .xc-btn:hover{ filter: brightness(1.08); transform: translateY(-1px); }
+  .xc-btn svg{ width: 15px; height: 15px; stroke: currentColor; }
+
+  /* 空状态 */
+  .xc-empty{
+    text-align: center; padding: 70px 20px; color: var(--md-on-surface-variant);
+  }
+  .xc-empty .big{ font-size: 40px; display: block; margin-bottom: 12px; }
+  .xc-empty .line{ font-size: 13px; }
+
+  /* 页脚 */
+  .xc-footer{
+    margin-top: 34px; padding-top: 20px;
+    border-top: 1px solid var(--md-outline-variant);
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+    font-size: 12px; color: var(--md-on-surface-variant);
+  }
+  .xc-footer a{ color: var(--md-primary); text-decoration: none; }
+  .xc-tip{
+    font-size: 12px; color: var(--md-on-surface-variant);
+    background: var(--md-surface-container); border-radius: var(--md-radius-md);
+    padding: 10px 14px; margin-top: 14px;
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .xc-tip svg{ width: 15px; height: 15px; stroke: var(--md-primary); flex-shrink: 0; margin-top: 1px; }
+
+  /* ===== 侧边栏（大屏） ===== */
+  .app-shell{ display: block; }
+  .app-sidebar{ display: none; }
+  .menu-item{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; cursor:pointer; transition:background .2s; color:var(--md-on-surface); text-decoration:none; }
+  .menu-item:hover{ background:var(--md-surface-container-high); }
+  .menu-item.active{ background:var(--md-primary-container); }
+  .menu-item.active .ico{ color:var(--md-on-primary-container); }
+  .menu-item .ico{ width:24px; height:24px; color:var(--md-primary); flex-shrink:0; }
+  .menu-item .ico svg{ width:24px; height:24px; stroke:currentColor; }
+  .menu-item-text{ display:flex; flex-direction:column; flex:1; min-width:0; overflow:hidden; }
+  .menu-item .txt{ font-size:16px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-item .sub{ display:none; font-size:12px; color:var(--md-on-surface-variant); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-list{ padding:12px; display:flex; flex-direction:column; gap:4px; }
+  .sidebar-header{ padding:16px 14px 12px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--md-primary); }
+  .sidebar-header svg{ width:24px; height:24px; flex-shrink:0; }
+  .sidebar-header .brand-logo{ height:22px; width:auto; display:block; }
+  [data-theme="dark"] .sidebar-header .brand-logo{ filter:brightness(1.2); }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .sidebar-toggle{ width:28px; height:28px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--md-outline-variant); background:var(--md-surface-container); color:var(--md-on-surface-variant); border-radius:8px; cursor:pointer; transition:background .15s,color .15s,transform .25s; }
+  .sidebar-toggle svg{ width:16px; height:16px; }
+  .sidebar-toggle:hover{ background:var(--md-surface-container-high); color:var(--md-primary); }
+  .sidebar-footer{ margin-top:auto; padding:16px 20px; border-top:1px solid var(--md-outline-variant); font-size:12px; color:var(--md-on-surface-variant); }
+  .sidebar-footer .footer-links a{ display:inline-flex; align-items:center; gap:6px; color:var(--md-primary); text-decoration:none; }
+  .sidebar-footer .footer-links svg{ width:15px; height:15px; stroke:currentColor; }
+
+  /* ===== 手机端全屏菜单 ===== */
+  .menu-overlay{ position:fixed; inset:0; background:var(--md-surface); z-index:200; transform:translateY(-100%); transition:transform .4s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
+  .menu-overlay.open{ transform:translateY(0); }
+  .menu-close{ position:absolute; right:16px; top:16px; width:40px; height:40px; border-radius:50%; background:var(--md-surface-container-high); border:none; cursor:pointer; color:var(--md-on-surface); display:flex; align-items:center; justify-content:center; }
+  .menu-close svg{ width:22px; height:22px; stroke:currentColor; }
+  .menu-header{ padding:28px 24px 16px; font-size:20px; font-weight:700; color:var(--md-on-surface); border-bottom:1px solid var(--md-outline-variant); }
+
+  @media (min-width: 768px){
+    .app-shell{ display:flex; flex-direction:row; }
+    .app-sidebar{ width:240px; flex-shrink:0; display:flex !important; flex-direction:column; background:var(--md-surface-container-low); border-right:1px solid var(--md-outline-variant); position:sticky; top:0; height:100vh; overflow-y:auto; z-index:50; }
+    .app-sidebar.collapsed{ width:64px; overflow:visible; transition:width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{ flex-direction:column; gap:10px; padding:16px 8px 12px; justify-content:flex-start; }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform:rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding:12px 8px; }
+    .app-sidebar.collapsed .menu-item{ padding:12px 0; justify-content:center; border-radius:12px; position:relative; }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding:12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{ flex-direction:column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding:8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{ content:attr(data-tooltip); position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%); background:var(--md-surface-container-highest); color:var(--md-on-surface); padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.18); z-index:200; pointer-events:none; }
+    .app-content{ flex:1; min-width:0; }
+    .app-content .wrap{ max-width:none; margin:0; }
+    .menu-overlay{ display:none !important; }
+    .xc-menu-btn{ display:none !important; }
+    .xc-filter{ top: 58px; }
+    .xc-grid{ grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 20px; }
+  }
+  @media (min-width: 1280px){
+    .xc-grid{ grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+    .xc-hero-title{ font-size: 32px; }
+  }
+
+  .dq-notice{
+    background:linear-gradient(135deg,#FFF3E0,#FFE0B2);
+    border-left:4px solid #FF9800;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:16px;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  [data-theme="dark"] .dq-notice{
+    background:linear-gradient(135deg,#3E2723,#4E342E);
+    border-left-color:#FFB74D;
+  }
+  .dq-status-badge{
+    flex-shrink:0;
+    font-size:12px; font-weight:600;
+    padding:6px 10px; border-radius:20px;
+    display:flex; align-items:center; gap:4px;
+    color:#fff;
+  }
+  .dq-status-badge.pause{background:#FF9800;}
+  .dq-status-badge.live{background:#4CAF50;}
+  .dq-status-badge.update{background:#2196F3;}
+  .dq-notice-text{font-size:13px; line-height:1.7; color:#5D4037;}
+  [data-theme="dark"] .dq-notice-text{color:#FFE0B2;}
+
+  .dq-header{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:18px; padding-bottom:12px;
+    border-bottom:1px solid var(--md-outline-variant);
+  }
+  .dq-title{font-size:22px; font-weight:700; color:var(--md-on-surface); margin:0;}
+  .dq-status{font-size:12px; font-weight:500; display:flex; align-items:center; gap:6px;}
+  .dq-status .dot{width:8px; height:8px; border-radius:50%;}
+  .dq-status-pause{color:#FF9800;}
+  .dq-status-pause .dot{background:#FF9800;}
+  .dq-status-live{color:#4CAF50;}
+  .dq-status-live .dot{background:#4CAF50; animation: blink 1.5s infinite;}
+  @keyframes blink{0%,100%{opacity:1;} 50%{opacity:.3;}}
+
+  /* 日签页面头部（纯色条，带菜单按钮） */
+  .dq-page-header{
+    position:relative;
+    background:linear-gradient(135deg,#7B61FF,#9C27B0);
+    color:#fff;
+    padding:52px 20px 32px;
+  }
+  @media (min-width: 1024px){
+    .dq-page-header{
+      padding: 72px 40px 40px;
+    }
+    .dq-page-header .dq-title{
+      font-size: 28px;
+    }
+    .dq-page-header .dq-sub{
+      font-size: 14px;
+      margin-top: 6px;
+    }
+  }
+  [data-theme="dark"] .dq-page-header{
+    background:linear-gradient(135deg,#4A3FBF,#6A1B9A);
+  }
+  .dq-page-header .dq-title{
+    font-size:22px; font-weight:700; color:#fff; margin:0;
+    text-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .dq-page-header .dq-sub{
+    font-size:13px; opacity:.85; margin-top:4px;
+  }
+  .dq-page-header .menu-btn{
+    position:absolute; left:14px; top:14px;
+  }
+  @media (min-width:768px){
+    .dq-page-header .menu-btn{display:none !important;}
+  }
+  @supports (padding: env(safe-area-inset-top)){
+    .dq-page-header{padding-top:calc(52px + env(safe-area-inset-top));}
+    .dq-page-header .menu-btn{top:calc(14px + env(safe-area-inset-top));}
+  }
+
+  /* 日签页面容器内边距 */
+  /* ========== 日签页面布局 ========== */
+  #page-riqian .dq-body{
+    padding: 0;
+  }
+  .dq-layout{
+    display: flex;
+    flex-direction: column;
+  }
+  .dq-main{
+    padding: 16px 16px 40px;
+  }
+  .dq-side{
+    display: none;  /* 手机隐藏 */
+  }
+
+  /* 手机端 - 单列卡片 */
+  .dq-waterfall{
+    display:flex; flex-direction:column; gap:12px;
+  }
+
+  /* 平板 + 桌面：左主列表 + 右 sticky 侧栏 */
+  @media (min-width: 768px){
+    .dq-layout{
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 24px;
+      padding: 20px 24px 60px;
+      align-items: start;
+    }
+    .dq-main{
+      padding: 0;
+    }
+    .dq-side{
+      display: block;
+    }
+    .dq-side-sticky{
+      position: sticky;
+      top: 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+  }
+
+  @media (min-width: 1024px){
+    .dq-layout{
+      grid-template-columns: 1fr 260px;
+      gap: 32px;
+      padding: 28px 40px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+  }
+
+  /* 列表保持单列，卡片更宽 */
+  .dq-waterfall{
+    display:flex; flex-direction:column; gap:14px;
+  }
+  @media (min-width: 768px){
+    .dq-waterfall{ gap: 16px; }
+  }
+
+  /* 卡片宽度加大 */
+  @media (min-width: 768px){
+    .dq-item{
+      padding: 20px 24px;
+    }
+  }
+  .dq-item{
+    background:var(--md-surface-container-low);
+    border-radius:12px;
+    padding:16px 18px;
+    cursor:pointer;
+    transition:transform .2s, box-shadow .2s;
+    display:flex; flex-direction:column; gap:8px;
+    border-left:4px solid var(--md-primary);
+  }
+  .dq-item:hover{transform:translateY(-2px); box-shadow:var(--md-elev-2);}
+  .dq-item-top{
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .dq-item-date{
+    font-size:12px; font-weight:600;
+    color:var(--md-primary);
+    background:var(--md-primary-container);
+    padding:3px 10px; border-radius:20px;
+  }
+  .dq-item-title{
+    font-size:16px; font-weight:700; color:var(--md-on-surface);
+    line-height:1.4;
+  }
+  .dq-item-caption{
+    font-size:14px; color:var(--md-on-surface-variant);
+    line-height:1.6;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+
+  /* 弹窗 */
+  .dq-modal{
+    position:fixed; inset:0;
+    z-index:9999;
+    display:none;
+  }
+  .dq-modal.open{display:flex; align-items:center; justify-content:center; animation:fadeIn .2s;}
+  .dq-modal-backdrop{
+    position:absolute; inset:0;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(4px);
+  }
+  .dq-modal-content{
+    position:relative;
+    z-index:1;
+    background:var(--md-surface);
+    border-radius:16px;
+    max-width:520px; width:92%;
+    max-height:85vh;
+    animation:slideUp .25s;
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  @keyframes slideUp{from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);}}
+  .dq-modal-close{
+    position:absolute; top:12px; right:12px; z-index:10;
+    width:36px; height:36px; border-radius:50%;
+    background:var(--md-surface-container-high); color:var(--md-on-surface);
+    border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .dq-modal-close:hover{background:var(--md-outline-variant);}
+  .dq-modal-body{
+    padding:28px 24px 20px;
+    display:flex; flex-direction:column; gap:12px;
+    overflow-y:auto;
+  }
+  .dq-modal-date{
+    font-size:13px; color:var(--md-primary); font-weight:600; letter-spacing:.5px;
+  }
+  .dq-modal-title{
+    font-size:20px; font-weight:700; color:var(--md-on-surface);
+    line-height:1.4;
+  }
+  .dq-modal-caption{
+    font-size:15px; line-height:1.8; color:var(--md-on-surface);
+    white-space:pre-wrap;
+  }
+  .dq-modal-footer{
+    padding:12px 24px 24px;
+    border-top:1px solid var(--md-outline-variant);
+  }
+  .dq-modal-weibo-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:10px 18px; border-radius:20px;
+    background:#E6162D; color:#fff;
+    font-size:13px; font-weight:600;
+    text-decoration:none;
+    transition:opacity .2s;
+  }
+  .dq-modal-weibo-btn:hover{opacity:.85;}
+
+  /* ========== 侧栏卡片 ========== */
+  .dq-side-card{
+    background: var(--md-surface-container-low);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid var(--md-outline-variant);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .dq-side-label{
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--md-on-surface-variant);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* 最新一期跳转卡 */
+  .dq-latest-card{
+    background: linear-gradient(135deg, rgba(155,114,204,0.14), rgba(123,97,255,0.10));
+    border: 1px solid rgba(155,114,204,0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  [data-theme="dark"] .dq-latest-card{
+    background: linear-gradient(135deg, rgba(123,97,255,0.22), rgba(155,114,204,0.16));
+    border-color: rgba(155,114,204,0.38);
+  }
+  .dq-latest-card::before{
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(155,114,204,0.35), transparent 70%);
+    pointer-events: none;
+  }
+  .dq-latest-badge{
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--md-primary);
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.6px;
+  }
+  .dq-latest-date{
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--md-primary);
+    margin-top: 10px;
+  }
+  .dq-latest-title{
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--md-on-surface);
+    margin-top: 4px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+  }
+  .dq-latest-btn{
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px 0;
+    border-radius: 10px;
+    border: 1px solid var(--md-primary);
+    background: transparent;
+    color: var(--md-primary);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: background .2s, color .2s;
+  }
+  .dq-latest-btn:hover{
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+  .dq-latest-btn svg{width:16px; height:16px; stroke:currentColor;}
+
+  /* 搜索框 */
+  .dq-search-wrap{
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .dq-search-ico{
+    position: absolute;
+    left: 10px;
+    width: 16px;
+    height: 16px;
+    stroke: var(--md-on-surface-variant);
+    pointer-events: none;
+  }
+  .dq-search-input{
+    width: 100%;
+    padding: 9px 12px 9px 32px;
+    border-radius: 10px;
+    border: 1px solid var(--md-outline-variant);
+    background: var(--md-surface-container-high);
+    color: var(--md-on-surface);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .dq-search-input:focus{
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(155,114,204,0.18);
+  }
+  .dq-search-input::placeholder{
+    color: var(--md-on-surface-variant);
+  }
+
+  /* 快速筛选 */
+  .dq-filter-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .dq-chip{
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--md-outline-variant);
+    background: transparent;
+    color: var(--md-on-surface-variant);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .dq-chip:hover{
+    border-color: var(--md-primary);
+    color: var(--md-primary);
+  }
+  .dq-chip.active{
+    background: var(--md-primary);
+    border-color: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+
+  .dq-tip{
+    text-align:center; font-size:12px;
+    color:var(--md-on-surface-variant); margin-top:20px;
+  }
+  .dq-tip a{color:var(--md-primary); text-decoration:none;}
+
+  /* 平板/桌面 — 仍然单列 */
+  @media (min-width:768px){
+    .dq-waterfall{max-width:640px; margin:0 auto;}
+    .dq-item{padding:18px 22px;}
+  }
+  @media (min-width:1024px){
+    .dq-waterfall{max-width:680px;}
+    .dq-header{padding-right:8px;}
+  }
+  /* 弹窗手机端 */
+  @media (max-width:640px){
+    .dq-modal-content{max-width:95%;}
+    .dq-modal-body{padding:24px 18px 16px;}
+    .dq-modal-footer{padding:12px 18px 20px;}
+  }
+  /* ===== 独立页适配 ===== */
+  #page-riqian{ display: block; }
+  #page-riqian .dq-page-header{ padding: 26px 20px 26px; }
+  @media (min-width: 1024px){
+    #page-riqian .dq-page-header{ padding: 34px 40px 34px; }
+  }
+  @media (max-width: 767px){
+    /* 为底部 App 导航留出空间 */
+    #page-riqian .dq-main{ padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
+  }
+</style>
+<link rel="stylesheet" href="app-mobile.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="折叠/展开侧边栏" aria-label="折叠/展开侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </div>
+    <div class="menu-list">
+      <a class="menu-item" href="index.html" data-tooltip="主页">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">主页</div>
+          <div class="sub">艾米日签 · 每日动态简报</div>
+        </div>
+      </a>
+      <a class="menu-item active" href="riqian.html" data-tooltip="日签">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">日签</div>
+          <div class="sub">艾米日签合集</div>
+        </div>
+      </a>
+      <a class="menu-item" href="aixin.html" data-tooltip="艾心向善">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">艾心向善</div>
+          <div class="sub">粉丝公益 · 动态追踪</div>
+        </div>
+      </a>
+      <a class="menu-item" href="xingcheng.html" data-tooltip="行程活动">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">行程活动</div>
+          <div class="sub">公开行程 · 活动汇总</div>
+        </div>
+      </a>
+      <a class="menu-item" href="chanchu.html" data-tooltip="产出汇总">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">产出汇总</div>
+          <div class="sub">由 @艾产速览 整理汇总</div>
+        </div>
+      </a>
+      <a class="menu-item" href="interview.html" data-tooltip="采访合集">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">采访合集</div>
+          <div class="sub">杂志 · 专访 · 直播 · 综艺</div>
+        </div>
+      </a>
+      <a class="menu-item" href="brands.html" data-tooltip="商务代言">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div class="menu-item-text">
+          <div class="txt">商务代言</div>
+          <div class="sub">进行中品牌合作</div>
+        </div>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links" style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="https://weibo.com/6320241831" target="_blank" rel="noopener" title="@玡迩叻_ami"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span> @玡迩叻_ami</span></a>
+        <a href="blog.html" rel="noopener" title="站点日志"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.8h7.5L19 8.3v12.9H6z"/><path d="M13.5 2.8v5.5H19M9 12.5h7M9 16h5"/></svg><span> 站点日志</span></a>
+        <a href="index.html" rel="noopener" title="主页"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span> 主页</span></a>
+      </div>
+      <div style="margin-top:8px;">© 艾米日签 · 日签</div>
+    </div>
+  </aside>
+
+  <!-- 内容区 -->
+  <div class="app-content">
+    <div class="xc-topbar">
+      <button class="xc-icon-btn xc-menu-btn" id="menuBtn" title="菜单" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="xc-topbar-title">日签</div>
+      <button class="xc-icon-btn xc-theme" id="xcTheme" title="切换深色/浅色" aria-label="切换深色/浅色">
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
+      </button>
+    </div>
+
+    <div class="page active" id="page-riqian">
+
+      <!-- 顶部渐变条 + 菜单按钮 -->
+      <div class="dq-page-header">
+        <h2 class="dq-title">艾米日签</h2>
+        <div class="dq-sub">每日文字卡片 · 数据来自 @玡迩叻_ami 微博</div>
+      </div>
+
+      <div class="dq-body">
+        <div class="dq-layout">
+          <!-- 左侧主列表 -->
+          <div class="dq-main">
+            <div class="dq-waterfall" id="dqWaterfall"></div>
+
+            <div class="dq-load-more" id="dqLoadMore" style="display:none;text-align:center;margin:20px 0;">
+              <button id="dqLoadMoreBtn" class="dq-load-btn" style="padding:10px 28px;border-radius:24px;border:1px solid var(--md-outline);background:var(--md-surface-container);color:var(--md-primary);cursor:pointer;font-weight:600;font-size:14px;">
+                加载更多历史日签
+              </button>
+            </div>
+
+            <div class="dq-tip">
+              数据来源：<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener">@玡迩叻_ami 微博</a>
+            </div>
+          </div>
+
+          <!-- 右侧 sticky 侧栏（平板/桌面显示） -->
+          <aside class="dq-side">
+            <div class="dq-side-sticky">
+              <!-- 最新一期跳转卡 -->
+              <div class="dq-side-card dq-latest-card" id="dqLatestCard">
+                <div class="dq-latest-badge">最新一期</div>
+                <div class="dq-latest-date" id="dqLatestDate">—</div>
+                <div class="dq-latest-title" id="dqLatestTitle">—</div>
+                <button class="dq-latest-btn" id="dqLatestBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+                  查看
+                </button>
+              </div>
+
+              <!-- 搜索框 -->
+              <div class="dq-side-card">
+                <div class="dq-side-label">搜索</div>
+                <div class="dq-search-wrap">
+                  <svg class="dq-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="dqSearchInput" class="dq-search-input" placeholder="搜标题或正文…">
+                </div>
+              </div>
+
+              <!-- 快速筛选 -->
+              <div class="dq-side-card">
+                <div class="dq-side-label">快速筛选</div>
+                <div class="dq-filter-row">
+                  <button class="dq-chip" data-filter="all">全部</button>
+                  <button class="dq-chip" data-filter="vol">日签 Vol.</button>
+                  <button class="dq-chip" data-filter="aixin">艾心日签</button>
+                  <button class="dq-chip" data-filter="erchuang">二创</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+    </div><!-- /page-riqian -->
+
+    <!-- 日签弹窗 -->
+    <div class="dq-modal" id="dqModal" aria-hidden="true">
+      <div class="dq-modal-backdrop"></div>
+      <div class="dq-modal-content">
+        <button class="dq-modal-close" id="dqModalClose" aria-label="关闭">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <div class="dq-modal-body">
+          <div class="dq-modal-date" id="dqModalDate"></div>
+          <div class="dq-modal-title" id="dqModalTitle"></div>
+          <div class="dq-modal-caption" id="dqModalCaption"></div>
+        </div>
+        <div class="dq-modal-footer">
+          <a id="dqModalLink" href="#" target="_blank" rel="noopener" class="dq-modal-weibo-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 16c-3.3 0-6-2-6-4s2.7-4 6-4 6 2 6 4-2.7 4-6 4zm0-6a2 2 0 110-4 2 2 0 010 4z"/></svg>
+            查看原微博
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  </div><!-- /app-content -->
+</div><!-- /app-shell -->
+
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose" aria-label="关闭菜单">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="menu-header">页面导航</div>
+  <div class="menu-list">
+    <a class="menu-item" href="index.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">主页</div>
+        <div class="sub">艾米日签 · 每日动态简报</div>
+      </div>
+    </a>
+    <a class="menu-item active" href="riqian.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">日签</div>
+        <div class="sub">艾米日签合集</div>
+      </div>
+    </a>
+    <a class="menu-item" href="aixin.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">艾心向善</div>
+        <div class="sub">粉丝公益 · 动态追踪</div>
+      </div>
+    </a>
+    <a class="menu-item" href="xingcheng.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">行程活动</div>
+        <div class="sub">公开行程 · 活动汇总</div>
+      </div>
+    </a>
+    <a class="menu-item" href="chanchu.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">产出汇总</div>
+        <div class="sub">由 @艾产速览 整理汇总</div>
+      </div>
+    </a>
+    <a class="menu-item" href="interview.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">采访合集</div>
+        <div class="sub">杂志 · 专访 · 直播 · 综艺</div>
+      </div>
+    </a>
+    <a class="menu-item" href="brands.html">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+      <div class="menu-item-text">
+        <div class="txt">商务代言</div>
+        <div class="sub">进行中品牌合作</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<script>
+(function(){
+  // 深色模式（与全站共享 ami-theme）
+  (function(){
+    const btn = document.getElementById('xcTheme');
+    const html = document.documentElement;
+    if(!btn) return;
+    const saved = localStorage.getItem('ami-theme');
+    if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      html.setAttribute('data-theme','dark');
+    }
+    btn.addEventListener('click', function(){
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      if(isDark){
+        html.removeAttribute('data-theme');
+        localStorage.setItem('ami-theme','light');
+      }else{
+        html.setAttribute('data-theme','dark');
+        localStorage.setItem('ami-theme','dark');
+      }
+    });
+  })();
+
+  // 侧边栏折叠（平板 / 电脑，与全站共享状态）
+  (function(){
+    const sidebar = document.getElementById('appSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    if(!sidebar || !toggle) return;
+    const collapsed = localStorage.getItem('ami-sidebar-collapsed') === '1';
+    sidebar.classList.toggle('collapsed', collapsed);
+    toggle.addEventListener('click', function(){
+      const willCollapse = !sidebar.classList.contains('collapsed');
+      sidebar.classList.toggle('collapsed', willCollapse);
+      localStorage.setItem('ami-sidebar-collapsed', willCollapse ? '1' : '0');
+    });
+  })();
+
+  // 手机端全屏菜单（与本页顶栏菜单按钮绑定）
+  (function(){
+    const overlay = document.getElementById('menuOverlay');
+    const menuBtn = document.getElementById('menuBtn');
+    const menuClose = document.getElementById('menuClose');
+    if(!overlay) return;
+    function openMenu(){ overlay.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeMenu(){ overlay.classList.remove('open'); document.body.style.overflow=''; }
+    if(menuBtn) menuBtn.addEventListener('click', openMenu);
+    if(menuClose) menuClose.addEventListener('click', closeMenu);
+  })();
+
+  // 日签数据 - 来源: @玡迩叻_ami 微博 (通过 sina.cn 代理抓取)
+  // 仅收录带 Vol. 的正式期数，超话/二创等其他帖子不收录
+  let riqianData = [
+    {date:"第52期 · 11月8日", title:"Vol.052 · 我觉得我也很自由", caption:"我看见鸟儿在天上飞，我觉得他很自由；\n我看见鱼儿在水中游，我觉得他很自由；\n我在路上走着，我觉得我也很自由。 —— one读者·想和小熊打招呼\n图源 艾米 （2024/11/21 小红书 P8）", img:"", h:680, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第51期 · 11月7日", title:"Vol.051 · 立冬特辑", caption:"昨夜清霜冷絮裯，纷纷红叶满阶头。\n园林尽扫西风去，惟有黄花不负秋。 —— 《立冬前一日霜对菊有感》Cr.网络\n图源 艾米 （2026/5/21 小红书 P2）", img:"", h:660, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第50期 · 11月6日", title:"Vol.050 · 开出自己的花来", caption:"不要自己还是春天，却忙得像秋天，想要结果。\n现在的年轻人首要考虑如何开出自己的花来，\n哪怕是一朵小蓓蕾，足矣。 —— 梁永安\n图源 艾米 （2026/11/5 小红书 P11）", img:"", h:680, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第49期 · 11月5日", title:"Vol.049 · 最长的路也有尽头", caption:"最长的路也有尽头，\n最黑暗的夜晚也会迎接清晨。 —— 斯托夫人《汤姆叔叔的小屋》\n图源 艾米 （2025/4/24 小红书 P1）\n（粉丝站公告：日签自本期起改为白天非固定时段更新）", img:"", h:660, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第48期 · 11月4日", title:"Vol.048 · 心里的清单", caption:"每个人的心里，有多么长的一个清单，\n这些清单里写着多少美好的事，\n可是，它们总是被推迟，被搁置，在时间的阁楼上腐烂。\n为什么勇气的问题总是被误以为是时间的问题。", img:"", h:680, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第47期 · 11月3日", title:"Vol.047 · 生活是自己的", caption:"生活是自己的，尽情打扮尽情可爱。", img:"", h:620, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第46期 · 11月2日", title:"Vol.046 · 星空之所以美丽", caption:"星空之所以美丽，就是因为在无限的宇宙中\n不管黑暗如何蔓延，都有星星的光芒去把它照亮。\n世界也是这样，有绝望的地方，就会有希望产生，\n拥有希望的人，和满天的星星一样，是永远不会孤独的。 —— 星游记", img:"", h:700, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第45期 · 11月1日", title:"Vol.045 · 时刻在变化的我们", caption:"时刻在变化的我们，若是能继续爱着另一个变化了的人，这是一件幸运的事情¹，\n愿我们有远大梦想，愿我们的葫芦盛满水，愿风为我们吹，水为我们流，\n愿好运气与我们同在²！ —— 毛姆¹ / 鲁米²", img:"", h:680, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第44期 · 10月31日", title:"Vol.044 · 命运不是机遇", caption:"命运不是机遇，而是选择。\n命运不靠等待，而凭争取。 —— 晚安\n图源 @艾米工作室 微博 （2026/10/23 微博 P3）\n（同日预告「今日活动预告 ▶NEXT #微博视界大会#」）", img:"", h:660, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第43期 · 10月30日", title:"Vol.043 · 万花筒一般", caption:"人与人的关系真是千变万化，万花筒一般，\n稍转一个角度，又是一幅绚烂图案。 —— 阿耐\n图源 @演员艾米 微博 （2026/10/28 微博 P7）", img:"", h:660, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第40期 · 10月27日", title:"Vol.040 · 需要陪伴，也需要独处", caption:"人有时需要陪伴，有时需要独处\n因为心并非恒定值，在变幻莫测的环境中\n调整情绪才能更好地生活。 —— cr.网络\n图源 @艾米工作室 微博 （2025/12/08 微博 P7）", img:"", h:660, weiboUrl:"https://weibo.com/6320241831"},
+    {date:"第39期 · 10月26日", title:"Vol.039 · 我只做我自己", caption:"我不想成为任何东西的象征。\n我只做我自己。 —— 安·兰德\n图源 @艾米工作室 微博 （2026/10/17 微博 P7）\n✨推荐歌曲《是你想成为的大人吗》", img:"", h:660, weiboUrl:"https://weibo.com/6320241831/5358062647115996"},
+    {date:"第38期 · 10月25日", title:"Vol.038 · 翅膀上的羽毛", caption:"翅膀上的每一根羽毛\n都见证了过去那些充满努力与艰辛的日子。\n不畏风雨，继续自由地翱翔于天空之境。\n冒险还在继续，愿你早日到达星辰彼岸。 —— 玡迩叻_ami\n图源 @艾米工作室 微博 （2026/10/24 微博 P1）", img:"", h:700, weiboUrl:"https://weibo.com/6320241831/5357702411715633"},
+    {date:"第37期 · 10月24日", title:"Vol.037 · 生活即兴表演", caption:"生活中我们其实都在即兴表演，不是吗？\n不过赞的是你开始用心感受了，\n而且你要一直感受下去。 ——《少年时代》\n图源 @艾米工作室 微博 （2025/10/23 微博 P3）\n（附：艾米日签爱心行动报告）", img:"", h:680, weiboUrl:"https://weibo.com/6320241831/5357336460004296"},
+    {date:"第36期 · 10月23日", title:"Vol.036 · 总得热爱一点什么吧", caption:"总得热爱一点什么吧，\n据说，人活着，是要有精神支柱的。 —— 刘瑜《送你一颗子弹》\n图源 @BAZAARJewelry 微博 （2026/10/8 微博 P7）\n✨推荐歌曲《是你想成为的大人吗》", img:"", h:660, weiboUrl:"https://weibo.com/6320241831/5356975238153041"},
+    {date:"第35期 · 10月22日", title:"Vol.035 · 感知清风明月的心", caption:"重要的是，有一个健康的身体、一颗感知清风明月的心\n和跟人说话时不会躲闪的眼神。 ——《今天的我有点热爱生活》\n图源 @演员艾米 微博 （2026/10/20 微博 P5）\n✨推荐歌曲《健康到到令》", img:"", h:640, weiboUrl:"https://weibo.com/6320241831/5356610857994925"},
+    {date:"第34期 · 10月21日", title:"Vol.034 · 世界就是这样", caption:"世界就是这样。有些人在中间，有些人在边上。\n要想让梦想生长，有所收获，就得有耐心。 ——罗欣顿·米斯特里\n图源 @艾米工作室 微博 （2026/7/13 微博 P3）\n✨推荐歌曲《胜利之光》", img:"", h:640, weiboUrl:"https://weibo.com/6320241831/5356258523873804"},
+    {date:"第33期 · 10月20日", title:"Vol.033 · 无论是过去还是未来", caption:"无论是过去还是未来 我们都无法改变，只能更深刻地理解它们。 ——特德·姜\n图源 @演员艾米 微博 （2026/7/13 微博 P3）", img:"", h:640, weiboUrl:"https://weibo.com/6320241831/5355883522693154"},
+    {date:"第32期 · 10月4日", title:"Vol.032 · 我尽力喜欢过", caption:"我尽力喜欢过，但聚散不由我 ——\nONE读者「腐烂的鲸鱼」\n图源 @演员艾米 微博 (2026/1/31 微博 P8)", img:"", h:717, weiboUrl:"https://weibo.com/6320241831/5350088566116000"}
+  ];
+
+  // 已渲染的 post_id 集合 (用于去重)
+  const _renderedIds = new Set();
+
+  // 渲染单条日签到列表（纯文字卡片）
+  function renderRiqianItem(item){
+    const el = document.createElement('div');
+    el.className = 'dq-item';
+    const cap = (item.caption || '').replace(/\n/g, ' ').trim();
+    el.innerHTML = `
+      <div class="dq-item-top">
+        <span class="dq-item-date">${item.date || ''}</span>
+      </div>
+      <div class="dq-item-title">${item.title || ''}</div>
+      <div class="dq-item-caption">${cap}</div>
+    `;
+    el.addEventListener('click', () => openRiqianModal(item));
+    waterfall.appendChild(el);
+  }
+
+  // 渲染瀑布流 (初始 + 追加共用)
+  const waterfall = document.getElementById('dqWaterfall');
+  // 用后台 data/riqian.json 重新渲染日签独立页，保证后台更新后首页与日签页同步
+  function applyRiqianData(list){
+    riqianData = Array.isArray(list) ? list.slice() : [];
+    if(waterfall) waterfall.innerHTML = '';
+    _renderedIds.clear();
+    riqianData.forEach(function(item){
+      if(item && item.weiboUrl){
+        var m = item.weiboUrl.match(/\/(\d+)$/);
+        if(m) _renderedIds.add(m[1]);
+      }
+      renderRiqianItem(item);
+    });
+    var latest = riqianData[0];
+    var latestDateEl = document.getElementById('dqLatestDate');
+    var latestTitleEl = document.getElementById('dqLatestTitle');
+    if(latest){
+      if(latestDateEl) latestDateEl.textContent = latest.date || '';
+      if(latestTitleEl) latestTitleEl.textContent = latest.title || '';
+    }
+  }
+  applyRiqianData(riqianData);
+
+  // ======== 侧栏：最新一期 / 搜索 / 筛选 ========
+  (function(){
+    const latestDateEl = document.getElementById('dqLatestDate');
+    const latestTitleEl = document.getElementById('dqLatestTitle');
+    const latestBtn = document.getElementById('dqLatestBtn');
+    const searchInput = document.getElementById('dqSearchInput');
+    const chips = document.querySelectorAll('.dq-chip');
+    var items = document.querySelectorAll('#dqWaterfall .dq-item');
+
+    // 填充最新一期卡
+    if (riqianData.length && latestDateEl && latestTitleEl) {
+      const latest = riqianData[0];
+      latestDateEl.textContent = latest.date || '';
+      latestTitleEl.textContent = latest.title || '';
+    }
+    // "查看" 按钮：滚动到第一个卡片并打开弹窗
+    if (latestBtn && riqianData[0]) {
+      latestBtn.addEventListener('click', () => {
+        const firstItem = document.querySelector('#dqWaterfall .dq-item');
+        if (firstItem) {
+          firstItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => firstItem.click(), 400);
+        }
+      });
+    }
+
+    // 搜索过滤（标题 + 正文）
+    function applySearchAndFilter(){
+      if (!searchInput) return;
+      const q = (searchInput.value || '').trim().toLowerCase();
+      const activeChip = document.querySelector('.dq-chip.active');
+      const filterKey = activeChip ? activeChip.dataset.filter : 'all';
+
+      document.querySelectorAll('#dqWaterfall .dq-item').forEach((el, idx) => {
+        const item = riqianData[idx];
+        if (!item) { el.style.display = ''; return; }
+
+        // 搜索条件
+        const hay = ((item.title || '') + ' ' + (item.caption || '')).toLowerCase();
+        const matchSearch = !q || hay.includes(q);
+
+        // 筛选条件
+        let matchFilter = true;
+        if (filterKey === 'vol')       matchFilter = /Vol\.\d+/.test(item.title || '') || /^第\d+期/.test(item.date || '');
+        else if (filterKey === 'aixin') matchFilter = /艾心日签/.test(item.date || '') || /艾心/.test(item.title || '');
+        else if (filterKey === 'erchuang') matchFilter = /二创|调色/.test(item.title + ' ' + item.caption);
+
+        el.style.display = (matchSearch && matchFilter) ? '' : 'none';
+      });
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applySearchAndFilter);
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        applySearchAndFilter();
+      });
+    });
+  })();
+
+  // ======== 动态加载更多 ========
+  const dqLoadMore = document.getElementById('dqLoadMore');
+  const dqLoadMoreBtn = document.getElementById('dqLoadMoreBtn');
+  // 加载更多按钮初始可见 (因为可能有更多数据)
+  if (dqLoadMore) dqLoadMore.style.display = 'block';
+
+  // 从 sina.cn 代理抓取更多日签帖子
+  async function fetchMoreRiqian(){
+    if (!dqLoadMoreBtn) return;
+    dqLoadMoreBtn.disabled = true;
+    dqLoadMoreBtn.textContent = '加载中…';
+
+    try {
+      // 尝试从 sina.cn 微博列表代理抓取
+      const resp = await fetch('https://www.sina.cn/media/6320241831', {
+        headers: { 'User-Agent': 'Mozilla/5.0' },
+        mode: 'cors'
+      });
+
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const html = await resp.text();
+
+      // 解析 HTML 提取帖子
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const postLinks = doc.querySelectorAll('a.post-link');
+      const newItems = [];
+
+      postLinks.forEach(link => {
+        const href = link.getAttribute('href') || '';
+        const idMatch = href.match(/\/detail\/(\d+)\.html/);
+        if (!idMatch) return;
+        const postId = idMatch[1];
+        if (_renderedIds.has(postId)) return; // 已渲染过
+
+        const article = link.querySelector('article.post');
+        if (!article) return;
+
+        const text = article.textContent || '';
+        // 筛选带日签/艾心日签/艾米日签标签的
+        if (!/艾心日签|艾米日签|日签/.test(text)) return;
+
+        // 提取日期
+        const timeDiv = article.querySelector('.time');
+        const dateText = timeDiv ? timeDiv.textContent.trim() : '';
+        const dateMatch = dateText.match(/(\d{4}-\d{2}-\d{2})/);
+        const dateShort = dateMatch ? dateMatch[1] : dateText.slice(0, 10);
+
+        // 提取正文
+        const textDiv = article.querySelector('.post-text');
+        const caption = textDiv ? textDiv.textContent.trim().replace(/^#艾心日签\[超话\]#\s*/, '').replace(/^#艾米日签#\s*/, '').slice(0, 100) : dateText;
+
+        // 提取第一张 sinaimg 图片（不再必需）
+        const allImgs = article.querySelectorAll('img[src*="sinaimg.cn"]');
+        let imgUrl = '';
+        for (const img of allImgs) {
+          let src = img.getAttribute('src') || '';
+          if (!src || src.includes('crop.')) continue; // 跳过头像
+          imgUrl = src.replace('thumbnail/', 'large/').replace('middle/', 'large/');
+          break;
+        }
+
+        // 生成稳定高度
+        let h = 600 + (postId.charCodeAt(postId.length - 1) * 7 % 300);
+
+        newItems.push({
+          date: `艾心日签 · ${dateShort.slice(5)}`,
+          title: caption.slice(0, 30) || dateShort,
+          caption: caption,
+          img: imgUrl,
+          h: h,
+          weiboUrl: `https://weibo.com/6320241831/${postId}`,
+          _postId: postId
+        });
+      });
+
+      // 追加新数据
+      if (newItems.length > 0) {
+        newItems.forEach(item => {
+          if (item._postId) _renderedIds.add(item._postId);
+          delete item._postId;
+          renderRiqianItem(item);
+        });
+        dqLoadMoreBtn.textContent = `已加载 ${newItems.length} 条`;
+        setTimeout(() => {
+          dqLoadMoreBtn.textContent = '暂无更多历史日签';
+          dqLoadMoreBtn.disabled = true;
+        }, 2000);
+      } else {
+        dqLoadMoreBtn.textContent = '暂无更多历史日签';
+        dqLoadMoreBtn.disabled = true;
+      }
+    } catch(err) {
+      // CORS 或网络失败 - 显示微博主页链接
+      console.warn('加载更多失败:', err.message);
+      dqLoadMoreBtn.innerHTML = '<a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">前往微博查看更多 →</a>';
+      dqLoadMoreBtn.disabled = false;
+      dqLoadMoreBtn.style.pointerEvents = 'none'; // 让内部 <a> 工作
+    }
+  }
+
+  if (dqLoadMoreBtn) {
+    dqLoadMoreBtn.addEventListener('click', fetchMoreRiqian);
+  }
+
+  // 弹窗逻辑
+  const dqModal = document.getElementById('dqModal');
+  const dqModalClose = document.getElementById('dqModalClose');
+  function openRiqianModal(item){
+    document.getElementById('dqModalDate').textContent = item.date;
+    document.getElementById('dqModalTitle').textContent = item.title;
+    document.getElementById('dqModalCaption').textContent = item.caption;
+    document.getElementById('dqModalLink').href = item.weiboUrl || 'https://weibo.com/u/6320241831';
+    dqModal.classList.add('open');
+    dqModal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeRiqianModal(){
+    dqModal.classList.remove('open');
+    dqModal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  if (dqModal) {
+    dqModalClose.addEventListener('click', closeRiqianModal);
+    dqModal.querySelector('.dq-modal-backdrop').addEventListener('click', closeRiqianModal);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && dqModal.classList.contains('open')) closeRiqianModal(); });
+  }
+
+  
+
+  // 优先读后台维护的 data/riqian.json（与首页推荐板块共用同一份数据）
+  fetch('data/riqian.json?v=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ if(j && Array.isArray(j.items)) applyRiqianData(j.items); })
+    .catch(function(){ /* 失败则保留脚本内嵌的兜底数据 */ });
+})();
+</script>
+
+<script>
+/* PWA Service Worker 注册 */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function(){});
+  });
+}
+</script>
+<script src="app-mobile.js" defer></script>
+</body>
+</html>
