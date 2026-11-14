@@ -150,13 +150,26 @@
   }
   .wrap{max-width: 720px; margin: 0 auto; padding: 0 0 80px;}
 
-  /* Banner - 自适应横竖图，放宽尺寸限制 */
+  /* Banner - Win11 应用商店风格：浮起的大圆角卡片 */
+  .banner-shell{
+    padding: 12px 12px 0;
+  }
   .banner{
     position: relative;
     width: 100%;
     min-height: 280px;
     overflow: hidden;
     background: #0d0d1a;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.10);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.16), 0 2px 8px rgba(0,0,0,0.10);
+    isolation: isolate;
+  }
+  .banner::after{
+    content:'';
+    position:absolute; inset:0; border-radius:inherit;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+    pointer-events:none; z-index:40;
   }
   /* 轮播轨道：两张屏横向排列，整体平移实现切换 */
   .banner-slides{
@@ -185,13 +198,17 @@
   }
   /* 仅底部渐变遮罩，保证文字可读，上半部分完全展示图片 */
   .banner-mask{
-    position: absolute; left:0; right:0; bottom:0; top:40%;
-    background: linear-gradient(to bottom,
-      rgba(0,0,0,0) 0%,
-      rgba(0,0,0,0.15) 35%,
-      rgba(0,0,0,0.55) 75%,
-      rgba(0,0,0,0.78) 100%
-    );
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to top,
+        rgba(0,0,0,0.82) 0%,
+        rgba(0,0,0,0.58) 24%,
+        rgba(0,0,0,0.18) 54%,
+        rgba(0,0,0,0) 76%),
+      linear-gradient(to right,
+        rgba(0,0,0,0.34) 0%,
+        rgba(0,0,0,0.10) 40%,
+        rgba(0,0,0,0) 62%);
   }
   /* 更新至时间：双段式组件 —— 上半实时时钟，下半更新至
      尺寸自适应：用 clamp() 随 vw 平滑插值，4 个媒体查询里不再重复硬编码 */
@@ -627,18 +644,25 @@
   /* 轮播指示点 */
   .banner-dots{
     position: absolute;
-    bottom: 8px;
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
+    align-items: center;
     gap: 6px;
     z-index: 30;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.28);
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.14);
   }
   .banner-dots .dot{
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.5);
     transition: all .3s ease;
     cursor: pointer;
   }
@@ -646,6 +670,71 @@
     width: 18px;
     border-radius: 3px;
     background: #fff;
+  }
+
+  /* 轮播左右箭头（桌面悬停显示） */
+  .banner-arrow{
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px; border-radius: 50%;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(20,20,20,0.42);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border: 1px solid rgba(255,255,255,0.20);
+    color: #fff; cursor: pointer; z-index: 35;
+    opacity: 0; transition: opacity .2s, background .2s, transform .2s;
+  }
+  .banner-arrow:hover{ background: rgba(20,20,20,0.62); }
+  .banner-arrow.prev{ left: 14px; }
+  .banner-arrow.next{ right: 14px; }
+  .banner-arrow svg{ width: 18px; height: 18px; stroke: #fff; }
+  @media (hover: hover) and (pointer: fine){
+    .banner-arrow{ display: flex; }
+    .banner:hover .banner-arrow{ opacity: 1; }
+  }
+  /* 分端间距与圆角 */
+  @media (max-width: 767px){
+    /* 手机端保持原有通栏 Banner，不使用卡片化样式 */
+    .banner-shell{ padding: 0; }
+    .banner{
+      border-radius: 0;
+      border: 0;
+      box-shadow: none;
+      isolation: auto;
+    }
+    .banner::after{ display: none; }
+    /* 还原为仅底部渐变遮罩 */
+    .banner-mask{
+      inset: auto 0 0 0;
+      top: 40%;
+      background: linear-gradient(to bottom,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.15) 35%,
+        rgba(0,0,0,0.55) 75%,
+        rgba(0,0,0,0.78) 100%
+      );
+    }
+    /* 还原为无底板的指示点 */
+    .banner-dots{
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+    .banner-dots .dot{ background: rgba(255,255,255,0.5); }
+    .banner-dots .dot.active{ background: #fff; }
+    .banner-arrow{ display: none !important; }
+    /* 菜单按钮在手机端隐藏后，logo 左移贴边对齐，该位置不再放其他组件 */
+    .banner img.banner-logo{ left: 14px; }
+  }
+  @media (min-width: 768px){
+    .banner-shell{ padding: 16px 20px 0; }
+    .banner{ border-radius: 20px; }
+  }
+  @media (min-width: 1024px){
+    .banner-shell{ padding: 20px 24px 0; }
   }
 
   /* 点赞按钮 */
@@ -686,33 +775,48 @@
     100% { transform: translateY(-80px) scale(0.6); opacity: 0; }
   }
 
-  /* Tab 导航 */
+  /* Tab 导航 - Win11 独立大圆角按钮组（无外框） */
   .tab-nav{
-    display:flex; gap:8px; padding:12px 16px 0;
-    justify-content: space-around; align-items: center;
-    position:sticky; top:0; z-index:5;
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid var(--md-outline-variant);
-  }
-  [data-theme="dark"] .tab-nav{
-    background: rgba(20,18,24,0.82);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    display:flex; gap:8px;
+    margin:10px 12px 0;
+    padding:0;
+    justify-content: space-between; align-items: stretch;
+    position:sticky; top:calc(6px + env(safe-area-inset-top, 0px)); z-index:5;
+    background: transparent; border:none; box-shadow:none;
   }
   .tab-btn{
-    flex:0 0 auto; padding:10px 16px; border:none; cursor:pointer;
-    background: transparent; color: var(--md-on-surface-variant);
+    flex:1 1 0; min-width:0; min-height:44px;
+    padding:10px 14px; border:1px solid rgba(0,0,0,0.07);
+    cursor:pointer; touch-action:manipulation;
+    background: rgba(255,255,255,0.72);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    backdrop-filter: blur(30px) saturate(180%);
+    color: var(--md-on-surface-variant);
     font-size:14px; font-weight:500;
-    border-bottom:2px solid transparent;
-    transition: all .2s;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.70), 0 2px 6px rgba(0,0,0,0.05);
+    transition: background .18s, color .18s, box-shadow .18s, border-color .18s;
     display:flex; align-items:center; justify-content:center; gap:6px;
   }
+  .tab-btn:hover{ background: rgba(255,255,255,0.88); }
   .tab-btn.active{
     color: var(--md-primary);
-    border-bottom-color: var(--md-primary);
+    background: rgba(233,221,255,0.92);
+    border-color: rgba(145,114,204,0.45);
     font-weight:700;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.75), 0 3px 10px rgba(145,114,204,0.18);
+  }
+  [data-theme="dark"] .tab-btn{
+    background: rgba(48,44,56,0.72);
+    border-color: rgba(255,255,255,0.09);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 8px rgba(0,0,0,0.35);
+  }
+  [data-theme="dark"] .tab-btn:hover{ background: rgba(58,54,66,0.85); }
+  [data-theme="dark"] .tab-btn.active{
+    background: rgba(74,58,107,0.85);
+    border-color: rgba(179,157,219,0.45);
+    color: #D1C4E9;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 12px rgba(0,0,0,0.40);
   }
   .tab-btn svg{ width:16px; height:16px; }
   .tab-pane{ display:none; }
@@ -1255,7 +1359,7 @@
     .card{padding: 24px;}
     .card-title{font-size: 18px;}
     .card li{font-size: 14.5px; line-height: 1.65;}
-    .tab-nav{padding: 16px 20px 0;}
+    .tab-nav{margin: 12px 16px 0;}
     .tab-btn{font-size: 16px; padding: 12px 16px;}
     .tab-btn svg{width: 18px; height: 18px;}
     .filter-section{padding: 14px 20px;}
@@ -1295,7 +1399,7 @@
     .card-title{font-size: 19px;}
     .card li{font-size: 15px; line-height: 1.7;}
     .card:hover{box-shadow: var(--md-elev-3); transform: translateY(-1px); transition: all .25s;}
-    .tab-nav{padding: 16px 24px 0;}
+    .tab-nav{margin: 14px 20px 0;}
     .tab-btn{font-size: 17px; padding: 12px 20px;}
     .fab{width: 64px; height: 64px; right: 32px; bottom: 32px; font-size: 28px;}
     .fab:hover{transform: scale(1.08); transition: transform .2s;}
@@ -1333,7 +1437,7 @@
     .stat-grid{grid-template-columns: repeat(4, 1fr); gap: 8px;}
     .stat-card{padding: 10px;}
     .stat-card .value{font-size: 18px;}
-    .tab-nav{padding: 8px 16px 0;}
+    .tab-nav{margin: 8px 12px 0;}
     .tab-btn{padding: 6px 10px; font-size: 13px;}
   }
 
@@ -1821,6 +1925,7 @@
     .rec-card{ flex-basis:46%; }
   }
 </style>
+<link rel="stylesheet" href="app-mobile.css">
 </head>
 <body>
 <div class="app-shell">
@@ -1913,7 +2018,8 @@
   <div class="wrap">
   <div class="page active" id="page-home">
 
-  <!-- Banner -->
+  <!-- Banner（Win11 商店风格卡片轮播） -->
+  <div class="banner-shell">
   <div class="banner" id="banner">
     <!-- 轮播轨道（背景 + 文字内容一起滚动） -->
     <div class="banner-slides" id="bannerSlides">
@@ -1986,29 +2092,38 @@
       </div>
     </div>
 
+    <!-- 左右切换箭头 -->
+    <button class="banner-arrow prev" id="bannerPrev" type="button" aria-label="上一张">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="banner-arrow next" id="bannerNext" type="button" aria-label="下一张">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
     <!-- 轮播指示点 -->
     <div class="banner-dots" id="bannerDots">
       <span class="dot active" data-index="0"></span>
       <span class="dot" data-index="1"></span>
     </div>
   </div>
+  </div>
 
   <!-- Tab 导航 -->
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="brief">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.7 12 3.8l8.5 6.9V19a1.6 1.6 0 0 1-1.6 1.6h-4.3v-5.8H9.4v5.8H5.1A1.6 1.6 0 0 1 3.5 19z"/></svg>
       推荐
     </button>
     <button class="tab-btn" data-tab="pending">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="3.5"/><path d="M10.2 9.1v5.8l4.8-2.9z"/></svg>
       待播
     </button>
     <button class="tab-btn" data-tab="bio">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c0-3.4 3.2-5.6 7.2-5.6s7.2 2.2 7.2 5.6"/></svg>
       简介
     </button>
     <button class="tab-btn" data-tab="dashboard">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19.5V12"/><path d="M12 19.5V5"/><path d="M19 19.5v-5"/></svg>
       数据
     </button>
   </div>
@@ -3457,6 +3572,7 @@
       if (n === 0) return;
       slides.style.width = (n * 100) + '%';
       items.forEach(item => item.style.width = (100 / n) + '%');
+      document.querySelectorAll('.banner-arrow').forEach(a => { a.style.display = n > 1 ? '' : 'none'; });
     }
     function buildDots(){
       dotsWrap.innerHTML = '';
@@ -3490,6 +3606,12 @@
     // 鼠标悬停暂停（桌面端）
     banner.addEventListener('mouseenter', stop);
     banner.addEventListener('mouseleave', start);
+
+    // 左右箭头切换
+    const prevBtn = document.getElementById('bannerPrev');
+    const nextBtn = document.getElementById('bannerNext');
+    if (prevBtn) prevBtn.addEventListener('click', () => { go(cur - 1); start(); });
+    if (nextBtn) nextBtn.addEventListener('click', () => { go(cur + 1); start(); });
 
     // 触摸滑动（移动端）
     let touchStartX = 0, touchDeltaX = 0, touching = false;
@@ -4577,5 +4699,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<script src="app-mobile.js" defer></script>
 </body>
 </html>

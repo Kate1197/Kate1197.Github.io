@@ -1,0 +1,160 @@
+/* ===== 移动端 App 化外壳（可选，可整体回退） =====
+   仅在 ≤767px 生效：底部导航接管汉堡菜单，桌面/平板完全不受影响。
+   回退方式：删除各页面里的 app-mobile.css / app-mobile.js 引用即可。 */
+
+.app-tabbar,
+.app-sheet,
+.app-sheet-backdrop{ display:none; }
+
+@media (min-width: 768px){
+  .app-tabbar,
+  .app-sheet{ display:none !important; }
+}
+
+@media (max-width: 767px){
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    touch-action: manipulation;
+    overscroll-behavior-y: contain;
+    animation: appFadeIn .22s ease-out both;
+  }
+
+  @keyframes appFadeIn{ from{ opacity:0 } to{ opacity:1 } }
+
+  /* 底部导航接管原汉堡菜单 */
+  .menu-btn,
+  #menuBtn,
+  .bd-menu-btn,
+  .menu-overlay{ display:none !important; }
+
+  /* 给底部导航留出空间 */
+  .wrap{ padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)) !important; }
+
+  /* 浮动按钮抬高，避免压住导航 */
+  .fab-export{ bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important; }
+
+  .app-tabbar{
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 260;
+    display: flex;
+    align-items: stretch;
+    padding: 5px 8px calc(5px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255,255,255,.86);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-top: 1px solid rgba(0,0,0,.07);
+    box-shadow: 0 -6px 24px rgba(0,0,0,.05);
+  }
+  [data-theme="dark"] .app-tabbar{
+    background: rgba(24,22,28,.9);
+    border-top-color: rgba(255,255,255,.08);
+    box-shadow: 0 -6px 24px rgba(0,0,0,.4);
+  }
+
+  .app-tab{
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 5px 2px 3px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: var(--md-on-surface-variant, #49454F);
+    font-family: inherit;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: .2px;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color .16s;
+  }
+  .app-tab-ico{
+    width: 42px;
+    height: 26px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .18s, transform .14s;
+  }
+  .app-tab svg{ width: 21px; height: 21px; display: block; }
+  .app-tab.active{ color: var(--md-primary, #9172CC); }
+  .app-tab.active .app-tab-ico{
+    background: var(--md-primary-container, rgba(145,114,204,.16));
+  }
+  .app-tab:active .app-tab-ico{ transform: scale(.9); }
+
+  /* 「更多」底部弹层 */
+  .app-sheet{ position: fixed; inset: 0; z-index: 950; display: none; }
+  .app-sheet.open{ display: block; }
+  .app-sheet-backdrop{
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: rgba(0,0,0,.42);
+    animation: appFadeIn .18s ease-out;
+  }
+  .app-sheet-panel{
+    position: absolute;
+    left: 8px; right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    padding: 6px 8px 10px;
+    border-radius: 20px;
+    background: var(--md-surface, #FEF7FF);
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 18px 48px rgba(0,0,0,.28);
+    animation: appSheetUp .26s cubic-bezier(.2,.8,.2,1);
+  }
+  [data-theme="dark"] .app-sheet-panel{
+    background: #211F26;
+    border-color: rgba(255,255,255,.08);
+  }
+  @keyframes appSheetUp{
+    from{ transform: translateY(18px); opacity: 0 }
+    to{ transform: none; opacity: 1 }
+  }
+  .app-sheet-grip{
+    width: 36px; height: 4px;
+    border-radius: 2px;
+    margin: 6px auto 4px;
+    background: rgba(0,0,0,.16);
+  }
+  [data-theme="dark"] .app-sheet-grip{ background: rgba(255,255,255,.2); }
+  .app-sheet-title{
+    padding: 4px 10px 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    color: var(--md-on-surface-variant, #49454F);
+  }
+  .app-sheet-list{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .app-sheet-item{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 14px;
+    border-radius: 14px;
+    background: rgba(145,114,204,.08);
+    color: var(--md-on-surface, #1D1B20);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 600;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .14s, background .16s;
+  }
+  [data-theme="dark"] .app-sheet-item{ background: rgba(145,114,204,.14); }
+  .app-sheet-item:active{ transform: scale(.97); background: rgba(145,114,204,.18); }
+  .app-sheet-item svg{ width: 19px; height: 19px; flex-shrink: 0; }
+
+  body.app-sheet-open{ overflow: hidden; }
+}
