@@ -1921,7 +1921,7 @@
   }
   .rec-scroll::-webkit-scrollbar{ display:none; }
   .rec-card{
-    flex:0 0 80%; max-width:320px; scroll-snap-align:start;
+    flex:0 0 68%; max-width:280px; scroll-snap-align:start;
     background:var(--md-surface-container-low); border:1px solid var(--md-outline-variant);
     border-radius:16px; text-decoration:none; color:inherit;
     display:flex; flex-direction:column; overflow:hidden; min-height:132px;
@@ -1948,20 +1948,24 @@
     fill:none; stroke:currentColor; stroke-width:1.8;
     stroke-linecap:round; stroke-linejoin:round;
   }
-  .rec-cover-ph.k-event, .rec-thumb-box.k-event{ background:linear-gradient(135deg,#7C8DFF,#A98BFF); }
-  .rec-cover-ph.k-riqian, .rec-thumb-box.k-riqian{ background:linear-gradient(135deg,#B08BFF,#9172CC); }
-  .rec-cover-ph.k-chanchu, .rec-thumb-box.k-chanchu{ background:linear-gradient(135deg,#FF9FB2,#FFB47A); }
-  .rec-cover-ph.k-interview, .rec-thumb-box.k-interview{ background:linear-gradient(135deg,#6FD3D8,#4FA8E8); }
-  .rec-cover-ph.k-brand, .rec-thumb-box.k-brand{ background:linear-gradient(135deg,#E7C56B,#D79A4E); }
-  .rec-cover-ph.k-blog, .rec-thumb-box.k-blog{ background:linear-gradient(135deg,#7FD4A3,#4FB98B); }
+  .rec-cover-box.k-event, .rec-thumb-box.k-event{ background:linear-gradient(135deg,#7C8DFF,#A98BFF); }
+  .rec-cover-box.k-riqian, .rec-thumb-box.k-riqian{ background:linear-gradient(135deg,#B08BFF,#9172CC); }
+  .rec-cover-box.k-chanchu, .rec-thumb-box.k-chanchu{ background:linear-gradient(135deg,#FF9FB2,#FFB47A); }
+  .rec-cover-box.k-interview, .rec-thumb-box.k-interview{ background:linear-gradient(135deg,#6FD3D8,#4FA8E8); }
+  .rec-cover-box.k-brand, .rec-thumb-box.k-brand{ background:linear-gradient(135deg,#E7C56B,#D79A4E); }
+  .rec-cover-box.k-blog, .rec-thumb-box.k-blog{ background:linear-gradient(135deg,#7FD4A3,#4FB98B); }
   .rec-scroll .rec-empty{ flex:1 0 100%; }
   .rec-empty{
     font-size:12.5px; color:var(--md-on-surface-variant); padding:14px;
     border:1px dashed var(--md-outline-variant); border-radius:12px; text-align:center;
   }
   @media (min-width:768px){
-    .rec-card{ flex-basis:calc(50% - 5px); max-width:none; }
+    .rec-card{ flex-basis:calc(40% - 6px); max-width:none; }
     .rec-cover-box{ height:128px; }
+  }
+  /* 手机端触屏可直接滑动，隐藏翻页按钮 */
+  @media (max-width:767px){
+    .rec-nav{ display:none; }
   }
 
   /* Pad / 桌面：Tab 栏默认透明，吸顶后渐显不透明底色 */
@@ -3850,20 +3854,23 @@
     brand:'<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="3"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>',
     blog:'<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="14" y2="17"/></svg>'
   };
-  // 横向大卡片顶部封面
+  // 横向大卡片顶部封面：有图只渲染图片，无图才显示板块色占位 + 图标
   function recCoverBox(kind, src, alt){
-    var ph = '<div class="rec-cover-ph k-' + kind + '">' + (REC_ICONS[kind] || '') + '</div>';
-    if(!src) return '<div class="rec-cover-box">' + ph + '</div>';
-    return '<div class="rec-cover-box">' + ph +
-      '<img class="rec-cover" src="' + escHtml(src) + '" alt="' + escHtml(alt || '') + '" loading="lazy" onerror="this.remove()">' +
+    if(!src){
+      return '<div class="rec-cover-box k-' + kind + '"><div class="rec-cover-ph">' + (REC_ICONS[kind] || '') + '</div></div>';
+    }
+    return '<div class="rec-cover-box">' +
+      '<img class="rec-cover" src="' + escHtml(src) + '" alt="' + escHtml(alt || '') + '" loading="lazy" onerror="this.parentNode.classList.add(\'k-' + kind + '\');this.remove()">' +
     '</div>';
   }
-  // 纵向卡片左侧缩略图
+  // 纵向卡片左侧缩略图：有图只渲染图片，无图才显示板块色占位 + 图标
   function recThumb(kind, src, alt){
-    var inner = src
-      ? '<img class="rec-thumb" src="' + escHtml(src) + '" alt="' + escHtml(alt || '') + '" loading="lazy" onerror="this.remove()">'
-      : '';
-    return '<div class="rec-thumb-box k-' + kind + '">' + (REC_ICONS[kind] || '') + inner + '</div>';
+    if(!src){
+      return '<div class="rec-thumb-box k-' + kind + '">' + (REC_ICONS[kind] || '') + '</div>';
+    }
+    return '<div class="rec-thumb-box">' +
+      '<img class="rec-thumb" src="' + escHtml(src) + '" alt="' + escHtml(alt || '') + '" loading="lazy" onerror="this.parentNode.classList.add(\'k-' + kind + '\');this.remove()">' +
+    '</div>';
   }
   // 横向板块：左右翻页按钮
   (function(){
