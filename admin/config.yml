@@ -33,10 +33,9 @@ collections:
             fields:
               - { name: enabled, label: 显示广告, widget: boolean, default: true }
               - { name: image, label: 广告图片, widget: image, allow_multiple: false }
-              - { name: title, label: 广告标题, widget: string }
+              - { name: title, label: 广告标题, widget: string, hint: "点击标题会跳转到下方「标题跳转链接」" }
               - { name: subtitle, label: 广告副标题, widget: string }
-              - { name: buttonText, label: 按钮文字, widget: string }
-              - { name: buttonUrl, label: 按钮链接, widget: string }
+              - { name: buttonUrl, label: 标题跳转链接, widget: string, required: false, hint: "点击广告标题时打开；留空则标题不可点击" }
           - name: extraBanners
             label: 自定义 Banner（最多 10 个）
             widget: list
@@ -46,10 +45,9 @@ collections:
             fields:
               - { name: enabled, label: 显示该 Banner, widget: boolean, default: true }
               - { name: image, label: 背景图, widget: image, allow_multiple: false }
-              - { name: title, label: 标题, widget: string }
+              - { name: title, label: 标题, widget: string, hint: "点击标题会跳转到下方「标题跳转链接」" }
               - { name: subtitle, label: 副标题, widget: string, required: false }
-              - { name: buttonText, label: 按钮文字, widget: string, required: false }
-              - { name: buttonUrl, label: 按钮链接, widget: string, required: false }
+              - { name: buttonUrl, label: 标题跳转链接, widget: string, required: false, hint: "点击标题时打开；留空则标题不可点击" }
 
       - name: notice
         label: 通知条
