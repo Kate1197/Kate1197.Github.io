@@ -1850,11 +1850,15 @@
     .dq-modal-footer{padding:12px 18px 20px;}
   }
 
-  /* 小屏：5 个 Tab 横向滚动，防止挤压换行 */
+  /* 手机端：4 个 Tab 等宽均分，图标 + 文字居中，左右留白对称 */
   @media (max-width:767px){
-    .tab-nav{ overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-    .tab-nav::-webkit-scrollbar{ display:none; }
-    .tab-btn{ flex:0 0 auto; white-space:nowrap; }
+    .tab-nav{ overflow:visible; gap:0; padding:8px 8px 0; }
+    .tab-btn{
+      flex:1 1 0; min-width:0; min-height:44px;
+      padding:8px 2px; font-size:13px; gap:5px;
+      white-space:nowrap;
+    }
+    .tab-btn svg{ width:15px; height:15px; flex-shrink:0; }
   }
 
   /* ===== 首页推荐（原简报） ===== */
