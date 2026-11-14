@@ -2964,6 +2964,12 @@
     Object.entries(pages).forEach(([id, el]) => el.classList.toggle('active', id === navId));
     if (navId === 'page-home') activateTab('brief');
     syncNavHighlight();
+    // 同步地址栏 hash，保证「日签」这一视图可以复制链接 / 被 App 直接打开
+    const wantHash = navId === 'page-riqian' ? '#riqian' : '';
+    const nowHash = location.hash || '';
+    if (nowHash !== wantHash) {
+      try { history.replaceState(null, '', location.pathname + location.search + wantHash); } catch(e){}
+    }
     closeMenu();
     window.scrollTo({top:0, behavior:'instant'});
   }
@@ -2981,6 +2987,13 @@
     const h = (location.hash || '').replace('#','');
     if(h === 'riqian' || h === 'page-riqian'){ applyNav('page-riqian'); }
   })();
+
+  // 同一页面内点击底栏「日签 / 首页」只改变 hash，需要监听 hashchange 才能切换视图
+  window.addEventListener('hashchange', function(){
+    const h = (location.hash || '').replace('#','');
+    if(h === 'riqian' || h === 'page-riqian'){ applyNav('page-riqian'); }
+    else { applyNav('page-home'); }
+  });
 
   // ========== 玡迩叻页面：子tab切换 ==========
   document.querySelectorAll('.sub-tab').forEach(tab => {
