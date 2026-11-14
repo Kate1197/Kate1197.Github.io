@@ -1905,7 +1905,6 @@
   }
 
   /* Pad / 桌面：Tab 栏默认透明，吸顶后渐显白色毛玻璃 */
-  .tab-sentinel{ height:1px; margin-bottom:-1px; }
   @media (min-width:768px){
     .tab-nav{
       background: transparent;
@@ -1913,24 +1912,28 @@
       box-shadow: 0 3px 16px rgba(0,0,0,0);
       transition: border-color .28s ease, box-shadow .28s ease;
     }
-    .tab-nav::before{
-      content:""; position:absolute; inset:-1px 0 0; z-index:-1;
+    .tab-nav-bg{
+      position:absolute; inset:-1px 0 0 0; z-index:0;
       pointer-events:none; opacity:0;
       background: var(--md-surface-container-lowest);
       transition: opacity .28s ease;
     }
+    .tab-btn{ position:relative; z-index:1; }
     .tab-nav.is-stuck{
       border-bottom-color: var(--md-outline-variant);
       box-shadow: 0 3px 16px rgba(0,0,0,0.06);
     }
-    .tab-nav.is-stuck::before{
+    .tab-nav.is-stuck .tab-nav-bg{
       opacity:0.82;
       -webkit-backdrop-filter: blur(18px) saturate(1.6);
       backdrop-filter: blur(18px) saturate(1.6);
     }
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+      .tab-nav.is-stuck .tab-nav-bg{ opacity:0.97; }
+    }
   }
   @media (min-width:768px) and (prefers-reduced-motion: reduce){
-    .tab-nav, .tab-nav::before{ transition:none; }
+    .tab-nav, .tab-nav-bg{ transition:none; }
   }
 </style>
 <link rel="stylesheet" href="app-mobile.css">
@@ -2116,8 +2119,8 @@
   </div>
 
   <!-- Tab 导航 -->
-  <div class="tab-sentinel" id="tabNavSentinel" aria-hidden="true"></div>
   <div class="tab-nav" id="tabNav">
+    <span class="tab-nav-bg" aria-hidden="true"></span>
     <button class="tab-btn active" data-tab="brief">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.7 12 3.8l8.5 6.9V19a1.6 1.6 0 0 1-1.6 1.6h-4.3v-5.8H9.4v5.8H5.1A1.6 1.6 0 0 1 3.5 19z"/></svg>
       推荐
@@ -4720,20 +4723,26 @@ if ('serviceWorker' in navigator) {
 /* Pad / 桌面：Tab 栏吸顶时渐显白色毛玻璃（仅视觉，不影响切换逻辑） */
 (function(){
   var bar = document.getElementById('tabNav');
-  var sen = document.getElementById('tabNavSentinel');
-  if(!bar || !sen || !('IntersectionObserver' in window)) return;
+  if(!bar) return;
   var mq = window.matchMedia('(min-width:768px)');
-  var io = new IntersectionObserver(function(entries){
-    var e = entries[0];
-    var stuck = !e.isIntersecting && e.boundingClientRect.top < 0 && mq.matches;
-    bar.classList.toggle('is-stuck', stuck);
-  }, { threshold: 0 });
-  io.observe(sen);
-  var onChange = function(){
-    if(!mq.matches) bar.classList.remove('is-stuck');
-  };
-  if(mq.addEventListener) mq.addEventListener('change', onChange);
-  else if(mq.addListener) mq.addListener(onChange);
+  var raf = 0;
+  function sync(){
+    raf = 0;
+    if(!mq.matches){ bar.classList.remove('is-stuck'); return; }
+    var top = bar.getBoundingClientRect().top;
+    bar.classList.toggle('is-stuck', top <= 1);
+  }
+  function onScroll(){
+    if(raf) return;
+    raf = requestAnimationFrame(sync);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  document.addEventListener('scroll', onScroll, { passive:true, capture:true });
+  window.addEventListener('resize', onScroll);
+  window.addEventListener('load', sync);
+  if(mq.addEventListener) mq.addEventListener('change', onScroll);
+  else if(mq.addListener) mq.addListener(onScroll);
+  sync();
 })();
 </script>
 <script src="app-mobile.js" defer></script>
