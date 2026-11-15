@@ -1,6 +1,6 @@
 {
   "enabled": true,
-  "image": "/uploads/1000003819.jpg",
+  "image": "/uploads/amy-main-banner.webp",
   "title": "**艾米日签** ",
   "chips": [
     "微博",
@@ -9,27 +9,12 @@
     "仅正面/中性"
   ],
   "ad": {
-    "enabled": true,
-    "image": "/uploads/1000065549.jpg",
-    "title": "一早赴约 元气登场！",
-    "subtitle": "肯德基首款贝果，11月16日起上海惊喜首发，全天有售哦！",
-    "buttonText": "了解更多",
-    "buttonUrl": "https://weibo.com/6671129497/5364701820617212"
+    "enabled": false,
+    "image": "jd-health-banner.webp?v=20261020",
+    "title": "医用金选下单送卡 好运送金",
+    "subtitle": "医用金选合作阶段圆满 · 感谢艾心支持",
+    "buttonText": "查看回顾",
+    "buttonUrl": "https://pro.m.jd.com/mall/active/3NANJ4pMdWdEBgjJveh5KBpFbxsX/index.html?gx=RnAomTM2b2Lcy5oT-oJ2WxbfpLhSfqk&gxd=RnAowjFbbzSMnZ5Hp9VyCAkEOjPDaD4&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL_shareid1f270ef6b8a5e161179249535493884116_tongtianta_02206342"
   },
-  "extraBanners": [
-    {
-      "enabled": true,
-      "buttonUrl": "https://weibo.com/2130860695/5365245250113169",
-      "title": "动画短片《克里斯汀•迪奥的缤纷圣诞》",
-      "subtitle": "当好莱坞魅力邂逅圣诞幻梦，一场交织魔法与想象的奇妙篇章就此展开。",
-      "image": "/uploads/1000064663.jpg"
-    },
-    {
-      "enabled": true,
-      "title": "2026爱奇艺尖叫之夜",
-      "subtitle": "重磅官宣！12月5日相约中国澳门，共赴桃厂年度尖叫盛会！",
-      "buttonUrl": "https://weibo.com/1731986465/5365471693244536",
-      "image": "/uploads/1000065574.jpg"
-    }
-  ]
+  "extraBanners": []
 }
