@@ -53,7 +53,7 @@
       "enabled": true,
       "promptMode": "inherit",
       "name": "old Game",
-      "openMode": "embed",
+      "openMode": "external",
       "url": "https://oldgame.io/zh/",
       "desc": "在浏览器中免费畅玩 5,000+ 经典老游戏。红白机、超任、GBA、N64、NDS — 无需下载，即点即玩。",
       "icon": "/uploads/1000065580.png",
