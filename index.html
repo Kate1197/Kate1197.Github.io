@@ -185,13 +185,15 @@
     overflow: hidden;
   }
   .banner-slide[data-hidden="true"]{ display: none; }
-  .banner-slide > img{
+  .banner-slide > img, .banner-slide > picture > img{
     width: 100%;
     height: 380px;
     object-fit: cover;
     object-position: center 32%;
     display: block;
   }
+  /* WebP 优先的图片容器：布局与直接放 img 一致 */
+  .banner-slide > picture{ display:block; width:100%; }
   /* 广告屏背景图：仅覆盖对齐方式为底部锚定，尺寸继承 .banner-slide > img（随断点响应） */
   .banner-slide > img.banner-ad-bg{
     object-position: center bottom;
@@ -1152,7 +1154,7 @@
 
   /* —— 手机: 320px ~ 479px —— */
   @media (max-width: 479px){
-    .banner-slide > img{height: 300px;}
+    .banner-slide > img, .banner-slide > picture > img{height: 300px;}
     .banner-ad-bg{height: 300px;}
     .banner-title{font-size: 18px;}
     .banner-sub{font-size: 12px;}
@@ -1183,7 +1185,7 @@
 
   /* —— 大手机: 480px ~ 767px —— */
   @media (min-width: 480px) and (max-width: 767px){
-    .banner-slide > img{height: 340px;}
+    .banner-slide > img, .banner-slide > picture > img{height: 340px;}
     .banner-ad-bg{height: 340px;}
     .stat-grid{grid-template-columns: repeat(2, 1fr); gap: 10px;}
     .stat-card .value{font-size: 22px;}
@@ -1319,7 +1321,7 @@
   /* —— 平板: 768px ~ 1023px 细节 —— */
   @media (min-width: 768px) and (max-width: 1023px){
     .wrap{max-width: none; padding: 0 0 100px;}
-    .banner-slide > img{height: 420px;}
+    .banner-slide > img, .banner-slide > picture > img{height: 420px;}
     .banner-ad-bg{height: 420px;}
     .banner-title{font-size: 26px;}
     .banner-sub{font-size: 14px;}
@@ -1361,7 +1363,7 @@
   /* —— 桌面: 1024px+ —— */
   @media (min-width: 1024px){
     .wrap{max-width: none; padding: 0 0 120px;}
-    .banner-slide > img{height: 460px;}
+    .banner-slide > img, .banner-slide > picture > img{height: 460px;}
     .banner-ad-bg{height: 460px;}
     .banner-title{font-size: 30px; letter-spacing: 1.5px;}
     .banner-sub{font-size: 15px;}
@@ -1401,7 +1403,7 @@
 
   /* —— 横屏手机优化 —— */
   @media (max-height: 420px) and (orientation: landscape){
-    .banner-slide > img{height: 220px;}
+    .banner-slide > img, .banner-slide > picture > img{height: 220px;}
     .banner-ad-bg{height: 220px;}
     .banner-title{font-size: 16px;}
     .banner-sub{font-size: 11px;}
@@ -2103,7 +2105,11 @@
 
       <!-- 第一屏：日签 -->
       <div class="banner-slide">
-        <img src="amy-banner.jpg?v=20261026c" alt="艺人艾米" crossorigin="anonymous">
+        <picture>
+          <source media="(max-width: 767px)" srcset="amy-banner-800.webp?v=20261115" type="image/webp">
+          <source srcset="amy-banner.webp?v=20261115" type="image/webp">
+          <img src="amy-banner.jpg?v=20261026c" alt="艺人艾米" crossorigin="anonymous" width="2560" height="1706" fetchpriority="high" decoding="async">
+        </picture>
         <div class="banner-mask"></div>
         <div class="banner-content">
           <div class="banner-text">
@@ -4218,7 +4224,11 @@
     if(firstSlide){
       firstSlide.dataset.hidden = b.enabled === false ? 'true' : 'false';
       const img = firstSlide.querySelector('img');
-      if(img && b.image) img.src = b.image;
+      if(img && b.image){
+        const pic = img.closest('picture');
+        if(pic) pic.querySelectorAll('source').forEach(function(s){ s.remove(); });
+        img.src = b.image;
+      }
       const title = firstSlide.querySelector('.banner-title');
       if(title && b.title) title.innerHTML = mdToHtml(b.title);
       const chipsWrap = firstSlide.querySelector('.banner-chips');
