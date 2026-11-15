@@ -64,7 +64,7 @@
       "date": "2026-11-11 10:30",
       "cover": "",
       "title": "站点日志上线：以后公告和更新都写在这里",
-      "pinned": true,
+      "pinned": false,
       "showCover": false,
       "tag": "公告"
     },
