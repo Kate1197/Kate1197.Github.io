@@ -39,14 +39,15 @@
       "category": "全部,工具"
     },
     {
-      "openMode": "embed",
-      "promptMode": "inherit",
       "enabled": true,
-      "id": "eat what",
+      "promptMode": "inherit",
       "name": "今天吃什么",
-      "category": "工具",
+      "openMode": "embed",
       "url": "https://www.suijimm.com/food/",
-      "icon": "/uploads/1000065579.jpg"
+      "desc": "告别选择困难症，让随机来帮你做决定。",
+      "icon": "/uploads/1000065579.jpg",
+      "id": "eat what",
+      "category": "工具"
     },
     {
       "enabled": true,
