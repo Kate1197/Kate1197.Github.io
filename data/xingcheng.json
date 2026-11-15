@@ -11,14 +11,15 @@
   ],
   "events": [
     {
-      "showCover": false,
-      "title": "爱奇艺·尖叫之夜官宣时间同步",
-      "type": "晚会活动",
-      "date": "2026-11-15",
-      "time": "11:00",
+      "time": "",
+      "date": "2026-12-5",
+      "note": "重磅官宣！12月5日相约中国澳门，共赴桃厂年度尖叫盛会！\n名单已公布！",
       "location": "线上",
-      "note": "11月15日\n11:00 人名条版海报\n【本名（艺名），按本名拼音首字母排序】\n\n具体发布时间以实际为准 ",
-      "link": "https://weibo.com/8011666728/Rrk39yxlu"
+      "cover": "/uploads/1000065574.jpg",
+      "title": "爱奇艺·尖叫之夜",
+      "showCover": true,
+      "type": "晚会活动",
+      "link": "https://weibo.com/1731986465/RrtdvdC3e"
     },
     {
       "showCover": false,
