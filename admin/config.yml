@@ -484,3 +484,57 @@ collections:
                       - { label: "实心", value: "primary" }
                       - { label: "描边", value: "ghost" }
                   - { name: cite, label: 引用来源, widget: string, required: false }
+
+  - name: services
+    label: 更多服务
+    files:
+      - name: services
+        label: 第三方服务
+        file: data/services.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - { name: intro, label: 副标题, widget: string, hint: "显示在页面标题下方的一句话" }
+          - name: categories
+            label: 服务分类
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "这里维护所有分类，前端的筛选按钮会自动按此列表生成"
+            field: { name: name, label: 分类名称, widget: string }
+          - name: notice
+            label: 进入提示（全局默认）
+            widget: object
+            fields:
+              - { name: enabled, label: 默认显示进入提示, widget: boolean, default: true }
+              - { name: seconds, label: 提示秒数, widget: number, default: 5, min: 0, max: 30, hint: "到时自动进入，例如 5" }
+              - { name: text, label: 提示文案, widget: text, hint: "可用 {name} 代表服务名称" }
+              - { name: skippable, label: 允许跳过, widget: boolean, default: true }
+          - name: services
+            label: 服务列表
+            widget: list
+            summary: "{{fields.name}} · {{fields.category}}"
+            hint: "列表顺序即前台显示顺序，可上下拖动排序；新增后记得打开「显示该服务」"
+            fields:
+              - { name: id, label: 服务标识, widget: string, hint: "英文或数字短标识，全站唯一，例如 weibo；用于 service.html?id=xxx" }
+              - { name: name, label: 服务名称, widget: string }
+              - { name: category, label: 分类, widget: string, hint: "填写上方「服务分类」中的某一项，例如：工具" }
+              - { name: url, label: 网页地址, widget: string, hint: "完整网址（https://…）；站内页面可填相对路径，如 blog.html" }
+              - { name: icon, label: 图标, widget: image, allow_multiple: false, required: false, hint: "建议正方形；不上传则用名称首字自动生成" }
+              - { name: desc, label: 简介, widget: text, required: false, hint: "一两句话说明这个服务是做什么的" }
+              - name: openMode
+                label: 打开方式
+                widget: select
+                default: embed
+                options:
+                  - { label: "站内嵌入（保留本站框架）", value: "embed" }
+                  - { label: "新窗口直接跳转", value: "external" }
+              - name: promptMode
+                label: 进入提示
+                widget: select
+                default: inherit
+                options:
+                  - { label: "跟随全局默认", value: "inherit" }
+                  - { label: "总是提示", value: "always" }
+                  - { label: "不提示", value: "never" }
+              - { name: promptSeconds, label: 提示秒数, widget: number, required: false, hint: "仅「总是提示」时生效；留空则用全局秒数" }
+              - { name: promptText, label: 提示文案, widget: text, required: false, hint: "仅「总是提示」时生效，可用 {name}" }
+              - { name: enabled, label: 显示该服务, widget: boolean, default: true, hint: "关闭后前台不展示，数据保留" }

@@ -1,0 +1,52 @@
+{
+  "updatedAt": "2026-11-15 10:00:00",
+  "intro": "站内直接打开的第三方网页服务，保留站点导航与底栏",
+  "categories": [
+    {
+      "name": "示例"
+    },
+    {
+      "name": "工具"
+    },
+    {
+      "name": "资讯"
+    },
+    {
+      "name": "社区"
+    }
+  ],
+  "notice": {
+    "enabled": true,
+    "seconds": 5,
+    "text": "即将打开第三方服务「{name}」，该页面内容由第三方提供，请注意保护个人信息。",
+    "skippable": true
+  },
+  "services": [
+    {
+      "id": "demo-blog",
+      "name": "站点日志",
+      "category": "示例",
+      "url": "blog.html",
+      "icon": "",
+      "desc": "站内页面的嵌入示例，打开后仍保留左侧栏与底部导航",
+      "openMode": "embed",
+      "promptMode": "never",
+      "promptSeconds": 0,
+      "promptText": "",
+      "enabled": true
+    },
+    {
+      "id": "demo-external",
+      "name": "示例 · 新窗口打开",
+      "category": "示例",
+      "url": "https://example.com",
+      "icon": "",
+      "desc": "演示「直接跳转」模式：点击后在新窗口打开，不占用站内框架",
+      "openMode": "external",
+      "promptMode": "never",
+      "promptSeconds": 0,
+      "promptText": "",
+      "enabled": true
+    }
+  ]
+}

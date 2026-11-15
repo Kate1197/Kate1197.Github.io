@@ -34,7 +34,8 @@
     { label: '采访合集', href: 'interview.html', icon: 'mic' },
     { label: '商务代言', href: 'brands.html', icon: 'case' },
     { label: '艾心向善', href: 'aixin.html', icon: 'heart' },
-    { label: '站点日志', href: 'blog.html', icon: 'doc' }
+    { label: '站点日志', href: 'blog.html', icon: 'doc' },
+    { label: '更多服务', href: 'services.html', icon: 'grid' }
   ];
 
   function svg(name, size) {
@@ -56,7 +57,7 @@
     if (file === 'riqian.html') return 'riqian';
     if (file === 'xingcheng.html') return 'xingcheng';
     if (file === 'chanchu.html') return 'chanchu';
-    if (file === 'interview.html' || file === 'brands.html' || file === 'aixin.html' || file === 'blog.html') return 'more';
+    if (file === 'interview.html' || file === 'brands.html' || file === 'aixin.html' || file === 'blog.html' || file === 'services.html' || file === 'service.html') return 'more';
     return 'home';
   }
 

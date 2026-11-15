@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>服务 · 艾米日签</title>
+<meta name="description" content="艾米日签 · 更多服务 — 在站内打开第三方网页，保留站点导航与底栏。">
+<meta name="theme-color" content="#9172CC">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-title" content="艾米日签">
+<meta name="application-name" content="艾米日签">
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --md-primary: #9172CC;
+    --md-on-primary: #FFFFFF;
+    --md-primary-container: #E9DDFF;
+    --md-on-primary-container: #250460;
+    --md-surface: #FEF7FF;
+    --md-surface-container-lowest: #FFFFFF;
+    --md-surface-container-low: #F7F0FA;
+    --md-surface-container: #F2EBF5;
+    --md-surface-container-high: #ECE5EF;
+    --md-surface-container-highest: #E6E0E9;
+    --md-on-surface: #1D1B20;
+    --md-on-surface-variant: #49454F;
+    --md-outline: #79747E;
+    --md-outline-variant: #CAC4D0;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.12), 0 1px 3px 1px rgba(0,0,0,0.08);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.10), 0 1px 3px 0 rgba(0,0,0,0.14);
+    --md-radius-md: 12px;
+    --md-radius-lg: 16px;
+  }
+  [data-theme="dark"]{
+    --md-surface: #141218;
+    --md-surface-container-lowest: #0F0D13;
+    --md-surface-container-low: #1D1B20;
+    --md-surface-container: #211F26;
+    --md-surface-container-high: #2B2930;
+    --md-surface-container-highest: #36343B;
+    --md-on-surface: #E6E0E9;
+    --md-on-surface-variant: #CAC4D0;
+    --md-outline: #938F99;
+    --md-outline-variant: #49454F;
+    --md-primary-container: #4A3A6B;
+    --md-on-primary-container: #E9DDFF;
+    --md-elev-1: 0 1px 2px 0 rgba(0,0,0,0.30), 0 1px 3px 1px rgba(0,0,0,0.20);
+    --md-elev-3: 0 4px 8px 3px rgba(0,0,0,0.35), 0 1px 3px 0 rgba(0,0,0,0.30);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%;}
+  body{
+    font-family: "MiSans", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", Roboto, system-ui, sans-serif;
+    background: var(--md-surface);
+    color: var(--md-on-surface);
+    line-height: 1.5;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+    overflow: hidden;
+  }
+
+  /* ===== 布局 ===== */
+  .app-shell{ display:block; height:100vh; height:100dvh; overflow:hidden; }
+  .app-sidebar{ display:none; }
+  .app-content{ display:flex; flex-direction:column; height:100vh; height:100dvh; min-height:0; }
+
+  /* ===== 顶部工具条 ===== */
+  .svc-topbar{
+    flex-shrink:0; z-index:20;
+    display:flex; align-items:center; gap:10px;
+    padding: 9px 12px;
+    padding-top: calc(9px + env(safe-area-inset-top, 0px));
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  [data-theme="dark"] .svc-topbar{ background: rgba(20,18,24,0.86); }
+  .svc-icon-btn{
+    width:38px; height:38px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background: transparent; color: var(--md-on-surface);
+    text-decoration:none; border:none; cursor:pointer;
+    transition: background .16s;
+  }
+  .svc-icon-btn:hover{ background: var(--md-surface-container-high); }
+  .svc-icon-btn:active{ background: var(--md-surface-container-high); }
+  .svc-icon-btn svg{ width:21px; height:21px; stroke:currentColor; }
+  .svc-id{
+    display:flex; align-items:center; gap:10px;
+    flex:1; min-width:0;
+  }
+  .svc-ico{
+    width:34px; height:34px; border-radius:10px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, var(--g1, #9172CC), var(--g2, #5E4BA6));
+    color:#fff; font-size:15px; font-weight:800; overflow:hidden;
+  }
+  .svc-ico img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .svc-id-text{ min-width:0; }
+  .svc-name{
+    font-size:15px; font-weight:700;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .svc-domain{
+    font-size:11px; color:var(--md-on-surface-variant);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+
+  /* ===== iframe 区域 ===== */
+  .svc-frame-wrap{
+    position:relative; flex:1; min-height:0;
+    background: var(--md-surface-container-low);
+  }
+  .svc-frame-wrap iframe{
+    position:absolute; inset:0; width:100%; height:100%;
+    border:0; background:#fff;
+  }
+  [data-theme="dark"] .svc-frame-wrap iframe{ background:#1D1B20; }
+  .svc-loading{
+    position:absolute; inset:0; z-index:2;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    background: var(--md-surface);
+    color: var(--md-on-surface-variant);
+    font-size:13px;
+  }
+  .svc-loading[hidden]{ display:none; }
+  .svc-spinner{
+    width:34px; height:34px; border-radius:50%;
+    border:3px solid var(--md-surface-container-highest);
+    border-top-color: var(--md-primary);
+    animation: svcSpin .8s linear infinite;
+  }
+  @keyframes svcSpin{ to{ transform: rotate(360deg); } }
+  .svc-hint{
+    position:absolute; left:12px; right:12px; bottom:12px; z-index:3;
+    display:none; align-items:flex-start; gap:8px;
+    padding:10px 14px; border-radius:var(--md-radius-md);
+    background: var(--md-surface-container-highest);
+    color: var(--md-on-surface-variant);
+    font-size:12px; line-height:1.5;
+    box-shadow: var(--md-elev-3);
+  }
+  .svc-hint.show{ display:flex; }
+  .svc-hint svg{ width:15px; height:15px; stroke: var(--md-on-surface-variant); flex-shrink:0; margin-top:1px; }
+  .svc-hint a{ color: var(--md-primary); font-weight:700; text-decoration:none; }
+
+  /* ===== 进入提示遮罩 ===== */
+  .svc-notice{
+    position:fixed; inset:0; z-index:400;
+    display:none; align-items:center; justify-content:center;
+    padding:24px;
+    background: rgba(20,18,24,.42);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .svc-notice.show{ display:flex; }
+  .svc-notice-card{
+    width:100%; max-width:340px;
+    background: var(--md-surface-container-lowest);
+    border:1px solid var(--md-outline-variant);
+    border-radius:22px;
+    padding:24px 20px 20px;
+    text-align:center;
+    box-shadow: 0 18px 48px rgba(0,0,0,.28);
+    animation: svcPop .26s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes svcPop{ from{ transform: translateY(14px) scale(.97); opacity:0 } to{ transform:none; opacity:1 } }
+  .svc-notice-ico{
+    width:56px; height:56px; margin:0 auto 14px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, var(--g1, #9172CC), var(--g2, #5E4BA6));
+    color:#fff; font-size:23px; font-weight:800; overflow:hidden;
+  }
+  .svc-notice-ico img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .svc-notice-title{ font-size:17px; font-weight:800; margin-bottom:8px; }
+  .svc-notice-text{ font-size:12.5px; line-height:1.65; color:var(--md-on-surface-variant); }
+  .svc-notice-count{
+    margin:18px auto 14px;
+    font-size:13px; font-weight:700; color:var(--md-primary);
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .svc-count-num{
+    min-width:26px; height:26px; padding:0 8px; border-radius:999px;
+    display:inline-flex; align-items:center; justify-content:center;
+    background: var(--md-primary-container); color: var(--md-on-primary-container);
+    font-size:13px; font-weight:800;
+  }
+  .svc-notice-btn{
+    width:100%; padding:12px 18px; border-radius:999px; border:none;
+    background: var(--md-primary); color: var(--md-on-primary);
+    font-family:inherit; font-size:14px; font-weight:700; cursor:pointer;
+    transition: filter .18s, transform .18s;
+  }
+  .svc-notice-btn:hover{ filter: brightness(1.08); }
+  .svc-notice-btn:active{ transform: scale(.98); }
+  .svc-notice-skip{
+    margin-top:10px; background:none; border:none; color:var(--md-on-surface-variant);
+    font-family:inherit; font-size:12px; cursor:pointer; padding:6px;
+  }
+
+  /* ===== 错误状态 ===== */
+  .svc-error{
+    display:none; position:absolute; inset:0; z-index:4;
+    flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    padding:24px; text-align:center; background:var(--md-surface);
+    color:var(--md-on-surface-variant); font-size:13px;
+  }
+  .svc-error.show{ display:flex; }
+  .svc-error .big{ font-size:40px; }
+  .svc-error a{
+    color:var(--md-on-primary); background:var(--md-primary);
+    padding:10px 20px; border-radius:999px; text-decoration:none;
+    font-size:13px; font-weight:700;
+  }
+
+  /* ===== 侧边栏样式（大屏） ===== */
+  .menu-item{ display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:12px; cursor:pointer; transition:background .2s; color:var(--md-on-surface); text-decoration:none; }
+  .menu-item:hover{ background:var(--md-surface-container-high); }
+  .menu-item.active{ background:var(--md-primary-container); }
+  .menu-item.active .ico{ color:var(--md-on-primary-container); }
+  .menu-item .ico{ width:24px; height:24px; color:var(--md-primary); flex-shrink:0; }
+  .menu-item .ico svg{ width:24px; height:24px; stroke:currentColor; }
+  .menu-item-text{ display:flex; flex-direction:column; flex:1; min-width:0; overflow:hidden; }
+  .menu-item .txt{ font-size:16px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-item .sub{ display:none; font-size:12px; color:var(--md-on-surface-variant); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .menu-list{ padding:12px; display:flex; flex-direction:column; gap:4px; }
+  .sidebar-header{ padding:16px 14px 12px; border-bottom:1px solid var(--md-outline-variant); display:flex; align-items:center; justify-content:space-between; gap:10px; color:var(--md-primary); }
+  .sidebar-header svg{ width:24px; height:24px; flex-shrink:0; }
+  .sidebar-header .brand-logo{ height:22px; width:auto; display:block; }
+  [data-theme="dark"] .sidebar-header .brand-logo{ filter:brightness(1.2); }
+  .sidebar-brand{ display:flex; align-items:center; gap:10px; min-width:0; }
+  .sidebar-toggle{ width:28px; height:28px; flex-shrink:0; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--md-outline-variant); background:var(--md-surface-container); color:var(--md-on-surface-variant); border-radius:8px; cursor:pointer; transition:background .15s,color .15s,transform .25s; }
+  .sidebar-toggle svg{ width:16px; height:16px; }
+  .sidebar-toggle:hover{ background:var(--md-surface-container-high); color:var(--md-primary); }
+  .sidebar-footer{ margin-top:auto; padding:16px 20px; border-top:1px solid var(--md-outline-variant); font-size:12px; color:var(--md-on-surface-variant); }
+  .sidebar-footer .footer-links a{ display:inline-flex; align-items:center; gap:6px; color:var(--md-primary); text-decoration:none; }
+  .sidebar-footer .footer-links svg{ width:15px; height:15px; stroke:currentColor; }
+
+  /* ===== 手机端全屏菜单 ===== */
+  .menu-overlay{ position:fixed; inset:0; background:var(--md-surface); z-index:200; transform:translateY(-100%); transition:transform .4s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; overflow-y:auto; }
+  .menu-overlay.open{ transform:translateY(0); }
+  .menu-close{ position:absolute; right:16px; top:16px; width:40px; height:40px; border-radius:50%; background:var(--md-surface-container-high); border:none; cursor:pointer; color:var(--md-on-surface); display:flex; align-items:center; justify-content:center; }
+  .menu-close svg{ width:22px; height:22px; stroke:currentColor; }
+  .menu-header{ padding:28px 24px 16px; font-size:20px; font-weight:700; color:var(--md-on-surface); border-bottom:1px solid var(--md-outline-variant); }
+
+  @media (min-width: 768px){
+    .app-shell{ display:flex; flex-direction:row; }
+    .app-sidebar{ width:240px; flex-shrink:0; display:flex !important; flex-direction:column; background:var(--md-surface-container-low); border-right:1px solid var(--md-outline-variant); position:sticky; top:0; height:100vh; overflow-y:auto; z-index:50; }
+    .app-sidebar.collapsed{ width:64px; overflow:visible; transition:width .25s cubic-bezier(.22,.61,.36,1); }
+    .app-sidebar.collapsed .sidebar-header{ flex-direction:column; gap:10px; padding:16px 8px 12px; justify-content:flex-start; }
+    .app-sidebar.collapsed .sidebar-brand{ display:none; }
+    .app-sidebar.collapsed .sidebar-toggle{ display:inline-flex; }
+    .app-sidebar.collapsed .sidebar-toggle svg{ transform:rotate(180deg); }
+    .app-sidebar.collapsed .menu-list{ padding:12px 8px; }
+    .app-sidebar.collapsed .menu-item{ padding:12px 0; justify-content:center; border-radius:12px; position:relative; }
+    .app-sidebar.collapsed .menu-item-text{ display:none; }
+    .app-sidebar.collapsed .menu-item .ico{ margin:0; }
+    .app-sidebar.collapsed .sidebar-footer{ padding:12px 8px; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links{ flex-direction:column; align-items:center; justify-content:center; gap:8px; flex-wrap:nowrap; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a{ padding:8px; justify-content:center; font-size:0; }
+    .app-sidebar.collapsed .sidebar-footer .footer-links a svg{ width:18px; height:18px; margin:0; }
+    .app-sidebar.collapsed .sidebar-footer > div:last-child{ display:none; }
+    .app-sidebar.collapsed .menu-item:hover::after{ content:attr(data-tooltip); position:absolute; left:calc(100% + 10px); top:50%; transform:translateY(-50%); background:var(--md-surface-container-highest); color:var(--md-on-surface); padding:6px 10px; border-radius:8px; font-size:12px; white-space:nowrap; box-shadow:0 4px 12px rgba(0,0,0,.18); z-index:200; pointer-events:none; }
+    .app-content{ flex:1; min-width:0; }
+    .menu-overlay{ display:none !important; }
+  }
+  @media (max-width: 767px){
+    .svc-frame-wrap{ padding-bottom: calc(62px + env(safe-area-inset-bottom, 0px)); }
+    .svc-hint{ bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+    .svc-notice-card{ max-width: 320px; }
+  }
+</style>
+<link rel="stylesheet" href="app-mobile.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- 左侧侧边栏（平板 / 电脑显示） -->
+  <aside class="app-sidebar" id="appSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <img class="brand-logo" src="logo_aimi_daily.png" alt="Aimi Daily">
+      </div>
+      <button class="sidebar-toggle" id="sidebarToggle" title="折叠/展开侧边栏" aria-label="折叠/展开侧边栏">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </div>
+    <div class="menu-list">
+      <a class="menu-item" href="index.html" data-tooltip="主页">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="menu-item-text"><div class="txt">主页</div><div class="sub">艾米日签 · 每日动态简报</div></div>
+      </a>
+      <a class="menu-item" href="riqian.html" data-tooltip="日签">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div>
+        <div class="menu-item-text"><div class="txt">日签</div><div class="sub">艾米日签合集</div></div>
+      </a>
+      <a class="menu-item" href="aixin.html" data-tooltip="艾心向善">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="menu-item-text"><div class="txt">艾心向善</div><div class="sub">粉丝公益 · 动态追踪</div></div>
+      </a>
+      <a class="menu-item" href="xingcheng.html" data-tooltip="行程活动">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div>
+        <div class="menu-item-text"><div class="txt">行程活动</div><div class="sub">公开行程 · 活动汇总</div></div>
+      </a>
+      <a class="menu-item" href="chanchu.html" data-tooltip="产出汇总">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div>
+        <div class="menu-item-text"><div class="txt">产出汇总</div><div class="sub">由 @艾产速览 整理汇总</div></div>
+      </a>
+      <a class="menu-item" href="interview.html" data-tooltip="采访合集">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div>
+        <div class="menu-item-text"><div class="txt">采访合集</div><div class="sub">杂志 · 专访 · 直播 · 综艺</div></div>
+      </a>
+      <a class="menu-item" href="brands.html" data-tooltip="商务代言">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
+        <div class="menu-item-text"><div class="txt">商务代言</div><div class="sub">进行中品牌合作</div></div>
+      </a>
+      <a class="menu-item" href="blog.html" data-tooltip="站点日志">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.8h7.5L19 8.3v12.9H6z"/><path d="M13.5 2.8v5.5H19M9 12.5h7M9 16h5"/></svg></div>
+        <div class="menu-item-text"><div class="txt">站点日志</div><div class="sub">更新记录与说明</div></div>
+      </a>
+      <a class="menu-item active" href="services.html" data-tooltip="更多服务">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+        <div class="menu-item-text"><div class="txt">更多服务</div><div class="sub">站内打开第三方网页</div></div>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="footer-links">
+        <a href="https://weibo.com/u/6320241831" target="_blank" rel="noopener" title="微博">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>微博</span>
+        </a>
+        <a href="https://v.douyin.com/xlqx8_dg-Qs/" target="_blank" rel="noopener" title="抖音">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <span>抖音</span>
+        </a>
+      </div>
+      <div style="margin-top:8px;">© 艾米日签 · 更多服务</div>
+    </div>
+  </aside>
+
+  <!-- 内容区 -->
+  <div class="app-content">
+    <div class="svc-topbar">
+      <a class="svc-icon-btn" href="services.html" id="svcBack" title="返回更多服务" aria-label="返回更多服务">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      </a>
+      <div class="svc-id">
+        <div class="svc-ico" id="svcIco">·</div>
+        <div class="svc-id-text">
+          <div class="svc-name" id="svcName">加载中…</div>
+          <div class="svc-domain" id="svcDomain">—</div>
+        </div>
+      </div>
+      <button class="svc-icon-btn" id="svcRefresh" title="刷新" aria-label="刷新">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </button>
+      <button class="svc-icon-btn" id="svcOpen" title="新窗口打开" aria-label="新窗口打开">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </div>
+
+    <div class="svc-frame-wrap">
+      <div class="svc-loading" id="svcLoading">
+        <div class="svc-spinner"></div>
+        <div>正在打开服务…</div>
+      </div>
+      <iframe id="svcFrame" title="第三方服务" referrerpolicy="no-referrer-when-downgrade" allow="clipboard-read; clipboard-write; fullscreen"></iframe>
+      <div class="svc-hint" id="svcHint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>页面一直空白，可能是对方网站禁止被嵌入。<a href="#" id="svcHintOpen">新窗口打开</a></span>
+      </div>
+      <div class="svc-error" id="svcError">
+        <span class="big">🧩</span>
+        <div id="svcErrorText">没有找到这个服务</div>
+        <a href="services.html">返回更多服务</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 进入提示遮罩 -->
+<div class="svc-notice" id="svcNotice">
+  <div class="svc-notice-card">
+    <div class="svc-notice-ico" id="svcNoticeIco">·</div>
+    <div class="svc-notice-title" id="svcNoticeTitle">即将打开第三方服务</div>
+    <div class="svc-notice-text" id="svcNoticeText"></div>
+    <div class="svc-notice-count">
+      <span class="svc-count-num" id="svcCountNum">5</span>
+      <span>秒后自动进入</span>
+    </div>
+    <button class="svc-notice-btn" id="svcNoticeBtn">立即进入</button>
+    <button class="svc-notice-skip" id="svcNoticeSkip">返回更多服务</button>
+  </div>
+</div>
+
+<!-- 全屏菜单（手机端） -->
+<div class="menu-overlay" id="menuOverlay">
+  <button class="menu-close" id="menuClose" aria-label="关闭菜单">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <div class="menu-header">页面导航</div>
+  <div class="menu-list">
+    <a class="menu-item" href="index.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="menu-item-text"><div class="txt">主页</div><div class="sub">艾米日签 · 每日动态简报</div></div></a>
+    <a class="menu-item" href="riqian.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="2"/></svg></div><div class="menu-item-text"><div class="txt">日签</div><div class="sub">艾米日签合集</div></div></a>
+    <a class="menu-item" href="aixin.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="menu-item-text"><div class="txt">艾心向善</div><div class="sub">粉丝公益 · 动态追踪</div></div></a>
+    <a class="menu-item" href="xingcheng.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="m9 16 2 2 4-4"/></svg></div><div class="menu-item-text"><div class="txt">行程活动</div><div class="sub">公开行程 · 活动汇总</div></div></a>
+    <a class="menu-item" href="chanchu.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/></svg></div><div class="menu-item-text"><div class="txt">产出汇总</div><div class="sub">由 @艾产速览 整理汇总</div></div></a>
+    <a class="menu-item" href="interview.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg></div><div class="menu-item-text"><div class="txt">采访合集</div><div class="sub">杂志 · 专访 · 直播 · 综艺</div></div></a>
+    <a class="menu-item" href="brands.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div><div class="menu-item-text"><div class="txt">商务代言</div><div class="sub">进行中品牌合作</div></div></a>
+    <a class="menu-item" href="blog.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.8h7.5L19 8.3v12.9H6z"/><path d="M13.5 2.8v5.5H19M9 12.5h7M9 16h5"/></svg></div><div class="menu-item-text"><div class="txt">站点日志</div><div class="sub">更新记录与说明</div></div></a>
+    <a class="menu-item active" href="services.html"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="menu-item-text"><div class="txt">更多服务</div><div class="sub">站内打开第三方网页</div></div></a>
+  </div>
+</div>
+
+<script>
+  (function(){
+    'use strict';
+
+    const PALETTE = [
+      ['#FF6F91','#C2185B'], ['#9172CC','#5E4BA6'], ['#FFB300','#EF6C00'],
+      ['#4A9EFF','#1565C0'], ['#3FBF9F','#00796B'], ['#B06AB3','#4568DC'],
+      ['#F78C6B','#C43E1C'], ['#5AA9E6','#1B5E9E']
+    ];
+
+    const frame = document.getElementById('svcFrame');
+    const loading = document.getElementById('svcLoading');
+    const hint = document.getElementById('svcHint');
+    const hintOpen = document.getElementById('svcHintOpen');
+    const errBox = document.getElementById('svcError');
+    const errText = document.getElementById('svcErrorText');
+    const nameEl = document.getElementById('svcName');
+    const domainEl = document.getElementById('svcDomain');
+    const icoEl = document.getElementById('svcIco');
+    const notice = document.getElementById('svcNotice');
+    const noticeIco = document.getElementById('svcNoticeIco');
+    const noticeTitle = document.getElementById('svcNoticeTitle');
+    const noticeText = document.getElementById('svcNoticeText');
+    const noticeBtn = document.getElementById('svcNoticeBtn');
+    const noticeSkip = document.getElementById('svcNoticeSkip');
+    const countNum = document.getElementById('svcCountNum');
+
+    const params = new URLSearchParams(location.search);
+    const wanted = params.get('id') || params.get('sid') || '';
+    let service = null;
+    let noticeTimer = null;
+    let entered = false;
+    let hintTimer = null;
+
+    function esc(s){
+      return String(s == null ? '' : s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+    function hashIdx(str){
+      let h = 0;
+      for(let i=0;i<str.length;i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+      return h % PALETTE.length;
+    }
+    function domainOf(url){
+      const u = String(url || '').trim();
+      if(!u) return '';
+      if(!/^https?:\/\//i.test(u)) return '站内页面';
+      try{ return new URL(u).hostname.replace(/^www\./,''); }catch(e){ return u; }
+    }
+    function fillIcon(el, s){
+      if(s.icon){
+        el.innerHTML = '<img src="' + esc(s.icon) + '" alt="">';
+        return;
+      }
+      const p = PALETTE[hashIdx(String(s.name || '·'))];
+      el.style.setProperty('--g1', p[0]);
+      el.style.setProperty('--g2', p[1]);
+      el.textContent = String(s.name || '·').trim().charAt(0) || '·';
+    }
+
+    function showError(msg){
+      loading.hidden = true;
+      errText.textContent = msg;
+      errBox.classList.add('show');
+    }
+
+    function loadFrame(){
+      if(!service || entered) return;
+      entered = true;
+      notice.classList.remove('show');
+      loading.hidden = false;
+      frame.src = service.url;
+
+      // 超过 12 秒仍未 onload，提示可能禁止嵌入
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function(){
+        if(!loading.hidden) hint.classList.add('show');
+      }, 12000);
+    }
+
+    frame.addEventListener('load', function(){
+      if(!frame.src) return;
+      clearTimeout(hintTimer);
+      loading.hidden = true;
+      hint.classList.remove('show');
+    });
+
+    function openExternal(){
+      if(!service) return;
+      window.open(service.url, '_blank', 'noopener');
+    }
+    document.getElementById('svcOpen').addEventListener('click', openExternal);
+    hintOpen.addEventListener('click', function(e){
+      e.preventDefault();
+      openExternal();
+    });
+    document.getElementById('svcRefresh').addEventListener('click', function(){
+      if(!service) return;
+      loading.hidden = false;
+      hint.classList.remove('show');
+      try{ frame.src = service.url; }catch(e){}
+    });
+    document.getElementById('svcBack').addEventListener('click', function(e){
+      if(history.length > 1 && document.referrer.indexOf(location.host) !== -1){
+        e.preventDefault();
+        history.back();
+      }
+    });
+
+    // ===== 进入提示 =====
+    function fillNotice(){
+      fillIcon(noticeIco, service);
+      noticeTitle.textContent = '即将打开「' + service.name + '」';
+      let text = noticeText.dataset.raw || '';
+      noticeText.textContent = text.replace(/\{name\}/g, service.name);
+    }
+
+    function startNotice(seconds, skippable){
+      const secs = Math.max(0, Number(seconds) || 0);
+      if(secs <= 0){
+        loadFrame();
+        return;
+      }
+      notice.classList.add('show');
+      fillNotice();
+      let left = Math.ceil(secs);
+      countNum.textContent = left;
+      noticeBtn.textContent = '立即进入';
+      noticeBtn.hidden = !skippable;
+
+      function tick(){
+        left -= 1;
+        if(left <= 0){
+          clearInterval(noticeTimer);
+          loadFrame();
+          return;
+        }
+        countNum.textContent = left;
+      }
+      clearInterval(noticeTimer);
+      noticeTimer = setInterval(tick, 1000);
+
+      noticeBtn.onclick = function(){
+        clearInterval(noticeTimer);
+        loadFrame();
+      };
+      noticeSkip.onclick = function(){
+        clearInterval(noticeTimer);
+        location.href = 'services.html';
+      };
+    }
+
+    // ===== 初始化 =====
+    function apply(payload){
+      const list = Array.isArray(payload.services) ? payload.services : [];
+      service = null;
+      for(let i=0;i<list.length;i++){
+        const s = list[i];
+        if(!s || s.enabled === false) continue;
+        if(String(s.id || '') === wanted){ service = s; break; }
+      }
+      if(!service && wanted){
+        // 兼容：按名称匹配
+        for(let i=0;i<list.length;i++){
+          const s = list[i];
+          if(s && s.enabled !== false && String(s.name || '') === decodeURIComponent(wanted)){ service = s; break; }
+        }
+      }
+
+      if(!service){
+        nameEl.textContent = '服务不存在';
+        domainEl.textContent = '—';
+        showError(wanted ? '没有找到这个服务，可能已下架' : '缺少服务参数，请从「更多服务」进入');
+        return;
+      }
+
+      document.title = service.name + ' · 艾米日签';
+      nameEl.textContent = service.name;
+      domainEl.textContent = domainOf(service.url);
+      fillIcon(icoEl, service);
+
+      if(service.openMode === 'external'){
+        location.replace(service.url);
+        return;
+      }
+
+      const noticeCfg = payload.notice || {};
+      noticeText.dataset.raw = String(noticeCfg.text || '即将打开第三方服务「{name}」，该页面内容由第三方提供，请注意保护个人信息。');
+
+      let showNotice = false;
+      let seconds = Number(noticeCfg.seconds);
+      if(!(seconds > 0)) seconds = 5;
+
+      if(service.promptMode === 'never'){
+        showNotice = false;
+      }else if(service.promptMode === 'always'){
+        showNotice = true;
+        if(Number(service.promptSeconds) > 0) seconds = Number(service.promptSeconds);
+        if(service.promptText) noticeText.dataset.raw = String(service.promptText);
+      }else{
+        showNotice = noticeCfg.enabled !== false;
+      }
+
+      if(showNotice){
+        startNotice(seconds, noticeCfg.skippable !== false);
+      }else{
+        loadFrame();
+      }
+    }
+
+    try{
+      const raw = document.getElementById('sv-embedded');
+      if(raw) apply(JSON.parse(raw.textContent));
+    }catch(e){}
+
+    fetch('data/services.json?v=' + Date.now())
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){ if(j && !entered && !notice.classList.contains('show')) apply(j); })
+      .catch(function(){});
+  })();
+</script>
+
+<script>
+  // 深色模式（与全站共享 ami-theme）
+  (function(){
+    const html = document.documentElement;
+    const saved = localStorage.getItem('ami-theme');
+    if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      html.setAttribute('data-theme','dark');
+    }
+  })();
+
+  // 侧边栏折叠（平板 / 电脑，与全站共享状态）
+  (function(){
+    const sidebar = document.getElementById('appSidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    if(!sidebar || !toggle) return;
+    const collapsed = localStorage.getItem('ami-sidebar-collapsed') === '1';
+    sidebar.classList.toggle('collapsed', collapsed);
+    toggle.addEventListener('click', function(){
+      const willCollapse = !sidebar.classList.contains('collapsed');
+      sidebar.classList.toggle('collapsed', willCollapse);
+      localStorage.setItem('ami-sidebar-collapsed', willCollapse ? '1' : '0');
+    });
+  })();
+
+  // 手机端全屏菜单
+  (function(){
+    const overlay = document.getElementById('menuOverlay');
+    const menuClose = document.getElementById('menuClose');
+    if(!overlay) return;
+    if(menuClose) menuClose.addEventListener('click', function(){ overlay.classList.remove('open'); });
+  })();
+
+  // PWA Service Worker 注册
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function(){});
+    });
+  }
+</script>
+<script src="app-mobile.js" defer></script>
+</body>
+</html>
