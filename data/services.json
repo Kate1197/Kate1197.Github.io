@@ -2,18 +2,8 @@
   "updatedAt": "2026-11-15 10:00:00",
   "intro": "站内直接打开的第三方网页服务，保留站点导航与底栏",
   "categories": [
-    {
-      "name": "示例"
-    },
-    {
-      "name": "工具"
-    },
-    {
-      "name": "资讯"
-    },
-    {
-      "name": "社区"
-    }
+    "全部",
+    "聊天"
   ],
   "notice": {
     "enabled": true,
@@ -23,30 +13,17 @@
   },
   "services": [
     {
-      "id": "demo-blog",
-      "name": "站点日志",
-      "category": "示例",
-      "url": "blog.html",
-      "icon": "",
-      "desc": "站内页面的嵌入示例，打开后仍保留左侧栏与底部导航",
+      "enabled": true,
+      "promptMode": "inherit",
+      "name": "Vokk Chat",
       "openMode": "embed",
-      "promptMode": "never",
-      "promptSeconds": 0,
+      "url": "https://vokk.one/",
       "promptText": "",
-      "enabled": true
-    },
-    {
-      "id": "demo-external",
-      "name": "示例 · 新窗口打开",
-      "category": "示例",
-      "url": "https://example.com",
-      "icon": "",
-      "desc": "演示「直接跳转」模式：点击后在新窗口打开，不占用站内框架",
-      "openMode": "external",
-      "promptMode": "never",
-      "promptSeconds": 0,
-      "promptText": "",
-      "enabled": true
+      "desc": "自由创建频道畅聊；私密对话支持屏蔽、拉黑、撤回； 浏览器内点对点语音通话，加好友 / 朋友圈一应俱全。",
+      "icon": "/uploads/1000065398.png",
+      "promptSeconds": 5,
+      "id": "vokkchat",
+      "category": "聊天"
     }
   ]
 }
