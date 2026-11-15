@@ -24,7 +24,7 @@
       "icon": "/uploads/1000065398.png",
       "promptSeconds": 5,
       "id": "vokkchat",
-      "category": "聊天"
+      "category": "全部,聊天"
     },
     {
       "enabled": true,
@@ -36,7 +36,7 @@
       "icon": "/uploads/1000064956.jpg",
       "promptSeconds": 5,
       "id": "365gongju",
-      "category": "工具"
+      "category": "全部,工具"
     }
   ]
 }
