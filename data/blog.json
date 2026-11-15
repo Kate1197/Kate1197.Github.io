@@ -113,13 +113,13 @@
       "blocks": [
         {
           "style": "primary",
-          "type": "heading",
-          "text": "更新日志"
+          "type": "tip",
+          "text": "更新周期为不定期随机更新，已本公告页面为准。"
         },
         {
           "style": "primary",
-          "type": "tip",
-          "text": "更新周期为不定期随机更新，已本公告页面为准。"
+          "type": "heading",
+          "text": "更新日志"
         },
         {
           "style": "primary",
