@@ -21,12 +21,7 @@
   ],
   "posts": [
     {
-      "date": "2026-11-11 10:30",
-      "title": "站点日志上线：以后公告和更新都写在这里",
-      "tag": "公告",
-      "pinned": true,
       "archived": false,
-      "summary": "新增「站点日志」页面，用于发布站点公告、功能更新与临时通知，仅展示最近 30 天的内容。",
       "blocks": [
         {
           "type": "text",
@@ -65,16 +60,16 @@
           "style": "primary"
         }
       ],
+      "summary": "新增「站点日志」页面，用于发布站点公告、功能更新与临时通知，仅展示最近 30 天的内容。",
+      "date": "2026-11-11 10:30",
+      "cover": "",
+      "title": "站点日志上线：以后公告和更新都写在这里",
+      "pinned": true,
       "showCover": false,
-      "cover": ""
+      "tag": "公告"
     },
     {
-      "date": "2026-11-10 21:00",
-      "title": "PWA 已上线：可以添加到手机桌面了",
-      "tag": "更新",
-      "pinned": false,
       "archived": false,
-      "summary": "Android / iOS 均可把站点添加到主屏幕，全屏打开、支持离线访问最近内容。",
       "blocks": [
         {
           "type": "text",
@@ -99,8 +94,37 @@
           "style": "ghost"
         }
       ],
+      "summary": "Android / iOS 均可把站点添加到主屏幕，全屏打开、支持离线访问最近内容。",
+      "date": "2026-11-10 21:00",
+      "cover": "",
+      "title": "PWA 已上线：可以添加到手机桌面了",
+      "pinned": false,
       "showCover": false,
-      "cover": ""
+      "tag": "更新"
+    },
+    {
+      "pinned": false,
+      "archived": false,
+      "showCover": false,
+      "date": "2026-11-15 14:15",
+      "title": "站点更新-20261115",
+      "tag": "更新",
+      "summary": "更来看看小站更新了什么吧。",
+      "blocks": [
+        {
+          "style": "primary",
+          "type": "heading",
+          "text": "更新日志",
+          "title": "本站点更新无固定周期时间，具体更新已本页面为主",
+          "items": [
+            "-新增更多服务，在这会接入分享一些有趣的第三方的网站",
+            "-内容同步至20260115",
+            "-修改了部分行程活动项",
+            "-优化了一些已知问题",
+            "-手机版优化布局设计，电脑和平板显示banner和悬浮菜单做了一些调整"
+          ]
+        }
+      ]
     }
   ]
 }
