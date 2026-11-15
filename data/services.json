@@ -3,7 +3,8 @@
   "intro": "站内直接打开的第三方网页服务，保留站点导航与底栏",
   "categories": [
     "全部",
-    "聊天"
+    "聊天",
+    "工具"
   ],
   "notice": {
     "enabled": true,
@@ -24,6 +25,18 @@
       "promptSeconds": 5,
       "id": "vokkchat",
       "category": "聊天"
+    },
+    {
+      "enabled": true,
+      "promptMode": "inherit",
+      "name": "365工具箱",
+      "openMode": "embed",
+      "url": "https://www.toolbox365.cn/",
+      "desc": "一个面向公网用户的免费在线小工具集合， 目前提供 286 余款常用工具，覆盖 PDF 处理、图片处理、音频/视频处理、开发辅助、 中文工具、财务计算、生活实用等多个分类。",
+      "icon": "/uploads/1000064956.jpg",
+      "promptSeconds": 5,
+      "id": "365gongju",
+      "category": "工具"
     }
   ]
 }
