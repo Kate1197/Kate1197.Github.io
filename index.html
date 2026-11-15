@@ -3957,13 +3957,10 @@
     if(rqEl){
       rqEl.innerHTML = rq.map(function(it){
         var cap = (it.caption || '').replace(/\n/g, ' ');
-        return '<a class="rec-item has-cover" href="index.html#riqian">' +
-          recThumb('riqian', it.img || '', it.title) +
-          '<div class="rec-item-body">' +
-            '<div class="rec-item-top"><span class="rec-tag">' + escHtml(it.date || '') + '</span></div>' +
-            '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
-            '<div class="rec-desc">' + escHtml(cap) + '</div>' +
-          '</div>' +
+        return '<a class="rec-item" href="index.html#riqian">' +
+          '<div class="rec-item-top"><span class="rec-tag">' + escHtml(it.date || '') + '</span></div>' +
+          '<div class="rec-title">' + escHtml(it.title || '') + '</div>' +
+          '<div class="rec-desc">' + escHtml(cap) + '</div>' +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.riqian) + '</div>';
     }
@@ -3976,14 +3973,11 @@
     var cc = entries[0];
     var ccEl = document.getElementById('recChanchuList');
     if(ccEl){
-      ccEl.innerHTML = cc ? ('<a class="rec-item has-cover" href="chanchu.html">' +
-        recThumb('chanchu', cc.cover || '', cc.title) +
-        '<div class="rec-item-body">' +
-          '<div class="rec-item-top"><span class="rec-tag">' + escHtml(cc.date || '') + '</span>' +
-            (cc.count ? '<span class="rec-count">' + escHtml(cc.count) + '</span>' : '') + '</div>' +
-          '<div class="rec-title">' + escHtml(cc.title || '') + '</div>' +
-          '<div class="rec-desc">' + escHtml((cc.text || '').replace(/\n/g, ' ')) + '</div>' +
-        '</div>' +
+      ccEl.innerHTML = cc ? ('<a class="rec-item" href="chanchu.html">' +
+        '<div class="rec-item-top"><span class="rec-tag">' + escHtml(cc.date || '') + '</span>' +
+          (cc.count ? '<span class="rec-count">' + escHtml(cc.count) + '</span>' : '') + '</div>' +
+        '<div class="rec-title">' + escHtml(cc.title || '') + '</div>' +
+        '<div class="rec-desc">' + escHtml((cc.text || '').replace(/\n/g, ' ')) + '</div>' +
       '</a>') : '<div class="rec-empty">' + escHtml(siteText.rec.empty.chanchu) + '</div>';
     }
     showSec('recChanchuSec', !!cc);
@@ -4042,15 +4036,11 @@
     var blEl = document.getElementById('recBlogList');
     if(blEl){
       blEl.innerHTML = bposts.map(function(p){
-        var cover = (p.showCover && p.cover) ? p.cover : '';
-        return '<a class="rec-item has-cover" href="blog.html">' +
-          recThumb('blog', cover, p.title) +
-          '<div class="rec-item-body">' +
-            '<div class="rec-item-top">' + (p.tag ? '<span class="rec-tag">' + escHtml(p.tag) + '</span>' : '') +
-              '<span class="rec-count">' + escHtml(p.date || '') + '</span></div>' +
-            '<div class="rec-title">' + escHtml(p.title || '') + '</div>' +
-            (p.summary ? '<div class="rec-desc">' + escHtml(String(p.summary).replace(/\n/g, ' ')) + '</div>' : '') +
-          '</div>' +
+        return '<a class="rec-item" href="blog.html">' +
+          '<div class="rec-item-top">' + (p.tag ? '<span class="rec-tag">' + escHtml(p.tag) + '</span>' : '') +
+            '<span class="rec-count">' + escHtml(p.date || '') + '</span></div>' +
+          '<div class="rec-title">' + escHtml(p.title || '') + '</div>' +
+          (p.summary ? '<div class="rec-desc">' + escHtml(String(p.summary).replace(/\n/g, ' ')) + '</div>' : '') +
         '</a>';
       }).join('') || '<div class="rec-empty">' + escHtml(siteText.rec.empty.blog) + '</div>';
     }
