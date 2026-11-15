@@ -16,7 +16,7 @@
       "enabled": true,
       "promptMode": "inherit",
       "name": "Vokk Chat",
-      "openMode": "embed",
+      "openMode": "external",
       "url": "https://vokk.one/",
       "promptText": "",
       "desc": "自由创建频道畅聊；私密对话支持屏蔽、拉黑、撤回； 浏览器内点对点语音通话，加好友 / 朋友圈一应俱全。",
