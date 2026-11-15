@@ -14,7 +14,7 @@
   },
   "services": [
     {
-      "enabled": true,
+      "enabled": false,
       "promptMode": "inherit",
       "name": "Vokk Chat",
       "openMode": "external",
