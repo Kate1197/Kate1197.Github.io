@@ -37,6 +37,16 @@
       "promptSeconds": 5,
       "id": "365gongju",
       "category": "全部,工具"
+    },
+    {
+      "openMode": "embed",
+      "promptMode": "inherit",
+      "enabled": true,
+      "id": "eat what",
+      "name": "今天吃什么",
+      "category": "工具",
+      "url": "https://www.suijimm.com/food/",
+      "icon": "/uploads/1000065579.jpg"
     }
   ]
 }
