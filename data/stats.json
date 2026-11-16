@@ -67,45 +67,45 @@
   ],
   "trend": [
     {
-      "label": "11/02",
-      "value": "5771",
-      "height": 70,
+      "label": "11/09",
+      "value": "5507",
+      "height": 69,
       "highlight": "highlight"
     },
     {
-      "label": "11/03",
-      "value": "5335",
+      "label": "11/10",
+      "value": "5433",
+      "height": 56,
+      "highlight": "highlight"
+    },
+    {
+      "label": "11/11",
+      "value": "5760",
       "height": 66,
       "highlight": "highlight"
     },
     {
-      "label": "11/04",
-      "value": "5811",
-      "height": 75,
+      "label": "11/12",
+      "value": "5220",
+      "height": 55,
       "highlight": "highlight"
     },
     {
-      "label": "11/05",
-      "value": "7384",
-      "height": 80,
+      "label": "11/13",
+      "value": "6198",
+      "height": 64,
       "highlight": "highlight"
     },
     {
-      "label": "11/06",
-      "value": "8041",
-      "height": 86,
-      "highlight": "highlight"
-    },
-    {
-      "label": "11/08",
-      "value": "8072",
+      "label": "11/14",
+      "value": "6961",
       "height": 84,
       "highlight": "highlight"
     },
     {
-      "label": "今日",
-      "value": "7704",
-      "height": 82,
+      "label": "11/15",
+      "value": "6321",
+      "height": 78,
       "highlight": "today"
     }
   ]
