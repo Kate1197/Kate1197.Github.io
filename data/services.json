@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-15 10:00:00",
+  "updatedAt": "2026-11-16 19:55:00",
   "intro": "站内直接打开的第三方网页服务",
   "categories": [
     "聊天",
@@ -70,6 +70,17 @@
       "desc": "在短视频上看到喜欢的视频了吗？您想知道如何將它下载到您的电脑的MP3或MP4视频档案？你来对地方了！我们的短视频视频下载、图片下载工具允许您在几秒钟內下载成功！只需將短视频分享Url复制到输入框中，按一下解析就可以了！",
       "icon": "/uploads/1000064958.png",
       "id": "video",
+      "category": "工具"
+    },
+    {
+      "enabled": true,
+      "promptMode": "inherit",
+      "name": "图片转 WebP",
+      "openMode": "embed",
+      "url": "https://wefreestar.com/zh/toolbox/image-to-webp",
+      "desc": "让图片更轻盈，让网页更从容",
+      "icon": "/uploads/下载.svg",
+      "id": "image-to-webp",
       "category": "工具"
     }
   ]
