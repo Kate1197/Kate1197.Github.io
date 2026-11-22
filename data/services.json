@@ -45,7 +45,7 @@
       "openMode": "embed",
       "url": "https://www.suijimm.com/food/",
       "desc": "告别选择困难症，让随机来帮你做决定。",
-      "icon": "/uploads/1000065579.jpg",
+      "icon": "/uploads/1000065579.webp",
       "id": "eat what",
       "category": "工具"
     },
@@ -56,7 +56,7 @@
       "openMode": "external",
       "url": "https://oldgame.io/zh/",
       "desc": "在浏览器中免费畅玩 5,000+ 经典老游戏。红白机、超任、GBA、N64、NDS — 无需下载，即点即玩。",
-      "icon": "/uploads/1000065580.png",
+      "icon": "/uploads/1000065580.webp",
       "promptSeconds": 5,
       "id": "oldgame",
       "category": "游戏"
@@ -68,7 +68,7 @@
       "openMode": "embed",
       "url": "https://danaqsy.com/",
       "desc": "在短视频上看到喜欢的视频了吗？您想知道如何將它下载到您的电脑的MP3或MP4视频档案？你来对地方了！我们的短视频视频下载、图片下载工具允许您在几秒钟內下载成功！只需將短视频分享Url复制到输入框中，按一下解析就可以了！",
-      "icon": "/uploads/1000064958.png",
+      "icon": "/uploads/1000064958.webp",
       "id": "video",
       "category": "工具"
     },

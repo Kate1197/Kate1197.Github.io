@@ -19,7 +19,8 @@
     mic: '<rect x="9" y="2.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5M8.5 21.5h7"/>',
     case: '<rect x="2.8" y="7.5" width="18.4" height="13" rx="2.2"/><path d="M8.5 7.5V5.2A1.7 1.7 0 0 1 10.2 3.5h3.6a1.7 1.7 0 0 1 1.7 1.7v2.3M2.8 12.5h18.4"/>',
     heart: '<path d="M12 20.5S3.5 15.2 3.5 9.3a4.8 4.8 0 0 1 8.5-3.1 4.8 4.8 0 0 1 8.5 3.1c0 5.9-8.5 11.2-8.5 11.2Z"/>',
-    doc: '<path d="M6 2.8h7.5L19 8.3v12.9H6z"/><path d="M13.5 2.8v5.5H19M9 12.5h7M9 16h5"/>'
+    doc: '<path d="M6 2.8h7.5L19 8.3v12.9H6z"/><path d="M13.5 2.8v5.5H19M9 12.5h7M9 16h5"/>',
+    chat: '<path d="M21 11.5a8.4 8.4 0 0 1-8.6 8.4 9.2 9.2 0 0 1-3.8-.8L3 20.5l1.6-4.2a8.6 8.6 0 0 1-1.2-4.3A8.4 8.4 0 0 1 12 3.6a8.4 8.4 0 0 1 9 7.9Z"/>'
   };
 
   var TABS = [
@@ -31,6 +32,7 @@
   ];
 
   var MORE = [
+    { label: '动态', href: 'dynamics.html', icon: 'chat' },
     { label: '采访合集', href: 'interview.html', icon: 'mic' },
     { label: '商务代言', href: 'brands.html', icon: 'case' },
     { label: '艾心向善', href: 'aixin.html', icon: 'heart' },
@@ -57,7 +59,7 @@
     if (file === 'riqian.html') return 'riqian';
     if (file === 'xingcheng.html') return 'xingcheng';
     if (file === 'chanchu.html') return 'chanchu';
-    if (file === 'interview.html' || file === 'brands.html' || file === 'aixin.html' || file === 'blog.html' || file === 'services.html' || file === 'service.html') return 'more';
+    if (file === 'dynamics.html' || file === 'interview.html' || file === 'brands.html' || file === 'aixin.html' || file === 'blog.html' || file === 'services.html' || file === 'service.html') return 'more';
     return 'home';
   }
 

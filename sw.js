@@ -5,7 +5,7 @@
    - 静态资源（图片/图标等）：stale-while-revalidate
    - /admin 后台：完全不拦截
 */
-const VERSION = 'ami-2026-11-15-4';
+const VERSION = 'ami-2026-11-15-5';
 const STATIC_CACHE = 'ami-static-' + VERSION;
 const DATA_CACHE = 'ami-data-' + VERSION;
 
@@ -13,6 +13,7 @@ const SHELL = [
   './',
   './index.html',
   './riqian.html',
+  './dynamics.html',
   './xingcheng.html',
   './chanchu.html',
   './interview.html',

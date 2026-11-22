@@ -2,12 +2,6 @@ import sys
 from pathlib import Path
 from PIL import Image
 
-try:
-    import pillow_heif
-    pillow_heif.register_heif_opener()
-except Exception:
-    pass
-
 ROOT = Path(__file__).resolve().parents[2]
 UPLOADS = ROOT / 'uploads'
 MAX_WIDTH = 1600
@@ -17,7 +11,7 @@ SKIP_SUFFIX = ('_backup',)
 
 def convert(src: Path):
     """转成 webp；只有确实更小才保留并返回新路径。"""
-    if src.suffix.lower() not in ('.jpg', '.jpeg', '.png', '.heif', '.heic'):
+    if src.suffix.lower() not in ('.jpg', '.jpeg', '.png'):
         return None
     if any(tag in src.stem for tag in SKIP_SUFFIX):
         return None

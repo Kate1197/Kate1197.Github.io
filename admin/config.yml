@@ -538,3 +538,41 @@ collections:
               - { name: promptSeconds, label: 提示秒数, widget: number, required: false, hint: "仅「总是提示」时生效；留空则用全局秒数" }
               - { name: promptText, label: 提示文案, widget: text, required: false, hint: "仅「总是提示」时生效，可用 {name}" }
               - { name: enabled, label: 显示该服务, widget: boolean, default: true, hint: "关闭后前台不展示，数据保留" }
+
+  - name: dynamics
+    label: 微博动态
+    files:
+      - name: dynamics
+        label: 动态列表
+        file: data/dynamics.json
+        fields:
+          - { name: updatedAt, label: 更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS" }
+          - { name: intro, label: 副标题, widget: string, hint: "显示在页面标题下方的一句话" }
+          - { name: days, label: 展示天数, widget: number, default: 7, min: 1, max: 90, hint: "页面只展示最近 N 天内的动态，默认 7 天" }
+          - name: categories
+            label: 标签分类
+            widget: list
+            hint: "这里维护所有标签，前端的筛选按钮会自动按此列表生成"
+            field: { name: category, label: 标签名称, widget: string }
+          - name: posts
+            label: 动态列表
+            widget: list
+            summary: "{{fields.date}} · {{fields.type}} · {{fields.text}}"
+            hint: "按时间倒序填写即可，超出「展示天数」的会自动隐藏（数据保留），无需手动删除"
+            fields:
+              - { name: date, label: 发布时间, widget: string, hint: "格式 YYYY-MM-DD HH:mm，例如 2026-11-21 20:30；用于判断是否在最近一周内" }
+              - name: type
+                label: 动态类型
+                widget: select
+                default: original
+                options:
+                  - { label: "带视频", value: "video" }
+                  - { label: "原创", value: "original" }
+                  - { label: "转发", value: "repost" }
+              - { name: category, label: 标签分类, widget: string, hint: "填写上方「标签分类」中的某一项" }
+              - { name: text, label: 微博正文, widget: text, hint: "原样填写微博内容即可，支持换行；过长时前台自动折叠" }
+              - { name: link, label: 微博原贴链接, widget: string, hint: "必填；点击卡片按钮会在新窗口打开这条微博" }
+              - { name: cover, label: 视频 / 配图封面, widget: image, allow_multiple: false, required: false, hint: "视频动态建议上传；上传后自动转 WebP，前台右下角显示时长" }
+              - { name: coverUrl, label: 封面图片地址（可选）, widget: string, required: false, hint: "不想上传时可直接粘贴图片网址；与上传二选一，上传优先" }
+              - { name: duration, label: 视频时长, widget: string, required: false, hint: "仅视频类显示，例如 01:23" }
+              - { name: repostFrom, label: 转发自, widget: string, required: false, hint: "仅转发类显示，例如 @某某；可留空" }
