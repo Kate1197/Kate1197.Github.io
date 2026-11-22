@@ -2176,8 +2176,8 @@
       <!-- 下半：更新至 -->
       <div class="btm-update">
         <div class="btm-update-label">更新至</div>
-        <div class="btm-update-time" id="updateTime">14:36:00</div>
-        <div class="btm-update-date" id="updateDate">2026-10-26</div>
+        <div class="btm-update-time" id="updateTime">15:00:00</div>
+        <div class="btm-update-date" id="updateDate">2026-11-22</div>
       </div>
     </div>
 
@@ -2964,16 +2964,21 @@
     if(g2) g2.textContent = greet;
   }
 
-  // 「内容更新至」为静态标签：显示内容最后一次更新的时刻，不随浏览器时间跳动
-  const SITE_UPDATED_AT = '2026-11-09 21:00:00';   // 年-月-日 时:分:秒
-  (function setUpdatedTimeLabel(){
-    const m = /^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})$/.exec(SITE_UPDATED_AT);
+  // 「内容更新至」：后台可改，来自 data/site.json；离线/失败时回退默认值，不随浏览器时间跳动
+  const SITE_UPDATED_DEFAULT = '2026-11-22 15:00:00';   // 年-月-日 时:分:秒
+  function applyUpdatedAt(v){
+    const m = /^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})$/.exec(String(v || ''));
     if(!m) return;
     const t = document.getElementById('updateTime');
     const d = document.getElementById('updateDate');
     if(t) t.textContent = m[2];
     if(d) d.textContent = m[1];
-  })();
+  }
+  applyUpdatedAt(SITE_UPDATED_DEFAULT);
+  fetch('data/site.json?v=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ if(j && j.updatedAt) applyUpdatedAt(j.updatedAt); })
+    .catch(function(){});
 
   updateGreetAndTime();
   setInterval(updateGreetAndTime, 1000);

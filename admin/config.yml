@@ -485,6 +485,15 @@ collections:
                       - { label: "描边", value: "ghost" }
                   - { name: cite, label: 引用来源, widget: string, required: false }
 
+  - name: site
+    label: 站点信息
+    files:
+      - name: site
+        label: 站点信息
+        file: data/site.json
+        fields:
+          - { name: updatedAt, label: 内容更新至, widget: string, hint: "格式：YYYY-MM-DD HH:MM:SS，例如 2026-11-22 15:00:00；显示在首页右上角「当前时间」下方的「更新至」" }
+
   - name: services
     label: 更多服务
     files:
