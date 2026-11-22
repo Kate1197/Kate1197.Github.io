@@ -3,44 +3,20 @@
   "intro": "艾米最近一周的微博动态 · 点击卡片跳转原微博",
   "days": 7,
   "categories": [
-    "日常",
-    "作品",
-    "活动",
-    "转发"
+    "米有物料啦",
+    "剧宣",
+    "转发",
+    "商务"
   ],
   "posts": [
     {
-      "date": "2026-11-21 20:30",
-      "type": "video",
-      "category": "日常",
-      "text": "示例动态（可在后台上删除或替换）：这里填写微博正文内容，支持换行。视频类动态上传一张封面图并填写时长，前台会在封面右下角显示时长徽标。",
-      "link": "https://weibo.com/6320241831",
-      "cover": "",
-      "coverUrl": "",
-      "duration": "00:58",
-      "repostFrom": ""
-    },
-    {
-      "date": "2026-11-20 15:10",
       "type": "original",
-      "category": "作品",
-      "text": "示例动态（可在后台删除或替换）：原创微博，没有封面图时以文字卡片展示，超过六行会自动省略，点击下方按钮查看原微博。",
-      "link": "https://weibo.com/6320241831",
+      "date": "2026-11-18 16:02",
+      "category": "米有物料啦",
+      "text": "阳光就是最好的滤镜#米有物料啦# \n米有物料啦～～～ ​​​",
+      "link": "https://weibo.com/6671129497/RrXtUgx8H",
       "cover": "",
-      "coverUrl": "",
-      "duration": "",
-      "repostFrom": ""
-    },
-    {
-      "date": "2026-11-19 09:05",
-      "type": "repost",
-      "category": "转发",
-      "text": "示例动态（可在后台删除或替换）：转发微博，可以填写原博主昵称和转发时说的话。",
-      "link": "https://weibo.com/6320241831",
-      "cover": "",
-      "coverUrl": "",
-      "duration": "",
-      "repostFrom": "@示例博主"
+      "coverUrl": "https://wx2.sinaimg.cn/mw690/007htnwRgy1ij6el93ax1j32bu2bukjm.jpg"
     }
   ]
 }
